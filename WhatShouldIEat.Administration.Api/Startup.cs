@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace WhatShouldIEat.AdministrationService.Api
+namespace WhatShouldIEat.Administration.Api
 {
 	public class Startup
 	{
