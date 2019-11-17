@@ -1,10 +1,10 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common.Helpers;
 
-namespace WhatShouldIEat.Administration.Domain.Ingredient.Entities.MacroNutrints
+namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients
 {
 	public static class CalorieCalculator
 	{
-		public static double CountCalorieFromMass(this MacroNutrient macroNutrient, double grams)
+		public static double CalculateCalories(this MacroNutrient macroNutrient, double grams)
 		{
 			var attribute = AttributeHelper<MacroNutrient>.GetAttribute<MacroNutrientAttribute>(macroNutrient);
 			return attribute.Calorie * grams;

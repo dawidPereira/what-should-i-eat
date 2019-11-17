@@ -1,4 +1,4 @@
-﻿namespace WhatShouldIEat.Administration.Domain.Ingredient.Entities
+﻿namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
 	public enum Requirements
 	{

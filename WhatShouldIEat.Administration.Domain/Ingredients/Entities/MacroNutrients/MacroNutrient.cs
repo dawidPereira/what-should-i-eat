@@ -1,4 +1,4 @@
-﻿namespace WhatShouldIEat.Administration.Domain.Ingredient.Entities.MacroNutrints
+﻿namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients
 {
 	public enum MacroNutrient
 	{

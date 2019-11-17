@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WhatShouldIEat.Administration.Domain.Ingredient.Entities.MacroNutrints
+namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients
 {
 	public class MacroNutrientAttribute : Attribute
 	{
