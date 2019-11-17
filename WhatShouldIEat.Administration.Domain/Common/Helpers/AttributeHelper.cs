@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using WhatShouldIEat.Administration.Domain.Ingredient.Entities.MacroNutrient;
+using WhatShouldIEat.Administration.Domain.Ingredient.Entities;
+using WhatShouldIEat.Administration.Domain.Ingredient.Entities.MacroNutrints;
 
 namespace WhatShouldIEat.Administration.Domain.Common.Helpers
 {
