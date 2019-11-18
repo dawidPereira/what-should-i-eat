@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Extensions;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
@@ -32,8 +33,11 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 
 		public void SetRecipeIngredients(ICollection<Tuple<Ingredient, double>> recipeIngredients)
 		{
-			recipeIngredients.ForEach(x => x.Item2.ThrowExceptionIfLowerThanZero());
+			recipeIngredients.ForEach(x => x.Item2.ThrowExceptionIfLowerThanZero("Grams"));
 			RecipeIngredients = recipeIngredients;
 		}
+
+		public void SetRecipeDetails(RecipeDetails recipeDetails) => RecipeDetails =
+			recipeDetails ?? throw new ArgumentNullException(nameof(RecipeDetails), ExceptionMessages.ValueCannotBeNull);
 	}
 }

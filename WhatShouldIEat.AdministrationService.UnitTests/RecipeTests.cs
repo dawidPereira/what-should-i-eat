@@ -18,7 +18,7 @@ namespace WhatShouldIEat.AdministrationService.Tests
 		[SetUp]
 		public void SetUp()
 		{
-			_ingredient = new IngredientBuilder()
+			_ingredient = new IngredientBuilderForTest()
 				.WithMacroNutrient()
 				.Build();
 			
