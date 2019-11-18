@@ -5,16 +5,19 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Builders
 {
-	public class IngredientBuilder
+	public class IngredientBuilderForTest
 	{
 		private readonly Ingredient _ingredient;
 
-		public IngredientBuilder()
+		public IngredientBuilderForTest()
 		{
-			_ingredient = new Ingredient("", new HashSet<Tuple<MacroNutrient, double>>(), new HashSet<Allergen>(), new HashSet<Requirements>());
+			_ingredient = new Ingredient("",
+				new HashSet<Allergen>(),
+				new HashSet<Requirements>(),
+				new HashSet<Tuple<MacroNutrient, double>>());
 		}
 
-		public IngredientBuilder WithMacroNutrient()
+		public IngredientBuilderForTest WithMacroNutrient()
 		{
 			var macroNutrients = new HashSet<Tuple<MacroNutrient, double>>
 			{

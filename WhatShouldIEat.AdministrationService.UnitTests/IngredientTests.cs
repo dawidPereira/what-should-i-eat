@@ -21,7 +21,7 @@ namespace WhatShouldIEat.AdministrationService.Tests
 				new Tuple<MacroNutrient, double>(MacroNutrient.Fat, 0.4d),
 				new Tuple<MacroNutrient, double>(MacroNutrient.Carbohydrate, 0.3d)
 			};
-			_systemUnderTest = new Ingredient("Ingredient", ingredient, new HashSet<Allergen>(), new HashSet<Requirements>() );
+			_systemUnderTest = new Ingredient("Ingredient", new HashSet<Allergen>(), new HashSet<Requirements>(), ingredient );
 		}
 
 		[Test]
