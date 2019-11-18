@@ -7,10 +7,8 @@ namespace WhatShouldIEat.Administration.Domain.Common.Extensions
 	{
 		public static void ForEach<T>(this ICollection @this, Action<T> action)
 		{
-			foreach (T item in @this)
-			{
+			foreach (T item in @this) 
 				action(item);
-			}
 		}
 	}
 }
