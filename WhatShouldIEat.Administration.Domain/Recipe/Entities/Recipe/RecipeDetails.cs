@@ -8,7 +8,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 	{
 		public RecipeDetails(int difficultyLevel,
 			int preparationTime,
-			double approximateCost,
+			decimal approximateCost,
 			ICollection<MealType> mealTypes)
 		{
 			Id = new Id<RecipeDetails>(Guid.NewGuid());
@@ -21,7 +21,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 		public Id<RecipeDetails> Id { get; private set; }
 		public int DifficultyLevel { get; private set; }
 		public int PreparationTime { get; private set; }
-		public double ApproximateCost { get; private set; }
+		public decimal ApproximateCost { get; private set; }
 		public ICollection<MealType> MealTypes { get; private set; }
 	}
 }

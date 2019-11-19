@@ -6,7 +6,7 @@ namespace WhatShouldIEat.Administration.Domain.ValueObjects
 	public sealed class Id<T> : IEquatable<Id<T>> where T : class
 	{
 		public Id(Guid value) => Value = value;
-		
+
 		public Guid Value { get; }
 
 		public bool Equals(Id<T> other) => other != null && Value.Equals(other.Value);

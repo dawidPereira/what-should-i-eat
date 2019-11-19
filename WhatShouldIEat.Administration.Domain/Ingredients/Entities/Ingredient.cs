@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Extensions;
@@ -38,11 +39,10 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 			MacroNutrientsPerGram = macroNutrients;
 		}
 
-		public void SetAllergen(HashSet<Allergen> allergens) =>
-			Allergens = allergens ?? throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
+		public void SetAllergen(HashSet<Allergen> allergens) => Allergens = allergens ?? 
+			            throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
 
-		public void SetRequirements(HashSet<Requirements> requirements) =>
-			Requirements = requirements ??
-			               throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
+		public void SetRequirements(HashSet<Requirements> requirements) => Requirements = requirements ??
+			            throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
 	}
 }

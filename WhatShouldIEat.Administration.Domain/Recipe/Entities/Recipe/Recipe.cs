@@ -37,7 +37,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 			RecipeIngredients = recipeIngredients;
 		}
 
-		public void SetRecipeDetails(RecipeDetails recipeDetails) => RecipeDetails =
-			recipeDetails ?? throw new ArgumentNullException(nameof(RecipeDetails), ExceptionMessages.ValueCannotBeNull);
+		public void SetRecipeDetails(RecipeDetails recipeDetails) => RecipeDetails = recipeDetails ?? 
+		                throw new ArgumentNullException(nameof(RecipeDetails), ExceptionMessages.ValueCannotBeNull);
 	}
 }
