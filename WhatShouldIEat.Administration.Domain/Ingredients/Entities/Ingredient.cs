@@ -5,6 +5,7 @@ using System.Linq;
 using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Extensions;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
+using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 using WhatShouldIEat.Administration.Domain.ValueObjects;
 
@@ -32,6 +33,14 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 
 		public double CalculateCalories(double grams) =>
 			MacroNutrientsPerGram.Sum(x => x.Item1.CalculateCalories(x.Item2 * grams));
+
+		public void Update(UpdateIngredientCommand command)
+		{
+			Name = command.Name;
+			Allergens = command.Allergens;
+			Requirements = command.Requirements;
+			MacroNutrientsPerGram = command.MacroNutrients;
+		}
 
 		public void SetMacroNutrients(HashSet<Tuple<MacroNutrient, double>> macroNutrients)
 		{

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
+using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
@@ -12,6 +13,18 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 		{
 			return new CreateIngredientCommand
 			{
+				Name = "Ingredient",
+				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
+				Allergens = new HashSet<Allergen>(),
+				Requirements = new HashSet<Requirements>()
+			};
+		}
+		
+		internal static UpdateIngredientCommand EmptyUpdateIngredientCommand()
+		{
+			return new UpdateIngredientCommand
+			{
+				Id = new Id<Ingredient>(Guid.NewGuid()),
 				Name = "Ingredient",
 				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
 				Allergens = new HashSet<Allergen>(),

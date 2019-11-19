@@ -6,12 +6,12 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
 
-namespace WhatShouldIEat.AdministrationService.Tests.Ingredients
+namespace WhatShouldIEat.AdministrationService.Tests.Recipe
 {
 	[TestFixture]
 	public class RecipeTests
 	{
-		private Recipe _systemUnderTest;
+		private Administration.Domain.Recipe.Entities.Recipe.Recipe _systemUnderTest;
 		private Ingredient _ingredient;
 		private List<Tuple<Ingredient, double>> _ingredients;
 
@@ -27,7 +27,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients
 				new Tuple<Ingredient, double>(_ingredient, 100)
 			};
 			
-			_systemUnderTest = new Recipe("Name", "Description", _ingredients, 
+			_systemUnderTest = new Administration.Domain.Recipe.Entities.Recipe.Recipe("Name", "Description", _ingredients, 
 				new RecipeDetails(0, 0, 0, new List<MealType>()));
 		}
 

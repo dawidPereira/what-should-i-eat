@@ -25,7 +25,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders
 			};
 
 			_ingredient.SetMacroNutrients(macroNutrients);
+			return this;
+		}
 
+		public IngredientBuilder WithName(string name)
+		{
+			_ingredient.Name = name;
 			return this;
 		}
 

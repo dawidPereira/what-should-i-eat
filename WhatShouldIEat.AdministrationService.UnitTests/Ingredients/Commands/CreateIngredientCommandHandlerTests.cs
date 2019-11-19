@@ -10,7 +10,7 @@ using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 {
 	[TestFixture]
-	internal class CreateIngredientCommandTest
+	internal class CreateIngredientCommandTests
 	{
 		private CreateIngredientCommandHandler _systemUnderTest;
 		private CreateIngredientCommand _createIngredientCommand;

@@ -3,10 +3,14 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 
 namespace WhatShouldIEat.Administration.Api.Validators
 {
-	public class CreateIngredientCommandValidator : AbstractValidator<CreateIngredientCommand>
+	public class UpdateIngredientCommandValidator : AbstractValidator<UpdateIngredientCommand>
 	{
-		public CreateIngredientCommandValidator()
+		public UpdateIngredientCommandValidator()
 		{
+			RuleFor(x => x.Id)
+				.NotEmpty()
+				.WithMessage(ErrorMessages.Required("Id"));
+			
 			RuleFor(x => x.Name)
 				.NotEmpty()
 				.WithMessage(ErrorMessages.Required("Name"));

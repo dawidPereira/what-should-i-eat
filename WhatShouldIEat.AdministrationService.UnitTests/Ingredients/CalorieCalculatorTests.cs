@@ -3,7 +3,7 @@ using FluentAssertions.Execution;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
-namespace WhatShouldIEat.AdministrationService.Tests
+namespace WhatShouldIEat.AdministrationService.Tests.Ingredients
 {
 	[TestFixture]
 	public class CalorieCalculatorTests
