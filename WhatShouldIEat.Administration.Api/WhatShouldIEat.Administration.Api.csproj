@@ -8,4 +8,12 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="8.5.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WhatShouldIEat.Administration.Domain\WhatShouldIEat.Administration.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
