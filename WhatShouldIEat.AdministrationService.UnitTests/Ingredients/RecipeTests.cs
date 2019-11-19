@@ -4,9 +4,9 @@ using FluentAssertions;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe;
-using WhatShouldIEat.AdministrationService.Tests.Builders;
+using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
 
-namespace WhatShouldIEat.AdministrationService.Tests
+namespace WhatShouldIEat.AdministrationService.Tests.Ingredients
 {
 	[TestFixture]
 	public class RecipeTests
@@ -18,7 +18,7 @@ namespace WhatShouldIEat.AdministrationService.Tests
 		[SetUp]
 		public void SetUp()
 		{
-			_ingredient = new IngredientBuilderForTest()
+			_ingredient = new IngredientBuilder()
 				.WithMacroNutrient()
 				.Build();
 			

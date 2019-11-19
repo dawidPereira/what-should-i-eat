@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
-namespace WhatShouldIEat.AdministrationService.Tests.Builders
+namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders
 {
-	public class IngredientBuilderForTest
+	internal class IngredientBuilder
 	{
 		private readonly Ingredient _ingredient;
 
-		public IngredientBuilderForTest()
+		public IngredientBuilder()
 		{
 			_ingredient = new Ingredient("",
 				new HashSet<Allergen>(),
@@ -17,7 +17,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Builders
 				new HashSet<Tuple<MacroNutrient, double>>());
 		}
 
-		public IngredientBuilderForTest WithMacroNutrient()
+		public IngredientBuilder WithMacroNutrient()
 		{
 			var macroNutrients = new HashSet<Tuple<MacroNutrient, double>>
 			{

@@ -10,13 +10,19 @@
 
     <ItemGroup>
         <PackageReference Include="FluentAssertions" Version="5.9.0" />
+        <PackageReference Include="Moq" Version="4.13.1" />
         <PackageReference Include="nunit" Version="3.12.0" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\WhatShouldIEat.Administration.Api\WhatShouldIEat.Administration.Api.csproj" />
       <ProjectReference Include="..\WhatShouldIEat.Administration.Domain\WhatShouldIEat.Administration.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="WhatShouldIEat.AdministrationService.UnitTests.csproj.DotSettings" />
     </ItemGroup>
 
 </Project>

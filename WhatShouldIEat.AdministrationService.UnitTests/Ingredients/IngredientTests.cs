@@ -5,12 +5,12 @@ using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
-namespace WhatShouldIEat.AdministrationService.Tests
+namespace WhatShouldIEat.AdministrationService.Tests.Ingredients
 {
 	[TestFixture]
 	public class IngredientTests
 	{
-		private Ingredient _systemUnderTest;
+		private Administration.Domain.Ingredients.Entities.Ingredient _systemUnderTest;
 		
 		[SetUp]
 		public void SetUp()
@@ -21,7 +21,7 @@ namespace WhatShouldIEat.AdministrationService.Tests
 				new Tuple<MacroNutrient, double>(MacroNutrient.Fat, 0.4d),
 				new Tuple<MacroNutrient, double>(MacroNutrient.Carbohydrate, 0.3d)
 			};
-			_systemUnderTest = new Ingredient("Ingredient", new HashSet<Allergen>(), new HashSet<Requirements>(), ingredient );
+			_systemUnderTest = new Administration.Domain.Ingredients.Entities.Ingredient("Ingredient", new HashSet<Allergen>(), new HashSet<Requirements>(), ingredient );
 		}
 
 		[Test]

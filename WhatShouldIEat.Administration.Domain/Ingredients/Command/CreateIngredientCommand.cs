@@ -8,9 +8,9 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Command
 {
 	public class CreateIngredientCommand : ICommand
 	{
-		public string Name { get; private set; }
-		public HashSet<Allergen> Allergens { get; private set; }
-		public HashSet<Requirements> Requirements { get; private set; }
-		public HashSet<Tuple<MacroNutrient, double>> MacroNutrients { get; private set; }
+		public string Name { get;  set; }
+		public HashSet<Allergen> Allergens { get;  set; }
+		public HashSet<Requirements> Requirements { get;  set; }
+		public HashSet<Tuple<MacroNutrient, double>> MacroNutrients { get;  set; }
 	}
 }
