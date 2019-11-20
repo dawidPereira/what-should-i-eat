@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 
-namespace WhatShouldIEat.Administration.Api.Validators
+namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators
 {
 	public class CreateIngredientCommandValidator : AbstractValidator<CreateIngredientCommand>
 	{

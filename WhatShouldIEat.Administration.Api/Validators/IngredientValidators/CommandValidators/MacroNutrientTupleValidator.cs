@@ -2,7 +2,7 @@
 using FluentValidation;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
-namespace WhatShouldIEat.Administration.Api.Validators
+namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators
 {
 	public class MacroNutrientTupleValidator : AbstractValidator<Tuple<MacroNutrient, double>>
 	{
