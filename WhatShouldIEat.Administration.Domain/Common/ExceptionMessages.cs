@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace WhatShouldIEat.Administration.Domain.Common
+﻿namespace WhatShouldIEat.Administration.Domain.Common
 {
 	public static class ExceptionMessages
 	{

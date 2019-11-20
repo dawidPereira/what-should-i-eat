@@ -21,7 +21,6 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers
 
 			_ingredientRepository.Add(ingredient);
 			_ingredientRepository.Commit();
-			
 			return Result.Ok();
 		}
 	}

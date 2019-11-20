@@ -1,5 +1,4 @@
 ﻿using System;
-using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Common
 {

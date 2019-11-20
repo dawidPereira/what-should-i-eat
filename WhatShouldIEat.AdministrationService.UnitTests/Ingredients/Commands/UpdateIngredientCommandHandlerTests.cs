@@ -61,7 +61,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		}
 		
 		[Test]
-		public void GivenProperCommand_WhenNoErrors_ReturnSucces()
+		public void GivenProperCommand_WhenNoErrors_ReturnSuccess()
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Id<Ingredient>>()))
 				.Returns(_ingredient);

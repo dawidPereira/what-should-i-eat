@@ -1,5 +1,4 @@
-﻿using System;
-using WhatShouldIEat.Administration.Domain.Common;
+﻿using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Query;
 using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;

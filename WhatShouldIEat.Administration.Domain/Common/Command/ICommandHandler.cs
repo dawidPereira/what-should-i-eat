@@ -1,5 +1,4 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Command;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
+﻿using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.Administration.Domain.Common.Command
 {
