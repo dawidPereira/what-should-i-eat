@@ -28,6 +28,26 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders
 			return this;
 		}
 
+		public IngredientBuilder WithAllergens()
+		{
+			var allergens = new HashSet<Allergen>
+			{
+				Allergen.Gluten,
+				Allergen.Milk,
+			};
+			return this;
+		}
+
+		public IngredientBuilder WithRequirements()
+		{
+			var requirements = new HashSet<Requirements>
+			{
+				Requirements.Ecological,
+				Requirements.ForVegan
+			};
+			return this;
+		}
+
 		public IngredientBuilder WithName(string name)
 		{
 			_ingredient.Name = name;
