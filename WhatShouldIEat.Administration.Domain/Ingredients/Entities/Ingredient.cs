@@ -5,8 +5,10 @@ using System.Linq;
 using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Extensions;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
+using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
+using WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers;
 using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
@@ -53,5 +55,15 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 
 		public void SetRequirements(HashSet<Requirements> requirements) => Requirements = requirements ??
 			            throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
+
+		public IngredientDto ToDto() =>
+			new IngredientDto
+			{
+				Id = Id,
+				Name = Name,
+				Allergens = Allergens,
+				Requirements = Requirements,
+				MacroNutrientsPerGram = MacroNutrientsPerGram
+			};
 	}
 }
