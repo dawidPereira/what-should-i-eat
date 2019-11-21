@@ -7,6 +7,7 @@ using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
+using WhatShouldIEat.Administration.Domain.Recipe.Command;
 
 namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 {
@@ -25,7 +26,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 		}
 
 		public Id<Recipe> Id { get; private set; }
-		public string Name { get; private set; }
+		public string Name { get;  set; }
 		public string Description { get; private set; }
 		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
 		public RecipeDetails RecipeDetails { get; private set; }

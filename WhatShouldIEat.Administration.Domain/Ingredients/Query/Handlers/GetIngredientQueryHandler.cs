@@ -14,6 +14,6 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers
 			_ingredientRepository = ingredientRepository;
 
 		public IngredientDto Handle(GetIngredientQuery query) => _ingredientRepository.GetById(query.Id)
-				?.ToDto() ?? Exceptions<IngredientDto>.NotFound( nameof(Ingredient), query.Id.Value.ToString());
+				?.ToDto() ?? Exceptions<IngredientDto>.ThrowNotFound( nameof(Ingredient), query.Id.Value.ToString());
 	}
 }

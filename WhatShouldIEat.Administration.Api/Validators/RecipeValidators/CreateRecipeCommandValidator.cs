@@ -22,20 +22,15 @@ namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators
 				.WithMessage(ValidationMessages.Required(nameof(CreateRecipeCommand.RecipeIngredients)));
 			
 			RuleForEach(x => x.RecipeIngredients)
-				.ChildRules(x => x.RuleFor( y => y.IngredientId)
+				.ChildRules(x => x.RuleFor( y => y.Item1)
 					.NotNull()
 					.WithMessage(ValidationMessages.Required(nameof(Ingredient.Id))));
 
 			RuleForEach(x => x.RecipeIngredients)
-				.ChildRules(x => x.RuleFor(y => y.Grams))
+				.ChildRules(x => x.RuleFor(y => y.Item2))
 				.NotNull()
 				.WithMessage(ValidationMessages.Required(nameof(RecipeIngredient.Grams)));
 			
-			RuleForEach(x => x.RecipeIngredients)
-				.ChildRules(x => x.RuleFor(y => y.RecipeId))
-				.NotNull()
-				.WithMessage(ValidationMessages.Required(nameof(RecipeIngredient.RecipeId)));
-				
 			RuleFor(x => x.ApproximateCost)
 				.GreaterThanOrEqualTo(0)
 				.WithMessage(ValidationMessages.GreaterThan(nameof(RecipeDetails.ApproximateCost), 0));
