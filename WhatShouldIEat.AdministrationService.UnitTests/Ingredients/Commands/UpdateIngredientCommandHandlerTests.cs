@@ -2,11 +2,12 @@
 using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
+using WhatShouldIEat.Administration.Domain.Common.Message;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
@@ -40,7 +41,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			using (new AssertionScope())
 			{
 				result.IsFailure.Should().BeTrue();
-				result.Message.Should().Be($"Ingredient with Id: {_command.Id.Value}, does not exist.");
+				result.Message.Should().Be(FailMessages.DoesNotExist(nameof(Ingredient), 
+					nameof(UpdateIngredientCommand.Id), _command.Id.Value.ToString()));
 			}
 		}
 		
@@ -56,7 +58,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			using (new AssertionScope())
 			{
 				result.IsFailure.Should().BeTrue();
-				result.Message.Should().Be($"Ingredient {_command.Name}, already exist.");
+				result.Message.Should().Be(FailMessages.AlreadyExist(nameof(Ingredient), 
+					nameof(UpdateIngredientCommand.Name), _command.Name));
 			}
 		}
 		

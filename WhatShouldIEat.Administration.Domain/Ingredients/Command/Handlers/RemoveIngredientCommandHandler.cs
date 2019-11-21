@@ -1,6 +1,7 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common.Command;
+using WhatShouldIEat.Administration.Domain.Common.Message;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers
 {
@@ -16,8 +17,10 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers
 		public Result Handle(RemoveIngredientCommand command)
 		{
 			var ingredient = _ingredientRepository.GetById(command.Id);
+			
 			if(ingredient == null )
-				return Result.Fail($"Ingredient with Id: {command.Id}, does not exist.");
+				return Result.Fail(FailMessages.DoesNotExist(nameof(Ingredients), 
+					nameof(RemoveIngredientCommand.Id), command.Id.Value.ToString()));
 
 			_ingredientRepository.Remove(ingredient);
 			_ingredientRepository.Commit();

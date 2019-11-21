@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using WhatShouldIEat.Administration.Domain.Common.Command;
 using WhatShouldIEat.Administration.Domain.Common.Query;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 
 namespace WhatShouldIEat.Administration.Domain.Common.Mediator
 {

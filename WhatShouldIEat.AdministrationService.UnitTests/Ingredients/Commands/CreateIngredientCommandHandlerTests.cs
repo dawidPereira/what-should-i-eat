@@ -2,8 +2,10 @@
 using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
+using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers;
+using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
@@ -13,14 +15,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 	internal class CreateIngredientCommandTests
 	{
 		private CreateIngredientCommandHandler _systemUnderTest;
-		private CreateIngredientCommand _createIngredientCommand;
+		private CreateIngredientCommand _command;
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
-			_createIngredientCommand = CommandFactory.EmptyCreateIngredientCommand();
+			_command = CommandFactory.EmptyCreateIngredientCommand();
 			_systemUnderTest = new CreateIngredientCommandHandler(_ingredientRepositoryMock.Object);
 		}
 
@@ -29,7 +31,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);
-			var result = _systemUnderTest.Handle(_createIngredientCommand);
+			var result = _systemUnderTest.Handle(_command);
 			result.IsSuccess.Should().BeTrue();
 		}
 
@@ -38,11 +40,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(true);
-			var result = _systemUnderTest.Handle(_createIngredientCommand);
+			var result = _systemUnderTest.Handle(_command);
 			using (new AssertionScope())
 			{
 				result.IsFailure.Should().BeTrue();
-				result.Message.Should().Be($"Ingredient {_createIngredientCommand.Name}, already exist.");
+				result.Message.Should().Be(FailMessages.AlreadyExist(nameof(Ingredient), 
+					nameof(CreateIngredientCommand.Name), _command.Name));
 			}
 		}
 	}

@@ -2,11 +2,11 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
@@ -27,10 +27,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			{
 				Id = new Id<Ingredient>(Guid.NewGuid())
 			};
+			
 			_ingredient = new IngredientBuilder()
 				.WithName("MyName")
 				.WithMacroNutrient()
 				.Build();
+			
 			_systemUnderTest = new RemoveIngredientCommandHandler(_ingredientRepositoryMock.Object);
 		}
 
@@ -49,7 +51,6 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 				.Returns(_ingredient);
 
 			var result  = _systemUnderTest.Handle(_command);
-
 			result.IsSuccess.Should().BeTrue();
 		}
 	}

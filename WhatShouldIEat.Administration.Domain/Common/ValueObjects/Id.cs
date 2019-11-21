@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WhatShouldIEat.Administration.Domain.ValueObjects
+namespace WhatShouldIEat.Administration.Domain.Common.ValueObjects
 {
 	public sealed class Id<T> : IEquatable<Id<T>> where T : class
 	{

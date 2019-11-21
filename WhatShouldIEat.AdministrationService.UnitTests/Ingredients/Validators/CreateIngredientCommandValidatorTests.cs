@@ -29,7 +29,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.Name = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.Required("Name")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.Required("Name")))
 				.Should().Be(1);
 		}
 		
@@ -39,7 +39,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.Allergens = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.Required("Allergens")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.Required("Allergens")))
 				.Should().Be(1);
 		}
 		
@@ -49,7 +49,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.MacroNutrients = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.Required("MacroNutrients")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.Required("MacroNutrients")))
 				.Should().Be(1);
 		}
 		
@@ -59,7 +59,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.MacroNutrients = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.Required("Requirements")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.Required("Requirements")))
 				.Should().Be(1);
 		}
 		
@@ -72,7 +72,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			};
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.GreaterThan("Grams", 0)))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.GreaterThan("Grams", 0)))
 				.Should().Be(1);
 		}
 		
@@ -82,7 +82,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>();
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.NotEmpty("MacroNutrients")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("MacroNutrients")))
 				.Should().Be(1);
 		}
 	}

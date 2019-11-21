@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {

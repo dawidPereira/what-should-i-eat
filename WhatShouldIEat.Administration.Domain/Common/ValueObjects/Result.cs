@@ -1,4 +1,4 @@
-﻿namespace WhatShouldIEat.Administration.Domain.ValueObjects
+﻿namespace WhatShouldIEat.Administration.Domain.Common.ValueObjects
 {
 	public class Result
 	{

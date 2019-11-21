@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Extensions;
+using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
+using WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
@@ -30,6 +33,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 		public HashSet<Allergen> Allergens { get; private set; }
 		public HashSet<Requirements> Requirements { get; private set; }
 		public HashSet<Tuple<MacroNutrient, double>> MacroNutrientsPerGram { get; set; }
+		public ICollection<RecipeIngredient> RecipeIngredients { get; set; }
 
 		public double CalculateCalories(double grams) =>
 			MacroNutrientsPerGram.Sum(x => x.Item1.CalculateCalories(x.Item2 * grams));

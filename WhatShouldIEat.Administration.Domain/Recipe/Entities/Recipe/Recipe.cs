@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Extensions;
+using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 {
@@ -13,7 +14,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 	{
 		public Recipe(string name,
 			string description,
-			ICollection<Tuple<Ingredient, double>> recipeIngredients,
+			ICollection<RecipeIngredient> recipeIngredients,
 			RecipeDetails recipeDetails)
 		{
 			Id = new Id<Recipe>(Guid.NewGuid());
@@ -26,14 +27,14 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 		public Id<Recipe> Id { get; private set; }
 		public string Name { get; private set; }
 		public string Description { get; private set; }
-		public ICollection<Tuple<Ingredient, double>> RecipeIngredients { get; private set; }
+		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
 		public RecipeDetails RecipeDetails { get; private set; }
 
-		public double CalculateCalories() => RecipeIngredients.Sum(x => x.Item1.CalculateCalories(x.Item2));
+		public double CalculateCalories() => RecipeIngredients.Sum(x => x.Ingredient.CalculateCalories(x.Grams));
 
-		public void SetRecipeIngredients(ICollection<Tuple<Ingredient, double>> recipeIngredients)
+		public void SetRecipeIngredients(ICollection<RecipeIngredient> recipeIngredients)
 		{
-			recipeIngredients.ForEach(x => x.Item2.ThrowExceptionIfLowerThanZero("Grams"));
+			recipeIngredients.ForEach(x => x.Grams.ThrowExceptionIfLowerThanZero(nameof(RecipeIngredient.Grams)));
 			RecipeIngredients = recipeIngredients;
 		}
 

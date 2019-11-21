@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Query;
 using WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 {

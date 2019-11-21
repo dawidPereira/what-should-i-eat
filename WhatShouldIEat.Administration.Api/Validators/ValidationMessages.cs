@@ -1,6 +1,6 @@
 ﻿namespace WhatShouldIEat.Administration.Api.Validators
 {
-	public static class ErrorMessages
+	public static class ValidationMessages
 	{
 		public static string Required(string parameterName) => $"{parameterName} is required.";
 		public static string NotEmpty(string parameterName) => $"{parameterName} cannot be empty.";

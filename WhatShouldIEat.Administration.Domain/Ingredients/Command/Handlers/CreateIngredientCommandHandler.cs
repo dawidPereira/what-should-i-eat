@@ -1,7 +1,8 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common.Command;
+using WhatShouldIEat.Administration.Domain.Common.Message;
+using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers
 {
@@ -15,7 +16,8 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers
 		public Result Handle(CreateIngredientCommand command)
 		{
 			if(_ingredientRepository.ExistByName(command.Name))
-				return Result.Fail($"Ingredient {command.Name}, already exist.");
+				return Result.Fail(FailMessages.AlreadyExist(nameof(Ingredient), 
+					nameof(CreateIngredientCommand.Name), command.Name));
 			
 			var ingredient = new Ingredient(command.Name, command.Allergens, command.Requirements, command.MacroNutrients);
 

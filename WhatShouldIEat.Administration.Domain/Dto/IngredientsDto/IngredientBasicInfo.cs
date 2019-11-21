@@ -1,5 +1,5 @@
-﻿using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
-using WhatShouldIEat.Administration.Domain.ValueObjects;
+﻿using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
+using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Dto.IngredientsDto
 {
