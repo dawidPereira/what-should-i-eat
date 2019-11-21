@@ -72,7 +72,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			};
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.GreaterThanZero("MacroNutrients.Grams")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ErrorMessages.GreaterThan("Grams", 0)))
 				.Should().Be(1);
 		}
 		

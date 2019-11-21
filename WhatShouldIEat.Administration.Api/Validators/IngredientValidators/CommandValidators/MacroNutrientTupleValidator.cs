@@ -9,6 +9,6 @@ namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.Comm
 		public MacroNutrientTupleValidator() =>
 			RuleFor(x => x.Item2)
 				.GreaterThanOrEqualTo(0)
-				.WithMessage(ErrorMessages.GreaterThanZero("MacroNutrients.Grams"));
+				.WithMessage(ErrorMessages.GreaterThan("Grams", 0));
 	}
 }

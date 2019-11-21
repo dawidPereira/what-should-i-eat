@@ -8,6 +8,6 @@ namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.Comm
 		public RemoveIngredientCommandValidator() =>
 			RuleFor(x => x.Id)
 				.NotEmpty()
-				.WithName(ErrorMessages.Required("Id"));
+				.WithName(ErrorMessages.Required(nameof(RemoveIngredientCommand.Id)));
 	}
 }

@@ -34,14 +34,6 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 		public double CalculateCalories(double grams) =>
 			MacroNutrientsPerGram.Sum(x => x.Item1.CalculateCalories(x.Item2 * grams));
 
-		public void Update(UpdateIngredientCommand command)
-		{
-			Name = command.Name;
-			Allergens = command.Allergens;
-			Requirements = command.Requirements;
-			MacroNutrientsPerGram = command.MacroNutrients;
-		}
-
 		public void SetMacroNutrients(HashSet<Tuple<MacroNutrient, double>> macroNutrients)
 		{
 			macroNutrients.ForEach(x => x.Item2.ThrowExceptionIfLowerThanZero("Grams"));
@@ -54,14 +46,21 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 		public void SetRequirements(HashSet<Requirements> requirements) => Requirements = requirements ??
 			            throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
 
-		public IngredientDto ToDto() =>
-			new IngredientDto
-			{
-				Id = Id,
-				Name = Name,
-				Allergens = Allergens,
-				Requirements = Requirements,
-				MacroNutrientsPerGram = MacroNutrientsPerGram
-			};
+		public void Update(UpdateIngredientCommand command)
+		{
+			Name = command.Name;
+			Allergens = command.Allergens;
+			Requirements = command.Requirements;
+			MacroNutrientsPerGram = command.MacroNutrients;
+		}
+
+		public IngredientDto ToDto() => new IngredientDto 
+		{
+			Id = Id,
+			Name = Name,
+			Allergens = Allergens,
+			Requirements = Requirements,
+			MacroNutrientsPerGram = MacroNutrientsPerGram
+		};
 	}
 }

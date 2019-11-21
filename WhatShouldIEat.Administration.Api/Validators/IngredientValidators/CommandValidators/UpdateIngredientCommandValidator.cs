@@ -9,27 +9,23 @@ namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.Comm
 		{
 			RuleFor(x => x.Id)
 				.NotEmpty()
-				.WithMessage(ErrorMessages.Required("Id"));
+				.WithMessage(ErrorMessages.Required(nameof(UpdateIngredientCommand.Id)));
 			
 			RuleFor(x => x.Name)
 				.NotEmpty()
-				.WithMessage(ErrorMessages.Required("Name"));
+				.WithMessage(ErrorMessages.Required(nameof(UpdateIngredientCommand.Name)));
 			
 			RuleFor(x => x.Allergens)
 				.NotEmpty()
-				.WithMessage(ErrorMessages.Required("Allergens"));
+				.WithMessage(ErrorMessages.Required(nameof(UpdateIngredientCommand.Allergens)));
 			
 			RuleFor(x => x.Requirements)
 				.NotEmpty()
-				.WithMessage(ErrorMessages.Required("Requirements"));
+				.WithMessage(ErrorMessages.Required(nameof(UpdateIngredientCommand.Requirements)));
 			
 			RuleFor(x => x.MacroNutrients)
 				.NotEmpty()
-				.WithMessage(ErrorMessages.Required("MacroNutrients"));
-			
-			RuleFor(x => x.MacroNutrients)
-				.NotEmpty()
-				.WithMessage(ErrorMessages.NotEmpty("MacroNutrients"));
+				.WithMessage(ErrorMessages.Required(nameof(UpdateIngredientCommand.MacroNutrients)));
 			
 			RuleForEach(x => x.MacroNutrients).
 				SetValidator(new MacroNutrientTupleValidator());

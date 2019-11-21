@@ -27,8 +27,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe
 				new Tuple<Ingredient, double>(_ingredient, 100)
 			};
 			
-			_systemUnderTest = new Administration.Domain.Recipe.Entities.Recipe.Recipe("Name", "Description", _ingredients, 
-				new RecipeDetails(0, 0, 0, new List<MealType>()));
+			_systemUnderTest = new Administration.Domain.Recipe.Entities.Recipe.Recipe("Name", "Description", _ingredients, new RecipeDetails(0, 0, 0, new List<MealType>()));
 		}
 
 		[Test]
