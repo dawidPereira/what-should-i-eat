@@ -11,35 +11,35 @@ namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators
 		{
 			RuleFor(x => x.Name)
 				.NotNull()
-				.WithMessage(ValidationMessages.Required(nameof(CreateRecipeCommand.Name)));
+				.WithMessage(ValidationMessages.NotNull(nameof(CreateRecipeCommand.Name)));
 
 			RuleFor(x => x.Description)
 				.NotNull()
-				.WithMessage(ValidationMessages.Required(nameof(CreateRecipeCommand.Description)));
+				.WithMessage(ValidationMessages.NotNull(nameof(CreateRecipeCommand.Description)));
 
 			RuleFor(x => x.RecipeIngredients)
 				.NotEmpty()
-				.WithMessage(ValidationMessages.Required(nameof(CreateRecipeCommand.RecipeIngredients)));
+				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateRecipeCommand.RecipeIngredients)));
 			
 			RuleForEach(x => x.RecipeIngredients)
 				.ChildRules(x => x.RuleFor( y => y.Item1)
 					.NotNull()
-					.WithMessage(ValidationMessages.Required(nameof(Ingredient.Id))));
+					.WithMessage(ValidationMessages.NotNull(nameof(Ingredient.Id))));
 
 			RuleForEach(x => x.RecipeIngredients)
 				.ChildRules(x => x.RuleFor(y => y.Item2))
 				.NotNull()
-				.WithMessage(ValidationMessages.Required(nameof(RecipeIngredient.Grams)));
+				.WithMessage(ValidationMessages.NotNull(nameof(RecipeIngredient.Grams)));
 			
 			RuleFor(x => x.ApproximateCost)
 				.GreaterThanOrEqualTo(0)
-				.WithMessage(ValidationMessages.GreaterThan(nameof(RecipeDetails.ApproximateCost), 0));
+				.WithMessage(ValidationMessages.GreaterThanOrEqualTo(nameof(RecipeDetails.ApproximateCost), 0));
 			
 			RuleFor(x => x.DifficultyLevel)
 				.GreaterThan(0)
 				.WithMessage(ValidationMessages.GreaterThan(nameof(RecipeDetails.DifficultyLevel), 0))
 				.LessThanOrEqualTo(5)
-				.WithMessage(ValidationMessages.LowerThan(nameof(RecipeDetails.DifficultyLevel),5));
+				.WithMessage(ValidationMessages.LowerThanOrEqualTo(nameof(RecipeDetails.DifficultyLevel),5));
 
 			RuleFor(x => x.PreparationTime)
 				.GreaterThan(0)

@@ -10,10 +10,10 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers
 	{
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public GetIngredientQueryHandler(IIngredientRepository ingredientRepository) => 
+		public GetIngredientQueryHandler(IIngredientRepository ingredientRepository) =>
 			_ingredientRepository = ingredientRepository;
 
-		public IngredientDto Handle(GetIngredientQuery query) => _ingredientRepository.GetById(query.Id)
-				?.ToDto() ?? Exceptions<IngredientDto>.ThrowNotFound( nameof(Ingredient), query.Id.Value.ToString());
+		public IngredientDto Handle(GetIngredientQuery query) => _ingredientRepository.GetById(query.Id)?.ToDto() ??
+			Exceptions<IngredientDto>.ThrowNotFoundException(nameof(Ingredient), query.Id.Value.ToString());
 	}
 }

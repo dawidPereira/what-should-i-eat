@@ -9,19 +9,19 @@ namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.Comm
 		{
 			RuleFor(x => x.Name)
 				.NotNull()
-				.WithMessage(ValidationMessages.Required(nameof(CreateIngredientCommand.Name)));
+				.WithMessage(ValidationMessages.NotNull(nameof(CreateIngredientCommand.Name)));
 			
 			RuleFor(x => x.Allergens)
 				.NotEmpty()
-				.WithMessage(ValidationMessages.Required(nameof(CreateIngredientCommand.Allergens)));
+				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.Allergens)));
 			
 			RuleFor(x => x.Requirements)
 				.NotEmpty()
-				.WithMessage(ValidationMessages.Required(nameof(CreateIngredientCommand.Requirements)));
+				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.Requirements)));
 			
 			RuleFor(x => x.MacroNutrients)
 				.NotEmpty()
-				.WithMessage(ValidationMessages.Required(nameof(CreateIngredientCommand.MacroNutrients)));
+				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.MacroNutrients)));
 			
 			RuleFor(x => x.MacroNutrients)
 				.NotEmpty()

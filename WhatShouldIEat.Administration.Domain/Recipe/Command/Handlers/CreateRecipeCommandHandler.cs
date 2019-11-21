@@ -31,8 +31,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Command.Handlers
 				return Result.Fail(FailMessages.AlreadyExist(nameof(Entities.Recipe.Recipe),
 					nameof(CreateRecipeCommand.Name), command.Name));
 
-			var recipe = _recipeFactory.CreateRecipe(command);
-
+			var recipe = _recipeFactory.Build(command);
 			_recipeRepository.Add(recipe);
 			return Result.Ok();
 		}

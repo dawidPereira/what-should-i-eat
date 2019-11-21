@@ -5,6 +5,6 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Factory
 	using Recipe = Recipe.Recipe;
 	public interface IRecipeFactory
 	{
-		Recipe CreateRecipe(CreateRecipeCommand command);
+		Recipe Build(CreateRecipeCommand command);
 	}
 }

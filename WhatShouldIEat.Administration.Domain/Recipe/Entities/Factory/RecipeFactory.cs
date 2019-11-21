@@ -15,7 +15,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Factory
 			_recipeIngredientMapper = recipeIngredientMapper;
 		}
 
-		public Recipe CreateRecipe(CreateRecipeCommand command)
+		public Recipe Build(CreateRecipeCommand command)
 		{
 			var recipeIngredients = _recipeIngredientMapper
 				.MapToListOfRecipeIngredients(command.RecipeIngredients, command.Id);
