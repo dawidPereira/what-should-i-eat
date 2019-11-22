@@ -10,33 +10,28 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Command.Handlers
 {
 	using Recipe = Entities.Recipe.Recipe;
 	
-	public class CreateRecipeCommandHandler : ICommandHandler<CreateRecipeCommand>
+	public class UpdateRecipeCommandHandler : ICommandHandler<UpdateRecipeCommand>
 	{
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly CreateBaseRecipeCommandValidator _validator;
+		private readonly UpdateBaseRecipeCommandValidator _validator;
 
-		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository, IIngredientRepository ingredientRepository)
+		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository,  IIngredientRepository ingredientRepository)
 		{
 			_recipeRepository = recipeRepository;
-			_validator = new CreateBaseRecipeCommandValidator(ingredientRepository, _recipeRepository);
+			_validator = new UpdateBaseRecipeCommandValidator(ingredientRepository, _recipeRepository);;
 		}
 
-		public Result Handle(CreateRecipeCommand command)
+		public Result Handle(UpdateRecipeCommand command)
 		{
-			var validationResult = _validator.Validate(command);
+			var recipe = _recipeRepository.GetById(command.Id);
+			var validationResult = _validator.Validate(recipe, command);
 			if (validationResult.IsFailure)
 				return validationResult;
-			
-			var recipe = new Recipe(command.Id, 
-				command.Name, 
-				command.Description, 
-				command.RecipeIngredients, 
-				command.RecipeDetails);
-			
-			_recipeRepository.Add(recipe);
+
+			recipe.Update(command);
+			_recipeRepository.Update(recipe);
 			_recipeRepository.Commit();
 			return Result.Ok();
 		}
-		
 	}
 }

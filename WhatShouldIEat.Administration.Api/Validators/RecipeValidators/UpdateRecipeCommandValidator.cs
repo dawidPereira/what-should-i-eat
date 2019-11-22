@@ -3,9 +3,9 @@ using WhatShouldIEat.Administration.Domain.Recipe.Command;
 
 namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators
 {
-	public class CreateRecipeCommandValidator : AbstractValidator<CreateRecipeCommand>
+	public class UpdateRecipeCommandValidator : AbstractValidator<UpdateRecipeCommand>
 	{
-		public CreateRecipeCommandValidator()
+		public UpdateRecipeCommandValidator()
 		{
 			RuleFor(x => x.Id)
 				.NotNull()

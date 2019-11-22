@@ -56,5 +56,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe
 			_systemUnderTest.SetRecipeIngredients(ingredients);
 			_systemUnderTest.RecipeIngredients.Should().BeEquivalentTo(ingredients);
 		}
+
+		[Test]
+		public void METHOD()
+		{
+			
+		}
 	}
 }

@@ -42,5 +42,14 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 
 		public void SetRecipeDetails(RecipeDetails recipeDetails) => RecipeDetails = recipeDetails ?? 
 		                throw new ArgumentNullException(nameof(RecipeDetails), ExceptionMessages.ValueCannotBeNull);
+
+		public void Update(UpdateRecipeCommand command)
+		{
+			Id = command.Id;
+			Name = command.Name;
+			Description = command.Description;
+			RecipeIngredients = command.RecipeIngredients;
+			RecipeDetails = command.RecipeDetails;
+		}
 	}
 }
