@@ -7,6 +7,10 @@ namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.Comm
 	{
 		public CreateIngredientCommandValidator()
 		{
+			RuleFor(x => x.Id)
+				.NotNull()
+				.WithMessage(ValidationMessages.NotNull(nameof(CreateIngredientCommand.Id)));
+			
 			RuleFor(x => x.Name)
 				.NotNull()
 				.WithMessage(ValidationMessages.NotNull(nameof(CreateIngredientCommand.Name)));

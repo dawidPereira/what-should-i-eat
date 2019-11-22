@@ -20,7 +20,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers
 
 			if(ingredient == null)
 				return Result.Fail(FailMessages.DoesNotExist(nameof(Ingredient), 
-					nameof(UpdateIngredientCommand.Id), command.Id.Value.ToString()));
+					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 
 			if (!command.Name.Equals(ingredient.Name))
 				if (_ingredientRepository.ExistByName(command.Name))

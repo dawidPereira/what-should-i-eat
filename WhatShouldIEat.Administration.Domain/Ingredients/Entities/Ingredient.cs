@@ -7,8 +7,8 @@ using WhatShouldIEat.Administration.Domain.Common.Extensions;
 using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Command;
+using WhatShouldIEat.Administration.Domain.Ingredients.Dto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 using WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe;
 
@@ -16,20 +16,21 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
 	public class Ingredient
 	{
-		public Ingredient(string name,
+		public Ingredient(Guid id,
+			string name,
 			HashSet<Allergen> allergens,
 			HashSet<Requirements> requirements,
 			HashSet<Tuple<MacroNutrient, double>> macroNutrientsPerGram)
 		{
 			Name = name;
-			Id = new Id<Ingredient>(Guid.NewGuid());
+			Id = id;
 			SetAllergen(allergens);
 			SetRequirements(requirements);
 			SetMacroNutrients(macroNutrientsPerGram);
 		}
 
 		public string Name { get; set; }
-		public Id<Ingredient> Id { get; private set; }
+		public Guid Id { get; private set; }
 		public HashSet<Allergen> Allergens { get; private set; }
 		public HashSet<Requirements> Requirements { get; private set; }
 		public HashSet<Tuple<MacroNutrient, double>> MacroNutrientsPerGram { get; set; }

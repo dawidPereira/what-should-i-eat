@@ -13,6 +13,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 		{
 			return new CreateIngredientCommand
 			{
+				Id = Guid.NewGuid(),
 				Name = "Ingredient",
 				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
 				Allergens = new HashSet<Allergen>(),
@@ -24,7 +25,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 		{
 			return new UpdateIngredientCommand
 			{
-				Id = new Id<Ingredient>(Guid.NewGuid()),
+				Id = Guid.NewGuid(),
 				Name = "Ingredient",
 				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
 				Allergens = new HashSet<Allergen>(),

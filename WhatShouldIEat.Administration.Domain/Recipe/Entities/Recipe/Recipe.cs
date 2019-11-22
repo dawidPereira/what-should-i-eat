@@ -13,19 +13,20 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Entities.Recipe
 {
 	public class Recipe
 	{
-		public Recipe(string name,
+		public Recipe(Guid id,
+			string name,
 			string description,
 			ICollection<RecipeIngredient> recipeIngredients,
 			RecipeDetails recipeDetails)
 		{
-			Id = new Id<Recipe>(Guid.NewGuid());
+			Id = id;
 			Name = name;
 			Description = description;
 			RecipeIngredients = recipeIngredients;
 			RecipeDetails = recipeDetails;
 		}
 
-		public Id<Recipe> Id { get; private set; }
+		public Guid Id { get; private set; }
 		public string Name { get;  set; }
 		public string Description { get; private set; }
 		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }

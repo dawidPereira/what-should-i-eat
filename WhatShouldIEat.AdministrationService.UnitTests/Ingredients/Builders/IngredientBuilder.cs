@@ -11,7 +11,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders
 
 		public IngredientBuilder()
 		{
-			_ingredient = new Ingredient("",
+			_ingredient = new Ingredient(Guid.NewGuid(),
+				"",
 				new HashSet<Allergen>(),
 				new HashSet<Requirements>(),
 				new HashSet<Tuple<MacroNutrient, double>>());

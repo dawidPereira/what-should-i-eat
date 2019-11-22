@@ -27,13 +27,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe
 			
 			_ingredients = new List<RecipeIngredient>
 			{
-				new RecipeIngredient(new Id<Ingredient>(Guid.NewGuid()), new Id<Recipe>(Guid.NewGuid()), 100)
-				{
-					Ingredient = _ingredient,
-				}
+				new RecipeIngredient(Guid.NewGuid(),Guid.NewGuid(),100)
 			};
 			
-			_systemUnderTest = new Administration.Domain.Recipe.Entities.Recipe.Recipe("Name", "Description", _ingredients, new RecipeDetails(0, 0, 0, new List<MealType>()));
+			_systemUnderTest = new Recipe(Guid.NewGuid(), "Name", "Description", _ingredients, 
+				new RecipeDetails(0, 0, 0, new List<MealType>()));
 		}
 
 		[Test]
@@ -41,31 +39,19 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe
 		{
 			_ingredients = new List<RecipeIngredient>
 			{
-				new RecipeIngredient(new Id<Ingredient>(Guid.NewGuid()), new Id<Recipe>(Guid.NewGuid()), -100)
-				{
-				Ingredient = _ingredient,
-			}
+				new RecipeIngredient(Guid.NewGuid(),Guid.NewGuid(), -100)
 			};
+			
 			Action action = () => _systemUnderTest.SetRecipeIngredients(new List<RecipeIngredient>(_ingredients));
 			action.Should().Throw<ArgumentOutOfRangeException>();
 		}
 
 		[Test]
-		public void CalculateCalories_WhenCalled_ShouldReturnProperValue()
-		{
-			var result = _systemUnderTest.CalculateCalories();
-			result.Should().Be(80);
-		}
-		
-		[Test]
 		public void SetIngredient_WhenProperValue_ShouldSetValue()
 		{
 			var ingredients = new List<RecipeIngredient>
 			{
-				new RecipeIngredient(new Id<Ingredient>(Guid.NewGuid()), new Id<Recipe>(Guid.NewGuid()), 132121)
-				{
-					Ingredient = _ingredient,
-				}
+				new RecipeIngredient(Guid.NewGuid(),Guid.NewGuid(), 132121)
 			};
 			_systemUnderTest.SetRecipeIngredients(ingredients);
 			_systemUnderTest.RecipeIngredients.Should().BeEquivalentTo(ingredients);

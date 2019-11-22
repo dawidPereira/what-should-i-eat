@@ -4,7 +4,6 @@ using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Query;
 using WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers;
@@ -30,14 +29,17 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 				.WithName("IngredientName")
 				.WithMacroNutrient()
 				.Build();
-			_query = new GetIngredientQuery(new Id<Ingredient>(Guid.NewGuid()));
+			_query = new GetIngredientQuery
+			{
+				Id = Guid.NewGuid()
+			};
 			_systemUnderTests = new GetIngredientQueryHandler(_ingredientRepositoryMock.Object);
 		}
 
 		[Test]
 		public void GivenIngredientId_WhenExist_ShouldReturnIngredient()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Id<Ingredient>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 			var result = _systemUnderTests.Handle(_query);
 			result.Should().NotBeNull();
@@ -48,7 +50,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		{
 			Action action = () => _systemUnderTests.Handle(_query);
 			action.Should().Throw<ArgumentNullException>()
-				.WithMessage($"Item with Id: {_query.Id.Value.ToString()} does not exist. (Parameter 'Ingredient')");
+				.WithMessage($"Item with Id: {_query.Id.ToString()} does not exist. (Parameter 'Ingredient')");
 		}
 	}
 }

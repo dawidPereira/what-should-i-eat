@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
+using WhatShouldIEat.Administration.Domain.Ingredients.Dto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Repositories
@@ -12,8 +13,8 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Repositories
 		void Update(Ingredient ingredient);
 		
 		bool ExistByName(string name);
-		bool ExistById(Id<Ingredient> id);
-		Ingredient GetById(Id<Ingredient> id);
+		bool ExistById(Guid id);
+		Ingredient GetById(Guid id);
 		ICollection<IngredientBasicInfo> GetIngredientBasicInfos();
 		ICollection<IngredientBasicInfo> GetAllBasicInfos();
 		

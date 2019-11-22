@@ -20,7 +20,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Command.Handlers
 			
 			if(ingredient == null )
 				return Result.Fail(FailMessages.DoesNotExist(nameof(Ingredients), 
-					nameof(RemoveIngredientCommand.Id), command.Id.Value.ToString()));
+					nameof(RemoveIngredientCommand.Id), command.Id.ToString()));
 
 			_ingredientRepository.Remove(ingredient);
 			_ingredientRepository.Commit();

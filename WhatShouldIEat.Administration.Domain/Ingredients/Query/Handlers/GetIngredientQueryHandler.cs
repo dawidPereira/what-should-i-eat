@@ -1,6 +1,6 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.Query;
-using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
+using WhatShouldIEat.Administration.Domain.Ingredients.Dto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
@@ -14,6 +14,6 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers
 			_ingredientRepository = ingredientRepository;
 
 		public IngredientDto Handle(GetIngredientQuery query) => _ingredientRepository.GetById(query.Id)?.ToDto() ??
-			Exceptions<IngredientDto>.ThrowNotFoundException(nameof(Ingredient), query.Id.Value.ToString());
+			Exceptions<IngredientDto>.ThrowNotFoundException(nameof(Ingredient), query.Id.ToString());
 	}
 }

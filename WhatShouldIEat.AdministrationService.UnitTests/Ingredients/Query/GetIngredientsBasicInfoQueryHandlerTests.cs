@@ -4,7 +4,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
+using WhatShouldIEat.Administration.Domain.Ingredients.Dto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Query;
 using WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers;

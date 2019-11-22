@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Common.Query;
-using WhatShouldIEat.Administration.Domain.Dto.IngredientsDto;
+using WhatShouldIEat.Administration.Domain.Ingredients.Dto;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers

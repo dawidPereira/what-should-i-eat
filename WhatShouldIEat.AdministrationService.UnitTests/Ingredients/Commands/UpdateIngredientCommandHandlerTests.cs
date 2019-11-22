@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
@@ -42,14 +43,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			{
 				result.IsFailure.Should().BeTrue();
 				result.Message.Should().Be(FailMessages.DoesNotExist(nameof(Ingredient), 
-					nameof(UpdateIngredientCommand.Id), _command.Id.Value.ToString()));
+					nameof(UpdateIngredientCommand.Id), _command.Id.ToString()));
 			}
 		}
 		
 		[Test]
 		public void GivenNewName_WhenAlreadyExist_ReturnFailure()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Id<Ingredient>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(true);
@@ -66,7 +67,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		[Test]
 		public void GivenProperCommand_WhenNoErrors_ReturnSuccess()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Id<Ingredient>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);

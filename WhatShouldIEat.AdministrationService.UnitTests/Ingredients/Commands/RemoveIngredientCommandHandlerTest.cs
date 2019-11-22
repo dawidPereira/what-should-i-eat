@@ -25,7 +25,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_command = new RemoveIngredientCommand
 			{
-				Id = new Id<Ingredient>(Guid.NewGuid())
+				Id = Guid.NewGuid()
 			};
 			
 			_ingredient = new IngredientBuilder()
@@ -47,7 +47,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		[Test]
 		public void GivenIngredientId_WhenIngredientExist_ShouldReturnSuccess()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Id<Ingredient>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 
 			var result  = _systemUnderTest.Handle(_command);

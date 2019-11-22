@@ -1,28 +1,23 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Command;
+﻿using System.Linq;
+using WhatShouldIEat.Administration.Domain.Common.Command;
 using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.Recipe.Entities.Factory;
 using WhatShouldIEat.Administration.Domain.Recipe.Mappers;
 using WhatShouldIEat.Administration.Domain.Recipe.Repository;
 
 namespace WhatShouldIEat.Administration.Domain.Recipe.Command.Handlers
 {
+	using Recipe = Entities.Recipe.Recipe;
 	public class CreateRecipeCommandHandler : ICommandHandler<CreateRecipeCommand>
 	{
-		private readonly IIngredientRepository _ingredientRepository;
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly IRecipeIngredientMapper _recipeIngredientMapper;
-		private readonly IRecipeFactory _recipeFactory;
+		private readonly IRecipeIngredientValidator _recipeIngredientValidator;
 
-		public CreateRecipeCommandHandler(IIngredientRepository ingredientRepository,
-			IRecipeRepository recipeRepository, 
-			IRecipeIngredientMapper recipeIngredientMapper, IRecipeFactory recipeFactory)
+		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository, 
+			IRecipeIngredientValidator recipeIngredientValidator)
 		{
-			_ingredientRepository = ingredientRepository;
 			_recipeRepository = recipeRepository;
-			_recipeIngredientMapper = recipeIngredientMapper;
-			_recipeFactory = recipeFactory;
+			_recipeIngredientValidator = recipeIngredientValidator;
 		}
 
 		public Result Handle(CreateRecipeCommand command)
@@ -30,8 +25,16 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Command.Handlers
 			if (_recipeRepository.ExistByName(command.Name))
 				return Result.Fail(FailMessages.AlreadyExist(nameof(Entities.Recipe.Recipe),
 					nameof(CreateRecipeCommand.Name), command.Name));
-
-			var recipe = _recipeFactory.Build(command);
+			
+			_recipeIngredientValidator.ThrowExceptionIfAnyIngredientIdNotFound(
+				command.RecipeIngredients.Select(x => x.IngredientId));
+			
+			var recipe = new Recipe(command.Id, 
+				command.Name, 
+				command.Description, 
+				command.RecipeIngredients, 
+				command.RecipeDetails);
+			
 			_recipeRepository.Add(recipe);
 			return Result.Ok();
 		}
