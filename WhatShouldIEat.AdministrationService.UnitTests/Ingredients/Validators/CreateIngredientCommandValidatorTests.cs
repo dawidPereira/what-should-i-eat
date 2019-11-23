@@ -5,7 +5,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Api.Validators;
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators;
-using WhatShouldIEat.Administration.Domain.Ingredients.Command;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 

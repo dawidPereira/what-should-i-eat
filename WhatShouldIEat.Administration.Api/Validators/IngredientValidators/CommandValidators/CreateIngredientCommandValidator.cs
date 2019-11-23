@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using WhatShouldIEat.Administration.Domain.Ingredients.Command;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 
 namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators
 {

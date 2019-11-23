@@ -5,8 +5,8 @@ using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
-using WhatShouldIEat.Administration.Domain.Ingredients.Query;
-using WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
 

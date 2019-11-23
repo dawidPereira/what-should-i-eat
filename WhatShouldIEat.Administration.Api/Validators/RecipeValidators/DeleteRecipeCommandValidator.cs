@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using WhatShouldIEat.Administration.Domain.Recipe.Command;
+using WhatShouldIEat.Administration.Domain.Recipes.Commands;
 
 namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators
 {

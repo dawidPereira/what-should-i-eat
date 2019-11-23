@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Dto;
-using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
-using WhatShouldIEat.Administration.Domain.Ingredients.Query;
-using WhatShouldIEat.Administration.Domain.Ingredients.Query.Handlers;
+using WhatShouldIEat.Administration.Domain.Ingredients.Dtos;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
@@ -21,14 +19,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		private List<IngredientBasicInfo> _ingredientBasicInfos;
 		
 		[SetUp]
-		public void SrtUp()
+		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 
 			_ingredientBasicInfos = new List<IngredientBasicInfo>
 			{
-				new IngredientBasicInfo {Name = "FirstName", Id = new Id<Ingredient>(Guid.NewGuid())},
-				new IngredientBasicInfo {Name = "SecondName", Id = new Id<Ingredient>(Guid.NewGuid())}
+				new IngredientBasicInfo {Name = "FirstName", Id = Guid.NewGuid()},
+				new IngredientBasicInfo {Name = "SecondName", Id = Guid.NewGuid()}
 			};
 			_query = new GetIngredientsBasicInfoQuery();
 			_systemUnderTests = new GetIngredientsBasicInfoQueryHandler(_ingredientRepositoryMock.Object);

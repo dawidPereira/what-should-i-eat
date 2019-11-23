@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Dto;
+using WhatShouldIEat.Administration.Domain.Ingredients.Dtos;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Repositories
