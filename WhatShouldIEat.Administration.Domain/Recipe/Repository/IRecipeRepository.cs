@@ -11,7 +11,8 @@ namespace WhatShouldIEat.Administration.Domain.Recipe.Repository
 		void Add(Recipe recipe);
 		void Update(Recipe recipe);
 		void Commit();
+		void Delete(Recipe recipe);
 		bool ExistByName(string name);
-		bool ExistById(string id);
+		bool ExistById(Guid id);
 	}
 }
