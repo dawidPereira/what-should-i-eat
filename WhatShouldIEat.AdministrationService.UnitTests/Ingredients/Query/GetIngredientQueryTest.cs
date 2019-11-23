@@ -2,13 +2,11 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using WhatShouldIEat.Administration.Domain.Common;
-using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
+using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 {
@@ -25,10 +23,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
-			_ingredient = new IngredientBuilder()
-				.WithName("IngredientName")
-				.WithMacroNutrient()
-				.Build();
+			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("IngredientName"));
 			_query = new GetIngredientQuery
 			{
 				Id = Guid.NewGuid()

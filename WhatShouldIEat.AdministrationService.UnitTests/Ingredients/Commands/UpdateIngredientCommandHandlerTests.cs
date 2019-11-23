@@ -4,12 +4,10 @@ using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common.Message;
-using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
@@ -27,10 +25,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_command = CommandFactory.EmptyUpdateIngredientCommand();
-			_ingredient = new IngredientBuilder()
-				.WithMacroNutrient()
-				.WithName("IngredientName")
-				.Build();
+			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("IngredientName"));
 			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object);
 		}
 

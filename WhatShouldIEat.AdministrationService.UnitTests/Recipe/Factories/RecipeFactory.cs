@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
-using WhatShouldIEat.AdministrationService.Tests.Ingredients.Builders;
+using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Recipe.Factories
 {
-	using  Recipe = Administration.Domain.Recipes.Entities.Recipe;
-
 	internal static class RecipeFactory
 	{
-		internal static Recipe Create()
+		internal static Administration.Domain.Recipes.Entities.Recipe Create()
 		{
-			var ingredient = new IngredientBuilder()
-				.WithMacroNutrient()
-				.Build();
+			var ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("TesIngredient"));
 			
 			var ingredients = new List<RecipeIngredient>
 			{
@@ -30,7 +27,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe.Factories
 				RecipeIngredients = ingredients
 			};
 
-			return Recipe.Create(command);
+			return Administration.Domain.Recipes.Entities.Recipe.Create(command);
 		}
 	}
 }

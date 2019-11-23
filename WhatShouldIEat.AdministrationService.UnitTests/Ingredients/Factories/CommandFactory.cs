@@ -7,7 +7,7 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
-	public static class  CommandFactory
+	public static class CommandFactory
 	{
 		internal static CreateIngredientCommand EmptyCreateIngredientCommand()
 		{
@@ -20,7 +20,36 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				Requirements = new HashSet<Requirements>()
 			};
 		}
-		
+
+		internal static CreateIngredientCommand CreateValidIngredientFactory(string name)
+		{
+			var macroNutrients = new HashSet<Tuple<MacroNutrient, double>>
+			{
+				new Tuple<MacroNutrient, double>(MacroNutrient.Carbohydrate, 0.2)
+			};
+
+			var allergens = new HashSet<Allergen>
+			{
+				Allergen.Gluten,
+				Allergen.Milk,
+			};
+
+			var requirements = new HashSet<Requirements>
+			{
+				Requirements.Ecological,
+				Requirements.ForVegan
+			};
+
+			return new CreateIngredientCommand
+			{
+				Id = Guid.NewGuid(),
+				Name = name,
+				MacroNutrients = macroNutrients,
+				Allergens = allergens,
+				Requirements = requirements
+			};
+		}
+
 		internal static UpdateIngredientCommand EmptyUpdateIngredientCommand()
 		{
 			return new UpdateIngredientCommand

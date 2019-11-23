@@ -34,12 +34,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 		}
 		
 		[Test]
-		public void GivenCommandWithoutAllergens_WhenRequired_ShouldBeNotValidWithProperErrorMessage()
+		public void GivenCommand_WithoutAllergens_ShouldBeNotValidWithProperErrorMessage()
 		{
 			_command.Allergens = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotNull("Allergens")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("Allergens")))
 				.Should().Be(1);
 		}
 		
@@ -49,8 +49,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.MacroNutrients = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotNull("MacroNutrients")))
-				.Should().Be(1);
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("MacroNutrients")))
+				.Should().Be(2);
 		}
 		
 		[Test]
@@ -59,7 +59,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.MacroNutrients = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotNull("Requirements")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("Requirements")))
 				.Should().Be(1);
 		}
 		
@@ -83,7 +83,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
 			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("MacroNutrients")))
-				.Should().Be(1);
+				.Should().Be(2);
 		}
 	}
 }

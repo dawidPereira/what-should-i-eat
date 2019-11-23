@@ -19,12 +19,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers
 				return Result.Fail(FailMessages.AlreadyExist(nameof(Ingredient), 
 					nameof(CreateIngredientCommand.Name), command.Name));
 
-			var ingredient = new Ingredient(
-				command.Id, 
-				command.Name, 
-				command.Allergens, 
-				command.Requirements, 
-				command.MacroNutrients);
+			var ingredient = Ingredient.Create(command);
 
 			_ingredientRepository.Add(ingredient);
 			_ingredientRepository.Commit();

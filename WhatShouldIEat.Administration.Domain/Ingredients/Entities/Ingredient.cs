@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualBasic.CompilerServices;
 using WhatShouldIEat.Administration.Domain.Common.Extensions;
 using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
@@ -13,7 +14,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
 	public class Ingredient
 	{
-		public Ingredient(Guid id,
+		private  Ingredient(Guid id,
 			string name,
 			HashSet<Allergen> allergens,
 			HashSet<Requirements> requirements,
@@ -21,32 +22,27 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 		{
 			Name = name;
 			Id = id;
-			SetAllergen(allergens);
-			SetRequirements(requirements);
-			SetMacroNutrients(macroNutrientsPerGram);
+			Allergens = allergens;
+			Requirements = requirements;
+			MacroNutrientsPerGram = macroNutrientsPerGram;
 		}
 
-		public string Name { get; set; }
+		public string Name { get; private set; }
 		public Guid Id { get; private set; }
 		public HashSet<Allergen> Allergens { get; private set; }
 		public HashSet<Requirements> Requirements { get; private set; }
 		public HashSet<Tuple<MacroNutrient, double>> MacroNutrientsPerGram { get; private set; }
-		public ICollection<RecipeIngredient> RecipeIngredients { get; set; }
+		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
+
+		public static Ingredient Create(CreateIngredientCommand command) => new Ingredient(
+				command.Id, 
+				command.Name, 
+				command.Allergens, 
+				command.Requirements, 
+				command.MacroNutrients);
 
 		public double CalculateCalories(double grams) =>
 			MacroNutrientsPerGram.Sum(x => x.Item1.CalculateCalories(x.Item2 * grams));
-
-		public void SetMacroNutrients(HashSet<Tuple<MacroNutrient, double>> macroNutrients)
-		{
-			macroNutrients.ForEach(x => x.Item2.ThrowExceptionIfLowerThanZero("Grams"));
-			MacroNutrientsPerGram = macroNutrients;
-		}
-
-		public void SetAllergen(HashSet<Allergen> allergens) => Allergens = allergens ?? 
-			            throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
-
-		public void SetRequirements(HashSet<Requirements> requirements) => Requirements = requirements ??
-			            throw new ArgumentNullException(nameof(Requirements), ExceptionMessages.ValueCannotBeNull);
 
 		public void Update(UpdateIngredientCommand command)
 		{
