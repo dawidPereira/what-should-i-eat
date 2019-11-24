@@ -5,7 +5,7 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Queries
 {
-	public class GetIngredientQuery : IQuery<Ingredient>, IQuery<IngredientDto>
+	public class GetIngredientQuery : IQuery<IngredientDto>
 	{
 		public Guid Id { get; set; }
 	}

@@ -6,25 +6,20 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators
 {
-	public class UpdateIngredientCommandValidator : IValidator<UpdateIngredientCommand, Ingredient>
+	public class UpdateIngredientCommandIngredientExistValidator : ICommandValidator<UpdateIngredientCommand>
 	{
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public UpdateIngredientCommandValidator(IIngredientRepository ingredientRepository)
+		public UpdateIngredientCommandIngredientExistValidator(IIngredientRepository ingredientRepository)
 		{
 			_ingredientRepository = ingredientRepository;
 		}
 
-		public Result Validate(UpdateIngredientCommand command, Ingredient ingredient)
+		public Result Validate(UpdateIngredientCommand command)
 		{
-			if(ingredient == null)
+			if(!_ingredientRepository.ExistById(command.Id))
 				return Result.Fail(FailMessages.DoesNotExist(nameof(Ingredient), 
 					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
-
-			if (!command.Name.Equals(ingredient.Name))
-				if (_ingredientRepository.ExistByName(command.Name))
-					return Result.Fail(FailMessages.AlreadyExist(nameof(Ingredient), 
-						nameof(UpdateIngredientCommand.Name), command.Name));
 			
 			return Result.Ok();
 		}

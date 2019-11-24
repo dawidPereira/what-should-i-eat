@@ -1,25 +1,22 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators
 {
-	public class CreateIngredientCommandValidator : IValidator<CreateIngredientCommand>
+	public class DeleteIngredientCommandIngredientExistValidator : ICommandValidator<DeleteIngredientCommand>
 	{
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public CreateIngredientCommandValidator(IIngredientRepository ingredientRepository)
-		{
+		public DeleteIngredientCommandIngredientExistValidator(IIngredientRepository ingredientRepository) => 
 			_ingredientRepository = ingredientRepository;
-		}
 
-		public Result Validate(CreateIngredientCommand command)
+		public Result Validate(DeleteIngredientCommand command)
 		{
-			if(_ingredientRepository.ExistByName(command.Name))
-				return Result.Fail(FailMessages.AlreadyExist(nameof(Ingredient), 
-					nameof(CreateIngredientCommand.Name), command.Name));
+			if(!_ingredientRepository.ExistById(command.Id))
+				return Result.Fail(FailMessages.DoesNotExist(nameof(Ingredients), 
+					nameof(DeleteIngredientCommand.Id), command.Id.ToString()));
 			
 			return Result.Ok();
 		}

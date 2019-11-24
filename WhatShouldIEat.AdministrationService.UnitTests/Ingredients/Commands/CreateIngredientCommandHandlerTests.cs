@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
@@ -19,15 +20,18 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		private CreateIngredientCommandHandler _systemUnderTest;
 		private CreateIngredientCommand _command;
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
-		private CreateIngredientCommandValidator _validator;
+		private IEnumerable<ICommandValidator<CreateIngredientCommand>> _validators;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_command = CommandFactory.EmptyCreateIngredientCommand();
-			_validator = new CreateIngredientCommandValidator(_ingredientRepositoryMock.Object);
-			_systemUnderTest = new CreateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validator);
+			_validators = new List<ICommandValidator<CreateIngredientCommand>>
+			{
+				new CreateIngredientCommandIngredientExistValidator(_ingredientRepositoryMock.Object)
+			};
+			_systemUnderTest = new CreateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
 		}
 
 		[Test]

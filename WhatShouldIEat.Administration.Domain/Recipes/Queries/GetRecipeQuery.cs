@@ -5,7 +5,7 @@ using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Recipes.Queries
 {
-	public class GetRecipeQuery : IQuery<Recipe>, IQuery<RecipeDto>
+	public class GetRecipeQuery : IQuery<RecipeDto>
 	{
 		public Guid Id { get; set; }
 	}

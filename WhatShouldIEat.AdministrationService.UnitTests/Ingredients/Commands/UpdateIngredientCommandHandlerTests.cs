@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
@@ -20,7 +21,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
 		private UpdateIngredientCommand _command;
 		private UpdateIngredientCommandHandler _systemUnderTests;
-		private UpdateIngredientCommandValidator _validator;
+		private IEnumerable<ICommandValidator<UpdateIngredientCommand>> _validators;
 		private Ingredient _ingredient;
 
 		[SetUp]
@@ -29,12 +30,16 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_command = CommandFactory.EmptyUpdateIngredientCommand();
 			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("IngredientName"));
-			_validator = new UpdateIngredientCommandValidator(_ingredientRepositoryMock.Object);
-			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validator);
+			_validators = new List<ICommandValidator<UpdateIngredientCommand>>
+			{
+				new UpdateIngredientCommandIngredientExistValidator(_ingredientRepositoryMock.Object),
+				new UpdateIngredientCommandNameValidator(_ingredientRepositoryMock.Object)
+			};
+			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
 		}
 
 		[Test]
-		public void GivenProperCommand_WhenIngredientDoesNotExist_ReturnFailure()
+		public void GivenCommand_WhenIngredientDoesNotExist_ReturnFailure()
 		{
 			var result = _systemUnderTests.Handle(_command);
 
@@ -51,6 +56,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
+				.Returns(true);
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(true);
 			
@@ -68,6 +75,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
+				.Returns(true);
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);
 			

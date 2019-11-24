@@ -1,4 +1,5 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Command;
+﻿using System.Collections.Generic;
+using WhatShouldIEat.Administration.Domain.Common.Command;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
@@ -9,21 +10,26 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Handlers
 	public class UpdateRecipeCommandHandler : ICommandHandler<UpdateRecipeCommand>
 	{
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly IValidator<UpdateRecipeCommand, Recipe> _validator;
+		private readonly IEnumerable<ICommandValidator<UpdateRecipeCommand>> _validators;
 
-		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository, IValidator<UpdateRecipeCommand, Recipe> validator)
+		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository, 
+			IEnumerable<ICommandValidator<UpdateRecipeCommand>> validators)
 		{
 			_recipeRepository = recipeRepository;
-			_validator = validator;
+			_validators = validators;
 		}
 
 		public Result Handle(UpdateRecipeCommand command)
 		{
+			foreach (var validator in _validators)
+			{
+				var validationResult = validator.Validate(command);
+				if (validationResult.IsFailure)
+					return validationResult;
+			}
+			
 			var recipe = _recipeRepository.GetById(command.Id);
-			var validationResult = _validator.Validate(command, recipe);
-			if (validationResult.IsFailure)
-				return validationResult;
-
+			
 			recipe.Update(command);
 			_recipeRepository.Update(recipe);
 			_recipeRepository.Commit();

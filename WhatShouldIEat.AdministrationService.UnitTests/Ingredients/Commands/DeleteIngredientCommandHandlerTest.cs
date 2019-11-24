@@ -19,8 +19,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 	internal class DeleteIngredientCommandHandlerTest
 	{
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
-		private Mock<IRecipeRepository> _recipeRepositoruMock;
-		private DeleteIngredientCommandValidator _validator;
+		private Mock<IRecipeRepository> _recipeRepositoryMock;
+		private IEnumerable<ICommandValidator<DeleteIngredientCommand>> _validators;
 		private DeleteIngredientCommand _command;
 		private DeleteIngredientCommandHandler _systemUnderTest;
 		private Ingredient _ingredient;
@@ -29,16 +29,20 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
-			_recipeRepositoruMock = new Mock<IRecipeRepository>();
+			_recipeRepositoryMock = new Mock<IRecipeRepository>();
 			_command = new DeleteIngredientCommand
 			{
 				Id = Guid.NewGuid()
 			};
 			
 			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("MyName"));
-			_validator = new DeleteIngredientCommandValidator(_recipeRepositoruMock.Object);
+			_validators = new List<ICommandValidator<DeleteIngredientCommand>>
+			{
+				new DeleteIngredientCommandIngredientExistValidator(_ingredientRepositoryMock.Object),
+				new DeleteIngredientCommandIsUsedValidator(_recipeRepositoryMock.Object)
+			};
 			
-			_systemUnderTest = new DeleteIngredientCommandHandler(_ingredientRepositoryMock.Object, _validator);
+			_systemUnderTest = new DeleteIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
 		}
 
 
@@ -73,7 +77,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
-			_recipeRepositoruMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Guid>()))
+			_recipeRepositoryMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Guid>()))
 				.Returns(recipeBasicInfos);
 
 			var result = _systemUnderTest.Handle(_command);

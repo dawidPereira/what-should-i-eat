@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualBasic.CompilerServices;
-using WhatShouldIEat.Administration.Domain.Common.Extensions;
-using WhatShouldIEat.Administration.Domain.Common.Message;
-using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Dtos;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;

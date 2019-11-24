@@ -1,4 +1,5 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Command;
+﻿using System.Collections.Generic;
+using WhatShouldIEat.Administration.Domain.Common.Command;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
@@ -9,20 +10,25 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Handlers
 	public class DeleteRecipeCommandHandler : ICommandHandler<DeleteRecipeCommand>
 	{
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly IValidator<DeleteRecipeCommand, Recipe> _validator;
+		private readonly IEnumerable<ICommandValidator<DeleteRecipeCommand>> _validators;
 
-		public DeleteRecipeCommandHandler(IRecipeRepository recipeRepository, IValidator<DeleteRecipeCommand, Recipe> validator)
+		public DeleteRecipeCommandHandler(IRecipeRepository recipeRepository, 
+			IEnumerable<ICommandValidator<DeleteRecipeCommand>> validators)
 		{
 			_recipeRepository = recipeRepository;
-			_validator = validator;
+			_validators = validators;
 		}
 
 		public Result Handle(DeleteRecipeCommand command)
 		{
+			foreach (var validator in _validators)
+			{
+				var validationResult = validator.Validate(command);
+				if (validationResult.IsFailure)
+					return validationResult;
+			}
+			
 			var recipe = _recipeRepository.GetById(command.Id);
-			var validationResult = _validator.Validate(command, recipe);
-			if (validationResult.IsFailure)
-				return validationResult;
 			
 			_recipeRepository.Delete(recipe);
 			_recipeRepository.Commit();
