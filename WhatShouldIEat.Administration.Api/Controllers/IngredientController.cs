@@ -5,13 +5,13 @@ using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandV
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.QueryValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.DeleteIngredientCommand;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientQuery;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfosQuery;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfos;
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {

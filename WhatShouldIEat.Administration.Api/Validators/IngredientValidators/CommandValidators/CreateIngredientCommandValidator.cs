@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 
 namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators
 {

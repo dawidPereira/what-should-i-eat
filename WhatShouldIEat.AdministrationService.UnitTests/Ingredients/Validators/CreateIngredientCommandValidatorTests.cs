@@ -6,7 +6,7 @@ using NUnit.Framework;
 using WhatShouldIEat.Administration.Api.Validators;
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
@@ -60,7 +60,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 			_command.MacroNutrients = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("Requirements")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("Requirement")))
 				.Should().Be(1);
 		}
 		

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands.CreateRecipeCommand;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands.UpdateRecipeCommand;
-using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipeQuery;
+using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
+using WhatShouldIEat.Administration.Domain.Recipes.Commands.Update;
+using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
 
 namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 {

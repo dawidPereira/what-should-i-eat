@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands.DeleteRecipeCommand;
+using WhatShouldIEat.Administration.Domain.Recipes.Commands.Delete;
 
 namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators
 {

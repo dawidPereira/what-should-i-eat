@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
@@ -19,7 +19,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				Name = "Ingredient",
 				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
 				Allergens = new HashSet<Allergen>(),
-				Requirements = new HashSet<Requirements>()
+				Requirements = new HashSet<Requirement>()
 			};
 		}
 
@@ -36,10 +36,10 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				Allergen.Milk,
 			};
 
-			var requirements = new HashSet<Requirements>
+			var requirements = new HashSet<Requirement>
 			{
-				Requirements.Ecological,
-				Requirements.ForVegan
+				Requirement.Ecological,
+				Requirement.ForVegan
 			};
 
 			return new CreateIngredientCommand
@@ -60,7 +60,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				Name = "Ingredient",
 				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
 				Allergens = new HashSet<Allergen>(),
-				Requirements = new HashSet<Requirements>()
+				Requirements = new HashSet<Requirement>()
 			};
 		}
 	}

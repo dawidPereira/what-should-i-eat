@@ -4,7 +4,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfosQuery;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfos;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query

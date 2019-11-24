@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries;
-using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipeQuery;
+using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
 
 namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators.QueryValidators
 {

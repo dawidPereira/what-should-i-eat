@@ -4,7 +4,7 @@ using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientQuery;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 

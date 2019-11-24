@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientQuery;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
@@ -14,7 +14,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 		private  Ingredient(Guid id,
 			string name,
 			HashSet<Allergen> allergens,
-			HashSet<Requirements> requirements,
+			HashSet<Requirement> requirements,
 			HashSet<Tuple<MacroNutrient, double>> macroNutrientsPerGram)
 		{
 			Name = name;
@@ -27,7 +27,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 		public string Name { get; private set; }
 		public Guid Id { get; private set; }
 		public HashSet<Allergen> Allergens { get; private set; }
-		public HashSet<Requirements> Requirements { get; private set; }
+		public HashSet<Requirement> Requirements { get; private set; }
 		public HashSet<Tuple<MacroNutrient, double>> MacroNutrientsPerGram { get; private set; }
 		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
 

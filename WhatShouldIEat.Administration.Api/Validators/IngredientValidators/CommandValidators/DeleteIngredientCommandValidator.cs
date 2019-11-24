@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.DeleteIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
 
 namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators
 {

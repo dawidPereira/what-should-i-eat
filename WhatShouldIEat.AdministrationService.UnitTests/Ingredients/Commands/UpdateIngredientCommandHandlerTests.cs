@@ -7,7 +7,7 @@ using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
@@ -31,8 +31,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("IngredientName"));
 			_validators = new List<ICommandValidator<UpdateIngredientCommand>>
 			{
-				new UpdateIngredientCommandIngredientExistValidator(_ingredientRepositoryMock.Object),
-				new UpdateIngredientCommandNameValidator(_ingredientRepositoryMock.Object)
+				new IngredientExistValidator(_ingredientRepositoryMock.Object),
+				new UniqueIngredientNameValidator(_ingredientRepositoryMock.Object)
 			};
 			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
 		}

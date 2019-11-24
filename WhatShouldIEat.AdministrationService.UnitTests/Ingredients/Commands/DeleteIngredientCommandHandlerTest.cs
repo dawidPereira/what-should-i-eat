@@ -5,10 +5,10 @@ using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.DeleteIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfosQuery;
+using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfos;
 using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
@@ -37,8 +37,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("MyName"));
 			_validators = new List<ICommandValidator<DeleteIngredientCommand>>
 			{
-				new DeleteIngredientCommandIngredientExistValidator(_ingredientRepositoryMock.Object),
-				new DeleteIngredientCommandIsUsedValidator(_recipeRepositoryMock.Object)
+				new IngredientExistValidator(_ingredientRepositoryMock.Object),
+				new NotUsedIngredientValidator(_recipeRepositoryMock.Object)
 			};
 			
 			_systemUnderTest = new DeleteIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
