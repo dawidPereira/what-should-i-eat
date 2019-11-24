@@ -10,10 +10,8 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Queries.Handlers
 	{
 		private readonly IRecipeRepository _recipeRepository;
 
-		public GetRecipeQueryHandler(IRecipeRepository recipeRepository)
-		{
+		public GetRecipeQueryHandler(IRecipeRepository recipeRepository) => 
 			_recipeRepository = recipeRepository;
-		}
 
 		public RecipeDto Handle(GetRecipeQuery query) => _recipeRepository.GetById(query.Id)?.ToDto() ??
 		                Exceptions<RecipeDto>.ThrowNotFoundException(nameof(Recipe), query.Id.ToString());

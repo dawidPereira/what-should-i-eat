@@ -2,7 +2,6 @@ bin/
 obj/
 /packages/
 .gitignore
-Controllers/
 # Common IntelliJ Platform excludes
 
 # User specific
