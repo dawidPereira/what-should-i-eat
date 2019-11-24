@@ -2,7 +2,6 @@
 using WhatShouldIEat.Administration.Domain.Common.Command;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers
@@ -33,7 +32,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers
 			_ingredientRepository.Update(ingredient);
 			_ingredientRepository.Commit();
 			
-			return Result.Ok();
+			return Result.Ok(200);
 		}
 	}
 }

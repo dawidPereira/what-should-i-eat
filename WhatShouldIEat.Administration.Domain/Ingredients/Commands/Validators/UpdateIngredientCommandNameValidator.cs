@@ -10,20 +10,19 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators
 	{
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public UpdateIngredientCommandNameValidator(IIngredientRepository ingredientRepository)
-		{
+		public UpdateIngredientCommandNameValidator(IIngredientRepository ingredientRepository) => 
 			_ingredientRepository = ingredientRepository;
-		}
 
 		public Result Validate(UpdateIngredientCommand command)
 		{
 			var ingredient = _ingredientRepository.GetById(command.Id);
-			if (command.Name.Equals(ingredient.Name)) return Result.Ok();
+			if (command.Name.Equals(ingredient.Name)) return Result.Ok(200);
+			
 			if (_ingredientRepository.ExistByName(command.Name))
 				return Result.Fail(FailMessages.AlreadyExist(nameof(Ingredient), 
-					nameof(UpdateIngredientCommand.Name), command.Name));
+					nameof(UpdateIngredientCommand.Name), command.Name),  400);
 
-			return Result.Ok();
+			return Result.Ok(200);
 		}
 	}
 }

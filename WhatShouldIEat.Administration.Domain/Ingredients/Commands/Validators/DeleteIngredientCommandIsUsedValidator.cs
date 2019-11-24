@@ -16,11 +16,12 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators
 		public Result Validate(DeleteIngredientCommand command)
 		{
 			var recipesWithIngredient = _recipeRepository.GetRecipesBasicInfosByIngredientId(command.Id);
-			if (recipesWithIngredient == null) return Result.Ok();
+			if (recipesWithIngredient == null) return Result.Ok(200);
+			
 			var message = new StringBuilder();
 			message.AppendLine("Ingredient cannot be deleted. Ingredient is used in following recipes:");
 			recipesWithIngredient.ForEach(x => message.AppendLine($"RecipeName: {x.Name} | RecipeId: {x.Id}."));
-			return Result.Fail(message.ToString());
+			return Result.Fail(message.ToString(), 400);
 		}
 	}
 }

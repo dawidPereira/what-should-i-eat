@@ -32,7 +32,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers
 
 			_ingredientRepository.Add(ingredient);
 			_ingredientRepository.Commit();
-			return Result.Ok();
+			return Result.Ok(201);
 		}
 	}
 }

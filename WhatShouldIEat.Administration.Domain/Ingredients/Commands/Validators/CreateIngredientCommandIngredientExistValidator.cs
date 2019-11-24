@@ -10,18 +10,16 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators
 	{
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public CreateIngredientCommandIngredientExistValidator(IIngredientRepository ingredientRepository)
-		{
+		public CreateIngredientCommandIngredientExistValidator(IIngredientRepository ingredientRepository) => 
 			_ingredientRepository = ingredientRepository;
-		}
 
 		public Result Validate(CreateIngredientCommand command)
 		{
 			if(_ingredientRepository.ExistByName(command.Name))
 				return Result.Fail(FailMessages.AlreadyExist(nameof(Ingredient), 
-					nameof(CreateIngredientCommand.Name), command.Name));
+					nameof(CreateIngredientCommand.Name), command.Name), 400);
 			
-			return Result.Ok();
+			return Result.Ok(200);
 		}
 	}
 }

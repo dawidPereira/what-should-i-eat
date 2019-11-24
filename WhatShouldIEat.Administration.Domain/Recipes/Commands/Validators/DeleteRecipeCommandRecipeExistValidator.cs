@@ -1,4 +1,5 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common;
+using WhatShouldIEat.Administration.Domain.Common.Message;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
@@ -18,9 +19,10 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Validators
 		public Result Validate(DeleteRecipeCommand command)
 		{
 			if(!_recipeRepository.ExistById(command.Id))
-				Exceptions<Recipe>.ThrowNotFoundException(nameof(command.Id), command.Id.ToString());
+				Result.Fail(FailMessages.DoesNotExist(nameof(Recipe), 
+					nameof(DeleteRecipeCommand.Id), command.Id.ToString()),404);
 			
-			return Result.Ok();
+			return Result.Ok(200);
 		}
 	}
 }

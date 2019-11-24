@@ -23,9 +23,9 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Validators
 		{
 			if (_recipeRepository.ExistByName(command.Name))
 				return Result.Fail(FailMessages.AlreadyExist(nameof(Recipe),
-					nameof(CreateRecipeCommand.Name), command.Name));
+					nameof(CreateRecipeCommand.Name), command.Name), 400);
 			
-			return Result.Ok();
+			return Result.Ok(200);
 		}
 	}
 }

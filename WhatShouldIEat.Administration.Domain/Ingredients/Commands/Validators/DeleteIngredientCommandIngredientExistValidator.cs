@@ -16,9 +16,9 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators
 		{
 			if(!_ingredientRepository.ExistById(command.Id))
 				return Result.Fail(FailMessages.DoesNotExist(nameof(Ingredients), 
-					nameof(DeleteIngredientCommand.Id), command.Id.ToString()));
+					nameof(DeleteIngredientCommand.Id), command.Id.ToString()), 404);
 			
-			return Result.Ok();
+			return Result.Ok(200);
 		}
 	}
 }

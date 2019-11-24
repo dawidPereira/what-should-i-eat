@@ -2,7 +2,7 @@
 {
 	public class Result
 	{
-		private Result(bool isSuccess, string message)
+		private Result(bool isSuccess, string message, int httpCode)
 		{
 			IsSuccess = isSuccess;
 			IsFailure = !isSuccess;
@@ -12,9 +12,10 @@
 		public string Message { get; }
 		public bool IsFailure { get; }
 		public bool IsSuccess { get; }
+		public string HttpCode { get; }
 
-		public static Result Fail(string message) => new Result(false, message);
+		public static Result Fail(string message, int httpCode) => new Result(false, message, httpCode);
 
-		public static Result Ok() => new Result(true, "");
+		public static Result Ok(int httpCode) => new Result(true, "", httpCode);
 	}
 }
