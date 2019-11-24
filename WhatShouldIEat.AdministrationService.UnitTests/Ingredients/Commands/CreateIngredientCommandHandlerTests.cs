@@ -3,8 +3,10 @@ using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common.Message;
+using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
@@ -17,13 +19,15 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		private CreateIngredientCommandHandler _systemUnderTest;
 		private CreateIngredientCommand _command;
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
+		private CreateIngredientCommandValidator _validator;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_command = CommandFactory.EmptyCreateIngredientCommand();
-			_systemUnderTest = new CreateIngredientCommandHandler(_ingredientRepositoryMock.Object);
+			_validator = new CreateIngredientCommandValidator(_ingredientRepositoryMock.Object);
+			_systemUnderTest = new CreateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validator);
 		}
 
 		[Test]

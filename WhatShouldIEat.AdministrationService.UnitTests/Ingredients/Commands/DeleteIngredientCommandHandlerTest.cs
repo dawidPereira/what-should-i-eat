@@ -2,8 +2,10 @@
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
@@ -11,25 +13,27 @@ using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 {
 	[TestFixture]
-	internal class RemoveIngredientCommandHandlerTest
+	internal class DeleteIngredientCommandHandlerTest
 	{
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
-		private RemoveIngredientCommand _command;
-		private RemoveIngredientCommandHandler _systemUnderTest;
+		private DeleteIngredientCommandValidator _validator;
+		private DeleteIngredientCommand _command;
+		private DeleteIngredientCommandHandler _systemUnderTest;
 		private Ingredient _ingredient;
 		
 		[SetUp]
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
-			_command = new RemoveIngredientCommand
+			_command = new DeleteIngredientCommand
 			{
 				Id = Guid.NewGuid()
 			};
 			
 			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("MyName"));
+			_validator = new DeleteIngredientCommandValidator();
 			
-			_systemUnderTest = new RemoveIngredientCommandHandler(_ingredientRepositoryMock.Object);
+			_systemUnderTest = new DeleteIngredientCommandHandler(_ingredientRepositoryMock.Object, _validator);
 		}
 
 

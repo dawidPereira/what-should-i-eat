@@ -1,15 +1,16 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Command;
-using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
+﻿using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 
 namespace WhatShouldIEat.Administration.Domain.Common.Validators
 {
-	public interface IValidator<in TCommand> where TCommand : ICommand
+	public interface IValidator<in TEntity> where TEntity : class
 	{
-		Result Validate(TCommand command);
+		Result Validate(TEntity firstEntity);
 	}
 	
-	public interface IValidator<in TCommand, in TEntity> where TCommand : ICommand where TEntity : class
+	public interface IValidator<in TEntity, in TEntity2> 
+		where TEntity : class 
+		where TEntity2 : class
 	{
-		Result Validate(TCommand command, TEntity entity);
+		Result Validate(TEntity firstEntity, TEntity2 secondEntity);
 	}
 }

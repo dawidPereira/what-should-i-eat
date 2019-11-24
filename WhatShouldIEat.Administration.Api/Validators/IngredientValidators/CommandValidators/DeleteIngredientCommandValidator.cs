@@ -3,11 +3,11 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 
 namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators
 {
-	public class RemoveIngredientCommandValidator : AbstractValidator<RemoveIngredientCommand>
+	public class DeleteIngredientCommandValidator : AbstractValidator<DeleteIngredientCommand>
 	{
-		public RemoveIngredientCommandValidator() =>
+		public DeleteIngredientCommandValidator() =>
 			RuleFor(x => x.Id)
 				.NotEmpty()
-				.WithName(ValidationMessages.NotEmpty(nameof(RemoveIngredientCommand.Id)));
+				.WithName(ValidationMessages.NotEmpty(nameof(DeleteIngredientCommand.Id)));
 	}
 }
