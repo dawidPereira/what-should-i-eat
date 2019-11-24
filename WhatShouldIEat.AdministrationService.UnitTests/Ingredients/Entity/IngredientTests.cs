@@ -34,7 +34,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		public void CalculateCaloriesPerGram_WhenCalled_ShouldReturnProperValue()
 		{
 			var result = _systemUnderTest.CalculateCalories(100);
-			result.Should().Be(600);
+			result.Should().Be(80);
 		}
 	}
 }

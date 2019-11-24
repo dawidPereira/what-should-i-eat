@@ -9,6 +9,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Repositories
 	{
 		Recipe GetById(Guid id);
 		ICollection<RecipeBasicInfo> GetBasicInfos();
+		ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId);
 		void Add(Recipe recipe);
 		void Update(Recipe recipe);
 		void Commit();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -8,6 +9,8 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
+using WhatShouldIEat.Administration.Domain.Recipes.Dtos;
+using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
@@ -16,6 +19,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 	internal class DeleteIngredientCommandHandlerTest
 	{
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
+		private Mock<IRecipeRepository> _recipeRepositoruMock;
 		private DeleteIngredientCommandValidator _validator;
 		private DeleteIngredientCommand _command;
 		private DeleteIngredientCommandHandler _systemUnderTest;
@@ -25,13 +29,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
+			_recipeRepositoruMock = new Mock<IRecipeRepository>();
 			_command = new DeleteIngredientCommand
 			{
 				Id = Guid.NewGuid()
 			};
 			
 			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("MyName"));
-			_validator = new DeleteIngredientCommandValidator();
+			_validator = new DeleteIngredientCommandValidator(_recipeRepositoruMock.Object);
 			
 			_systemUnderTest = new DeleteIngredientCommandHandler(_ingredientRepositoryMock.Object, _validator);
 		}
@@ -52,6 +57,29 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 
 			var result  = _systemUnderTest.Handle(_command);
 			result.IsSuccess.Should().BeTrue();
+		}
+
+		[Test]
+		public void GivenIngredientId_WhenIngredientIsUsedInRecipe_ShouldReturnFailure()
+		{
+			var recipeBasicInfos = new List<RecipeBasicInfo>
+			{
+				new RecipeBasicInfo
+				{
+					Name = "ExistName",
+					Id = Guid.NewGuid()
+				}
+			};
+			
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
+				.Returns(_ingredient);
+			_recipeRepositoruMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Guid>()))
+				.Returns(recipeBasicInfos);
+
+			var result = _systemUnderTest.Handle(_command);
+			result.IsFailure.Should().BeTrue();
+			result.Message.Should()
+				.Contain("Ingredient cannot be deleted. Ingredient is used in following recipes:");
 		}
 	}
 }
