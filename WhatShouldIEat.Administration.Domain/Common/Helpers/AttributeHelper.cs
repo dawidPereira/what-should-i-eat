@@ -6,8 +6,8 @@ namespace WhatShouldIEat.Administration.Domain.Common.Helpers
 {
 	public static class AttributeHelper<T>
 	{
-		public static TA GetAttribute<TA>(T attributeOwner) where TA : MacroNutrientAttribute
-			=> Attribute.GetCustomAttribute(ForValue(attributeOwner), typeof(TA)) as TA;
+		public static TAttribute GetAttribute<TAttribute>(T attributeOwner) where TAttribute : MacroNutrientAttribute
+			=> Attribute.GetCustomAttribute(ForValue(attributeOwner), typeof(TAttribute)) as TAttribute;
 
 		private static MemberInfo ForValue(T attributeOwner)
 			=> typeof(T).GetField(Enum.GetName(typeof(T), attributeOwner));

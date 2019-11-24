@@ -1,7 +1,7 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common.Command;
+using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands.Validators;
+using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
 
 namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Handlers
@@ -9,18 +9,18 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Handlers
 	public class UpdateRecipeCommandHandler : ICommandHandler<UpdateRecipeCommand>
 	{
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly UpdateBaseRecipeCommandValidator _validator;
+		private readonly IValidator<UpdateRecipeCommand, Recipe> _validator;
 
-		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository,  IIngredientRepository ingredientRepository)
+		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository, IValidator<UpdateRecipeCommand, Recipe> validator)
 		{
 			_recipeRepository = recipeRepository;
-			_validator = new UpdateBaseRecipeCommandValidator(ingredientRepository, _recipeRepository);;
+			_validator = validator;
 		}
 
 		public Result Handle(UpdateRecipeCommand command)
 		{
 			var recipe = _recipeRepository.GetById(command.Id);
-			var validationResult = _validator.Validate(recipe, command);
+			var validationResult = _validator.Validate(command, recipe);
 			if (validationResult.IsFailure)
 				return validationResult;
 

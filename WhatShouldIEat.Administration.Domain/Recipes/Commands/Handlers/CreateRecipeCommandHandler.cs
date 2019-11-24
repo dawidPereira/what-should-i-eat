@@ -1,7 +1,6 @@
 ﻿using WhatShouldIEat.Administration.Domain.Common.Command;
+using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands.Validators;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
 
@@ -11,12 +10,12 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Handlers
 	public class CreateRecipeCommandHandler : ICommandHandler<CreateRecipeCommand>
 	{
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly CreateBaseRecipeCommandValidator _validator;
+		private readonly IValidator<CreateRecipeCommand> _validator;
 
-		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository, IIngredientRepository ingredientRepository)
+		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository, IValidator<CreateRecipeCommand> validator)
 		{
 			_recipeRepository = recipeRepository;
-			_validator = new CreateBaseRecipeCommandValidator(ingredientRepository, _recipeRepository);
+			_validator = validator;
 		}
 
 		public Result Handle(CreateRecipeCommand command)
@@ -31,6 +30,5 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Handlers
 			_recipeRepository.Commit();
 			return Result.Ok();
 		}
-		
 	}
 }
