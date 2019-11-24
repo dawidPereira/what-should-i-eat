@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 

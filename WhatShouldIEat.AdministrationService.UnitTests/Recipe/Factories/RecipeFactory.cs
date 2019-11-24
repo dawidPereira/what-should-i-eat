@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands;
+using WhatShouldIEat.Administration.Domain.Recipes.Commands.CreateRecipeCommand;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 

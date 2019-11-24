@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using WhatShouldIEat.Administration.Domain.Ingredients.Dtos;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries.Handlers;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfosQuery;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
@@ -14,8 +13,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 	internal class GetIngredientsBasicInfoQueryHandlerTests
 	{
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
-		private GetIngredientsBasicInfoQuery _query;
-		private GetIngredientsBasicInfoQueryHandler _systemUnderTests;
+		private GetIngredientsBasicInfosQuery _query;
+		private GetIngredientsBasicInfosQueryHandler _systemUnderTests;
 		private List<IngredientBasicInfo> _ingredientBasicInfos;
 		
 		[SetUp]
@@ -28,8 +27,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 				new IngredientBasicInfo {Name = "FirstName", Id = Guid.NewGuid()},
 				new IngredientBasicInfo {Name = "SecondName", Id = Guid.NewGuid()}
 			};
-			_query = new GetIngredientsBasicInfoQuery();
-			_systemUnderTests = new GetIngredientsBasicInfoQueryHandler(_ingredientRepositoryMock.Object);
+			_query = new GetIngredientsBasicInfosQuery();
+			_systemUnderTests = new GetIngredientsBasicInfosQueryHandler(_ingredientRepositoryMock.Object);
 		}
 
 		[Test]

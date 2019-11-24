@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using WhatShouldIEat.Administration.Domain.Ingredients.Dtos;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfosQuery;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Repositories
 {

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands;
-using WhatShouldIEat.Administration.Domain.Recipes.Dtos;
+using WhatShouldIEat.Administration.Domain.Recipes.Commands.CreateRecipeCommand;
+using WhatShouldIEat.Administration.Domain.Recipes.Commands.UpdateRecipeCommand;
+using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipeQuery;
 
 namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 {

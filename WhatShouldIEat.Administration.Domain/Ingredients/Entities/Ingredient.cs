@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Dtos;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientQuery;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities

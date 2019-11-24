@@ -5,11 +5,10 @@ using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Handlers;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Validators;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.DeleteIngredientCommand;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.Recipes.Dtos;
+using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfosQuery;
 using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 

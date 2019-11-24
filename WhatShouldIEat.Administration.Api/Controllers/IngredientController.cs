@@ -5,9 +5,13 @@ using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandV
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.QueryValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
-using WhatShouldIEat.Administration.Domain.Ingredients.Dtos;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.DeleteIngredientCommand;
+using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientQuery;
+using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfosQuery;
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {
@@ -67,7 +71,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[HttpGet]
 		[Route("/basicInfos")]
 		[ProducesResponseType(typeof(List<IngredientBasicInfo>), 200)]
-		public IActionResult GetBasicInfos(GetIngredientsBasicInfoQuery query) => 
+		public IActionResult GetBasicInfos(GetIngredientsBasicInfosQuery query) => 
 			Ok(_mediator.Query(query));
 
 
