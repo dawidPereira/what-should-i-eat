@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using WhatShouldIEat.Administration.Domain.Recipes.Dtos;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 
 namespace WhatShouldIEat.Administration.Domain.Recipes.Repositories
@@ -6,6 +8,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Repositories
 	public interface IRecipeRepository
 	{
 		Recipe GetById(Guid id);
+		ICollection<RecipeBasicInfo> GetBasicInfos();
 		void Add(Recipe recipe);
 		void Update(Recipe recipe);
 		void Commit();

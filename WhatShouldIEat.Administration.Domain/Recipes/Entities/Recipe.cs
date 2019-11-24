@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands;
+using WhatShouldIEat.Administration.Domain.Recipes.Dtos;
 
 namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 {
@@ -41,6 +42,15 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 			RecipeDetails = command.RecipeDetails;
 			RecipeIngredients = command.RecipeIngredients;
 		}
+
+		public RecipeDto ToDto() => new RecipeDto
+			{
+				Id = Id,
+				Name = Name,
+				Description = Description,
+				RecipeDetails = RecipeDetails,
+				RecipeIngredients = RecipeIngredients
+			};
 
 		public double CalculateCalories() => 
 			RecipeIngredients.Sum(x => x.Ingredient.CalculateCalories(x.Grams));
