@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.CreateIngredientCommand;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.UpdateIngredientCommand;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
