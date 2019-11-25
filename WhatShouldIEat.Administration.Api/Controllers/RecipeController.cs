@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WhatShouldIEat.Administration.Api.Validators.RecipeValidators;
+using WhatShouldIEat.Administration.Api.Validators.RecipeValidators.CommandValidators;
 using WhatShouldIEat.Administration.Api.Validators.RecipeValidators.QueryValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Messages;
@@ -21,10 +22,12 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 	public class RecipeController : ControllerBase
 	{
 		private readonly IMediator _mediator;
+		private readonly IRecipeValidatorsFacade _validators;
 
-		public RecipeController(IMediator mediator)
+		public RecipeController(IMediator mediator, IRecipeValidatorsFacade validators)
 		{
 			_mediator = mediator;
+			_validators = validators;
 		}
 
 		/// <summary>
@@ -44,7 +47,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(404)]
 		public IActionResult GetRecipe([FromRoute] GetRecipeQuery query)
 		{
-			var validationResult = new GetRecipeQueryValidator().Validate(query);
+			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
@@ -93,7 +96,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(404)]
 		public IActionResult CreateRecipe([FromBody] CreateRecipeCommand command)
 		{
-			var validationResult = new CreateRecipeCommandValidator().Validate(command);
+			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
@@ -127,7 +130,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(404)]
 		public IActionResult UpdateRecipe([FromBody] UpdateRecipeCommand command)
 		{
-			var validationResult = new UpdateRecipeCommandValidator().Validate(command);
+			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
@@ -160,7 +163,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(404)]
 		public IActionResult DeleteRecipe([FromRoute] DeleteRecipeCommand command)
 		{
-			var validationResult = new DeleteRecipeCommandValidator().Validate(command);
+			var validationResult = _validators.ValidateDelete(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 

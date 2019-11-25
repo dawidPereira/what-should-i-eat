@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 
-namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators
+namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators.CommandValidators
 {
 	public class CreateRecipeCommandValidator : AbstractValidator<CreateRecipeCommand>
 	{

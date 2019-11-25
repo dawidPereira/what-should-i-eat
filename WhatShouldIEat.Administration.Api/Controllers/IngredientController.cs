@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators;
-using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.QueryValidators;
+using WhatShouldIEat.Administration.Api.Validators.IngredientValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Messages;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfos;
 
@@ -21,10 +18,12 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 	public class IngredientController : ControllerBase
 	{
 		private readonly IMediator _mediator;
+		private readonly IngredientValidatorsFacade _validators;
 
-		public IngredientController(IMediator mediator)
+		public IngredientController(IMediator mediator, IngredientValidatorsFacade validators)
 		{
 			_mediator = mediator;
+			_validators = validators;
 		}
 
 		/// <summary>
@@ -44,7 +43,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(404)]
 		public IActionResult GetIngredient([FromRoute] GetIngredientQuery query)
 		{
-			var validationResult = new GetIngredientQueryValidator().Validate(query);
+			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 			
@@ -93,7 +92,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(400)]
 		public IActionResult CreateIngredient([FromBody] CreateIngredientCommand command)
 		{
-			var validationResult = new CreateIngredientCommandValidator().Validate(command);
+			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
@@ -123,7 +122,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(400)]
 		public IActionResult UpdateIngredient([FromBody] UpdateIngredientCommand command)
 		{
-			var validationResult = new UpdateIngredientCommandValidator().Validate(command);
+			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
@@ -156,7 +155,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[ProducesResponseType(404)]
 		public IActionResult DeleteIngredient([FromRoute] DeleteIngredientCommand command)
 		{
-			var validationResult = new DeleteIngredientCommandValidator().Validate(command);
+			var validationResult = _validators.ValidateDelete(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
