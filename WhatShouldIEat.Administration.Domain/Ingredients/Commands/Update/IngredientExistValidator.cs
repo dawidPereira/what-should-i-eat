@@ -1,4 +1,4 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Message;
+﻿using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
@@ -16,10 +16,10 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update
 		public Result Validate(UpdateIngredientCommand command)
 		{
 			if(!_ingredientRepository.ExistById(command.Id))
-				return Result.Fail(FailMessages.DoesNotExist(nameof(Ingredient), 
-					nameof(UpdateIngredientCommand.Id), command.Id.ToString()), 404);
+				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient), 
+					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 			
-			return Result.Ok(200);
+			return Result.Ok();
 		}
 	}
 }

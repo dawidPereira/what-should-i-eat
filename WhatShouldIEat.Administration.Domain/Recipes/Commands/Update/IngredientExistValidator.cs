@@ -1,4 +1,4 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Message;
+﻿using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
@@ -20,10 +20,10 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Update
 			{
 				var exist = _ingredientRepository.ExistById(commandRecipeIngredient.IngredientId);
 				if (!exist)
-					Result.Fail(FailMessages.DoesNotExist(nameof(Ingredient), 
-						nameof(UpdateIngredientCommand.Id), command.Id.ToString()),404);
+					Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient), 
+						nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 			}
-			return Result.Ok(200);
+			return Result.Ok();
 		}
 	}
 }

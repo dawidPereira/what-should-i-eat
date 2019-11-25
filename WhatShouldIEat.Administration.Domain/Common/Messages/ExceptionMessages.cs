@@ -1,4 +1,4 @@
-﻿namespace WhatShouldIEat.Administration.Domain.Common.Message
+﻿namespace WhatShouldIEat.Administration.Domain.Common.Messages
 {
 	public static class ExceptionMessages
 	{

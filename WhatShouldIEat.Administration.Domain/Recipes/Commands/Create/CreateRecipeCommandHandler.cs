@@ -32,7 +32,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Create
 			
 			_recipeRepository.Add(recipe);
 			_recipeRepository.Commit();
-			return Result.Ok(200);
+			return Result.Ok();
 		}
 	}
 }

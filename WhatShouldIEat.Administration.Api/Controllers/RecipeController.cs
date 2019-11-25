@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WhatShouldIEat.Administration.Api.Validators.RecipeValidators;
 using WhatShouldIEat.Administration.Api.Validators.RecipeValidators.QueryValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
+using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Delete;
@@ -89,6 +90,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[Route("/create")]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(400)]
+		[ProducesResponseType(404)]
 		public IActionResult CreateRecipe([FromBody] CreateRecipeCommand command)
 		{
 			var validationResult = new CreateRecipeCommandValidator().Validate(command);
@@ -100,7 +102,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 			if (!result.IsFailure)
 				return Created($"api/recipe{command.Id.ToString()}", result);
 
-			if (result.HttpCode.Equals("404"))
+			if (result.ResultCode.Equals(ResultCode.NotFound))
 				return NotFound(result);
 
 			return BadRequest(result);
@@ -133,7 +135,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 
 			if (!result.IsFailure) return Ok(result);
 
-			if (result.HttpCode.Equals("404"))
+			if (result.ResultCode.Equals(ResultCode.NotFound))
 				return NotFound(result);
 
 			return BadRequest(result);

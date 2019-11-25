@@ -31,7 +31,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete
 
 			_ingredientRepository.Remove(ingredient);
 			_ingredientRepository.Commit();
-			return  Result.Ok(200);
+			return  Result.Ok();
 		}
 	}
 }

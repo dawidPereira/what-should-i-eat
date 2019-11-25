@@ -1,4 +1,4 @@
-﻿using WhatShouldIEat.Administration.Domain.Common.Message;
+﻿using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
@@ -18,10 +18,10 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Update
 		{
 			var recipe = _recipeRepository.GetById(command.Id);
 			if (recipe.Name != command.Name && _recipeRepository.ExistByName(command.Name))
-				return Result.Fail(FailMessages.AlreadyExist(nameof(Recipe),
-					nameof(CreateRecipeCommand.Name), command.Name), 400);
+				return Result.Fail(ResultCode.BadRequest, FailMessages.AlreadyExist(nameof(Recipe),
+					nameof(CreateRecipeCommand.Name), command.Name));
 			
-			return Result.Ok(200);
+			return Result.Ok();
 		}
 	}
 }

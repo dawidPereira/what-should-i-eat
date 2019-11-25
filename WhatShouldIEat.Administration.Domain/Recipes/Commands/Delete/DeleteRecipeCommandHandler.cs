@@ -31,7 +31,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Delete
 			
 			_recipeRepository.Delete(recipe);
 			_recipeRepository.Commit();
-			return Result.Ok(200);
+			return Result.Ok();
 		}
 	}
 }

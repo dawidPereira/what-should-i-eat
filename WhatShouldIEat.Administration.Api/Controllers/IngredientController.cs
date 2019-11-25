@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators;
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.QueryValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
+using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
@@ -120,7 +121,6 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		[Route("/update")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
-		[ProducesResponseType(404)]
 		public IActionResult UpdateIngredient([FromBody] UpdateIngredientCommand command)
 		{
 			var validationResult = new UpdateIngredientCommandValidator().Validate(command);
@@ -131,7 +131,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 
 			if (!result.IsFailure) return Ok(result);
 			
-			if (result.HttpCode.Equals("404"))
+			if (result.ResultCode.Equals(ResultCode.NotFound))
 				return NotFound(result);
 			
 			return BadRequest(result);
@@ -164,7 +164,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 
 			if (!result.IsFailure) return Ok(result);
 			
-			if (result.HttpCode.Equals("404"))
+			if (result.ResultCode.Equals(ResultCode.NotFound))
 				return NotFound(result);
 			
 			return BadRequest(result);
