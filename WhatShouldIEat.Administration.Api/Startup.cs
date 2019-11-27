@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using WhatShouldIEat.Administration.Api.Validators;
+using WhatShouldIEat.Administration.Domain.Common.Mediator;
+using WhatShouldIEat.Administration.Domain.Common.Validators;
+using WhatShouldIEat.Aministration.Infrastructure.Repositories;
 
 namespace WhatShouldIEat.Administration.Api
 {
@@ -26,6 +23,10 @@ namespace WhatShouldIEat.Administration.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
+			services.AddMediator();
+			services.AddRequestValidators();
+			services.AddDomainValidators();
+			services.AddRepositories();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

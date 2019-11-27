@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WhatShouldIEat.Administration.Domain\WhatShouldIEat.Administration.Domain.csproj" />
+      <ProjectReference Include="..\WhatShouldIEat.Aministration.Infrastructure\WhatShouldIEat.Aministration.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
