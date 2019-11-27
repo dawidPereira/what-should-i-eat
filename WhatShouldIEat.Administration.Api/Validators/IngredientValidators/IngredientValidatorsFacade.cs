@@ -8,22 +8,19 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient;
 
 namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators
 {
-	public class IngredientValidatorsFacade
+	public class IngredientValidatorsFacade : IIngredientValidatorsFacade
 	{
 		private readonly CreateIngredientCommandValidator _createValidator;
 		private readonly DeleteIngredientCommandValidator _deleteValidator;
 		private readonly UpdateIngredientCommandValidator _updateValidator;
 		private readonly GetIngredientQueryValidator _getValidator;
 
-		public IngredientValidatorsFacade(CreateIngredientCommandValidator createValidator,
-			DeleteIngredientCommandValidator deleteValidator,
-			UpdateIngredientCommandValidator updateValidator,
-			GetIngredientQueryValidator getValidator)
+		public IngredientValidatorsFacade()
 		{
-			_createValidator = createValidator;
-			_deleteValidator = deleteValidator;
-			_updateValidator = updateValidator;
-			_getValidator = getValidator;
+			_createValidator = new CreateIngredientCommandValidator();
+			_deleteValidator = new DeleteIngredientCommandValidator();
+			_updateValidator = new UpdateIngredientCommandValidator();
+			_getValidator = new GetIngredientQueryValidator();
 		}
 		
 		public ValidationResult ValidateCreate(CreateIngredientCommand command) 

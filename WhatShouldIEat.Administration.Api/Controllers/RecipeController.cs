@@ -42,7 +42,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Recipe found</response>
 		/// <response code="404">Given recipe was not found</response>
 		[HttpGet]
-		[Route("/{recipeId")]
+		[Route("/test/{recipeId}")]
 		[ProducesResponseType(typeof(Recipe), 200)]
 		[ProducesResponseType(404)]
 		public IActionResult GetRecipe([FromRoute] GetRecipeQuery query)

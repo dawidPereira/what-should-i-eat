@@ -18,9 +18,9 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 	public class IngredientController : ControllerBase
 	{
 		private readonly IMediator _mediator;
-		private readonly IngredientValidatorsFacade _validators;
+		private readonly IIngredientValidatorsFacade _validators;
 
-		public IngredientController(IMediator mediator, IngredientValidatorsFacade validators)
+		public IngredientController(IMediator mediator, IIngredientValidatorsFacade validators)
 		{
 			_mediator = mediator;
 			_validators = validators;
@@ -38,7 +38,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Ingredient found</response>
 		/// <response code="404">Given ingredient was not found</response>
 		[HttpGet]
-		[Route("/{ingredientId")]
+		[Route("/{ingredientId}")]
 		[ProducesResponseType(typeof(Ingredient), 200)]
 		[ProducesResponseType(404)]
 		public IActionResult GetIngredient([FromRoute] GetIngredientQuery query)

@@ -15,15 +15,12 @@ namespace WhatShouldIEat.Administration.Api.Validators.RecipeValidators
 		private readonly UpdateRecipeCommandValidator _updateValidator;
 		private readonly GetRecipeQueryValidator _getValidator;
 
-		public RecipeValidatorsFacade(CreateRecipeCommandValidator createValidator,
-			DeleteRecipeCommandValidator deleteValidator,
-			UpdateRecipeCommandValidator updateValidator,
-			GetRecipeQueryValidator getValidator)
+		public RecipeValidatorsFacade()
 		{
-			_createValidator = createValidator;
-			_deleteValidator = deleteValidator;
-			_updateValidator = updateValidator;
-			_getValidator = getValidator;
+			_createValidator = new CreateRecipeCommandValidator();
+			_deleteValidator = new DeleteRecipeCommandValidator();
+			_updateValidator = new UpdateRecipeCommandValidator();
+			_getValidator = new GetRecipeQueryValidator();
 		}
 
 		public ValidationResult ValidateCreate(CreateRecipeCommand command) 
