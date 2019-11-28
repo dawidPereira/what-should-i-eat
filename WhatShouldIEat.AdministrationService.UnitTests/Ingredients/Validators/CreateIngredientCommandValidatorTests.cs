@@ -7,6 +7,7 @@ using WhatShouldIEat.Administration.Api.Validators;
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
+using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
@@ -35,56 +36,41 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 		}
 		
 		[Test]
-		public void GivenCommand_WithoutAllergens_ShouldBeNotValidWithProperErrorMessage()
-		{
-			_command.Allergens = null;
-			var result = _systemUnderTest.Validate(_command);
-			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("Allergens")))
-				.Should().Be(1);
-		}
-		
-		[Test]
 		public void GivenCommandWithoutMacroNutrients_WhenRequired_ShouldBeNotValidWithProperErrorMessage()
 		{
-			_command.MacroNutrients = null;
+			_command.MacroNutrientsParticipation = null;
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("MacroNutrients")))
-				.Should().Be(2);
-		}
-		
-		[Test]
-		public void GivenCommandWithoutRequirements_WhenRequired_ShouldBeNotValidWithProperErrorMessage()
-		{
-			_command.MacroNutrients = null;
-			var result = _systemUnderTest.Validate(_command);
-			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("Requirement")))
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.MacroNutrientsParticipation))))
 				.Should().Be(1);
 		}
+		
 		
 		[Test]
 		public void GivenCommandWithMacroNutrientsWithNegativeGrams_WhenRequired_ShouldBeNotValidWithProperErrorMessage()
 		{
-			_command.MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>
+			_command.MacroNutrientsParticipation = new List<IngredientMacroNutrient>
 			{
-				new Tuple<MacroNutrient, double>(MacroNutrient.Carbohydrate, -22)
+				new IngredientMacroNutrient
+				{
+					MacroNutrient = MacroNutrient.Carbohydrate, ParticipationInIngredient = -22
+				}
 			};
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.GreaterThan("Grams", 0)))
+			result.Errors.Count(x => x.ErrorMessage.Equals(
+					ValidationMessages.GreaterThan(nameof(IngredientMacroNutrient.ParticipationInIngredient), 0)))
 				.Should().Be(1);
 		}
 		
 		[Test]
 		public void GivenCommandWithEmptyMacroNutrients_WhenRequired_ShouldBeNotValidWithProperErrorMessage()
 		{
-			_command.MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>();
+			_command.MacroNutrientsParticipation = new List<IngredientMacroNutrient>();
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();
-			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty("MacroNutrients")))
-				.Should().Be(2);
+			result.Errors.Count(x => x.ErrorMessage.Equals(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.MacroNutrientsParticipation))))
+				.Should().Be(1);
 		}
 	}
 }

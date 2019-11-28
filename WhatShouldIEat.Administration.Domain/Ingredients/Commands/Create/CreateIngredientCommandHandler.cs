@@ -28,7 +28,8 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create
 					return validationResult;
 			}
 
-			var ingredient = Ingredient.Create(command);
+			var ingredient = Ingredient.Create(
+				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsParticipation);
 
 			_ingredientRepository.Add(ingredient);
 			_ingredientRepository.Commit();

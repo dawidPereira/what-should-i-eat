@@ -1,9 +1,13 @@
-﻿namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
+﻿using System;
+
+namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
+	[Flags]
 	public enum Requirement
 	{
-		ForVegan,
-		ForVegetarian,
-		Ecological
+		None = 0,
+		ForVegan = 1 << 1,
+		ForVegetarian = 1 << 2,
+		Ecological = 1 << 3
 	}
 }

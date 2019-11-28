@@ -1,9 +1,13 @@
-﻿namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
+﻿using System;
+
+namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
+	[Flags]
 	public enum Allergen
 	{
-		Gluten,
-		Milk,
-		Nuts
+		None = 0,
+		Gluten = 1 << 1,
+		Milk = 1 << 2,
+		Nuts = 1 << 3
 	}
 }

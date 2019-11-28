@@ -17,36 +17,30 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 			{
 				Id = Guid.NewGuid(),
 				Name = "Ingredient",
-				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
-				Allergens = new HashSet<Allergen>(),
-				Requirements = new HashSet<Requirement>()
+				MacroNutrientsParticipation = new List<IngredientMacroNutrient>(),
+				Allergens = Allergen.None,
+				Requirements = Requirement.None
 			};
 		}
 
 		internal static CreateIngredientCommand CreateValidIngredientFactory(string name)
 		{
-			var macroNutrients = new HashSet<Tuple<MacroNutrient, double>>
+			var macroNutrientsParticipation  = new List<IngredientMacroNutrient>();
 			{
-				new Tuple<MacroNutrient, double>(MacroNutrient.Carbohydrate, 0.2)
-			};
+				var ingredientMacroNutrient = new IngredientMacroNutrient
+				{
+					MacroNutrient = MacroNutrient.Carbohydrate, ParticipationInIngredient = 0.2
+				};
+			}
 
-			var allergens = new HashSet<Allergen>
-			{
-				Allergen.Gluten,
-				Allergen.Milk,
-			};
-
-			var requirements = new HashSet<Requirement>
-			{
-				Requirement.Ecological,
-				Requirement.ForVegan
-			};
+			var allergens =  Allergen.Gluten | Allergen.Milk;
+			var requirements = Requirement.Ecological | Requirement.ForVegan;
 
 			return new CreateIngredientCommand
 			{
 				Id = Guid.NewGuid(),
 				Name = name,
-				MacroNutrients = macroNutrients,
+				MacroNutrientsParticipation = macroNutrientsParticipation,
 				Allergens = allergens,
 				Requirements = requirements
 			};
@@ -58,9 +52,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 			{
 				Id = Guid.NewGuid(),
 				Name = "Ingredient",
-				MacroNutrients = new HashSet<Tuple<MacroNutrient, double>>(),
-				Allergens = new HashSet<Allergen>(),
-				Requirements = new HashSet<Requirement>()
+				Allergens = Allergen.None,
+				Requirements = Requirement.None,
+				MacroNutrientsParticipation = new List<IngredientMacroNutrient>()
 			};
 		}
 	}

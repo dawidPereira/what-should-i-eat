@@ -28,7 +28,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_command = CommandFactory.EmptyUpdateIngredientCommand();
-			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("IngredientName"));
+			var command = CommandFactory.CreateValidIngredientFactory("MyName");
+            _ingredient = Ingredient.Create(
+	            command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsParticipation);
 			_validators = new List<ICommandValidator<UpdateIngredientCommand>>
 			{
 				new IngredientExistValidator(_ingredientRepositoryMock.Object),

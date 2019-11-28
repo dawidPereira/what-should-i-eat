@@ -33,8 +33,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			{
 				Id = Guid.NewGuid()
 			};
-			
-			_ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("MyName"));
+			var command = CommandFactory.CreateValidIngredientFactory("MyName");
+			_ingredient = Ingredient.Create(
+				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsParticipation);
 			_validators = new List<ICommandValidator<DeleteIngredientCommand>>
 			{
 				new IngredientExistValidator(_ingredientRepositoryMock.Object),

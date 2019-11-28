@@ -13,8 +13,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		private Ingredient _systemUnderTest;
 		
 		[SetUp]
-		public void SetUp() => 
-			_systemUnderTest = Ingredient.Create(CommandFactory.CreateValidIngredientFactory(IngredientName));
+		public void SetUp()
+		{
+			var command = CommandFactory.CreateValidIngredientFactory(IngredientName);
+			_systemUnderTest = Ingredient.Create(
+				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsParticipation);
+		}
+
+		
 
 		[Test]
 		public void GivenProperIngredient_WhenToDtoCalled_MapIngredientToDto()
@@ -26,7 +32,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 				result.Name.Should().Be(_systemUnderTest.Name);
 				result.Allergens.Should().BeEquivalentTo(_systemUnderTest.Allergens);
 				result.Requirements.Should().BeEquivalentTo(_systemUnderTest.Requirements);
-				result.MacroNutrientsPerGram.Should().BeEquivalentTo(_systemUnderTest.MacroNutrientsPerGram);
+				result.MacroNutrientsParticipation.Should().BeEquivalentTo(_systemUnderTest.MacroNutrientsParticipation);
 			}
 		}
 		

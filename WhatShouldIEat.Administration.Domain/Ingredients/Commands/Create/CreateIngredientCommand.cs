@@ -10,8 +10,8 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
-		public HashSet<Allergen> Allergens { get; set; }
-		public HashSet<Requirement> Requirements { get; set; }
-		public HashSet<Tuple<MacroNutrient, double>> MacroNutrients { get; set; }
+		public Allergen Allergens { get; set; }
+		public Requirement Requirements { get; set; }
+		public ICollection<IngredientMacroNutrient> MacroNutrientsParticipation { get; set; }
 	}
 }

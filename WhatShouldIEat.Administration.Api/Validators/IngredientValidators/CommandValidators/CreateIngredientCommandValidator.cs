@@ -16,24 +16,12 @@ namespace WhatShouldIEat.Administration.Api.Validators.IngredientValidators.Comm
 				.NotNull()
 				.WithMessage(ValidationMessages.NotNull(nameof(CreateIngredientCommand.Name)));
 			
-			RuleFor(x => x.Allergens)
+			RuleFor(x => x.MacroNutrientsParticipation)
 				.NotEmpty()
-				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.Allergens)));
-			
-			RuleFor(x => x.Requirements)
-				.NotEmpty()
-				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.Requirements)));
-			
-			RuleFor(x => x.MacroNutrients)
-				.NotEmpty()
-				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.MacroNutrients)));
-			
-			RuleFor(x => x.MacroNutrients)
-				.NotEmpty()
-				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.MacroNutrients)));
-			
-			RuleForEach(x => x.MacroNutrients).
-				SetValidator(new MacroNutrientTupleValidator());
+				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateIngredientCommand.MacroNutrientsParticipation)));
+
+			RuleForEach(x => x.MacroNutrientsParticipation).
+				SetValidator(new MacroNutrientsParticipationValidator());
 		}
 	}
 }
