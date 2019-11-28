@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WhatShouldIEat.Administration.Api.Validators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
-using WhatShouldIEat.Aministration.Infrastructure.Repositories;
+using WhatShouldIEat.Administration.Infrastructure.DbContexts;
+using WhatShouldIEat.Administration.Infrastructure.Repositories;
 
 namespace WhatShouldIEat.Administration.Api
 {
@@ -22,11 +24,18 @@ namespace WhatShouldIEat.Administration.Api
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllers();
+			services
+				.AddDbContext<AdministrationDbContext>(options =>
+					options.UseSqlServer(Configuration.GetConnectionString("WhatShouldIEat.Administration"),
+						b => b.MigrationsAssembly("WhatShouldIEat.Administration.Infrastructure")
+					));
+			
 			services.AddMediator();
-			services.AddRequestValidators();
-			services.AddDomainValidators();
+			services.AddControllers();
 			services.AddRepositories();
+			services.AddDomainValidators();
+			services.AddRequestValidators();
+			
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,6 +8,10 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 {
 	public class Recipe
 	{
+		private Recipe()
+		{
+		}
+
 		private Recipe(Guid id,
 			string name,
 			string description,
@@ -22,7 +26,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 		}
 
 		public Guid Id { get; private set; }
-		public string Name { get;  private set; }
+		public string Name { get; private set; }
 		public string Description { get; private set; }
 		public RecipeDetails RecipeDetails { get; private set; }
 		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
@@ -32,7 +36,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 			string name,
 			string description,
 			RecipeDetails recipeDetails,
-			ICollection<RecipeIngredient> recipeIngredients) => 
+			ICollection<RecipeIngredient> recipeIngredients) =>
 			new Recipe(id, name, description, recipeDetails, recipeIngredients);
 
 		public void Update(UpdateRecipeCommand command)
@@ -45,15 +49,15 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 		}
 
 		public RecipeDto ToDto() => new RecipeDto
-			{
-				Id = Id,
-				Name = Name,
-				Description = Description,
-				RecipeDetails = RecipeDetails,
-				RecipeIngredients = RecipeIngredients
-			};
+		{
+			Id = Id,
+			Name = Name,
+			Description = Description,
+			RecipeDetails = RecipeDetails,
+			RecipeIngredients = RecipeIngredients
+		};
 
-		public double CalculateCalories() => 
+		public double CalculateCalories() =>
 			RecipeIngredients.Sum(x => x.Ingredient.CalculateCalories(x.Grams));
 	}
 }

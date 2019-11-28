@@ -5,6 +5,9 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 {
 	public class RecipeIngredient
 	{
+		private RecipeIngredient()
+		{
+		}
 		public RecipeIngredient(Guid ingredientId, Guid recipeId, double grams, Ingredient ingredient = null)
 		{
 			IngredientId = ingredientId;
@@ -17,6 +20,6 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 		public Ingredient Ingredient { get; private set; }
 		public Guid RecipeId { get; private set; }
 		public double Grams { get; private set; }
-		private Recipe Recipe { get; set; }
+		public Recipe Recipe { get; private set; }
 	}
 }

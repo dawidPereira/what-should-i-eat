@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient;
@@ -11,24 +10,28 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
 	public class Ingredient
 	{
+		private Ingredient()
+		{
+		}
+		
 		private  Ingredient(Guid id,
 			string name,
 			Allergen allergens,
 			Requirement requirements,
-			ICollection<IngredientMacroNutrient> macroNutrientsParticipation)
+			ICollection<IngredientMacroNutrient> macroNutrientsParticipants)
 		{
 			Name = name;
 			Id = id;
 			Allergens = allergens;
 			Requirements = requirements;
-			MacroNutrientsParticipation = macroNutrientsParticipation;
+			MacroNutrientsParticipants = macroNutrientsParticipants;
 		}
 
 		public string Name { get; private set; }
 		public Guid Id { get; private set; }
 		public Allergen Allergens { get; private set; }
 		public Requirement Requirements { get; private set; }
-		public ICollection<IngredientMacroNutrient> MacroNutrientsParticipation { get; private set; }
+		public ICollection<IngredientMacroNutrient> MacroNutrientsParticipants { get; private set; }
 		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
 
 		public static Ingredient Create(
@@ -40,14 +43,14 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 			new Ingredient(id, name, allergens, requirements, macroNutrientsParticipation);
 
 		public double CalculateCalories(double grams) =>
-			MacroNutrientsParticipation.Sum(x => x.MacroNutrient.CalculateCalories(x.ParticipationInIngredient * grams));
+			MacroNutrientsParticipants.Sum(x => x.MacroNutrient.CalculateCalories(x.ParticipationInIngredient * grams));
 
 		public void Update(UpdateIngredientCommand command)
 		{
 			Name = command.Name;
 			Allergens = command.Allergens;
 			Requirements = command.Requirements;
-			MacroNutrientsParticipation = command.MacroNutrientsParticipation;
+			MacroNutrientsParticipants = command.MacroNutrientsParticipation;
 		}
 
 		public IngredientDto ToDto() => new IngredientDto 
@@ -56,7 +59,7 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 			Name = Name,
 			Allergens = Allergens,
 			Requirements = Requirements,
-			MacroNutrientsParticipation = MacroNutrientsParticipation
+			MacroNutrientsParticipation = MacroNutrientsParticipants
 		};
 	}
 }

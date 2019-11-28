@@ -32,7 +32,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 				result.Name.Should().Be(_systemUnderTest.Name);
 				result.Allergens.Should().BeEquivalentTo(_systemUnderTest.Allergens);
 				result.Requirements.Should().BeEquivalentTo(_systemUnderTest.Requirements);
-				result.MacroNutrientsParticipation.Should().BeEquivalentTo(_systemUnderTest.MacroNutrientsParticipation);
+				result.MacroNutrientsParticipation.Should().BeEquivalentTo(_systemUnderTest.MacroNutrientsParticipants);
 			}
 		}
 		
