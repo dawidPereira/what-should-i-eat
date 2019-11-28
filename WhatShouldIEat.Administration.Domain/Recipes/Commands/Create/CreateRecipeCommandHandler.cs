@@ -28,7 +28,8 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Create
 					return validationResult;
 			}
 			
-			var recipe = Recipe.Create(command);
+			var recipe = Recipe.Create(
+				command.Id, command.Description, command.Description, command.RecipeDetails, command.RecipeIngredients);
 			
 			_recipeRepository.Add(recipe);
 			_recipeRepository.Commit();

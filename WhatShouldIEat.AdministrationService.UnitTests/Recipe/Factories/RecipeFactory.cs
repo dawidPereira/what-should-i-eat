@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
@@ -12,7 +11,13 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe.Factories
 	{
 		internal static Administration.Domain.Recipes.Entities.Recipe Create()
 		{
-			var ingredient = Ingredient.Create(CommandFactory.CreateValidIngredientFactory("TesIngredient"));
+			var createIngredientCommand = CommandFactory.CreateValidIngredientFactory("TesIngredient");
+			var ingredient = Ingredient.Create(
+				createIngredientCommand.Id,
+				createIngredientCommand.Name,
+				createIngredientCommand.Allergens,
+				createIngredientCommand.Requirements,
+				createIngredientCommand.MacroNutrientsParticipation);
 			
 			var ingredients = new List<RecipeIngredient>
 			{
@@ -24,11 +29,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe.Factories
 				Id = Guid.NewGuid(),
 				Name = "TestRecipe",
 				Description = string.Empty,
-				RecipeDetails = new RecipeDetails(1, 1, 1, new List<MealType> {MealType.Breakfast}),
+				RecipeDetails = new RecipeDetails(1, 1, 1, MealType.Breakfast),
 				RecipeIngredients = ingredients
 			};
 
-			return Administration.Domain.Recipes.Entities.Recipe.Create(command);
+			return Administration.Domain.Recipes.Entities.Recipe.Create(
+				command.Id, command.Description, command.Description, command.RecipeDetails, command.RecipeIngredients);
 		}
 	}
 }

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
+﻿namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 {
 	public class RecipeDetails
 	{
 		public RecipeDetails(int difficultyLevel,
 			int preparationTime,
 			decimal approximateCost,
-			ICollection<MealType> mealTypes)
+			MealType mealTypes)
 		{
 			DifficultyLevel = difficultyLevel;
 			PreparationTime = preparationTime;
@@ -18,6 +16,6 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 		public int DifficultyLevel { get; private set; }
 		public int PreparationTime { get; private set; }
 		public decimal ApproximateCost { get; private set; }
-		public ICollection<MealType> MealTypes { get; private set; }
+		public MealType MealTypes { get; private set; }
 	}
 }

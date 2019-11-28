@@ -1,11 +1,15 @@
-﻿namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
+﻿using System;
+
+namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 {
+	[Flags]
 	public enum MealType
 	{
-		Breakfast,
-		Dinner,
-		Supper,
-		Snack,
-		Sweets
+		None = 0,
+		Breakfast = 1 << 1,
+		Dinner = 1 << 2,
+		Supper = 1 << 3,
+		Snack = 1 << 4,
+		Sweets = 1 << 5
 	}
 }

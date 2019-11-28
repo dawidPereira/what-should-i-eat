@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Common.Command;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
-using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 
 namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create
 {

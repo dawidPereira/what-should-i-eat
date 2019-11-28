@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
 
@@ -28,12 +27,13 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 		public RecipeDetails RecipeDetails { get; private set; }
 		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
 
-		public static Recipe Create(CreateRecipeCommand command) => new Recipe(
-				command.Id, 
-				command.Name, 
-				command.Description, 
-				command.RecipeDetails,
-				command.RecipeIngredients);
+		public static Recipe Create(
+			Guid id,
+			string name,
+			string description,
+			RecipeDetails recipeDetails,
+			ICollection<RecipeIngredient> recipeIngredients) => 
+			new Recipe(id, name, description, recipeDetails, recipeIngredients);
 
 		public void Update(UpdateRecipeCommand command)
 		{

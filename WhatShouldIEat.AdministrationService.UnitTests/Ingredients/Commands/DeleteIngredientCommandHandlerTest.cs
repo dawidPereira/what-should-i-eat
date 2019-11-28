@@ -4,7 +4,6 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
@@ -56,8 +55,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		[Test]
 		public void GivenIngredientId_WhenIngredientExist_ShouldReturnSuccess()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
-				.Returns(_ingredient);
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
+				.Returns(true);
 
 			var result  = _systemUnderTest.Handle(_command);
 			result.IsSuccess.Should().BeTrue();
@@ -75,8 +74,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 				}
 			};
 			
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
-				.Returns(_ingredient);
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
+				.Returns(true);
 			_recipeRepositoryMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Guid>()))
 				.Returns(recipeBasicInfos);
 

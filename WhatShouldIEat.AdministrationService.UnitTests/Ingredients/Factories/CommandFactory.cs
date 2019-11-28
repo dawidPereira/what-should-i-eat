@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
@@ -25,13 +23,13 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 
 		internal static CreateIngredientCommand CreateValidIngredientFactory(string name)
 		{
-			var macroNutrientsParticipation  = new List<IngredientMacroNutrient>();
+			var macroNutrientsParticipation = new List<IngredientMacroNutrient>()
 			{
-				var ingredientMacroNutrient = new IngredientMacroNutrient
+				new IngredientMacroNutrient
 				{
 					MacroNutrient = MacroNutrient.Carbohydrate, ParticipationInIngredient = 0.2
-				};
-			}
+				}
+			};
 
 			var allergens =  Allergen.Gluten | Allergen.Milk;
 			var requirements = Requirement.Ecological | Requirement.ForVegan;
