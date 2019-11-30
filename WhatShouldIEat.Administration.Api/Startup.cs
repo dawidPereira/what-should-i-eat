@@ -41,20 +41,17 @@ namespace WhatShouldIEat.Administration.Api
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			app.UseHttpsRedirection();
+			app.UseRouting();
+			app.UseEndpoints(x => x.MapControllerRoute(
+				"Api_Default",
+				"api/{controller=Recipe}/{action=GetBasicInfos}/{id?}"));
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
-
-			app.UseHttpsRedirection();
-
-			app.UseRouting();
-			app.UseEndpoints(endpoints =>
-				endpoints.MapDefaultControllerRoute());
-			
 			app.UseAuthorization();
-
-			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WhatShouldIEat.Administration.Api.Validators.RecipeValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
@@ -7,14 +6,11 @@ using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Update;
-using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfos;
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {
-	[ApiController]
-	[Route("api/[controller]")]
 	public class RecipeController : ControllerBase
 	{
 		private readonly IMediator _mediator;
@@ -37,14 +33,12 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="200">Recipe found</response>
 		/// <response code="404">Given recipe was not found</response>
-		[HttpGet("{recipeId}")]
-		[ProducesResponseType(typeof(Recipe), 200)]
-		[ProducesResponseType(404)]
+		[HttpGet]
 		public IActionResult GetRecipe([FromRoute] GetRecipeQuery query)
 		{
 			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 
 			try
 			{
@@ -67,8 +61,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <param name="query"></param>
 		/// <returns></returns>
 		/// <response code="200">BasicInfos found</response>
-		[HttpGet("basicInfos")]
-		[ProducesResponseType(typeof(List<RecipeBasicInfo>), 200)]
+		[HttpGet]
 		public IActionResult GetBasicInfos(GetRecipesBasicInfosQuery query) =>
 			Ok(_mediator.Query(query));
 
@@ -83,15 +76,12 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="201">Recipe created</response>
 		/// <response code="400">Bad request</response>
-		[HttpPost("/create")]
-		[ProducesResponseType(201)]
-		[ProducesResponseType(400)]
-		[ProducesResponseType(404)]
+		[HttpPost]
 		public IActionResult CreateRecipe([FromBody] CreateRecipeCommand command)
 		{
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 
 			var result = _mediator.Command(command);
 
@@ -99,9 +89,9 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 				return Created($"api/recipe{command.Id.ToString()}", result);
 
 			if (result.ResultCode.Equals(ResultCode.NotFound))
-				return NotFound(result);
+				return NotFound(result.Message);
 
-			return BadRequest(result);
+			return BadRequest(result.Message);
 		}
 
 		/// <summary>
@@ -116,24 +106,21 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Recipe updated</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Recipe not found</response>
-		[HttpPut("update")]
-		[ProducesResponseType(200)]
-		[ProducesResponseType(400)]
-		[ProducesResponseType(404)]
+		[HttpPut]
 		public IActionResult UpdateRecipe([FromBody] UpdateRecipeCommand command)
 		{
 			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 
 			var result = _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
 
 			if (result.ResultCode.Equals(ResultCode.NotFound))
-				return NotFound(result);
+				return NotFound();
 
-			return BadRequest(result);
+			return BadRequest(result.Message);
 		}
 		
 		/// <summary>
@@ -148,21 +135,18 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Recipe deleted</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
-		[HttpDelete("delete/{recipeId}")]
-		[ProducesResponseType(200)]
-		[ProducesResponseType(400)]
-		[ProducesResponseType(404)]
+		[HttpDelete]
 		public IActionResult DeleteRecipe([FromRoute] DeleteRecipeCommand command)
 		{
 			var validationResult = _validators.ValidateDelete(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 
 			var result = _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
 			
-			return NotFound(result);
+			return NotFound();
 		}
 	}
 }

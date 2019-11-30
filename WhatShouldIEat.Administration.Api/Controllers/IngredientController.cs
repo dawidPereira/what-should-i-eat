@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
@@ -7,14 +6,11 @@ using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
-using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfos;
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {
-	[ApiController]
-	[Route("api/[controller]")]
 	public class IngredientController : ControllerBase
 	{
 		private readonly IMediator _mediator;
@@ -37,14 +33,12 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="200">Ingredient found</response>
 		/// <response code="404">Given ingredient was not found</response>
-		[HttpGet("{ingredientId}")]
-		[ProducesResponseType(typeof(Ingredient), 200)]
-		[ProducesResponseType(404)]
+		[HttpGet]
 		public IActionResult GetIngredient([FromRoute] GetIngredientQuery query)
 		{
 			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 			
 			try
 			{
@@ -67,8 +61,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <param name="query"></param>
 		/// <returns></returns>
 		/// <response code="200">BasicInfos found</response>
-		[HttpGet("basicInfos")]
-		[ProducesResponseType(typeof(List<IngredientBasicInfo>), 200)]
+		[HttpGet]
 		public IActionResult GetBasicInfos(GetIngredientsBasicInfosQuery query) => 
 			Ok(_mediator.Query(query));
 
@@ -84,21 +77,19 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="201">Ingredient created</response>
 		/// <response code="400">Bad request</response>
-		[HttpPost("/create")]
-		[ProducesResponseType(201)]
-		[ProducesResponseType(400)]
-		public IActionResult CreateIngredient([FromBody] CreateIngredientCommand command)
+		[HttpPost]
+		public IActionResult CreateIngredient([Microsoft.AspNetCore.Mvc.FromBody] CreateIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 
 			var result = _mediator.Command(command);
 
 			if (result.IsSuccess)
 				return Created($"api/ingredient{command.Id.ToString()}", result);
 
-			return BadRequest(result);
+			return BadRequest(result.Message);
 		}
 
 		/// <summary>
@@ -113,23 +104,21 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Ingredient updated</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
-		[HttpPut("/update")]
-		[ProducesResponseType(200)]
-		[ProducesResponseType(400)]
-		public IActionResult UpdateIngredient([FromBody] UpdateIngredientCommand command)
+		[HttpPut]
+		public IActionResult UpdateIngredient([Microsoft.AspNetCore.Mvc.FromBody] UpdateIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 
 			var result = _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
 			
 			if (result.ResultCode.Equals(ResultCode.NotFound))
-				return NotFound(result);
+				return NotFound(result.Message);
 			
-			return BadRequest(result);
+			return BadRequest(result.Message);
 		}
 
 		/// <summary>
@@ -144,24 +133,21 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Ingredient deleted</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
-		[HttpDelete("/delete/{ingredientId}")]
-		[ProducesResponseType(200)]
-		[ProducesResponseType(400)]
-		[ProducesResponseType(404)]
+		[HttpDelete]
 		public IActionResult DeleteIngredient([FromRoute] DeleteIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateDelete(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult);
+				return BadRequest(validationResult.Errors.ToString());
 
 			var result = _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
 			
 			if (result.ResultCode.Equals(ResultCode.NotFound))
-				return NotFound(result);
+				return NotFound(result.Message);
 			
-			return BadRequest(result);
+			return BadRequest(result.Message);
 		}
 	}
 }

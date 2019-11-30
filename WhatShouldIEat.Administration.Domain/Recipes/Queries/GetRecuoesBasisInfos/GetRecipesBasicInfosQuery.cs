@@ -5,6 +5,5 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisIn
 {
 	public class GetRecipesBasicInfosQuery : IQuery<ICollection<RecipeBasicInfo>>
 	{
-		
 	}
 }
