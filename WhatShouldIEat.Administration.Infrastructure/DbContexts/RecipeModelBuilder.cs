@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
+using WhatShouldIEat.Administration.Infrastructure.DbContexts.Seeders;
 
 namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 {
@@ -16,6 +17,8 @@ namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 							.Property(property => property.MealTypes)
 							.HasConversion(new EnumToNumberConverter<MealType, int>());
 					});
+
+			modelBuilder.SeedRecipeData();
 
 			return modelBuilder;
 		}
