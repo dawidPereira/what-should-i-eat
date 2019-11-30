@@ -13,6 +13,6 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient
 			_ingredientRepository = ingredientRepository;
 
 		public ICollection<IngredientBasicInfo> Handle(GetIngredientsBasicInfosQuery query) => 
-			_ingredientRepository.GetAllBasicInfos() ?? new List<IngredientBasicInfo>();
+			_ingredientRepository.GetBasicInfos() ?? new List<IngredientBasicInfo>();
 	}
 }

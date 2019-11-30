@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using WhatShouldIEat.Administration.Domain.Ingredients.Queries;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfos;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
 
@@ -24,8 +23,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 
 			_ingredientBasicInfos = new List<IngredientBasicInfo>
 			{
-				new IngredientBasicInfo {Name = "FirstName", Id = Guid.NewGuid()},
-				new IngredientBasicInfo {Name = "SecondName", Id = Guid.NewGuid()}
+				new IngredientBasicInfo(Guid.NewGuid(), "FirstName"),
+				new IngredientBasicInfo(Guid.NewGuid(), "SecondName")
 			};
 			_query = new GetIngredientsBasicInfosQuery();
 			_systemUnderTests = new GetIngredientsBasicInfosQueryHandler(_ingredientRepositoryMock.Object);
@@ -34,7 +33,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		[Test]
 		public void Called_WhenItemExist_ShouldReturnNull()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetAllBasicInfos())
+			_ingredientRepositoryMock.Setup(x => x.GetBasicInfos())
 				.Returns(_ingredientBasicInfos);
 			
 			var result = _systemUnderTests.Handle(_query);

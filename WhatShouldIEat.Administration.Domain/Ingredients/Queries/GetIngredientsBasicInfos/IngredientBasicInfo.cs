@@ -4,7 +4,13 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredient
 {
 	public class IngredientBasicInfo
 	{
-		public string Name { get; set; }
-		public Guid Id { get; set; }
+		public IngredientBasicInfo(Guid id, string name)
+		{
+			Id = id;
+			Name = name;
+		}
+		
+		public Guid Id { get; private set; }
+		public string Name { get; private set; }
 	}
 }

@@ -29,7 +29,6 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update
 			var ingredient = _ingredientRepository.GetById(command.Id);
 			
 			ingredient.Update(command);
-			_ingredientRepository.Update(ingredient);
 			_ingredientRepository.Commit();
 			
 			return Result.Ok();

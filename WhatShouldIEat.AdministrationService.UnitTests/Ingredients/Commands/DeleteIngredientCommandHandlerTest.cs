@@ -67,11 +67,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			var recipeBasicInfos = new List<RecipeBasicInfo>
 			{
-				new RecipeBasicInfo
-				{
-					Name = "ExistName",
-					Id = Guid.NewGuid()
-				}
+				new RecipeBasicInfo(Guid.NewGuid(),"ExistName")
 			};
 			
 			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
