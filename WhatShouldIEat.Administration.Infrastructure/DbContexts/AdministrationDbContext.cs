@@ -14,15 +14,14 @@ namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 		public DbSet<Recipe> Recipes { get; set; }
 		public DbSet<Ingredient> Ingredients { get; set; }
 		public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
-		public DbSet<IngredientMacroNutrient> IngredientMacroNutrients { get; set; }
 		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder
 				.ConfigureRecipe()
 				.ConfigureIngredient()
-				.ConfigureIngredient()
-				.ConfigureRecipeIngredient();
+				.ConfigureRecipeIngredient()
+				.ConfigureIngredientMacroNutrient();
 		}
 	}
 }

@@ -5,13 +5,17 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 {
 	public class IngredientMacroNutrient
 	{
-		public IngredientMacroNutrient()
+		public IngredientMacroNutrient(Guid ingredientId, MacroNutrient macroNutrient, double participationInIngredient)
 		{
+			Id = Guid.NewGuid();
+			IngredientId = ingredientId;
+			MacroNutrient = macroNutrient;
+			ParticipationInIngredient = participationInIngredient;
 		}
-		
+
 		public Guid Id { get; private set; }
-		public Ingredient Ingredient { get; private set; }
-		public MacroNutrient MacroNutrient { get; set; }
-		public double ParticipationInIngredient { get; set; }
+		public Guid IngredientId { get; private set; }
+		public MacroNutrient MacroNutrient { get; private set; }
+		public double ParticipationInIngredient { get; private set; }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
+using WhatShouldIEat.Administration.Infrastructure.DbContexts.Seeders;
 
 namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 {
@@ -17,11 +18,12 @@ namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 			modelBuilder.Entity<Ingredient>()
 				.Property(property => property.Requirements)
 				.HasConversion(new EnumToNumberConverter<Requirement,int>());
-			
+
 			modelBuilder.Entity<Ingredient>()
-				.HasMany(property => property.MacroNutrientsParticipants)
-				.WithOne(property => property.Ingredient);
+				.HasMany(x => x.MacroNutrientsParticipants);
 			
+			modelBuilder.SeedIngredientData();
+
 			return modelBuilder;
 		}
 	}

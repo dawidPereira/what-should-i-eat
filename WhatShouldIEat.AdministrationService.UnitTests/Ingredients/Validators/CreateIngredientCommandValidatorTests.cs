@@ -5,7 +5,6 @@ using FluentAssertions;
 using NUnit.Framework;
 using WhatShouldIEat.Administration.Api.Validators;
 using WhatShouldIEat.Administration.Api.Validators.IngredientValidators.CommandValidators;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
@@ -51,10 +50,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Validators
 		{
 			_command.MacroNutrientsParticipation = new List<IngredientMacroNutrient>
 			{
-				new IngredientMacroNutrient
-				{
-					MacroNutrient = MacroNutrient.Carbohydrate, ParticipationInIngredient = -22
-				}
+				new IngredientMacroNutrient(Guid.NewGuid(),  MacroNutrient.Carbohydrate,  -22)
 			};
 			var result = _systemUnderTest.Validate(_command);
 			result.IsValid.Should().BeFalse();

@@ -23,13 +23,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 
 		internal static CreateIngredientCommand CreateValidIngredientFactory(string name)
 		{
-			var macroNutrientsParticipation = new List<IngredientMacroNutrient>()
-			{
-				new IngredientMacroNutrient
-				{
-					MacroNutrient = MacroNutrient.Carbohydrate, ParticipationInIngredient = 0.2
-				}
-			};
+			var macroNutrientsParticipation = new List<IngredientMacroNutrient>();
+			macroNutrientsParticipation.Add(
+				new IngredientMacroNutrient(Guid.NewGuid(), MacroNutrient.Carbohydrate,  0.2));
 
 			var allergens =  Allergen.Gluten | Allergen.Milk;
 			var requirements = Requirement.Ecological | Requirement.ForVegan;
@@ -49,7 +45,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 			return new UpdateIngredientCommand
 			{
 				Id = Guid.NewGuid(),
-				Name = "Ingredient",
+				Name = "IngredientId",
 				Allergens = Allergen.None,
 				Requirements = Requirement.None,
 				MacroNutrientsParticipation = new List<IngredientMacroNutrient>()

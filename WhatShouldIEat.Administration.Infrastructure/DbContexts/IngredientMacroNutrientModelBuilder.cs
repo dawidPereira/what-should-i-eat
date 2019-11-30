@@ -12,10 +12,9 @@ namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 			modelBuilder.Entity<IngredientMacroNutrient>()
 				.Property(property => property.MacroNutrient)
 				.HasConversion(new EnumToNumberConverter<MacroNutrient,int>());
-			
+
 			modelBuilder.Entity<IngredientMacroNutrient>()
-				.HasOne(property => property.Ingredient)
-				.WithMany(property => property.MacroNutrientsParticipants);
+				.HasAlternateKey(key => new {key.Id, key.IngredientId});
 			
 			return modelBuilder;
 		}
