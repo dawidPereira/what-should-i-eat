@@ -11,7 +11,6 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Repositories
 		ICollection<RecipeBasicInfo> GetBasicInfos();
 		ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId);
 		void Add(Recipe recipe);
-		void Update(Recipe recipe);
 		void Commit();
 		void Delete(Recipe recipe);
 		bool ExistByName(string name);

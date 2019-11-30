@@ -30,7 +30,6 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Update
 			var recipe = _recipeRepository.GetById(command.Id);
 			
 			recipe.Update(command);
-			_recipeRepository.Update(recipe);
 			_recipeRepository.Commit();
 			return Result.Ok();
 		}

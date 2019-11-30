@@ -4,7 +4,12 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisIn
 {
 	public class RecipeBasicInfo
 	{
-		public Guid Id { get; set; }
-		public string Name { get; set; }
+		public RecipeBasicInfo(Guid id, string name)
+		{
+			Id = id;
+			Name = name;
+		}
+		public Guid Id { get; private set; }
+		public string Name { get; private set; }
 	}
 }
