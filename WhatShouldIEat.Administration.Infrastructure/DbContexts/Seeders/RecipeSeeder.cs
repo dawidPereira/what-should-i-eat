@@ -13,7 +13,7 @@ namespace WhatShouldIEat.Administration.Infrastructure.DbContexts.Seeders
 			modelBuilder.Entity<Recipe>(property =>
 				{
 				property.HasData(Recipe.Create(tempId,
-					"Chicken with rise",
+					"Oatmeal with milk",
 					"Default recipe description",
 					null,
 					null));
