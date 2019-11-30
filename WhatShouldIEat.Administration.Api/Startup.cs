@@ -49,7 +49,9 @@ namespace WhatShouldIEat.Administration.Api
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
-
+			app.UseEndpoints(endpoints =>
+				endpoints.MapDefaultControllerRoute());
+			
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
