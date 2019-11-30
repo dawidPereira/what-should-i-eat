@@ -13,8 +13,8 @@ using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBas
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {
-	[Route("api/ingredient")]
 	[ApiController]
+	[Route("api/[controller]")]
 	public class IngredientController : ControllerBase
 	{
 		private readonly IMediator _mediator;
@@ -37,8 +37,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="200">Ingredient found</response>
 		/// <response code="404">Given ingredient was not found</response>
-		[HttpGet]
-		[Route("/{ingredientId}")]
+		[HttpGet("{ingredientId}")]
 		[ProducesResponseType(typeof(Ingredient), 200)]
 		[ProducesResponseType(404)]
 		public IActionResult GetIngredient([FromRoute] GetIngredientQuery query)
@@ -68,8 +67,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <param name="query"></param>
 		/// <returns></returns>
 		/// <response code="200">BasicInfos found</response>
-		[HttpGet]
-		[Route("/basicInfos")]
+		[HttpGet("basicInfos")]
 		[ProducesResponseType(typeof(List<IngredientBasicInfo>), 200)]
 		public IActionResult GetBasicInfos(GetIngredientsBasicInfosQuery query) => 
 			Ok(_mediator.Query(query));
@@ -86,8 +84,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="201">Ingredient created</response>
 		/// <response code="400">Bad request</response>
-		[HttpPost]
-		[Route("/create")]
+		[HttpPost("/create")]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(400)]
 		public IActionResult CreateIngredient([FromBody] CreateIngredientCommand command)
@@ -116,8 +113,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Ingredient updated</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
-		[HttpPut]
-		[Route("/update")]
+		[HttpPut("/update")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		public IActionResult UpdateIngredient([FromBody] UpdateIngredientCommand command)
@@ -148,8 +144,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Ingredient deleted</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
-		[HttpDelete]
-		[Route("/delete/{ingredientId}")]
+		[HttpDelete("/delete/{ingredientId}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]

@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using WhatShouldIEat.Administration.Api.Validators.RecipeValidators;
-using WhatShouldIEat.Administration.Api.Validators.RecipeValidators.CommandValidators;
-using WhatShouldIEat.Administration.Api.Validators.RecipeValidators.QueryValidators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Messages;
-using WhatShouldIEat.Administration.Domain.Recipes.Commands;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
-using WhatShouldIEat.Administration.Domain.Recipes.Queries;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfos;
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {
-	[Route("api/recipe")]
 	[ApiController]
+	[Route("api/[controller]")]
 	public class RecipeController : ControllerBase
 	{
 		private readonly IMediator _mediator;
@@ -41,8 +37,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="200">Recipe found</response>
 		/// <response code="404">Given recipe was not found</response>
-		[HttpGet]
-		[Route("/test/{recipeId}")]
+		[HttpGet("{recipeId}")]
 		[ProducesResponseType(typeof(Recipe), 200)]
 		[ProducesResponseType(404)]
 		public IActionResult GetRecipe([FromRoute] GetRecipeQuery query)
@@ -72,8 +67,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <param name="query"></param>
 		/// <returns></returns>
 		/// <response code="200">BasicInfos found</response>
-		[HttpGet]
-		[Route("/basicInfos")]
+		[HttpGet("basicInfos")]
 		[ProducesResponseType(typeof(List<RecipeBasicInfo>), 200)]
 		public IActionResult GetBasicInfos(GetRecipesBasicInfosQuery query) =>
 			Ok(_mediator.Query(query));
@@ -89,8 +83,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <returns></returns>
 		/// <response code="201">Recipe created</response>
 		/// <response code="400">Bad request</response>
-		[HttpPost]
-		[Route("/create")]
+		[HttpPost("/create")]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
@@ -123,8 +116,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Recipe updated</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Recipe not found</response>
-		[HttpPut]
-		[Route("/update")]
+		[HttpPut("update")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
@@ -156,8 +148,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		/// <response code="200">Recipe deleted</response>
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
-		[HttpDelete]
-		[Route("/delete/{recipeId}")]
+		[HttpDelete("delete/{recipeId}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
