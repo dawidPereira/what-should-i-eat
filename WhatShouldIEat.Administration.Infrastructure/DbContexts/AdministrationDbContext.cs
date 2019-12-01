@@ -4,7 +4,7 @@ using WhatShouldIEat.Administration.Domain.Recipes.Entities;
 
 namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 {
-	public class AdministrationDbContext : DbContext
+	public sealed class AdministrationDbContext : DbContext
 	{
 		public AdministrationDbContext(DbContextOptions<AdministrationDbContext> options)
 			: base(options)

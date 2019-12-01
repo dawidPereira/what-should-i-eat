@@ -8,6 +8,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 		private RecipeIngredient()
 		{
 		}
+		
 		public RecipeIngredient(Guid ingredientId, Guid recipeId, double grams, Ingredient ingredient = null)
 		{
 			IngredientId = ingredientId;

@@ -30,13 +30,13 @@ namespace WhatShouldIEat.Administration.Infrastructure.Repositories
 		public Recipe GetById(Guid id) =>
 			_context.Recipes
 				.Include(x => x.RecipeIngredients)
-				.ThenInclude(x => x.Ingredient)
+					.ThenInclude(x => x.Ingredient)
 				.FirstOrDefault(x => x.Id == id);
 
 		public ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId) =>
 			_context.Recipes
 				.Include(x => x.RecipeIngredients
-					.Where(x => x.IngredientId == ingredientId))
+					.Where(y => y.IngredientId == ingredientId))
 				.Select(x => new RecipeBasicInfo(x.Id, x.Name))
 				.ToList();
 	}

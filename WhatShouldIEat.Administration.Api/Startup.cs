@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using WhatShouldIEat.Administration.Api.Validators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
@@ -29,18 +30,19 @@ namespace WhatShouldIEat.Administration.Api
 					options.UseSqlServer(Configuration.GetConnectionString("WhatShouldIEat.Administration"),
 						b => b.MigrationsAssembly("WhatShouldIEat.Administration.Infrastructure")
 					));
-			
 			services.AddMediator();
 			services.AddControllers();
 			services.AddRepositories();
 			services.AddDomainValidators();
 			services.AddRequestValidators();
-			
+			services.AddControllers()
+				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseEndpoints(x => x.MapControllerRoute(
