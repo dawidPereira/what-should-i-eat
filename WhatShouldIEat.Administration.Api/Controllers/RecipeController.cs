@@ -38,16 +38,16 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		{
 			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult.Errors.ToString());
+				return BadRequest(validationResult);
 
 			try
 			{
 				var result = _mediator.Query(query);
 				return Ok(result);
 			}
-			catch (ArgumentNullException e)
+			catch (Exception ex) when (ex.InnerException is ArgumentNullException)
 			{
-				return NotFound(e.Message);
+				return NotFound(ex.InnerException.Message);
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		{
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult.Errors.ToString());
+				return BadRequest(validationResult);
 
 			var result = _mediator.Command(command);
 
@@ -89,9 +89,9 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 				return Created($"api/recipe{command.Id.ToString()}", result);
 
 			if (result.ResultCode.Equals(ResultCode.NotFound))
-				return NotFound(result.Message);
+				return NotFound(result);
 
-			return BadRequest(result.Message);
+			return BadRequest(result);
 		}
 
 		/// <summary>
@@ -111,7 +111,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 		{
 			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
-				return BadRequest(validationResult.Errors.ToString());
+				return BadRequest(validationResult);
 
 			var result = _mediator.Command(command);
 
@@ -120,7 +120,7 @@ namespace WhatShouldIEat.Administration.Api.Controllers
 			if (result.ResultCode.Equals(ResultCode.NotFound))
 				return NotFound();
 
-			return BadRequest(result.Message);
+			return BadRequest(result);
 		}
 		
 		/// <summary>

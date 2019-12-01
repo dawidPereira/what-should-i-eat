@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Queries.GetIngredientsBasicInfos;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
@@ -20,7 +21,9 @@ namespace WhatShouldIEat.Administration.Infrastructure.Repositories
 		public bool ExistById(Guid id) => _context.Ingredients.Any(x => x.Id == id);
 		public void Add(Ingredient ingredient) => _context.Ingredients.Add(ingredient);
 		public bool ExistByName(string name) => _context.Ingredients.Any(x => x.Name == name);
-		public Ingredient GetById(Guid id) => _context.Ingredients.FirstOrDefault(x => x.Id == id);
+		public Ingredient GetById(Guid id) => _context.Ingredients.
+			Include(x => x.MacroNutrientsParticipants)
+			.FirstOrDefault(x => x.Id == id);
 
 		public ICollection<IngredientBasicInfo> GetBasicInfos() =>
 			_context.Ingredients

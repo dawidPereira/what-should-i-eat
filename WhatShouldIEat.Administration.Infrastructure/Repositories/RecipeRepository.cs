@@ -31,13 +31,16 @@ namespace WhatShouldIEat.Administration.Infrastructure.Repositories
 			_context.Recipes
 				.Include(x => x.RecipeIngredients)
 					.ThenInclude(x => x.Ingredient)
+						.ThenInclude(x => x.MacroNutrientsParticipants)
 				.FirstOrDefault(x => x.Id == id);
 
-		public ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId) =>
-			_context.Recipes
-				.Include(x => x.RecipeIngredients
-					.Where(y => y.IngredientId == ingredientId))
-				.Select(x => new RecipeBasicInfo(x.Id, x.Name))
+		public ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId)
+		{
+			return _context.Recipes
+				.Include(ri => ri.RecipeIngredients)
+				.Where(x => x.RecipeIngredients.Any(y => y.IngredientId == ingredientId))
+				.Select(rbi => new RecipeBasicInfo(rbi.Id, rbi.Name))
 				.ToList();
+		}
 	}
 }

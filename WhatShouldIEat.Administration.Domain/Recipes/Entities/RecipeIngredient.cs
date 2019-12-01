@@ -18,9 +18,9 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 		}
 
 		public Guid IngredientId { get; private set; }
-		public Ingredient Ingredient { get; private set; }
+		public virtual Ingredient Ingredient { get; private set; }
 		public Guid RecipeId { get; private set; }
 		public double Grams { get; private set; }
-		public Recipe Recipe { get; private set; }
+		public virtual Recipe Recipe { get; private set; }
 	}
 }

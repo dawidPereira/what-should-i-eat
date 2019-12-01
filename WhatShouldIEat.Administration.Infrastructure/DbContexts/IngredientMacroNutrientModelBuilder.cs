@@ -10,6 +10,9 @@ namespace WhatShouldIEat.Administration.Infrastructure.DbContexts
 		public static ModelBuilder ConfigureIngredientMacroNutrient(this ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<IngredientMacroNutrient>()
+				.HasKey(key => new {key.Id, key.IngredientId});
+			
+			modelBuilder.Entity<IngredientMacroNutrient>()
 				.Property(property => property.MacroNutrient)
 				.HasConversion(new EnumToNumberConverter<MacroNutrient,int>());
 

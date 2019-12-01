@@ -72,7 +72,6 @@ namespace WhatShouldIEat.Administration.Infrastructure.Migrations
             modelBuilder.Entity("WhatShouldIEat.Administration.Domain.Ingredients.Entities.IngredientMacroNutrient", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IngredientId")
@@ -84,9 +83,7 @@ namespace WhatShouldIEat.Administration.Infrastructure.Migrations
                     b.Property<double>("ParticipationInIngredient")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("Id", "IngredientId");
+                    b.HasKey("Id", "IngredientId");
 
                     b.HasIndex("IngredientId");
 
@@ -95,84 +92,84 @@ namespace WhatShouldIEat.Administration.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9e97f241-f3d6-4a7c-abfc-8fc9e35d14e5"),
+                            Id = new Guid("c128e975-3d03-4f85-b0d3-5abd95a1ca1a"),
                             IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
                             MacroNutrient = 2,
                             ParticipationInIngredient = 0.20000000000000001
                         },
                         new
                         {
-                            Id = new Guid("6651ab54-35ff-43cf-a82a-601bea2cf4c9"),
+                            Id = new Guid("f04b3c37-7c7a-44f0-838d-dfc5718bd647"),
                             IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
                             MacroNutrient = 4,
                             ParticipationInIngredient = 0.10000000000000001
                         },
                         new
                         {
-                            Id = new Guid("1c85e237-1876-421d-8c2e-bd1cf503dae0"),
+                            Id = new Guid("923c4585-b82e-495e-bd53-f064c2029f37"),
                             IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
                             MacroNutrient = 8,
                             ParticipationInIngredient = 0.59999999999999998
                         },
                         new
                         {
-                            Id = new Guid("1da7da72-7fbd-4c63-ade8-abca0ac58765"),
+                            Id = new Guid("313398a1-2ae0-458b-9927-a81c06083905"),
                             IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
                             MacroNutrient = 2,
                             ParticipationInIngredient = 0.80000000000000004
                         },
                         new
                         {
-                            Id = new Guid("99165298-34e7-4125-b36d-cebeb244b11a"),
+                            Id = new Guid("7e91f4c4-9eac-4e1f-b5d9-0ea1ae3cf984"),
                             IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
                             MacroNutrient = 4,
                             ParticipationInIngredient = 0.0
                         },
                         new
                         {
-                            Id = new Guid("9ebe6a04-16fe-4d2a-8f9d-0dac4ffa2162"),
+                            Id = new Guid("621a0fb8-fdba-49a2-94fc-6e6971b71310"),
                             IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
                             MacroNutrient = 8,
                             ParticipationInIngredient = 0.20000000000000001
                         },
                         new
                         {
-                            Id = new Guid("99377e62-81f9-403c-8927-e2f78c1c8d5d"),
+                            Id = new Guid("ae9a1afa-a724-41a3-8ad8-acb8bbe4f822"),
                             IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
                             MacroNutrient = 2,
                             ParticipationInIngredient = 0.69999999999999996
                         },
                         new
                         {
-                            Id = new Guid("1297933b-3550-45bf-96b8-e54768e94484"),
+                            Id = new Guid("52461f0d-3058-4b78-81c6-bba6e42015fa"),
                             IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
                             MacroNutrient = 4,
                             ParticipationInIngredient = 0.10000000000000001
                         },
                         new
                         {
-                            Id = new Guid("29022244-6093-4bd2-b093-8fd5cef17d6f"),
+                            Id = new Guid("e93910cb-114c-4d26-8db3-7963d1b7a43c"),
                             IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
                             MacroNutrient = 8,
                             ParticipationInIngredient = 0.20000000000000001
                         },
                         new
                         {
-                            Id = new Guid("5c98bc26-1ff7-4bfd-9cd8-1685525269ef"),
+                            Id = new Guid("74ceb16a-2efb-4915-a974-d77d7737bcc8"),
                             IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
                             MacroNutrient = 2,
                             ParticipationInIngredient = 0.20000000000000001
                         },
                         new
                         {
-                            Id = new Guid("e64653ef-cb11-4fe8-8b35-27ae6740c5e2"),
+                            Id = new Guid("5857189b-2686-4a21-8d01-cb0feadce4da"),
                             IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
                             MacroNutrient = 4,
                             ParticipationInIngredient = 0.10000000000000001
                         },
                         new
                         {
-                            Id = new Guid("459c640a-9597-44da-8cf5-3254aa687996"),
+                            Id = new Guid("eafef89b-42f1-4017-a474-ecc62687aefc"),
                             IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
                             MacroNutrient = 8,
                             ParticipationInIngredient = 0.20000000000000001
@@ -198,13 +195,13 @@ namespace WhatShouldIEat.Administration.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                            Id = new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"),
                             Description = "Default recipe description",
-                            Name = "Chicken with rise"
+                            Name = "Oatmeal with milk"
                         },
                         new
                         {
-                            Id = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                            Id = new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"),
                             Description = "Default recipe description",
                             Name = "Chicken with rise"
                         });
@@ -231,25 +228,25 @@ namespace WhatShouldIEat.Administration.Infrastructure.Migrations
                         new
                         {
                             IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
-                            RecipeId = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                            RecipeId = new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"),
                             Grams = 50.0
                         },
                         new
                         {
                             IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
-                            RecipeId = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                            RecipeId = new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"),
                             Grams = 150.0
                         },
                         new
                         {
                             IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
-                            RecipeId = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                            RecipeId = new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"),
                             Grams = 200.0
                         },
                         new
                         {
                             IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
-                            RecipeId = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                            RecipeId = new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"),
                             Grams = 100.0
                         });
                 });
@@ -292,7 +289,7 @@ namespace WhatShouldIEat.Administration.Infrastructure.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    RecipeId = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                                    RecipeId = new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"),
                                     ApproximateCost = 8m,
                                     DifficultyLevel = 2,
                                     MealTypes = 18,
@@ -300,7 +297,7 @@ namespace WhatShouldIEat.Administration.Infrastructure.Migrations
                                 },
                                 new
                                 {
-                                    RecipeId = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                                    RecipeId = new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"),
                                     ApproximateCost = 10m,
                                     DifficultyLevel = 2,
                                     MealTypes = 12,
