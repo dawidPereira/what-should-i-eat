@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WhatShouldIEat.Administration.Domain.Common.Extensions;
+using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
+using WhatShouldIEat.Administration.Domain.Ingredients.Entities.MacroNutrients;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
 
@@ -59,5 +62,20 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Entities
 
 		public double CalculateCalories() =>
 			RecipeIngredients.Sum(x => x.Ingredient.CalculateCalories(x.Grams));
+
+		public MealType GetMealTypes() => RecipeDetails.MealTypes;
+
+		public Allergen GetAllergens() =>
+			RecipeIngredients.Select(x => x.Ingredient.Allergens)
+				.Aggregate(Allergen.None, (acc, el) => acc | el);
+
+		public Requirement GetRequirements() =>
+			RecipeIngredients.Select(x => x.Ingredient.Requirements)
+				.Aggregate(Requirement.None, (acc, el) => acc | el);
+
+		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity() =>
+			RecipeIngredients.Select(x => x.Ingredient
+					.GetMacroNutrientQuantity(x.Grams))
+				.MergeDictionary();
 	}
 }

@@ -61,5 +61,12 @@ namespace WhatShouldIEat.Administration.Domain.Ingredients.Entities
 			Requirements = Requirements,
 			MacroNutrientsParticipation = MacroNutrientsParticipants
 		};
+
+		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity(double grams)
+		{
+			var result = MacroNutrientsParticipants.ToDictionary(x => x.MacroNutrient,
+				x => x.ParticipationInIngredient * grams);
+			return result;
+		}
 	}
 }

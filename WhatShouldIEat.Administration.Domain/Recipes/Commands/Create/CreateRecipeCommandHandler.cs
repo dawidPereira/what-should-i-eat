@@ -29,7 +29,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Create
 			}
 			
 			var recipe = Recipe.Create(
-				command.Id, command.Description, command.Description, command.RecipeDetails, command.RecipeIngredients);
+				command.Id, command.Name, command.Description, command.RecipeDetails, command.RecipeIngredients);
 			
 			_recipeRepository.Add(recipe);
 			_recipeRepository.Commit();
