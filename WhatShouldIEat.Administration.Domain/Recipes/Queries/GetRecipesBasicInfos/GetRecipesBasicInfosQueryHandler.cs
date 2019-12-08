@@ -2,7 +2,7 @@
 using WhatShouldIEat.Administration.Domain.Common.Query;
 using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
 
-namespace WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfos
+namespace WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipesBasicInfos
 {
 	public class GetRecipesBasicInfosQueryHandler : IQueryHandler<GetRecipesBasicInfosQuery, ICollection<RecipeBasicInfo>>
 	{

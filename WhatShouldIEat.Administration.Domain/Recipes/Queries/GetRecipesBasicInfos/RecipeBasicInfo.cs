@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfos
+namespace WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipesBasicInfos
 {
 	public class RecipeBasicInfo
 	{

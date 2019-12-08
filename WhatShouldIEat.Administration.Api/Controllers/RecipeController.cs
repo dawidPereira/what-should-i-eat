@@ -7,7 +7,7 @@ using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
-using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfos;
+using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipesBasicInfos;
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {

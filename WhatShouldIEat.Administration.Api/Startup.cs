@@ -1,3 +1,4 @@
+using EasyCaching.Core.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using WhatShouldIEat.Administration.Api.Common;
 using WhatShouldIEat.Administration.Api.Validators;
 using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
@@ -27,9 +29,20 @@ namespace WhatShouldIEat.Administration.Api
 		{
 			services
 				.AddDbContext<AdministrationDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("WhatShouldIEat.Administration"),
-						b => b.MigrationsAssembly("WhatShouldIEat.Administration.Infrastructure")
+					options.UseSqlServer(Configuration.GetConnectionString(Constants.WhatShouldIEatDataBaseName),
+						b => b.MigrationsAssembly(Constants.WhatShouldIEatDataBaseMigrationAssembly)
 					));
+			services
+				.AddEasyCaching(options =>
+				{
+					options.UseRedis(redisConfig =>
+					{
+						redisConfig.DBConfig.Endpoints.Add(new ServerEndPoint(Constants.RedisHost, Constants.RedisPort));
+						redisConfig.DBConfig.AllowAdmin = true;
+					},
+						Constants.RedisName);
+				});
+			
 			services.AddMediator();
 			services.AddControllers();
 			services.AddRepositories();

@@ -7,7 +7,7 @@ using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
-using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecuoesBasisInfos;
+using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipesBasicInfos;
 using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
