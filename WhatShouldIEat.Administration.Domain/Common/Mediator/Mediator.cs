@@ -14,7 +14,7 @@ namespace WhatShouldIEat.Administration.Domain.Common.Mediator
 
 		public Mediator(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-		public void Event<TEvent>(TEvent @event) where TEvent : IEvent
+		public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
 		{
 			var handlers = _serviceProvider.GetServices<IEventHandler<TEvent>>();
 			var eventHandlers = handlers.ToList();
