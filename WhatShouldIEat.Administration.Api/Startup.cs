@@ -1,4 +1,5 @@
 using EasyCaching.Core.Configurations;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,9 @@ namespace WhatShouldIEat.Administration.Api
 						Constants.RedisName);
 				});
 			
+			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(Constants.HangFireDataBaseName)));
+			services.AddHangfireServer();
+			
 			services.AddMediator();
 			services.AddControllers();
 			services.AddRepositories();
@@ -67,6 +71,7 @@ namespace WhatShouldIEat.Administration.Api
 				app.UseDeveloperExceptionPage();
 			}
 			app.UseAuthorization();
+			app.UseHangfireDashboard();
 		}
 	}
 }
