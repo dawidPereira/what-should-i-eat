@@ -2,7 +2,7 @@
 using WhatShouldIEat.Administration.Api.Cache;
 using WhatShouldIEat.Administration.Domain.Recipes.Events.Updated;
 
-namespace WhatShouldIEat.Administration.Api.Events.Recipe.Updated
+namespace WhatShouldIEat.Administration.Api.Events.Recipes.Updated
 {
 	public class RecipeUpdatedEventHandler
 	{

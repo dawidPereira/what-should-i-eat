@@ -3,7 +3,7 @@ using WhatShouldIEat.Administration.Api.Cache;
 using WhatShouldIEat.Administration.Domain.Common.Events;
 using WhatShouldIEat.Administration.Domain.Recipes.Events.Deleted;
 
-namespace WhatShouldIEat.Administration.Api.Events.Recipe.Deleted
+namespace WhatShouldIEat.Administration.Api.Events.Recipes.Deleted
 {
 	public class RecipeDeletedEventHandler : IEventHandler<RecipeDeletedEvent>
 	{
