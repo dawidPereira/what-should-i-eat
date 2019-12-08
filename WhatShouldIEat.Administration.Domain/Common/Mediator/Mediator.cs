@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using WhatShouldIEat.Administration.Domain.Common.Command;
+using WhatShouldIEat.Administration.Domain.Common.Events;
 using WhatShouldIEat.Administration.Domain.Common.Query;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 
@@ -13,6 +14,17 @@ namespace WhatShouldIEat.Administration.Domain.Common.Mediator
 
 		public Mediator(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
+		public void Event<TEvent>(TEvent @event) where TEvent : IEvent
+		{
+			var handlers = _serviceProvider.GetServices<IEventHandler<TEvent>>();
+			var eventHandlers = handlers.ToList();
+			if (!eventHandlers.Any())
+				throw new InvalidOperationException(
+					$"Event of type '{handlers.GetType()}' has not registered handler.");
+
+			eventHandlers.ForEach(x => x.Handle(@event));
+		}
+		
 		public Result Command<TCommand>(TCommand command) where TCommand : ICommand
 		{
 			var handler = _serviceProvider.GetService<ICommandHandler<TCommand>>();
