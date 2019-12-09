@@ -1,8 +1,7 @@
 ﻿using Domain.Mediators.Events;
-using Domain.Recipes.Events.Created;
 using Domain.Recipes.Repositories;
 
-namespace Domain.Recipes.Created
+namespace Domain.Recipes.Events.Created
 {
 	public class RecipeCreatedEventHandler : IEventHandler<RecipeCreatedEvent>
 	{

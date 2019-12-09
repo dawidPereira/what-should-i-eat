@@ -1,8 +1,7 @@
-﻿using Domain.Ingredients.Events.Updated;
-using Domain.Mediators.Events;
+﻿using Domain.Mediators.Events;
 using Domain.Recipes.Repositories;
 
-namespace Domain.Ingredients.Updated
+namespace Domain.Ingredients.Events.Updated
 {
 	public class RecipeUpdatedEventHandler : IEventHandler<IngredientUpdatedEvent>
 	{

@@ -1,7 +1,6 @@
-﻿using Domain.Recipes.Events.Updated;
-using Domain.Recipes.Repositories;
+﻿using Domain.Recipes.Repositories;
 
-namespace Domain.Recipes.Updated
+namespace Domain.Recipes.Events.Updated
 {
 	public class RecipeUpdatedEventHandler
 	{

@@ -1,4 +1,5 @@
 ﻿using Domain.Mediators.Events;
+using Domain.Recipes.Events.Created;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Events.EventPublishers
@@ -11,8 +12,7 @@ namespace Infrastructure.Events.EventPublishers
 
 			services.Scan(scan =>
 				scan
-					//TODO: Add event class
-					.FromAssemblyOf<IEventHandler<IEvent>>()
+					.FromAssemblyOf<RecipeCreatedEvent>()
 					.AddClasses(classes => classes.AssignableTo(typeof(IEventHandler<>)))
 					.AsImplementedInterfaces()
 					.WithTransientLifetime());

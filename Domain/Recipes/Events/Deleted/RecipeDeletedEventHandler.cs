@@ -1,8 +1,7 @@
 ﻿using Domain.Mediators.Events;
-using Domain.Recipes.Events.Deleted;
 using Domain.Recipes.Repositories;
 
-namespace Domain.Recipes.Deleted
+namespace Domain.Recipes.Events.Deleted
 {
 	public class RecipeDeletedEventHandler : IEventHandler<RecipeDeletedEvent>
 	{
