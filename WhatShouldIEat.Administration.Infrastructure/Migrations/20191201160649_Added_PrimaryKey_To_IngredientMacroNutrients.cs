@@ -1,12 +1,20 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Infrastructure.Migrations
+namespace WhatShouldIEat.Administration.Infrastructure.Migrations
 {
-    public partial class Fixed_SeedData : Migration
+    public partial class Added_PrimaryKey_To_IngredientMacroNutrients : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_IngredientMacroNutrient",
+                table: "IngredientMacroNutrient");
+
+            migrationBuilder.DropUniqueConstraint(
+                name: "AK_IngredientMacroNutrient_Id_IngredientId",
+                table: "IngredientMacroNutrient");
+
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
                 keyColumn: "Id",
@@ -97,23 +105,28 @@ namespace Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"));
 
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_IngredientMacroNutrient",
+                table: "IngredientMacroNutrient",
+                columns: new[] { "Id", "IngredientId" });
+
             migrationBuilder.InsertData(
                 table: "IngredientMacroNutrient",
                 columns: new[] { "Id", "IngredientId", "MacroNutrient", "ParticipationInIngredient" },
                 values: new object[,]
                 {
-                    { new Guid("57f65e80-a3aa-4ee3-b951-7d84e56e99ae"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), 2, 0.20000000000000001 },
-                    { new Guid("08974804-0522-455f-b27c-74dee5c82cc6"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), 4, 0.10000000000000001 },
-                    { new Guid("e6063871-5cc4-4b85-8a63-6678065c99ed"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), 8, 0.59999999999999998 },
-                    { new Guid("e338f2c2-19e5-4c59-9a62-004e5e45f0bf"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), 2, 0.80000000000000004 },
-                    { new Guid("2e1f4904-6269-4c78-944a-6798ad2f2c8e"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), 4, 0.0 },
-                    { new Guid("e8e7d7b3-f1b9-4912-903a-9bc16f87e6dc"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), 8, 0.20000000000000001 },
-                    { new Guid("f2046a3c-49bf-4e1a-bd24-52a118dcc608"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), 2, 0.69999999999999996 },
-                    { new Guid("aa6e2c5d-5f9b-4537-92b7-38e964cba602"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), 4, 0.10000000000000001 },
-                    { new Guid("601583fe-ce9e-490e-aaa5-15eb9f6e6c5f"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), 8, 0.20000000000000001 },
-                    { new Guid("b740b3ba-66d3-4df1-8741-72d5d62d0c04"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), 2, 0.20000000000000001 },
-                    { new Guid("c6be0199-141a-45aa-a5b6-10cb156f7403"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), 4, 0.10000000000000001 },
-                    { new Guid("47d10650-8632-477e-8367-629d915350dc"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), 8, 0.20000000000000001 }
+                    { new Guid("c128e975-3d03-4f85-b0d3-5abd95a1ca1a"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), 2, 0.20000000000000001 },
+                    { new Guid("f04b3c37-7c7a-44f0-838d-dfc5718bd647"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), 4, 0.10000000000000001 },
+                    { new Guid("923c4585-b82e-495e-bd53-f064c2029f37"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), 8, 0.59999999999999998 },
+                    { new Guid("313398a1-2ae0-458b-9927-a81c06083905"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), 2, 0.80000000000000004 },
+                    { new Guid("7e91f4c4-9eac-4e1f-b5d9-0ea1ae3cf984"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), 4, 0.0 },
+                    { new Guid("621a0fb8-fdba-49a2-94fc-6e6971b71310"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), 8, 0.20000000000000001 },
+                    { new Guid("ae9a1afa-a724-41a3-8ad8-acb8bbe4f822"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), 2, 0.69999999999999996 },
+                    { new Guid("52461f0d-3058-4b78-81c6-bba6e42015fa"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), 4, 0.10000000000000001 },
+                    { new Guid("e93910cb-114c-4d26-8db3-7963d1b7a43c"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), 8, 0.20000000000000001 },
+                    { new Guid("74ceb16a-2efb-4915-a974-d77d7737bcc8"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), 2, 0.20000000000000001 },
+                    { new Guid("5857189b-2686-4a21-8d01-cb0feadce4da"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), 4, 0.10000000000000001 },
+                    { new Guid("eafef89b-42f1-4017-a474-ecc62687aefc"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), 8, 0.20000000000000001 }
                 });
 
             migrationBuilder.InsertData(
@@ -121,8 +134,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Description", "Name", "RecipeDetails_ApproximateCost", "RecipeDetails_DifficultyLevel", "RecipeDetails_MealTypes", "RecipeDetails_PreparationTime" },
                 values: new object[,]
                 {
-                    { new Guid("e634f353-beab-443c-93a8-2988218ba59e"), "Default recipe description", "Oatmeal with milk", 8m, 2, 18, 15 },
-                    { new Guid("641962f1-6c81-4c7e-af5e-b08e843e2f12"), "Default recipe description", "Chicken with rise", 10m, 2, 12, 30 }
+                    { new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"), "Default recipe description", "Oatmeal with milk", 8m, 2, 18, 15 },
+                    { new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"), "Default recipe description", "Chicken with rise", 10m, 2, 12, 30 }
                 });
 
             migrationBuilder.InsertData(
@@ -130,104 +143,118 @@ namespace Infrastructure.Migrations
                 columns: new[] { "IngredientId", "RecipeId", "Grams" },
                 values: new object[,]
                 {
-                    { new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), new Guid("e634f353-beab-443c-93a8-2988218ba59e"), 50.0 },
-                    { new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), new Guid("e634f353-beab-443c-93a8-2988218ba59e"), 150.0 },
-                    { new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), new Guid("641962f1-6c81-4c7e-af5e-b08e843e2f12"), 200.0 },
-                    { new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), new Guid("641962f1-6c81-4c7e-af5e-b08e843e2f12"), 100.0 }
+                    { new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"), 50.0 },
+                    { new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"), 150.0 },
+                    { new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"), 200.0 },
+                    { new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"), 100.0 }
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("08974804-0522-455f-b27c-74dee5c82cc6"));
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_IngredientMacroNutrient",
+                table: "IngredientMacroNutrient");
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("2e1f4904-6269-4c78-944a-6798ad2f2c8e"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("313398a1-2ae0-458b-9927-a81c06083905"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("47d10650-8632-477e-8367-629d915350dc"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("52461f0d-3058-4b78-81c6-bba6e42015fa"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("57f65e80-a3aa-4ee3-b951-7d84e56e99ae"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("5857189b-2686-4a21-8d01-cb0feadce4da"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("601583fe-ce9e-490e-aaa5-15eb9f6e6c5f"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("621a0fb8-fdba-49a2-94fc-6e6971b71310"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("aa6e2c5d-5f9b-4537-92b7-38e964cba602"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("74ceb16a-2efb-4915-a974-d77d7737bcc8"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("b740b3ba-66d3-4df1-8741-72d5d62d0c04"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("7e91f4c4-9eac-4e1f-b5d9-0ea1ae3cf984"), new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("c6be0199-141a-45aa-a5b6-10cb156f7403"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("923c4585-b82e-495e-bd53-f064c2029f37"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("e338f2c2-19e5-4c59-9a62-004e5e45f0bf"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("ae9a1afa-a724-41a3-8ad8-acb8bbe4f822"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("e6063871-5cc4-4b85-8a63-6678065c99ed"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("c128e975-3d03-4f85-b0d3-5abd95a1ca1a"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("e8e7d7b3-f1b9-4912-903a-9bc16f87e6dc"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("e93910cb-114c-4d26-8db3-7963d1b7a43c"), new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f") });
 
             migrationBuilder.DeleteData(
                 table: "IngredientMacroNutrient",
-                keyColumn: "Id",
-                keyValue: new Guid("f2046a3c-49bf-4e1a-bd24-52a118dcc608"));
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("eafef89b-42f1-4017-a474-ecc62687aefc"), new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9") });
+
+            migrationBuilder.DeleteData(
+                table: "IngredientMacroNutrient",
+                keyColumns: new[] { "Id", "IngredientId" },
+                keyValues: new object[] { new Guid("f04b3c37-7c7a-44f0-838d-dfc5718bd647"), new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf") });
 
             migrationBuilder.DeleteData(
                 table: "RecipeIngredients",
                 keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), new Guid("641962f1-6c81-4c7e-af5e-b08e843e2f12") });
+                keyValues: new object[] { new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"), new Guid("5b1015b7-05d4-437a-9365-93304785ec9c") });
 
             migrationBuilder.DeleteData(
                 table: "RecipeIngredients",
                 keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), new Guid("641962f1-6c81-4c7e-af5e-b08e843e2f12") });
+                keyValues: new object[] { new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"), new Guid("5b1015b7-05d4-437a-9365-93304785ec9c") });
 
             migrationBuilder.DeleteData(
                 table: "RecipeIngredients",
                 keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), new Guid("e634f353-beab-443c-93a8-2988218ba59e") });
+                keyValues: new object[] { new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"), new Guid("595fb96e-d833-4596-89ea-e7ba0320c169") });
 
             migrationBuilder.DeleteData(
                 table: "RecipeIngredients",
                 keyColumns: new[] { "IngredientId", "RecipeId" },
-                keyValues: new object[] { new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), new Guid("e634f353-beab-443c-93a8-2988218ba59e") });
+                keyValues: new object[] { new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"), new Guid("595fb96e-d833-4596-89ea-e7ba0320c169") });
 
             migrationBuilder.DeleteData(
                 table: "Recipes",
                 keyColumn: "Id",
-                keyValue: new Guid("641962f1-6c81-4c7e-af5e-b08e843e2f12"));
+                keyValue: new Guid("595fb96e-d833-4596-89ea-e7ba0320c169"));
 
             migrationBuilder.DeleteData(
                 table: "Recipes",
                 keyColumn: "Id",
-                keyValue: new Guid("e634f353-beab-443c-93a8-2988218ba59e"));
+                keyValue: new Guid("5b1015b7-05d4-437a-9365-93304785ec9c"));
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_IngredientMacroNutrient",
+                table: "IngredientMacroNutrient",
+                column: "Id");
+
+            migrationBuilder.AddUniqueConstraint(
+                name: "AK_IngredientMacroNutrient_Id_IngredientId",
+                table: "IngredientMacroNutrient",
+                columns: new[] { "Id", "IngredientId" });
 
             migrationBuilder.InsertData(
                 table: "IngredientMacroNutrient",
