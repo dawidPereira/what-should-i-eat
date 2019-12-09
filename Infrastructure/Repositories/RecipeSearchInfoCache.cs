@@ -6,6 +6,7 @@ using Domain.Recipes.Queries.SearchInfoQueries.GetAllSearchInfos;
 using Domain.Recipes.Queries.SearchInfoQueries.GetSearchInfosByIngredientId;
 using Domain.Recipes.Repositories;
 using EasyCaching.Core;
+using Hangfire;
 using Infrastructure.Common;
 using Infrastructure.Mediator;
 
@@ -22,7 +23,7 @@ namespace Infrastructure.Repositories
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(Constants.RedisName);
 		}
 
-		public void Remove(string key) => _cachingProvider.Remove(key);
+		public void Remove(string key) => BackgroundJob.Enqueue(() => _cachingProvider.Remove(key));
 
 		public void Update(RecipeSearchInfo recipeSearchInfo)
 		{
@@ -30,9 +31,9 @@ namespace Infrastructure.Repositories
 			{
 				{recipeSearchInfo.Id.ToString(), recipeSearchInfo}
 			};
-			_cachingProvider.Set(Constants.RecipeSearchInfo, recipeSearchInfoDictionary , TimeSpan.MaxValue);
+			BackgroundJob.Enqueue(() =>
+				_cachingProvider.Set(Constants.RecipeSearchInfo, recipeSearchInfoDictionary , TimeSpan.MaxValue));
 		}
-
 
 		public void BuildRecipeSearchInfo()
 		{
@@ -43,7 +44,8 @@ namespace Infrastructure.Repositories
 				{Constants.RecipeSearchInfo, recipesSearchInfos}
 			};
 
-			_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue);
+			BackgroundJob.Enqueue(() => 
+				_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue));
 		}
 
 		public void UpdateRecipeSearchInfoByIngredientId(Guid id)
@@ -55,7 +57,8 @@ namespace Infrastructure.Repositories
 				{Constants.RecipeSearchInfo, recipesSearchInfos}
 			};
 			
-			_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue);
+			BackgroundJob.Enqueue(() =>
+				_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue));
 		}
 	}
 }

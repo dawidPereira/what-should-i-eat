@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Command;
-using Domain.Common.Events;
 using Domain.Common.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Events.Updated;
 using Domain.Ingredients.Repositories;
+using Domain.Mediators.Command;
+using Domain.Mediators.Events;
 
 namespace Domain.Ingredients.Commands.Update
 {

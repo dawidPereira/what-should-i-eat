@@ -1,4 +1,4 @@
-﻿using Domain.Common.Events;
+﻿using Domain.Mediators.Events;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Events.EventPublishers

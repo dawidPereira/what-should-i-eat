@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Query;
+using Domain.Mediators.Query;
 
 namespace Domain.Recipes.Queries.SearchInfoQueries.GetAllSearchInfos
 {

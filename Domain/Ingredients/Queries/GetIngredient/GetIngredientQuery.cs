@@ -1,5 +1,5 @@
 ﻿using System;
-using Domain.Common.Query;
+using Domain.Mediators.Query;
 
 namespace Domain.Ingredients.Queries.GetIngredient
 {

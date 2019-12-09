@@ -1,5 +1,5 @@
 ﻿using Domain.Common;
-using Domain.Common.Query;
+using Domain.Mediators.Query;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;
 
@@ -9,10 +9,7 @@ namespace Domain.Recipes.Queries.SearchInfoQueries.GetSearchInfo
 	{
 		private readonly IRecipeRepository _recipeRepository;
 
-		public GetSearchInfoQueryHandler(IRecipeRepository recipeRepository)
-		{
-			_recipeRepository = recipeRepository;
-		}
+		public GetSearchInfoQueryHandler(IRecipeRepository recipeRepository) => _recipeRepository = recipeRepository;
 
 		public RecipeSearchInfo Handle(GetSearchInfoQuery query)  => 
 			_recipeRepository.GetById(query.Id)?.CalculateSearchInfo() ?? 

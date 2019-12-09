@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using Domain.Common.Events;
-using Microsoft.Extensions.DependencyInjection;
+﻿﻿using System;
+ using System.Linq;
+ using Domain.Mediators.Events;
+ using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Events.EventPublishers
+ namespace Infrastructure.Events.EventPublishers
 {
 	public class EventPublisher : IEventPublisher
 	{

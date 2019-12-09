@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Command;
 using Domain.Common.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
+using Domain.Mediators.Command;
 
 namespace Domain.Ingredients.Commands.Create
 {

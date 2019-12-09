@@ -1,4 +1,4 @@
-﻿namespace Domain.Common.Events
+﻿namespace Domain.Mediators.Events
 {
 	public interface IEventPublisher
 	{

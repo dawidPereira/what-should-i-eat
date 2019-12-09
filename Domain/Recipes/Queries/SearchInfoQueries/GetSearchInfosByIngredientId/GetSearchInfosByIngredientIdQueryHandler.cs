@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Domain.Common.Query;
+using Domain.Mediators.Query;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Queries.SearchInfoQueries.GetSearchInfosByIngredientId
@@ -9,10 +9,8 @@ namespace Domain.Recipes.Queries.SearchInfoQueries.GetSearchInfosByIngredientId
 	{
 		private readonly IRecipeRepository _recipeRepository;
 
-		public GetSearchInfosByIngredientIdQueryHandler(IRecipeRepository recipeRepository)
-		{
+		public GetSearchInfosByIngredientIdQueryHandler(IRecipeRepository recipeRepository) => 
 			_recipeRepository = recipeRepository;
-		}
 
 		public ICollection<RecipeSearchInfo> Handle(GetSearchInfosByIngredientIdQuery query)=>
 			_recipeRepository.GetRecipesByIngredientId(query.Id)

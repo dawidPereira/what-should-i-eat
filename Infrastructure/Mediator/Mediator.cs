@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Domain.Common.Command;
-using Domain.Common.Events;
-using Domain.Common.Query;
 using Domain.Common.ValueObjects;
+using Domain.Mediators.Command;
+using Domain.Mediators.Events;
+using Domain.Mediators.Query;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Mediator

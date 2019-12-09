@@ -1,4 +1,4 @@
-﻿namespace Domain.Common.Query
+﻿namespace Domain.Mediators.Query
 {
 	public interface IQuery<TResult>
 	{

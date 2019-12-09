@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Query;
 using Domain.Ingredients.Repositories;
+using Domain.Mediators.Query;
 
 namespace Domain.Ingredients.Queries.GetIngredientsBasicInfos
 {

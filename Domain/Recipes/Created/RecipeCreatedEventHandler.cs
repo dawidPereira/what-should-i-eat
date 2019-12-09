@@ -1,0 +1,16 @@
+﻿using Domain.Mediators.Events;
+using Domain.Recipes.Events.Created;
+using Domain.Recipes.Repositories;
+
+namespace Domain.Recipes.Created
+{
+	public class RecipeCreatedEventHandler : IEventHandler<RecipeCreatedEvent>
+	{
+		private readonly IRecipeSearchInfoRepository _recipeSearchInfoRepository;
+
+		public RecipeCreatedEventHandler(IRecipeSearchInfoRepository recipeSearchInfoRepository) => 
+			_recipeSearchInfoRepository = recipeSearchInfoRepository;
+
+		public void Handle(RecipeCreatedEvent @event) => _recipeSearchInfoRepository.Update(@event.RecipeSearchInfo);
+	}
+}

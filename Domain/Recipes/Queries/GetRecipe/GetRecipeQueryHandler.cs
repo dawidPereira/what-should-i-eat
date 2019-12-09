@@ -1,5 +1,5 @@
 ﻿using Domain.Common;
-using Domain.Common.Query;
+using Domain.Mediators.Query;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;
 

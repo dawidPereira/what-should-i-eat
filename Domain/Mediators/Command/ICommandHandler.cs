@@ -1,6 +1,6 @@
 ﻿using Domain.Common.ValueObjects;
 
-namespace Domain.Common.Command
+namespace Domain.Mediators.Command
 {
 	public interface ICommandHandler<in TCommand> where TCommand : ICommand
 	{

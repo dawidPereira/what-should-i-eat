@@ -1,5 +1,5 @@
-﻿using Domain.Common.Command;
-using Domain.Common.ValueObjects;
+﻿using Domain.Common.ValueObjects;
+using Domain.Mediators.Command;
 
 namespace Domain.Common.Validators
 {

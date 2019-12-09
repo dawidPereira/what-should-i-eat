@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.Command;
 using Domain.Ingredients.Entities;
+using Domain.Mediators.Command;
 
 namespace Domain.Ingredients.Commands.Create
 {

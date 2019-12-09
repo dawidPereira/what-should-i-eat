@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Query;
+using Domain.Mediators.Query;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Queries.GetRecipesBasicInfos

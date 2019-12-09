@@ -1,7 +1,7 @@
 ﻿using Domain.Common;
-using Domain.Common.Query;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
+using Domain.Mediators.Query;
 
 namespace Domain.Ingredients.Queries.GetIngredient
 {

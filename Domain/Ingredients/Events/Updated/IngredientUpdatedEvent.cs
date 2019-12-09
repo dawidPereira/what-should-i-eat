@@ -1,5 +1,5 @@
 ﻿using System;
-using Domain.Common.Events;
+using Domain.Mediators.Events;
 
 namespace Domain.Ingredients.Events.Updated
 {
