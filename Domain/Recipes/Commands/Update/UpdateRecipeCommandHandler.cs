@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Mediators.Command;
 using Domain.Mediators.Events;
+using Domain.Mediators.Validators;
 using Domain.Recipes.Events.Updated;
 using Domain.Recipes.Repositories;
 

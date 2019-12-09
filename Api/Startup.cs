@@ -1,5 +1,5 @@
 using Api.Validators;
-using Domain.Common.Validators;
+using Domain.Mediators.Validators;
 using Domain.Recipes.Repositories;
 using EasyCaching.Core.Configurations;
 using Hangfire;

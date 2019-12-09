@@ -1,7 +1,7 @@
 ﻿using Domain.Common.ValueObjects;
 using Domain.Mediators.Command;
 
-namespace Domain.Common.Validators
+namespace Domain.Mediators.Validators
 {
 	public interface ICommandValidator<in TCommand> where TCommand : ICommand
 	{

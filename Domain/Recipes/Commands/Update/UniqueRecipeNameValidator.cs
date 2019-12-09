@@ -1,6 +1,6 @@
 ﻿using Domain.Common.Messages;
-using Domain.Common.Validators;
 using Domain.Common.ValueObjects;
+using Domain.Mediators.Validators;
 using Domain.Recipes.Commands.Create;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;

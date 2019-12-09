@@ -1,8 +1,8 @@
 ﻿using Domain.Common.Messages;
-using Domain.Common.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
+using Domain.Mediators.Validators;
 
 namespace Domain.Ingredients.Commands.Create
 {

@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using Domain.Common.Extensions;
 using Domain.Common.Messages;
-using Domain.Common.Validators;
 using Domain.Common.ValueObjects;
+using Domain.Mediators.Validators;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Ingredients.Commands.Delete

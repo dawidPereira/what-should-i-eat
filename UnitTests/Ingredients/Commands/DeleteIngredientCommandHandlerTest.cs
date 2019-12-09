@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.Validators;
 using Domain.Ingredients.Commands.Delete;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
+using Domain.Mediators.Validators;
 using Domain.Recipes.Queries.GetRecipesBasicInfos;
 using Domain.Recipes.Repositories;
 using FluentAssertions;

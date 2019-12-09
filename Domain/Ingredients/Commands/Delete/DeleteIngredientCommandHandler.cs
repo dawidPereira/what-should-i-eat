@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
 using Domain.Mediators.Command;
+using Domain.Mediators.Validators;
 
 namespace Domain.Ingredients.Commands.Delete
 {
