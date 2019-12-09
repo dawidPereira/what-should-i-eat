@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Mediators.Command;
+using Domain.Common.Mediators.Commands;
 using Domain.Recipes.Entities;
 
 namespace Domain.Recipes.Commands.Update

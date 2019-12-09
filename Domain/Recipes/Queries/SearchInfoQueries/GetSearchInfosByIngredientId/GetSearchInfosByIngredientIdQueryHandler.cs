@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Domain.Mediators.Query;
+using Domain.Common.Mediators.Queries;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Queries.SearchInfoQueries.GetSearchInfosByIngredientId

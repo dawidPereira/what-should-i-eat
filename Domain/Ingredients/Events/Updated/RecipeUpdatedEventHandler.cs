@@ -1,4 +1,4 @@
-﻿using Domain.Mediators.Events;
+﻿using Domain.Common.Mediators.Events;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Ingredients.Events.Updated

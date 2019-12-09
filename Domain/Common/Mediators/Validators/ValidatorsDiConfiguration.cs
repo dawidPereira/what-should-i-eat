@@ -1,7 +1,7 @@
 ﻿using Domain.Ingredients.Commands.Create;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Domain.Mediators.Validators
+namespace Domain.Common.Mediators.Validators
 {
 	public static class ValidatorsDiConfiguration
 	{

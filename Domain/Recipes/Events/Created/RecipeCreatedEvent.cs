@@ -1,4 +1,4 @@
-﻿using Domain.Mediators.Events;
+﻿using Domain.Common.Mediators.Events;
 using Domain.Recipes.Queries.SearchInfoQueries;
 
 namespace Domain.Recipes.Events.Created

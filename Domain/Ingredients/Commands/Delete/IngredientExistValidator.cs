@@ -1,7 +1,7 @@
-﻿using Domain.Common.Messages;
+﻿using Domain.Common.Mediators.Validators;
+using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
-using Domain.Mediators.Validators;
 
 namespace Domain.Ingredients.Commands.Delete
 {

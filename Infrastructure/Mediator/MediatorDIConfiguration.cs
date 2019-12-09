@@ -1,6 +1,6 @@
-﻿using Domain.Ingredients.Commands.Create;
-using Domain.Mediators.Command;
-using Domain.Mediators.Query;
+﻿using Domain.Common.Mediators.Commands;
+using Domain.Common.Mediators.Queries;
+using Domain.Ingredients.Commands.Create;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Mediator

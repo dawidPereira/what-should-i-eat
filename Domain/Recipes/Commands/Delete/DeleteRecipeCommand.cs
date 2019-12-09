@@ -1,5 +1,5 @@
 ﻿using System;
-using Domain.Mediators.Command;
+using Domain.Common.Mediators.Commands;
 
 namespace Domain.Recipes.Commands.Delete
 {

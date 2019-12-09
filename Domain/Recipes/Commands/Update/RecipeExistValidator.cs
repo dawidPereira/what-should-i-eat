@@ -1,8 +1,8 @@
-﻿using Domain.Common.Messages;
+﻿using Domain.Common.Mediators.Validators;
+using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Commands.Update;
 using Domain.Ingredients.Entities;
-using Domain.Mediators.Validators;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Commands.Update

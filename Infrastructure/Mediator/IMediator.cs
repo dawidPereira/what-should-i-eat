@@ -1,6 +1,6 @@
-﻿using Domain.Common.ValueObjects;
-using Domain.Mediators.Command;
-using Domain.Mediators.Query;
+﻿using Domain.Common.Mediators.Commands;
+using Domain.Common.Mediators.Queries;
+using Domain.Common.ValueObjects;
 
 namespace Infrastructure.Mediator
 {
