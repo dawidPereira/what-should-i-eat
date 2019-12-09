@@ -3,7 +3,7 @@ using WhatShouldIEat.Administration.Domain.Common.Command;
 using WhatShouldIEat.Administration.Domain.Common.Query;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Create;
 
-namespace WhatShouldIEat.Administration.Domain.Common.Mediator
+namespace WhatShouldIEat.Administration.Infrastructure.Mediator
 {
 	public static class MediatorDiConfiguration
 	{

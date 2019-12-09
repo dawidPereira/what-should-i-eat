@@ -6,7 +6,7 @@ using WhatShouldIEat.Administration.Domain.Common.Events;
 using WhatShouldIEat.Administration.Domain.Common.Query;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 
-namespace WhatShouldIEat.Administration.Domain.Common.Mediator
+namespace WhatShouldIEat.Administration.Infrastructure.Mediator
 {
 	public class Mediator : IMediator
 	{

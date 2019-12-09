@@ -4,9 +4,9 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
+using WhatShouldIEat.Administration.Domain.Common.Events;
 using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
-using WhatShouldIEat.Administration.Domain.Ingredients.Commands;
 using WhatShouldIEat.Administration.Domain.Ingredients.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Ingredients.Entities;
 using WhatShouldIEat.Administration.Domain.Ingredients.Repositories;
@@ -18,6 +18,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 	public class UpdateIngredientCommandHandlerTests
 	{
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
+		private Mock<IEventPublisher> _eventPublisherMock;
 		private UpdateIngredientCommand _command;
 		private UpdateIngredientCommandHandler _systemUnderTests;
 		private IEnumerable<ICommandValidator<UpdateIngredientCommand>> _validators;
@@ -31,12 +32,13 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			var command = CommandFactory.CreateValidIngredientFactory("MyName");
             _ingredient = Ingredient.Create(
 	            command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsParticipation);
+            _eventPublisherMock = new Mock<IEventPublisher>();
 			_validators = new List<ICommandValidator<UpdateIngredientCommand>>
 			{
 				new IngredientExistValidator(_ingredientRepositoryMock.Object),
 				new UniqueIngredientNameValidator(_ingredientRepositoryMock.Object)
 			};
-			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
+			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators, _eventPublisherMock.Object);
 		}
 
 		[Test]

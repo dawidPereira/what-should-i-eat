@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using WhatShouldIEat.Administration.Api.Validators.RecipeValidators;
-using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Messages;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Create;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Delete;
 using WhatShouldIEat.Administration.Domain.Recipes.Commands.Update;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipe;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.GetRecipesBasicInfos;
+using WhatShouldIEat.Administration.Infrastructure.Mediator;
 
 namespace WhatShouldIEat.Administration.Api.Controllers
 {

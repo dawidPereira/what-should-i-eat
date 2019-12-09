@@ -1,4 +1,4 @@
-﻿namespace WhatShouldIEat.Administration.Api.Common
+﻿namespace WhatShouldIEat.Administration.Infrastructure.Common
 {
 	public static class Constants
 	{

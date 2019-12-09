@@ -7,12 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using WhatShouldIEat.Administration.Api.Cache;
-using WhatShouldIEat.Administration.Api.Common;
 using WhatShouldIEat.Administration.Api.Validators;
-using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
+using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
+using WhatShouldIEat.Administration.Infrastructure.Common;
 using WhatShouldIEat.Administration.Infrastructure.DbContexts;
+using WhatShouldIEat.Administration.Infrastructure.Events.EventPublishers;
+using WhatShouldIEat.Administration.Infrastructure.Mediator;
 using WhatShouldIEat.Administration.Infrastructure.Repositories;
 
 namespace WhatShouldIEat.Administration.Api
@@ -49,20 +50,21 @@ namespace WhatShouldIEat.Administration.Api
 			services.AddHangfireServer();
 			
 			services.AddMediator();
+			services.AddEventPublisher();
 			services.AddControllers();
 			services.AddRepositories();
 			services.AddDomainValidators();
 			services.AddRequestValidators();
 			services.AddControllers()
 				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-			services.AddTransient<IRecipeSearchInfoCacheInvalidator, RecipeSearchInfoCacheInvalidator>();
+			services.AddTransient<IRecipeSearchInfoRepository, RecipeSearchInfoRepository>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app,
 			IWebHostEnvironment env,
 			IBackgroundJobClient backgroundJobs,
-			IRecipeSearchInfoCacheInvalidator recipeSearchInfoCacheInvalidator)
+			IRecipeSearchInfoRepository recipeSearchInfoRepository)
 		{
 			
 			app.UseHttpsRedirection();
@@ -77,7 +79,7 @@ namespace WhatShouldIEat.Administration.Api
 			}
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
-			backgroundJobs.Enqueue(() => recipeSearchInfoCacheInvalidator.BuildRecipeSearchInfo() );
+			backgroundJobs.Enqueue(() => recipeSearchInfoRepository.BuildRecipeSearchInfo() );
 		}
 	}
 }

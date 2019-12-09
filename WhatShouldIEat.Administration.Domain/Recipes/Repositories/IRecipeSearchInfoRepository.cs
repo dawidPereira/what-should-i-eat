@@ -1,9 +1,9 @@
 ﻿using System;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.SearchInfoQueries;
 
-namespace WhatShouldIEat.Administration.Api.Cache
+namespace WhatShouldIEat.Administration.Domain.Recipes.Repositories
 {
-	public interface IRecipeSearchInfoCacheInvalidator
+	public interface IRecipeSearchInfoRepository
 	{
 		void Update(RecipeSearchInfo recipeSearchInfo);
 		void Remove(string key);

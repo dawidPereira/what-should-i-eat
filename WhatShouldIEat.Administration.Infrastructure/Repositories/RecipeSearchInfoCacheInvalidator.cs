@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using EasyCaching.Core;
-using WhatShouldIEat.Administration.Api.Common;
-using WhatShouldIEat.Administration.Domain.Common.Mediator;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.SearchInfoQueries;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.SearchInfoQueries.GetAllSearchInfos;
 using WhatShouldIEat.Administration.Domain.Recipes.Queries.SearchInfoQueries.GetSearchInfosByIngredientId;
+using WhatShouldIEat.Administration.Domain.Recipes.Repositories;
+using WhatShouldIEat.Administration.Infrastructure.Common;
+using WhatShouldIEat.Administration.Infrastructure.Mediator;
 
-namespace WhatShouldIEat.Administration.Api.Cache
+namespace WhatShouldIEat.Administration.Infrastructure.Repositories
 {
-	public class RecipeSearchInfoCacheInvalidator : IRecipeSearchInfoCacheInvalidator
+	public class RecipeSearchInfoRepository : IRecipeSearchInfoRepository
 	{
 		private readonly IMediator _mediator;
 		private readonly IEasyCachingProvider _cachingProvider;
 
-		public RecipeSearchInfoCacheInvalidator(IEasyCachingProviderFactory cachingProviderFactory, IMediator mediator)
+		public RecipeSearchInfoRepository(IEasyCachingProviderFactory cachingProviderFactory, IMediator mediator)
 		{
 			_mediator = mediator;
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(Constants.RedisName);

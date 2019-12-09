@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using WhatShouldIEat.Administration.Domain.Common.Command;
-using WhatShouldIEat.Administration.Domain.Common.Mediator;
+using WhatShouldIEat.Administration.Domain.Common.Events;
 using WhatShouldIEat.Administration.Domain.Common.Validators;
 using WhatShouldIEat.Administration.Domain.Common.ValueObjects;
 using WhatShouldIEat.Administration.Domain.Recipes.Entities;
@@ -13,15 +13,15 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Create
 	{
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IEnumerable<ICommandValidator<CreateRecipeCommand>> _validators;
-		private readonly IMediator _mediator;
+		private readonly IEventPublisher _eventPublisher;
 
 		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository, 
 			IEnumerable<ICommandValidator<CreateRecipeCommand>> validators, 
-			IMediator mediator)
+			IEventPublisher eventPublisher)
 		{
 			_recipeRepository = recipeRepository;
 			_validators = validators;
-			_mediator = mediator;
+			_eventPublisher = eventPublisher;
 		}
 
 		public Result Handle(CreateRecipeCommand command)
@@ -38,7 +38,7 @@ namespace WhatShouldIEat.Administration.Domain.Recipes.Commands.Create
 			
 			_recipeRepository.Add(recipe);
 			_recipeRepository.Commit();
-			_mediator.Publish(new RecipeCreatedEvent(recipe.CalculateSearchInfo()));
+			_eventPublisher.Publish(new RecipeCreatedEvent(recipe.CalculateSearchInfo()));
 			return Result.Ok();
 		}
 	}
