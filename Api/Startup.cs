@@ -1,5 +1,6 @@
 using Api.Validators;
 using Domain.Common.Mediators.Validators;
+using Domain.Recipes.Filters.Factories;
 using Domain.Recipes.Repositories;
 using EasyCaching.Core.Configurations;
 using Hangfire;
@@ -57,6 +58,7 @@ namespace Api
 			services.AddControllers()
 				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 			services.AddTransient<IRecipeSearchInfoRepository, RecipeSearchInfoRepository>();
+			services.AddTransient<IFilterFactory, FilterFactory>();
 		}
 
 		public void Configure(IApplicationBuilder app,

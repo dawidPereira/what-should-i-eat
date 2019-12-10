@@ -43,9 +43,8 @@ namespace Infrastructure.Repositories
 			{
 				{Constants.RecipeSearchInfo, recipesSearchInfos}
 			};
-
-			BackgroundJob.Enqueue(() => 
-				_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue));
+			
+			_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue);
 		}
 
 		public void UpdateRecipeSearchInfoByIngredientId(Guid id)
