@@ -10,6 +10,6 @@ namespace Domain.Recipes.Events.Created
 		public RecipeCreatedEventHandler(IRecipeSearchInfoRepository recipeSearchInfoRepository) => 
 			_recipeSearchInfoRepository = recipeSearchInfoRepository;
 
-		public void Handle(RecipeCreatedEvent @event) => _recipeSearchInfoRepository.Update(@event.RecipeSearchInfo);
+		public void Handle(RecipeCreatedEvent @event) => _recipeSearchInfoRepository.Add(@event.RecipeSearchInfo);
 	}
 }

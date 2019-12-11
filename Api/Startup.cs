@@ -2,6 +2,7 @@ using Api.Validators;
 using Domain.Common.Mediators.Validators;
 using Domain.Recipes.Filters.Factories;
 using Domain.Recipes.Repositories;
+using Domain.Recipes.SearchInfos.Commands;
 using EasyCaching.Core.Configurations;
 using Hangfire;
 using Infrastructure.Common;
@@ -63,8 +64,7 @@ namespace Api
 
 		public void Configure(IApplicationBuilder app,
 			IWebHostEnvironment env,
-			IBackgroundJobClient backgroundJobs,
-			IRecipeSearchInfoRepository recipeSearchInfoRepository)
+			IMediator mediator)
 		{
 			
 			app.UseHttpsRedirection();
@@ -79,7 +79,7 @@ namespace Api
 			}
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
-			backgroundJobs.Enqueue(() => recipeSearchInfoRepository.BuildRecipeSearchInfo() );
+			mediator.Command(new BuildRecipesSearchInfoDataCommand());
 		}
 	}
 }
