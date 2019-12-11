@@ -15,10 +15,10 @@ namespace Domain.Ingredients.Commands.Update
 
 		public Result Validate(UpdateIngredientCommand command)
 		{
-			if(!_ingredientRepository.ExistById(command.Id))
-				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient), 
+			if (!_ingredientRepository.ExistById(command.Id))
+				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient),
 					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
-			
+
 			return Result.Ok();
 		}
 	}

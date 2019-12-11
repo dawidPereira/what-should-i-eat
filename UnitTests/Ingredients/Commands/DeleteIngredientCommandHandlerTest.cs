@@ -4,7 +4,7 @@ using Domain.Common.Mediators.Validators;
 using Domain.Ingredients.Commands.Delete;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
-using Domain.Recipes.Queries.GetRecipesBasicInfos;
+using Domain.Recipes.Queries.GetBasicInfos;
 using Domain.Recipes.Repositories;
 using FluentAssertions;
 using Moq;

@@ -1,5 +1,5 @@
 ﻿using Domain.Common.Mediators.Events;
-using Domain.Recipes.Queries.SearchInfoQueries;
+using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Events.Updated
 {

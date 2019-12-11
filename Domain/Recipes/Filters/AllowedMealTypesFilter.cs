@@ -1,6 +1,6 @@
 ﻿using Domain.Common.Filters;
 using Domain.Recipes.Entities;
-using Domain.Recipes.Queries.SearchInfoQueries;
+using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Filters
 {
@@ -11,7 +11,7 @@ namespace Domain.Recipes.Filters
 		public AllowedMealTypesFilter(MealType? filterCriteria) => 
 			_filterCriteria = filterCriteria;
 
-		public bool Test(RecipeSearchInfo toFilter) =>
+		public bool Satisfy(RecipeSearchInfo toFilter) => 
 			!_filterCriteria.HasValue || toFilter.MealTypes == _filterCriteria;
 	}
 }

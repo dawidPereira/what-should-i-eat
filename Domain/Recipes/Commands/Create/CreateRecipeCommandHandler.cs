@@ -11,12 +11,12 @@ namespace Domain.Recipes.Commands.Create
 {
 	public class CreateRecipeCommandHandler : ICommandHandler<CreateRecipeCommand>
 	{
+		private readonly IEventPublisher _eventPublisher;
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IEnumerable<ICommandValidator<CreateRecipeCommand>> _validators;
-		private readonly IEventPublisher _eventPublisher;
 
-		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository, 
-			IEnumerable<ICommandValidator<CreateRecipeCommand>> validators, 
+		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository,
+			IEnumerable<ICommandValidator<CreateRecipeCommand>> validators,
 			IEventPublisher eventPublisher)
 		{
 			_recipeRepository = recipeRepository;
@@ -32,10 +32,10 @@ namespace Domain.Recipes.Commands.Create
 				if (validationResult.IsFailure)
 					return validationResult;
 			}
-			
+
 			var recipe = Recipe.Create(
 				command.Id, command.Name, command.Description, command.RecipeDetails, command.RecipeIngredients);
-			
+
 			_recipeRepository.Add(recipe);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(new RecipeCreatedEvent(recipe.CalculateSearchInfo()));

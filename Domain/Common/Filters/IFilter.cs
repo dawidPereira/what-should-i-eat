@@ -2,6 +2,6 @@
 {
 	public interface IFilter<in T> where T : class
 	{
-		bool Test(T toFilter);
+		bool Satisfy(T toFilter);
 	}
 }

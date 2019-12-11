@@ -20,10 +20,10 @@ namespace Domain.Recipes.Commands.Create
 			{
 				var exist = _ingredientRepository.ExistById(commandRecipeIngredient.IngredientId);
 				if (!exist)
-					Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient), 
+					Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient),
 						nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 			}
-			
+
 			return Result.Ok();
 		}
 	}

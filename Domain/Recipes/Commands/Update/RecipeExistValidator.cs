@@ -18,10 +18,10 @@ namespace Domain.Recipes.Commands.Update
 
 		public Result Validate(UpdateRecipeCommand command)
 		{
-			if(!_recipeRepository.ExistById(command.Id))
-				Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient), 
+			if (!_recipeRepository.ExistById(command.Id))
+				Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient),
 					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
-			
+
 			return Result.Ok();
 		}
 	}

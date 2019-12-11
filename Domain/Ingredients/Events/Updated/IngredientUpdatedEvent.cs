@@ -9,7 +9,7 @@ namespace Domain.Ingredients.Events.Updated
 		{
 			Id = id;
 		}
-		
+
 		public Guid Id { get; }
 	}
 }

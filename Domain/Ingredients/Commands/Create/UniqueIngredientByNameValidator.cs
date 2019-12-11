@@ -15,10 +15,10 @@ namespace Domain.Ingredients.Commands.Create
 
 		public Result Validate(CreateIngredientCommand command)
 		{
-			if(_ingredientRepository.ExistByName(command.Name))
-				return Result.Fail(ResultCode.BadRequest, FailMessages.AlreadyExist(nameof(Ingredient), 
+			if (_ingredientRepository.ExistByName(command.Name))
+				return Result.Fail(ResultCode.BadRequest, FailMessages.AlreadyExist(nameof(Ingredient),
 					nameof(CreateIngredientCommand.Name), command.Name));
-			
+
 			return Result.Ok();
 		}
 	}

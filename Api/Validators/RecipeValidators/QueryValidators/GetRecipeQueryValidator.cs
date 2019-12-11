@@ -1,4 +1,4 @@
-﻿using Domain.Recipes.Queries.GetRecipe;
+﻿using Domain.Recipes.Queries.GetById;
 using FluentValidation;
 
 namespace Api.Validators.RecipeValidators.QueryValidators

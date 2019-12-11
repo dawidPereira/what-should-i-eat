@@ -1,63 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Recipes.Queries.SearchInfoQueries;
-using Domain.Recipes.Queries.SearchInfoQueries.GetAllSearchInfos;
-using Domain.Recipes.Queries.SearchInfoQueries.GetSearchInfosByIngredientId;
 using Domain.Recipes.Repositories;
+using Domain.Recipes.SearchInfos;
 using EasyCaching.Core;
 using Hangfire;
 using Infrastructure.Common;
-using Infrastructure.Mediator;
+using Infrastructure.Common.Extensions;
 
 namespace Infrastructure.Repositories
 {
 	public class RecipeSearchInfoRepository : IRecipeSearchInfoRepository
 	{
-		private readonly IMediator _mediator;
 		private readonly IEasyCachingProvider _cachingProvider;
 
-		public RecipeSearchInfoRepository(IEasyCachingProviderFactory cachingProviderFactory, IMediator mediator)
+		public RecipeSearchInfoRepository(IEasyCachingProviderFactory cachingProviderFactory)
 		{
-			_mediator = mediator;
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(Constants.RedisName);
 		}
 
 		public void Remove(string key) => BackgroundJob.Enqueue(() => _cachingProvider.Remove(key));
 
-		public void Update(RecipeSearchInfo recipeSearchInfo)
+		public void Add(RecipeSearchInfo recipeSearchInfo)
 		{
-			var recipeSearchInfoDictionary = new Dictionary<string, RecipeSearchInfo>
-			{
-				{recipeSearchInfo.Id.ToString(), recipeSearchInfo}
-			};
-			BackgroundJob.Enqueue(() =>
-				_cachingProvider.Set(Constants.RecipeSearchInfo, recipeSearchInfoDictionary , TimeSpan.MaxValue));
-		}
-
-		public void BuildRecipeSearchInfo()
-		{
-			var recipesSearchInfos = _mediator.Query(new GetAllSearchInfosQuery())
-				.ToDictionary(x => x.Id.ToString(), x => x);
-			var recipeSearchInfoDictionary = new Dictionary<string, IDictionary<string,RecipeSearchInfo>>
-			{
-				{Constants.RecipeSearchInfo, recipesSearchInfos}
-			};
-			
-			_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue);
-		}
-
-		public void UpdateRecipeSearchInfoByIngredientId(Guid id)
-		{
-			var recipesSearchInfos = _mediator.Query(new GetSearchInfosByIngredientIdQuery(id))
-				.ToDictionary(x => x.Id.ToString(), x => x);
-			var recipeSearchInfoDictionary = new Dictionary<string, IDictionary<string,RecipeSearchInfo>>
-			{
-				{Constants.RecipeSearchInfo, recipesSearchInfos}
-			};
+			var key = recipeSearchInfo.Id
+				.ToDictionaryKey(nameof(RecipeSearchInfo));
 			
 			BackgroundJob.Enqueue(() =>
-				_cachingProvider.SetAll(recipeSearchInfoDictionary, TimeSpan.MaxValue));
+				_cachingProvider.Set(key, recipeSearchInfo, TimeSpan.MaxValue));
+		}
+
+		public void AddRange(IEnumerable<RecipeSearchInfo> recipeSearchInfos)
+		{
+			var searchInfosDictionary = recipeSearchInfos
+				.ToDictionary(x => x.Id.ToDictionaryKey(nameof(RecipeSearchInfo)), x => x);
+
+			BackgroundJob.Enqueue(() =>
+				_cachingProvider.SetAll(searchInfosDictionary, TimeSpan.MaxValue));
 		}
 	}
 }

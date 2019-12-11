@@ -15,10 +15,10 @@ namespace Domain.Recipes.Commands.Delete
 
 		public Result Validate(DeleteRecipeCommand command)
 		{
-			if(!_recipeRepository.ExistById(command.Id))
-				Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Recipe), 
+			if (!_recipeRepository.ExistById(command.Id))
+				Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Recipe),
 					nameof(DeleteRecipeCommand.Id), command.Id.ToString()));
-			
+
 			return Result.Ok();
 		}
 	}

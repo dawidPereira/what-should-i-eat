@@ -12,7 +12,7 @@ namespace Domain.Ingredients.Commands.Create
 		private readonly IIngredientRepository _ingredientRepository;
 		private readonly IEnumerable<ICommandValidator<CreateIngredientCommand>> _validators;
 
-		public CreateIngredientCommandHandler(IIngredientRepository ingredientRepository, 
+		public CreateIngredientCommandHandler(IIngredientRepository ingredientRepository,
 			IEnumerable<ICommandValidator<CreateIngredientCommand>> validators)
 		{
 			_ingredientRepository = ingredientRepository;

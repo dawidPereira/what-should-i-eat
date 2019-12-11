@@ -13,8 +13,8 @@ namespace Domain.Ingredients.Entities
 		private Ingredient()
 		{
 		}
-		
-		private  Ingredient(Guid id,
+
+		private Ingredient(Guid id,
 			string name,
 			Allergen allergens,
 			Requirement requirements,

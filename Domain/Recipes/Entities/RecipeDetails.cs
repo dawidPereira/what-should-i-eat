@@ -5,7 +5,7 @@
 		private RecipeDetails()
 		{
 		}
-		
+
 		public RecipeDetails(int difficultyLevel,
 			int preparationTime,
 			decimal approximateCost,

@@ -11,7 +11,7 @@ namespace Domain.Ingredients.Commands.Delete
 		private readonly IIngredientRepository _ingredientRepository;
 		private readonly IEnumerable<ICommandValidator<DeleteIngredientCommand>> _validators;
 
-		public DeleteIngredientCommandHandler(IIngredientRepository ingredientRepository, 
+		public DeleteIngredientCommandHandler(IIngredientRepository ingredientRepository,
 			IEnumerable<ICommandValidator<DeleteIngredientCommand>> validators)
 		{
 			_ingredientRepository = ingredientRepository;
@@ -26,12 +26,12 @@ namespace Domain.Ingredients.Commands.Delete
 				if (validationResult.IsFailure)
 					return validationResult;
 			}
-			
+
 			var ingredient = _ingredientRepository.GetById(command.Id);
 
 			_ingredientRepository.Remove(ingredient);
 			_ingredientRepository.Commit();
-			return  Result.Ok();
+			return Result.Ok();
 		}
 	}
 }

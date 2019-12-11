@@ -18,7 +18,7 @@ namespace Domain.Ingredients.Commands.Delete
 		{
 			var recipesWithIngredient = _recipeRepository.GetRecipesBasicInfosByIngredientId(command.Id);
 			if (recipesWithIngredient == null) return Result.Ok();
-			
+
 			var message = new StringBuilder();
 			message.AppendLine("Ingredient cannot be deleted. Ingredient is used in following recipes:");
 			recipesWithIngredient.ForEach(x => message.AppendLine($"RecipeName: {x.Name} | RecipeId: {x.Id}."));

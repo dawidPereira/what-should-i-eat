@@ -1,13 +1,12 @@
-﻿using System;
-using Domain.Recipes.Queries.SearchInfoQueries;
+﻿using System.Collections.Generic;
+using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Repositories
 {
 	public interface IRecipeSearchInfoRepository
 	{
-		void Update(RecipeSearchInfo recipeSearchInfo);
+		void Add(RecipeSearchInfo recipeSearchInfo);
 		void Remove(string key);
-		void BuildRecipeSearchInfo();
-		void UpdateRecipeSearchInfoByIngredientId(Guid id);
+		void AddRange(IEnumerable<RecipeSearchInfo> recipeSearchInfos);
 	}
 }

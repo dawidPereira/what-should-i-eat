@@ -1,6 +1,6 @@
 ﻿using Domain.Common.Filters;
 using Domain.Ingredients.Entities;
-using Domain.Recipes.Queries.SearchInfoQueries;
+using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Filters
 {
@@ -11,7 +11,7 @@ namespace Domain.Recipes.Filters
 		public NotAllowedAllergensFilter(Allergen? filterCriteria) => 
 			_filterCriteria = filterCriteria;
 
-		public bool Test(RecipeSearchInfo toFilter) =>
+		public bool Satisfy(RecipeSearchInfo toFilter) => 
 			!_filterCriteria.HasValue || toFilter.Allergens == _filterCriteria;
 	}
 }

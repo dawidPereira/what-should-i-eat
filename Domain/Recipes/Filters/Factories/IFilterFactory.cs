@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domain.Common.Filters;
 using Domain.Recipes.Filters.FiltersCriteria;
-using Domain.Recipes.Queries.SearchInfoQueries;
+using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Filters.Factories
 {

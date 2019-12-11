@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Recipes.Entities;
-using Domain.Recipes.Queries.GetRecipesBasicInfos;
+using Domain.Recipes.Queries.GetBasicInfos;
 using Domain.Recipes.Repositories;
 using Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;

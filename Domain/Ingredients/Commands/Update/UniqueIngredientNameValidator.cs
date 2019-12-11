@@ -17,9 +17,9 @@ namespace Domain.Ingredients.Commands.Update
 		{
 			var ingredient = _ingredientRepository.GetById(command.Id);
 			if (command.Name.Equals(ingredient.Name)) return Result.Ok();
-			
+
 			if (_ingredientRepository.ExistByName(command.Name))
-				return Result.Fail(ResultCode.BadRequest, FailMessages.AlreadyExist(nameof(Ingredient), 
+				return Result.Fail(ResultCode.BadRequest, FailMessages.AlreadyExist(nameof(Ingredient),
 					nameof(UpdateIngredientCommand.Name), command.Name));
 
 			return Result.Ok();

@@ -14,8 +14,8 @@ namespace Domain.Recipes.Commands.Delete
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IEnumerable<ICommandValidator<DeleteRecipeCommand>> _validators;
 
-		public DeleteRecipeCommandHandler(IRecipeRepository recipeRepository, 
-			IEnumerable<ICommandValidator<DeleteRecipeCommand>> validators, 
+		public DeleteRecipeCommandHandler(IRecipeRepository recipeRepository,
+			IEnumerable<ICommandValidator<DeleteRecipeCommand>> validators,
 			IEventPublisher eventPublisher)
 		{
 			_recipeRepository = recipeRepository;
@@ -31,9 +31,9 @@ namespace Domain.Recipes.Commands.Delete
 				if (validationResult.IsFailure)
 					return validationResult;
 			}
-			
+
 			var recipe = _recipeRepository.GetById(command.Id);
-			
+
 			_recipeRepository.Delete(recipe);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(new RecipeDeletedEvent(command.Id));

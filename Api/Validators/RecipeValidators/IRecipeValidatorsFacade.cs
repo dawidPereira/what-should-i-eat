@@ -1,7 +1,7 @@
 ﻿using Domain.Recipes.Commands.Create;
 using Domain.Recipes.Commands.Delete;
 using Domain.Recipes.Commands.Update;
-using Domain.Recipes.Queries.GetRecipe;
+using Domain.Recipes.Queries.GetById;
 using FluentValidation.Results;
 
 namespace Api.Validators.RecipeValidators

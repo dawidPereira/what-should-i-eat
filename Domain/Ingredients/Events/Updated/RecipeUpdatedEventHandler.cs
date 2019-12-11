@@ -1,16 +1,30 @@
-﻿using Domain.Common.Mediators.Events;
+﻿using System.Linq;
+using Domain.Common.Mediators.Events;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Ingredients.Events.Updated
 {
 	public class RecipeUpdatedEventHandler : IEventHandler<IngredientUpdatedEvent>
 	{
+		private readonly IRecipeRepository _recipeRepository;
 		private readonly IRecipeSearchInfoRepository _recipeSearchInfoRepository;
 
-		public RecipeUpdatedEventHandler(IRecipeSearchInfoRepository recipeSearchInfoRepository) => 
-			_recipeSearchInfoRepository = recipeSearchInfoRepository;
 
-		public void Handle(IngredientUpdatedEvent @event) => 
-			_recipeSearchInfoRepository.UpdateRecipeSearchInfoByIngredientId(@event.Id);
+		public RecipeUpdatedEventHandler(IRecipeSearchInfoRepository recipeSearchInfoRepository,
+			IRecipeRepository recipeRepository)
+		{
+			_recipeSearchInfoRepository = recipeSearchInfoRepository;
+			_recipeRepository = recipeRepository;
+		}
+
+		public void Handle(IngredientUpdatedEvent @event)
+		{
+			var affectedRecipes = _recipeRepository
+				.GetRecipesByIngredientId(@event.Id)
+				.Select(x => x.CalculateSearchInfo())
+				.ToList();
+
+			_recipeSearchInfoRepository.AddRange(affectedRecipes);
+		}
 	}
 }

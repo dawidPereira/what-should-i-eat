@@ -3,7 +3,7 @@ using System.Linq;
 using Domain.Common.Filters;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Recipes.Filters.FiltersCriteria;
-using Domain.Recipes.Queries.SearchInfoQueries;
+using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Filters
 {
@@ -11,11 +11,15 @@ namespace Domain.Recipes.Filters
 	{
 		private readonly IDictionary<MacroNutrient, RangeFilterCriteria?> _filterCriteria;
 
-		public MacroNutrientsFilter(IDictionary<MacroNutrient, RangeFilterCriteria?> filterCriteria) =>
+		public MacroNutrientsFilter(IDictionary<MacroNutrient, RangeFilterCriteria?> filterCriteria)
+		{
 			_filterCriteria = filterCriteria;
+		}
 
-		public bool Test(RecipeSearchInfo toFilter) =>
-			!_filterCriteria.Any() || toFilter.MacroNutrientQuantity.All(x => IsSatisfy(x.Value, x.Key));
+		public bool Satisfy(RecipeSearchInfo toFilter)
+		{
+			return !_filterCriteria.Any() || toFilter.MacroNutrientQuantity.All(x => IsSatisfy(x.Value, x.Key));
+		}
 
 		private bool IsSatisfy(double quantity, MacroNutrient filtered)
 		{

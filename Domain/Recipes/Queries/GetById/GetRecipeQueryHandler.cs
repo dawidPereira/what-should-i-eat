@@ -3,7 +3,7 @@ using Domain.Common.Mediators.Queries;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;
 
-namespace Domain.Recipes.Queries.GetRecipe
+namespace Domain.Recipes.Queries.GetById
 {
 	public class GetRecipeQueryHandler : IQueryHandler<GetRecipeQuery, RecipeDto>
 	{

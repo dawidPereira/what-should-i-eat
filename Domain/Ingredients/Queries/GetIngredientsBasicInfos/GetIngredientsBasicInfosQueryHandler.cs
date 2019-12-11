@@ -4,7 +4,7 @@ using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Queries.GetIngredientsBasicInfos
 {
-	public class GetIngredientsBasicInfosQueryHandler : 
+	public class GetIngredientsBasicInfosQueryHandler :
 		IQueryHandler<GetIngredientsBasicInfosQuery, ICollection<IngredientBasicInfo>>
 	{
 		private readonly IIngredientRepository _ingredientRepository;

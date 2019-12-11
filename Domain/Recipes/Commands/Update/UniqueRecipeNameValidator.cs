@@ -20,7 +20,7 @@ namespace Domain.Recipes.Commands.Update
 			if (recipe.Name != command.Name && _recipeRepository.ExistByName(command.Name))
 				return Result.Fail(ResultCode.BadRequest, FailMessages.AlreadyExist(nameof(Recipe),
 					nameof(CreateRecipeCommand.Name), command.Name));
-			
+
 			return Result.Ok();
 		}
 	}

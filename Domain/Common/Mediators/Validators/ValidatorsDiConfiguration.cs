@@ -13,7 +13,7 @@ namespace Domain.Common.Mediators.Validators
 					.AddClasses(classes => classes.AssignableTo(typeof(ICommandValidator<>)))
 					.AsImplementedInterfaces()
 					.WithTransientLifetime());
-			
+
 			return services;
 		}
 	}

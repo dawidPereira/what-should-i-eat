@@ -5,8 +5,8 @@ using Domain.Common.Extensions;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Recipes.Commands.Update;
-using Domain.Recipes.Queries.GetRecipe;
-using Domain.Recipes.Queries.SearchInfoQueries;
+using Domain.Recipes.Queries.GetById;
+using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Entities
 {
@@ -63,7 +63,7 @@ namespace Domain.Recipes.Entities
 
 		public RecipeSearchInfo CalculateSearchInfo() =>
 			new RecipeSearchInfo(Id,
-				GetRequirements(), 
+				GetRequirements(),
 				GetAllergens(),
 				GetMealTypes(),
 				CalculateCalories(),

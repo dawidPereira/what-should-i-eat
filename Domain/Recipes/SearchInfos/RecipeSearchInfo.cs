@@ -4,7 +4,7 @@ using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Recipes.Entities;
 
-namespace Domain.Recipes.Queries.SearchInfoQueries
+namespace Domain.Recipes.SearchInfos
 {
 	public class RecipeSearchInfo
 	{

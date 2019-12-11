@@ -14,10 +14,10 @@ namespace Domain.Ingredients.Commands.Delete
 
 		public Result Validate(DeleteIngredientCommand command)
 		{
-			if(!_ingredientRepository.ExistById(command.Id))
-				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredients), 
+			if (!_ingredientRepository.ExistById(command.Id))
+				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredients),
 					nameof(DeleteIngredientCommand.Id), command.Id.ToString()));
-			
+
 			return Result.Ok();
 		}
 	}

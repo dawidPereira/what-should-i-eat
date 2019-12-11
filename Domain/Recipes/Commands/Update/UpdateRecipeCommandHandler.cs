@@ -14,8 +14,8 @@ namespace Domain.Recipes.Commands.Update
 		private readonly IRecipeRepository _recipeRepository;
 		private readonly IEnumerable<ICommandValidator<UpdateRecipeCommand>> _validators;
 
-		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository, 
-			IEnumerable<ICommandValidator<UpdateRecipeCommand>> validators, 
+		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository,
+			IEnumerable<ICommandValidator<UpdateRecipeCommand>> validators,
 			IEventPublisher eventPublisher)
 		{
 			_recipeRepository = recipeRepository;
@@ -31,9 +31,9 @@ namespace Domain.Recipes.Commands.Update
 				if (validationResult.IsFailure)
 					return validationResult;
 			}
-			
+
 			var recipe = _recipeRepository.GetById(command.Id);
-			
+
 			recipe.Update(command);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(new RecipeUpdatedEvent(recipe.CalculateSearchInfo()));

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Recipes.Entities;
-using Domain.Recipes.Queries.GetRecipesBasicInfos;
+using Domain.Recipes.Queries.GetBasicInfos;
 
 namespace Domain.Recipes.Repositories
 {

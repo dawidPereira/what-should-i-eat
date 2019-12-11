@@ -2,9 +2,10 @@
 using Domain.Common.Mediators.Queries;
 using Domain.Recipes.Repositories;
 
-namespace Domain.Recipes.Queries.GetRecipesBasicInfos
+namespace Domain.Recipes.Queries.GetBasicInfos
 {
-	public class GetRecipesBasicInfosQueryHandler : IQueryHandler<GetRecipesBasicInfosQuery, ICollection<RecipeBasicInfo>>
+	public class
+		GetRecipesBasicInfosQueryHandler : IQueryHandler<GetRecipesBasicInfosQuery, ICollection<RecipeBasicInfo>>
 	{
 		private readonly IRecipeRepository _recipeRepository;
 

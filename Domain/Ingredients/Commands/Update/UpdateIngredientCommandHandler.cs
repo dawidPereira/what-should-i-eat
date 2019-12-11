@@ -31,9 +31,9 @@ namespace Domain.Ingredients.Commands.Update
 				if (validationResult.IsFailure)
 					return validationResult;
 			}
-			
+
 			var ingredient = _ingredientRepository.GetById(command.Id);
-			
+
 			ingredient.Update(command);
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(new IngredientUpdatedEvent(command.Id));
