@@ -1,4 +1,4 @@
-﻿using Domain.Ingredients.Entities.MacroNutrients;
+﻿using Domain.RecipesDetails.Ingredients.Entities.MacroNutrients;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;

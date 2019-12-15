@@ -1,7 +1,7 @@
 ﻿using System;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Queries.GetIngredient;
-using Domain.Ingredients.Repositories;
+using Domain.RecipesDetails.Ingredients.Entities;
+using Domain.RecipesDetails.Ingredients.Queries.GetIngredient;
+using Domain.RecipesDetails.Ingredients.Repositories;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
-using Domain.Ingredients.Commands.Create;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Repositories;
+using Domain.RecipesDetails.Ingredients.Commands.Create;
+using Domain.RecipesDetails.Ingredients.Entities;
+using Domain.RecipesDetails.Ingredients.Repositories;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Ingredients.Queries.GetIngredientsBasicInfos;
-using Domain.Ingredients.Repositories;
+using Domain.RecipesDetails.Ingredients.Queries.GetIngredientsBasicInfos;
+using Domain.RecipesDetails.Ingredients.Repositories;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;

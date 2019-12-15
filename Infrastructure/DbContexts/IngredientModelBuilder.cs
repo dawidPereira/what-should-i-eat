@@ -1,4 +1,4 @@
-﻿using Domain.Ingredients.Entities;
+﻿using Domain.RecipesDetails.Ingredients.Entities;
 using Infrastructure.DbContexts.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

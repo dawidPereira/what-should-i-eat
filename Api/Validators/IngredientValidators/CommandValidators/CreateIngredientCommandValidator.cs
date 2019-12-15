@@ -1,4 +1,4 @@
-﻿using Domain.Ingredients.Commands.Create;
+﻿using Domain.RecipesDetails.Ingredients.Commands.Create;
 using FluentValidation;
 
 namespace Api.Validators.IngredientValidators.CommandValidators

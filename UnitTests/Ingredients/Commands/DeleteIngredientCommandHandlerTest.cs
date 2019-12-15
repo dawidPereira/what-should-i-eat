@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Common.Mediators.Validators;
-using Domain.Ingredients.Commands.Delete;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Repositories;
-using Domain.Recipes.Queries.GetBasicInfos;
-using Domain.Recipes.Repositories;
+using Domain.RecipesDetails.Ingredients.Commands.Delete;
+using Domain.RecipesDetails.Ingredients.Entities;
+using Domain.RecipesDetails.Ingredients.Repositories;
+using Domain.RecipesDetails.Recipes.Queries.GetBasicInfos;
+using Domain.RecipesDetails.Recipes.Repositories;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Domain.Ingredients.Entities.MacroNutrients;
+using Domain.RecipesDetails.Ingredients.Entities.MacroNutrients;
 
 namespace Domain.Common.Helpers
 {

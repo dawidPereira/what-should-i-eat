@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Recipes.Entities;
+using Domain.RecipesDetails.Recipes.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts.Seeders

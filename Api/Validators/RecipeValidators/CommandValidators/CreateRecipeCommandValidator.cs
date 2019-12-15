@@ -1,4 +1,4 @@
-﻿using Domain.Recipes.Commands.Create;
+﻿using Domain.RecipesDetails.Recipes.Commands.Create;
 using FluentValidation;
 
 namespace Api.Validators.RecipeValidators.CommandValidators

@@ -1,4 +1,4 @@
-﻿using Domain.Ingredients.Entities;
+﻿using Domain.RecipesDetails.Ingredients.Entities;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;

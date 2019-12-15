@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Ingredients.Entities;
-using Domain.Recipes.Commands.Create;
-using Domain.Recipes.Entities;
+using Domain.RecipesDetails.Ingredients.Entities;
+using Domain.RecipesDetails.Recipes.Commands.Create;
+using Domain.RecipesDetails.Recipes.Entities;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Recipe.Factories
 {
 	internal static class RecipeFactory
 	{
-		internal static Domain.Recipes.Entities.Recipe Create()
+		internal static Domain.RecipesDetails.Recipes.Entities.Recipe Create()
 		{
 			var createIngredientCommand = CommandFactory.CreateValidIngredientFactory("TesIngredient");
 			var ingredient = Ingredient.Create(
@@ -33,7 +33,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe.Factories
 				RecipeIngredients = ingredients
 			};
 
-			return Domain.Recipes.Entities.Recipe.Create(
+			return Domain.RecipesDetails.Recipes.Entities.Recipe.Create(
 				command.Id, command.Description, command.Description, command.RecipeDetails, command.RecipeIngredients);
 		}
 	}

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Queries.GetIngredientsBasicInfos;
-using Domain.Ingredients.Repositories;
+using Domain.RecipesDetails.Ingredients.Entities;
+using Domain.RecipesDetails.Ingredients.Queries.GetIngredientsBasicInfos;
+using Domain.RecipesDetails.Ingredients.Repositories;
 using Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 

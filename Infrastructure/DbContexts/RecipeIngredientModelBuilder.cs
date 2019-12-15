@@ -1,4 +1,4 @@
-﻿using Domain.Recipes.Entities;
+﻿using Domain.RecipesDetails.Recipes.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts

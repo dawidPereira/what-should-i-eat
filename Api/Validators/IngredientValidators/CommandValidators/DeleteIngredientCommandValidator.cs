@@ -1,4 +1,4 @@
-﻿using Domain.Ingredients.Commands.Delete;
+﻿using Domain.RecipesDetails.Ingredients.Commands.Delete;
 using FluentValidation;
 
 namespace Api.Validators.IngredientValidators.CommandValidators

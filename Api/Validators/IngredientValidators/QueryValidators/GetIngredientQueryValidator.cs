@@ -1,4 +1,4 @@
-﻿using Domain.Ingredients.Queries.GetIngredient;
+﻿using Domain.RecipesDetails.Ingredients.Queries.GetIngredient;
 using FluentValidation;
 
 namespace Api.Validators.IngredientValidators.QueryValidators
