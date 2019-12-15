@@ -8,7 +8,7 @@ namespace Domain.Ingredients.Entities
 {
 	public class Ingredient
 	{
-		private Ingredient(
+		public Ingredient(
 			Guid id,
 			string name,
 			Allergen allergens,
