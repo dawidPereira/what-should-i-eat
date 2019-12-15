@@ -10,10 +10,6 @@ namespace Domain.RecipesDetails.Ingredients.Entities
 {
 	public class Ingredient
 	{
-		private Ingredient()
-		{
-		}
-
 		private Ingredient(Guid id,
 			string name,
 			Allergen allergens,

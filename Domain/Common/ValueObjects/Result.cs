@@ -2,7 +2,7 @@
 
 namespace Domain.Common.ValueObjects
 {
-	public class Result
+	public class Result : IValueObject
 	{
 		private Result(bool isSuccess, ResultCode resultCode, string message)
 		{

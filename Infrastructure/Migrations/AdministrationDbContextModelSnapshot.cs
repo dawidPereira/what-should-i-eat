@@ -254,7 +254,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Ingredients.Entities.IngredientMacroNutrient", b =>
                 {
                     b.HasOne("Domain.Ingredients.Entities.Ingredient", null)
-                        .WithMany("MacroNutrientsParticipants")
+                        .WithMany("MacroNutrientsShares")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
