@@ -1,6 +1,6 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
-using Domain.Ingredients.Entities.MacroNutirents;
+using Domain.Ingredients.Entities.MacroNutrients;
 
 namespace Domain.Ingredients.Entities.Factories
 {
@@ -10,7 +10,7 @@ namespace Domain.Ingredients.Entities.Factories
 			string name,
 			Allergen allergens,
 			Requirement requirements,
-			MacroNutrientsShares macroNutrientsShares,
+			MacroNutrientsSharesCollection macroNutrientsSharesCollection,
 			IEventPublisher eventPublisher);
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Domain.Common.Helpers;
 
-namespace Domain.Ingredients.Entities.MacroNutirents
+namespace Domain.Ingredients.Entities.MacroNutrients
 {
 	public static class CalorieCalculator
 	{

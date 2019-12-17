@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.ValueObjects;
 
-namespace Domain.Ingredients.Entities.MacroNutirents
+namespace Domain.Ingredients.Entities.MacroNutrients
 {
-	public class MacroNutrientsShares : IValueObject, IEnumerable<Share>, IEquatable<MacroNutrientsShares>
+	public class MacroNutrientsSharesCollection : IValueObjectCollection<Share, MacroNutrientsSharesCollection>
 	{
 		private readonly HashSet<Share> _shares;
 
-		public MacroNutrientsShares(HashSet<Share> participants) => 
-			_shares = participants;
+		public MacroNutrientsSharesCollection(IEnumerable<Share> shares) => 
+			_shares = shares.ToHashSet();
 
 		public IEnumerator<Share> GetEnumerator() => _shares.GetEnumerator();
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		public MacroNutrientsShares AddShare(Share share)
+		public MacroNutrientsSharesCollection AddShare(Share share)
 		{
 			var shares = _shares.ToHashSet();
 			shares.Add(share);
  
-			return new MacroNutrientsShares(shares);
+			return new MacroNutrientsSharesCollection(shares);
 		}
-		public bool Equals(MacroNutrientsShares other)
+		
+		public bool Equals(MacroNutrientsSharesCollection other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			return ReferenceEquals(this, other) || Equals(_shares, other._shares);
@@ -34,7 +34,7 @@ namespace Domain.Ingredients.Entities.MacroNutirents
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == this.GetType() && Equals((MacroNutrientsShares) obj);
+			return obj.GetType() == GetType() && Equals((MacroNutrientsSharesCollection) obj);
 		}
 
 		public override int GetHashCode() => (_shares != null ? _shares.GetHashCode() : 0);

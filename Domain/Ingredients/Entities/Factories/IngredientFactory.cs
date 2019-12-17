@@ -1,6 +1,6 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
-using Domain.Ingredients.Entities.MacroNutirents;
+using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Entities.Factories
@@ -17,10 +17,10 @@ namespace Domain.Ingredients.Entities.Factories
 			string name,
 			Allergen allergens,
 			Requirement requirements,
-			MacroNutrientsShares macroNutrientsShares,
+			MacroNutrientsSharesCollection macroNutrientsSharesCollection,
 			IEventPublisher eventPublisher) =>
 			_ingredientRepository.ExistByName(name)
-				? new Ingredient(id, name, allergens, requirements, macroNutrientsShares, eventPublisher)
+				? new Ingredient(id, name, allergens, requirements, macroNutrientsSharesCollection, eventPublisher)
 				: throw new ArgumentException($"Ingredient with {name} already exist.");
 	}
 }

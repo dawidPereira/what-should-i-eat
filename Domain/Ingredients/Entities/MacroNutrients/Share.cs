@@ -1,9 +1,8 @@
-﻿using System;
-using Domain.Common.ValueObjects;
+﻿using Domain.Common.ValueObjects;
 
-namespace Domain.Ingredients.Entities.MacroNutirents
+namespace Domain.Ingredients.Entities.MacroNutrients
 {
-	public struct Share : IValueObject, IEquatable<Share>
+	public struct Share : IValueObject<Share>
 	{
 		public Share(MacroNutrient macroNutrient, double participationInIngredient)
 		{
