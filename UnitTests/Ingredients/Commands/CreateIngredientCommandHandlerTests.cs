@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Domain.Common.Mediators.Validators;
+﻿using Domain.Common.Mediators.Events;
 using Domain.Common.Messages;
-using Domain.RecipesDetails.Ingredients.Commands.Create;
-using Domain.RecipesDetails.Ingredients.Entities;
-using Domain.RecipesDetails.Ingredients.Repositories;
+using Domain.Ingredients.Commands.Create;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Factories;
+using Domain.Ingredients.Repositories;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
@@ -18,18 +18,18 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		private CreateIngredientCommandHandler _systemUnderTest;
 		private CreateIngredientCommand _command;
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
-		private IEnumerable<ICommandValidator<CreateIngredientCommand>> _validators;
+		private Mock<IIngredientFactory> _ingredientFactoryMock;
+		private Mock<IEventPublisher> _iEventPublisherMock;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
+			_ingredientFactoryMock = new Mock<IIngredientFactory>();
+			_iEventPublisherMock = new Mock<IEventPublisher>();
 			_command = CommandFactory.EmptyCreateIngredientCommand();
-			_validators = new List<ICommandValidator<CreateIngredientCommand>>
-			{
-				new UniqueIngredientByNameValidator(_ingredientRepositoryMock.Object)
-			};
-			_systemUnderTest = new CreateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
+			_systemUnderTest = new CreateIngredientCommandHandler(
+				_ingredientRepositoryMock.Object, _ingredientFactoryMock.Object, _iEventPublisherMock.Object);
 		}
 
 		[Test]
@@ -39,6 +39,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 				.Returns(false);
 			var result = _systemUnderTest.Handle(_command);
 			result.IsSuccess.Should().BeTrue();
+		}
+		
+		[Test]
+		public void GivenValidIngredient_WhenCreated_ShouldRiseEvents()
+		{
+			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
+				.Returns(false);
+			_iEventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
 		}
 
 		[Test]
