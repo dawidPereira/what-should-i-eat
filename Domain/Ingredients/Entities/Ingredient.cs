@@ -17,14 +17,14 @@ namespace Domain.Ingredients.Entities
 			string name,
 			Allergen allergens,
 			Requirement requirements,
-			MacroNutrientsSharesCollection macroNutrientsSharesCollection,
+			IEnumerable<MacroNutrientShare> shares,
 			IEventPublisher eventPublisher)
 		{
 			Id = SetId(id);
 			Name = SetName(name);
 			Allergens = allergens;
 			Requirements = requirements;
-			MacroNutrientsSharesCollection = macroNutrientsSharesCollection;
+			MacroNutrientsSharesCollection = new MacroNutrientsSharesCollection(shares);
 			_eventPublisher = eventPublisher;
 			
 			var @event = new IngredientCreatedEvent(id, EventsQueue.IngredientCreated);

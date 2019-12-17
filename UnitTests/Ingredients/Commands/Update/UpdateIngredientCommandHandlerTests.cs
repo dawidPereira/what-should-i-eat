@@ -13,7 +13,7 @@ using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
-namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
+namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 {
 	[TestFixture]
 	public class UpdateIngredientCommandHandlerTests
@@ -33,10 +33,10 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		public void SetUp()
 		{
 			_command = CommandFactory.EmptyUpdateIngredientCommand();
-			var command = CommandFactory.CreateValidIngredientFactory("MyName");
+			var command = CommandFactory.ValidCreateIngredientCommand("MyName");
 			_ingredient = new Ingredient(
 				command.Id, command.Name, command.Allergens, command.Requirements,
-				command.MacroNutrientsSharesCollection, _eventPublisherMock.Object);
+				command.Shares, _eventPublisherMock.Object);
 			_eventPublisherMock = new Mock<IEventPublisher>();
 			_validators = new List<ICommandValidator<UpdateIngredientCommand>>
 			{

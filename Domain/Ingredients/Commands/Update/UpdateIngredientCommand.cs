@@ -8,6 +8,15 @@ namespace Domain.Ingredients.Commands.Update
 {
 	public class UpdateIngredientCommand : ICommand
 	{
+		public UpdateIngredientCommand(Guid id, string name, Allergen allergens, Requirement requirements, IEnumerable<MacroNutrientShare> shares)
+		{
+			Id = id;
+			Name = name;
+			Allergens = allergens;
+			Requirements = requirements;
+			Shares = shares;
+		}
+		
 		public Guid Id { get; private set; }
 		public string Name { get; private set; }
 		public Allergen Allergens { get; private set; }

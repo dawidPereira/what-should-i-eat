@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Domain.RecipesDetails.Ingredients.Entities.MacroNutrients;
+using Domain.Ingredients.Entities.MacroNutrients;
 
 namespace Domain.Common.Extensions
 {

@@ -3,10 +3,9 @@ using Domain.Common.Extensions;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
-using Domain.Ingredients.Commands.Delete;
 using Domain.RecipesDetails.Recipes.Repositories;
 
-namespace Domain.Ingredients.Validators
+namespace Domain.Ingredients.Commands.Delete
 {
 	public class NotUsedIngredientValidator : ICommandValidator<DeleteIngredientCommand>
 	{

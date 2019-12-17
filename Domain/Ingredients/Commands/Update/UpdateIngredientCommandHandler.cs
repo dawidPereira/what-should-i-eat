@@ -2,7 +2,9 @@
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
+using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
+using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Commands.Update
@@ -32,6 +34,9 @@ namespace Domain.Ingredients.Commands.Update
 			}
 
 			var ingredient = _ingredientRepository.GetById(command.Id);
+			if (ingredient == null)
+				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient),
+					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 
 			ingredient.Update(command.Name, command.Allergens, command.Requirements, command.Shares);
 			_ingredientRepository.Commit();

@@ -10,7 +10,7 @@ using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
-namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
+namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 {
 	[TestFixture]
 	internal class CreateIngredientCommandTests

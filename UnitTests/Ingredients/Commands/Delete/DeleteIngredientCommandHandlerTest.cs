@@ -5,7 +5,6 @@ using Domain.Common.Mediators.Validators;
 using Domain.Ingredients.Commands.Delete;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
-using Domain.Ingredients.Validators;
 using Domain.RecipesDetails.Recipes.Queries.GetBasicInfos;
 using Domain.RecipesDetails.Recipes.Repositories;
 using FluentAssertions;
@@ -13,7 +12,7 @@ using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories;
 
-namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
+namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 {
 	[TestFixture]
 	internal class DeleteIngredientCommandHandlerTest
@@ -33,9 +32,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 			_recipeRepositoryMock = new Mock<IRecipeRepository>();
 			_eventPublisher = new Mock<IEventPublisher>();
 			_command = new DeleteIngredientCommand(new Guid());
-			var command = CommandFactory.CreateValidIngredientFactory("MyName");
+			var command = CommandFactory.ValidCreateIngredientCommand("MyName");
 			_ingredient = new Ingredient(
-				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsSharesCollection, _eventPublisher.Object);
+				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares, _eventPublisher.Object);
 			_validators = new List<ICommandValidator<DeleteIngredientCommand>>
 			{
 				new NotUsedIngredientValidator(_recipeRepositoryMock.Object)
