@@ -1,4 +1,4 @@
-﻿using Domain.RecipesDetails.Ingredients.Queries.GetIngredient;
+﻿using Domain.Ingredients.Queries.Get;
 using FluentValidation;
 
 namespace Api.Validators.IngredientValidators.QueryValidators
@@ -7,9 +7,9 @@ namespace Api.Validators.IngredientValidators.QueryValidators
 	{
 		public GetIngredientQueryValidator()
 		{
-			RuleFor(x => x.Id)
+			RuleFor(x => x.IngredientId)
 				.NotNull()
-				.WithMessage(ValidationMessages.NotNull(nameof(GetIngredientQuery.Id)));
+				.WithMessage(ValidationMessages.NotNull(nameof(GetIngredientQuery.IngredientId)));
 		}
 	}
 }

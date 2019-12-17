@@ -1,4 +1,4 @@
-﻿using Domain.RecipesDetails.Ingredients.Commands.Update;
+﻿using Domain.Ingredients.Commands.Update;
 using FluentValidation;
 
 namespace Api.Validators.IngredientValidators.CommandValidators
@@ -15,12 +15,12 @@ namespace Api.Validators.IngredientValidators.CommandValidators
 				.NotEmpty()
 				.WithMessage(ValidationMessages.NotEmpty(nameof(UpdateIngredientCommand.Name)));
 			
-			RuleFor(x => x.MacroNutrientsParticipation)
+			RuleFor(x => x.Shares)
 				.NotEmpty()
-				.WithMessage(ValidationMessages.NotEmpty(nameof(UpdateIngredientCommand.MacroNutrientsParticipation)));
+				.WithMessage(ValidationMessages.NotEmpty(nameof(UpdateIngredientCommand.Shares)));
 			
-			RuleForEach(x => x.MacroNutrientsParticipation).
-				SetValidator(new MacroNutrientsParticipationValidator());
+			RuleForEach(x => x.Shares).
+				SetValidator(new MacroNutrientsSharesValidator());
 		}
 	}
 }

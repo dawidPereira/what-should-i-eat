@@ -1,7 +1,7 @@
-﻿using Domain.RecipesDetails.Ingredients.Commands.Create;
-using Domain.RecipesDetails.Ingredients.Commands.Delete;
-using Domain.RecipesDetails.Ingredients.Commands.Update;
-using Domain.RecipesDetails.Ingredients.Queries.GetIngredient;
+﻿using Domain.Ingredients.Commands.Create;
+using Domain.Ingredients.Commands.Delete;
+using Domain.Ingredients.Commands.Update;
+using Domain.Ingredients.Queries.Get;
 using FluentValidation.Results;
 
 namespace Api.Validators.IngredientValidators
