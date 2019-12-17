@@ -5,21 +5,21 @@ using Domain.Common.ValueObjects;
 
 namespace Domain.Ingredients.Entities.MacroNutrients
 {
-	public class MacroNutrientsSharesCollection : IValueObjectCollection<Share, MacroNutrientsSharesCollection>
+	public class MacroNutrientsSharesCollection : IValueObjectCollection<MacroNutrientShare, MacroNutrientsSharesCollection>
 	{
-		private readonly HashSet<Share> _shares;
+		private readonly HashSet<MacroNutrientShare> _shares;
 
-		public MacroNutrientsSharesCollection(IEnumerable<Share> shares) => 
+		public MacroNutrientsSharesCollection(IEnumerable<MacroNutrientShare> shares) => 
 			_shares = shares.ToHashSet();
 
-		public IEnumerator<Share> GetEnumerator() => _shares.GetEnumerator();
+		public IEnumerator<MacroNutrientShare> GetEnumerator() => _shares.GetEnumerator();
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		public MacroNutrientsSharesCollection AddShare(Share share)
+		public MacroNutrientsSharesCollection AddShare(MacroNutrientShare macroNutrientShare)
 		{
 			var shares = _shares.ToHashSet();
-			shares.Add(share);
+			shares.Add(macroNutrientShare);
  
 			return new MacroNutrientsSharesCollection(shares);
 		}

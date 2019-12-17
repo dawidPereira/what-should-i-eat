@@ -32,14 +32,14 @@ namespace Domain.Ingredients.Entities
 		}
 
 		public Guid Id { get; }
-		public string Name { get; }
+		public string Name { get; private set; }
 		public Allergen Allergens { get; private set; }
 		public Requirement Requirements { get; private set; }
 		public MacroNutrientsSharesCollection MacroNutrientsSharesCollection { get; private set; }
 
-		public void Update(string name, Allergen allergens, Requirement requirements, IEnumerable<Share> shares)
+		public void Update(string name, Allergen allergens, Requirement requirements, IEnumerable<MacroNutrientShare> shares)
 		{
-			SetName(name);
+			Name = SetName(name);
 			Allergens = allergens;
 			Requirements = requirements;
 			MacroNutrientsSharesCollection = new MacroNutrientsSharesCollection(shares);
@@ -49,13 +49,13 @@ namespace Domain.Ingredients.Entities
 		}
 
 		public double CalculateCalories(double grams) =>
-			MacroNutrientsSharesCollection.Sum(x => x.MacroNutrient.CalculateCalories(x.ParticipationInIngredient * grams));
+			MacroNutrientsSharesCollection.Sum(x => x.MacroNutrient.CalculateCalories(x.Share * grams));
 
 		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity(double grams)
 		{
 			var result = MacroNutrientsSharesCollection.ToDictionary(
 				x => x.MacroNutrient,
-				x => x.ParticipationInIngredient * grams);
+				x => x.Share * grams);
 			
 			return result;
 		}
