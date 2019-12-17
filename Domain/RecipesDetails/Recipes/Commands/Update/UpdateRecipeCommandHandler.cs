@@ -3,7 +3,6 @@ using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
-using Domain.RecipesDetails.Recipes.Events.Updated;
 using Domain.RecipesDetails.Recipes.Repositories;
 
 namespace Domain.RecipesDetails.Recipes.Commands.Update
@@ -31,12 +30,10 @@ namespace Domain.RecipesDetails.Recipes.Commands.Update
 				if (validationResult.IsFailure)
 					return validationResult;
 			}
-
 			var recipe = _recipeRepository.GetById(command.Id);
 
-			recipe.Update(command);
-			_recipeRepository.Commit();
-			_eventPublisher.Publish(new RecipeUpdatedEvent(recipe.CalculateSearchInfo()));
+			recipe.Update(command.Name, command.Description, command.RecipeDetails, command.RecipeIngredients);
+			_eventPublisher.Rise(EventsQueue.RecipeUpdated);
 			return Result.Ok();
 		}
 	}

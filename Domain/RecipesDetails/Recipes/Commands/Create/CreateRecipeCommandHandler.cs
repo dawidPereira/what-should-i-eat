@@ -4,7 +4,6 @@ using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
 using Domain.RecipesDetails.Recipes.Entities;
-using Domain.RecipesDetails.Recipes.Events.Created;
 using Domain.RecipesDetails.Recipes.Repositories;
 
 namespace Domain.RecipesDetails.Recipes.Commands.Create
@@ -33,12 +32,11 @@ namespace Domain.RecipesDetails.Recipes.Commands.Create
 					return validationResult;
 			}
 
-			var recipe = Recipe.Create(
-				command.Id, command.Name, command.Description, command.RecipeDetails, command.RecipeIngredients);
+			//TODO: Move to factory
+			new Recipe(
+				command.Id, command.Name, command.Description, command.RecipeDetails, command.RecipeIngredients, _eventPublisher, _recipeRepository);
 
-			_recipeRepository.Add(recipe);
-			_recipeRepository.Commit();
-			_eventPublisher.Publish(new RecipeCreatedEvent(recipe.CalculateSearchInfo()));
+			_eventPublisher.Rise(EventsQueue.RecipeCreated);
 			return Result.Ok();
 		}
 	}

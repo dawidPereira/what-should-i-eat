@@ -2,27 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Extensions;
+using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.RecipesDetails.Recipes.Entities.Ingredients;
+using Domain.RecipesDetails.Recipes.Repositories;
 using Domain.RecipesDetails.Recipes.SearchInfos;
 
 namespace Domain.RecipesDetails.Recipes.Entities
 {
 	public class Recipe : IAggregateRoot<Recipe, Guid>
 	{
-		public Recipe(Identity<Guid> id,
+		private readonly IEventPublisher _eventPublisher;
+		private readonly IRecipeRepository _recipeRepository;
+		public Recipe(Guid id,
 			string name,
 			string description,
 			RecipeDetails recipeDetails,
-			RecipeIngredientsCollection recipeIngredients)
+			IEnumerable<RecipeIngredient> recipeIngredients,
+			IEventPublisher eventPublisher,
+			IRecipeRepository recipeRepository)
 		{
-			Id = id;
+			Id = new Identity<Guid>(id);
 			Name = name;
 			Description = description;
 			RecipeDetails = recipeDetails;
-			RecipeIngredients = recipeIngredients;
+			_eventPublisher = eventPublisher;
+			_recipeRepository = recipeRepository;
+			RecipeIngredients = new RecipeIngredientsCollection(recipeIngredients);
 		}
 
 		public Identity<Guid> Id { get; }

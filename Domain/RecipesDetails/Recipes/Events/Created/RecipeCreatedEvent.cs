@@ -3,7 +3,7 @@ using Domain.RecipesDetails.Recipes.SearchInfos;
 
 namespace Domain.RecipesDetails.Recipes.Events.Created
 {
-	public class RecipeCreatedEvent : IEvent
+	public class RecipeCreatedEvent : IEvent<RecipeCreatedEvent>
 	{
 		public RecipeCreatedEvent(RecipeSearchInfo recipeSearchInfo) => 
 			RecipeSearchInfo = recipeSearchInfo;

@@ -6,7 +6,7 @@ namespace Domain.Ingredients.Repositories
 {
 	public interface IIngredientRepository
 	{
-		bool ExistById(Guid id);
+		bool ExistById(Identity<Guid> id);
 		bool ExistByName(string name);
 		void Add(Ingredient ingredient);
 		void Remove(Ingredient ingredient);

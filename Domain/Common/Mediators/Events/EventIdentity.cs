@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Common.ValueObjects;
 
 namespace Domain.Common.Mediators.Events
 {
@@ -6,34 +7,22 @@ namespace Domain.Common.Mediators.Events
 	{
 		public EventIdentity(string queueName)
 		{
-			Id = Guid.NewGuid();
+			Id = new Identity<Guid>(Guid.NewGuid());
 			QueueName = queueName;
 		}
 		
-		public Guid Id { get; }
+		public Identity<Guid> Id { get; }
 		public string QueueName { get; }
 
-		public bool Equals(EventIdentity other)
-		{
-			if (ReferenceEquals(null, other)) return false;
-			if (ReferenceEquals(this, other)) return true;
-			return Id.Equals(other.Id) && QueueName == other.QueueName;
-		}
+		public bool Equals(EventIdentity other) => !ReferenceEquals(null, other) && Id.Equals(other.Id);
 
 		public override bool Equals(object obj)
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			if (obj.GetType() != this.GetType()) return false;
-			return Equals((EventIdentity) obj);
+			return obj.GetType() == GetType() && Equals((EventIdentity) obj);
 		}
 
-		public override int GetHashCode()
-		{
-			unchecked
-			{
-				return (Id.GetHashCode() * 397) ^ (QueueName != null ? QueueName.GetHashCode() : 0);
-			}
-		}
+		public override int GetHashCode() => Id.GetHashCode();
 	}
 }

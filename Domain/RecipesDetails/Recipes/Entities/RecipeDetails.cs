@@ -2,6 +2,7 @@
 
 namespace Domain.RecipesDetails.Recipes.Entities
 {
+	//TODO: Add Validation
 	public class RecipeDetails : IValueObject<RecipeDetails>
 	{
 		public RecipeDetails(int difficultyLevel,

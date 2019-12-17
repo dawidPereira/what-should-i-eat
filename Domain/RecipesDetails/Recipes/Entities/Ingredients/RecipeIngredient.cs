@@ -3,6 +3,7 @@ using Domain.Ingredients.Entities;
 
 namespace Domain.RecipesDetails.Recipes.Entities.Ingredients
 {
+	//TODO: Add Validaitons
 	public class RecipeIngredient : IValueObject<RecipeIngredient>
 	{
 		public RecipeIngredient(Ingredient ingredient, double grams)

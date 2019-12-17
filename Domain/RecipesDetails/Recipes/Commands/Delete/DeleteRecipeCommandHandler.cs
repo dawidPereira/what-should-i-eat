@@ -3,7 +3,6 @@ using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
-using Domain.RecipesDetails.Recipes.Events.Deleted;
 using Domain.RecipesDetails.Recipes.Repositories;
 
 namespace Domain.RecipesDetails.Recipes.Commands.Delete
@@ -33,10 +32,7 @@ namespace Domain.RecipesDetails.Recipes.Commands.Delete
 			}
 
 			var recipe = _recipeRepository.GetById(command.Id);
-
-			_recipeRepository.Delete(recipe);
-			_recipeRepository.Commit();
-			_eventPublisher.Publish(new RecipeDeletedEvent(command.Id));
+			recipe.Delete();
 			return Result.Ok();
 		}
 	}
