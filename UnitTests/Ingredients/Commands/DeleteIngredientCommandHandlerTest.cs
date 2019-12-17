@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
-using Domain.RecipesDetails.Ingredients.Commands.Delete;
-using Domain.RecipesDetails.Ingredients.Entities;
-using Domain.RecipesDetails.Ingredients.Repositories;
+using Domain.Ingredients.Commands.Delete;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Repositories;
+using Domain.Ingredients.Validators;
 using Domain.RecipesDetails.Recipes.Queries.GetBasicInfos;
 using Domain.RecipesDetails.Recipes.Repositories;
 using FluentAssertions;
@@ -18,6 +20,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 	{
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
 		private Mock<IRecipeRepository> _recipeRepositoryMock;
+		private Mock<IEventPublisher> _eventPublisher;
 		private IEnumerable<ICommandValidator<DeleteIngredientCommand>> _validators;
 		private DeleteIngredientCommand _command;
 		private DeleteIngredientCommandHandler _systemUnderTest;
@@ -28,16 +31,13 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_recipeRepositoryMock = new Mock<IRecipeRepository>();
-			_command = new DeleteIngredientCommand
-			{
-				Id = Guid.NewGuid()
-			};
+			_eventPublisher = new Mock<IEventPublisher>();
+			_command = new DeleteIngredientCommand(new Guid());
 			var command = CommandFactory.CreateValidIngredientFactory("MyName");
-			_ingredient = Ingredient.Create(
-				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsParticipation);
+			_ingredient = new Ingredient(
+				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsSharesCollection, _eventPublisher.Object);
 			_validators = new List<ICommandValidator<DeleteIngredientCommand>>
 			{
-				new IngredientExistValidator(_ingredientRepositoryMock.Object),
 				new NotUsedIngredientValidator(_recipeRepositoryMock.Object)
 			};
 			
