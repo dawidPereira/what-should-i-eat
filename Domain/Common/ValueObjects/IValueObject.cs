@@ -1,6 +1,8 @@
-﻿namespace Domain.Common.ValueObjects
+﻿using System;
+
+namespace Domain.Common.ValueObjects
 {
-	public interface IValueObject
+	public interface IValueObject<T> : IEquatable<T>
 	{
 		
 	}
