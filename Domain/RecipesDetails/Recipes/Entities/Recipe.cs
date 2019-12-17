@@ -2,25 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Extensions;
-using Domain.RecipesDetails.Ingredients.Entities;
-using Domain.RecipesDetails.Ingredients.Entities.MacroNutrients;
-using Domain.RecipesDetails.Recipes.Commands.Update;
-using Domain.RecipesDetails.Recipes.Queries.GetById;
+using Domain.Common.ValueObjects;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Entities.MacroNutrients;
+using Domain.RecipesDetails.Recipes.Entities.Ingredients;
 using Domain.RecipesDetails.Recipes.SearchInfos;
 
 namespace Domain.RecipesDetails.Recipes.Entities
 {
-	public class Recipe
+	public class Recipe : IAggregateRoot<Recipe, Guid>
 	{
-		private Recipe()
-		{
-		}
-
-		private Recipe(Guid id,
+		public Recipe(Identity<Guid> id,
 			string name,
 			string description,
 			RecipeDetails recipeDetails,
-			ICollection<RecipeIngredient> recipeIngredients)
+			RecipeIngredientsCollection recipeIngredients)
 		{
 			Id = id;
 			Name = name;
@@ -29,37 +25,20 @@ namespace Domain.RecipesDetails.Recipes.Entities
 			RecipeIngredients = recipeIngredients;
 		}
 
-		public Guid Id { get; private set; }
+		public Identity<Guid> Id { get; }
 		public string Name { get; private set; }
 		public string Description { get; private set; }
 		public RecipeDetails RecipeDetails { get; private set; }
-		public ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
+		public RecipeIngredientsCollection RecipeIngredients { get; private set; }
 
-		public static Recipe Create(
-			Guid id,
-			string name,
-			string description,
-			RecipeDetails recipeDetails,
-			ICollection<RecipeIngredient> recipeIngredients) =>
-			new Recipe(id, name, description, recipeDetails, recipeIngredients);
 
-		public void Update(UpdateRecipeCommand command)
+		public void Update(string name, string description, RecipeDetails details, IEnumerable<RecipeIngredient> ingredients)
 		{
-			Id = command.Id;
-			Name = command.Name;
-			Description = command.Description;
-			RecipeDetails = command.RecipeDetails;
-			RecipeIngredients = command.RecipeIngredients;
+			Name = SetName(name);
+			Description = SetDescription(description);
+			RecipeDetails = details;
+			RecipeIngredients = new RecipeIngredientsCollection(ingredients);
 		}
-
-		public RecipeDto ToDto() => new RecipeDto
-		{
-			Id = Id,
-			Name = Name,
-			Description = Description,
-			RecipeDetails = RecipeDetails,
-			RecipeIngredients = RecipeIngredients
-		};
 
 		public RecipeSearchInfo CalculateSearchInfo() =>
 			new RecipeSearchInfo(Id,
@@ -69,21 +48,46 @@ namespace Domain.RecipesDetails.Recipes.Entities
 				CalculateCalories(),
 				GetMacroNutrientQuantity());
 
-		private double CalculateCalories() =>
+		public double CalculateCalories() =>
 			RecipeIngredients.Sum(x => x.Ingredient.CalculateCalories(x.Grams));
+		
+		public MealType GetMealTypes() => RecipeDetails.MealTypes;
 
-		private MealType GetMealTypes() => RecipeDetails.MealTypes;
-
-		private Allergen GetAllergens() =>
+		public Allergen GetAllergens() =>
 			RecipeIngredients.Select(x => x.Ingredient.Allergens)
 				.Aggregate(Allergen.None, (acc, el) => acc | el);
 
-		private Requirement GetRequirements() =>
+		public Requirement GetRequirements() =>
 			RecipeIngredients.Select(x => x.Ingredient.Requirements)
 				.Aggregate(Requirement.None, (acc, el) => acc | el);
 
-		private IDictionary<MacroNutrient, double> GetMacroNutrientQuantity() =>
-			RecipeIngredients.Select(x => x.Ingredient.GetMacroNutrientQuantity(x.Grams))
-				.MergeDictionary();
+		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity() =>
+			RecipeIngredients.Select(x => x.Ingredient.GetMacroNutrientQuantity(x.Grams)).MergeDictionary();
+
+		public bool Equals(Recipe other) => !ReferenceEquals(null, other) && Id.Equals(other.Id);
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Recipe) obj);
+		}
+
+		public override int GetHashCode() => Id.GetHashCode();
+		
+		private static string SetName(string name)
+		{
+			if (name == null)
+				throw new ArgumentNullException(nameof(name), "Recipe name can not be empty.");
+			return name;
+		}
+		
+		private static string SetDescription(string description)
+		{
+			if (description == null)
+				throw new ArgumentNullException(nameof(description), "Recipe description can not be empty.");
+			return description;
+		}
+		
 	}
 }
