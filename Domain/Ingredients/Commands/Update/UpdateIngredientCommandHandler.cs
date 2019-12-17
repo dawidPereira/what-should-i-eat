@@ -3,7 +3,6 @@ using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
-using Domain.Ingredients.Events;
 using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Commands.Update
@@ -34,8 +33,7 @@ namespace Domain.Ingredients.Commands.Update
 
 			var ingredient = _ingredientRepository.GetById(command.Id);
 
-			ingredient.Update(command.Id, command.Name, command.Allergens, command.Requirements,
-				command.MacroNutrientsShares);
+			ingredient.Update(command.Name, command.Allergens, command.Requirements, command.Shares);
 			_ingredientRepository.Commit();
 			_eventPublisher.Rise(EventsQueue.IngredientUpdated);
 			return Result.Ok();

@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain.Common.Mediators.Commands;
 using Domain.Ingredients.Entities;
-using Domain.Ingredients.Entities.MacroNutirents;
+using Domain.Ingredients.Entities.MacroNutrients;
 
 namespace Domain.Ingredients.Commands.Create
 {
@@ -11,6 +11,6 @@ namespace Domain.Ingredients.Commands.Create
 		public string Name { get; private set; }
 		public Allergen Allergens { get; private set; }
 		public Requirement Requirements { get; private set; }
-		public MacroNutrientsShares MacroNutrientsShares { get; private set; }
+		public MacroNutrientsSharesCollection MacroNutrientsSharesCollection { get; private set; }
 	}
 }

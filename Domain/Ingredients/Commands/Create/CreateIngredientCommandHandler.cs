@@ -23,7 +23,7 @@ namespace Domain.Ingredients.Commands.Create
 		public Result Handle(CreateIngredientCommand command)
 		{
 			var ingredient = _ingredientFactory.Create(
-				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsShares, _eventPublisher);
+				command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsSharesCollection, _eventPublisher);
 
 			_ingredientRepository.Add(ingredient);
 			_ingredientRepository.Commit();

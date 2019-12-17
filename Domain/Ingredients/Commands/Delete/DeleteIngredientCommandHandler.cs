@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Validators;
+using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
 
@@ -20,16 +21,11 @@ namespace Domain.Ingredients.Commands.Delete
 
 		public Result Handle(DeleteIngredientCommand command)
 		{
-			foreach (var validator in _validators)
-			{
-				var validationResult = validator.Validate(command);
-				if (validationResult.IsFailure)
-					return validationResult;
-			}
-			
 			//TODO: Add validation if ingredient is used or rise event for notify admins and hide recipes with this ingredient.
 
 			var ingredient = _ingredientRepository.GetById(command.Id);
+			if (ingredient == null) 
+				return Result.Fail(ResultCode.NotFound, $"Ingredient with {command.Id}, does not exist");
 
 			_ingredientRepository.Remove(ingredient);
 			_ingredientRepository.Commit();

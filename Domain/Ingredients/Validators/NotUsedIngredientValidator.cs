@@ -6,7 +6,7 @@ using Domain.Common.ValueObjects;
 using Domain.Ingredients.Commands.Delete;
 using Domain.RecipesDetails.Recipes.Repositories;
 
-namespace Domain.Ingredients.Events
+namespace Domain.Ingredients.Validators
 {
 	public class NotUsedIngredientValidator : ICommandValidator<DeleteIngredientCommand>
 	{
