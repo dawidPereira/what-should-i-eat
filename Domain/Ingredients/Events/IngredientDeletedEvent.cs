@@ -4,19 +4,18 @@ using Domain.Common.ValueObjects;
 
 namespace Domain.Ingredients.Events
 {
-	public class IngredientUpdatedEvent : IEvent<IngredientUpdatedEvent>
+	public class IngredientDeletedEvent : IEvent<IngredientDeletedEvent>
 	{
-		public IngredientUpdatedEvent(Identity<Guid> ingredientId, string queueName)
+		public IngredientDeletedEvent(Identity<Guid> ingredientId, string queueName)
 		{
 			IngredientId = ingredientId;
 			EventIdentity = new EventIdentity(queueName);
 		}
-
+		
 		public Identity<Guid> IngredientId { get; }
 		public IEventIdentity EventIdentity { get; }
 
-
-		public bool Equals(IngredientUpdatedEvent other)
+		public bool Equals(IngredientDeletedEvent other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
@@ -27,7 +26,7 @@ namespace Domain.Ingredients.Events
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((IngredientUpdatedEvent) obj);
+			return obj.GetType() == GetType() && Equals((IngredientDeletedEvent) obj);
 		}
 
 		public override int GetHashCode()

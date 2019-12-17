@@ -22,11 +22,8 @@ namespace Domain.Ingredients.Commands.Create
 
 		public Result Handle(CreateIngredientCommand command)
 		{
-			var ingredient = _ingredientFactory.Create(
+			 _ingredientFactory.Create(
 				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares, _eventPublisher);
-
-			_ingredientRepository.Add(ingredient);
-			_ingredientRepository.Commit();
 			_eventPublisher.Rise(EventsQueue.IngredientCreated);
 			return Result.Ok();
 		}

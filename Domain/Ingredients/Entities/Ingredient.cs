@@ -6,12 +6,14 @@ using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Events;
+using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Entities
 {
 	public class Ingredient : IAggregateRoot<Ingredient, Guid>
 	{
 		private readonly IEventPublisher _eventPublisher;
+		private readonly IIngredientRepository _ingredientRepository;
 
 		public Ingredient(
 			Identity<Guid> id,
@@ -19,7 +21,8 @@ namespace Domain.Ingredients.Entities
 			Allergen allergens,
 			Requirement requirements,
 			IEnumerable<MacroNutrientShare> shares,
-			IEventPublisher eventPublisher)
+			IEventPublisher eventPublisher, 
+			IIngredientRepository ingredientRepository)
 		{
 			Id = SetId(id);
 			Name = SetName(name);
@@ -27,9 +30,8 @@ namespace Domain.Ingredients.Entities
 			Requirements = requirements;
 			MacroNutrientsSharesCollection = new MacroNutrientsSharesCollection(shares);
 			_eventPublisher = eventPublisher;
-			
-			var @event = new IngredientCreatedEvent(id, EventsQueue.IngredientCreated);
-			_eventPublisher.Publish(@event);
+			_ingredientRepository = ingredientRepository;
+			Create();
 		}
 
 		public Identity<Guid> Id { get; }
@@ -44,8 +46,14 @@ namespace Domain.Ingredients.Entities
 			Allergens = allergens;
 			Requirements = requirements;
 			MacroNutrientsSharesCollection = new MacroNutrientsSharesCollection(shares);
-			
-			var @event = new IngredientUpdatedEvent(Id.Value, EventsQueue.IngredientUpdated);
+			Update();
+		}
+
+		public void Delete()
+		{
+			var @event = new IngredientDeletedEvent(Id, EventsQueue.IngredientDeleted);
+			_ingredientRepository.Remove(this);
+			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
 		}
 
@@ -71,6 +79,21 @@ namespace Domain.Ingredients.Entities
 		}
 
 		public override int GetHashCode() => Id.GetHashCode();
+
+		private void Update()
+		{
+			var @event = new IngredientUpdatedEvent(Id, EventsQueue.IngredientUpdated);
+			_ingredientRepository.Commit();
+			_eventPublisher.Publish(@event);
+		}
+		
+		private void Create()
+		{
+			var @event = new IngredientCreatedEvent(Id, EventsQueue.IngredientCreated);
+			_ingredientRepository.Add(this);
+			_ingredientRepository.Commit();
+			_eventPublisher.Publish(@event);
+		}
 
 		private static string SetName(string name)
 		{

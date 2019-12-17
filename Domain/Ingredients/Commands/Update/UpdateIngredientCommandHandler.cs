@@ -29,8 +29,7 @@ namespace Domain.Ingredients.Commands.Update
 			foreach (var validator in _validators)
 			{
 				var validationResult = validator.Validate(command);
-				if (validationResult.IsFailure)
-					return validationResult;
+				if (validationResult.IsFailure) return validationResult;
 			}
 
 			var ingredient = _ingredientRepository.GetById(command.Id);
@@ -39,7 +38,6 @@ namespace Domain.Ingredients.Commands.Update
 					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 
 			ingredient.Update(command.Name, command.Allergens, command.Requirements, command.Shares);
-			_ingredientRepository.Commit();
 			_eventPublisher.Rise(EventsQueue.IngredientUpdated);
 			return Result.Ok();
 		}

@@ -23,7 +23,7 @@ namespace Domain.Ingredients.Factories
 			IEnumerable<MacroNutrientShare> shares,
 			IEventPublisher eventPublisher) =>
 			_ingredientRepository.ExistByName(name)
-				? new Ingredient(id, name, allergens, requirements, shares, eventPublisher)
+				? new Ingredient(id, name, allergens, requirements, shares, eventPublisher, _ingredientRepository)
 				: throw new ArgumentException($"Ingredient with {name} already exist.");
 	}
 }
