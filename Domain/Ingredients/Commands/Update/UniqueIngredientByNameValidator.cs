@@ -6,11 +6,11 @@ using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Commands.Update
 {
-	public class UniqueIngredientNameValidator : ICommandValidator<UpdateIngredientCommand>
+	public class UniqueIngredientByNameValidator : ICommandValidator<UpdateIngredientCommand>
 	{
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public UniqueIngredientNameValidator(IIngredientRepository ingredientRepository) => 
+		public UniqueIngredientByNameValidator(IIngredientRepository ingredientRepository) => 
 			_ingredientRepository = ingredientRepository;
 
 		public Result Validate(UpdateIngredientCommand command)
