@@ -1,8 +1,9 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
+using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 
-namespace Domain.Ingredients.Entities.Factories
+namespace Domain.Ingredients.Factories
 {
 	public interface IIngredientFactory
 	{

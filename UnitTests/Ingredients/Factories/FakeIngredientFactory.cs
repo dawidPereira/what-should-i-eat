@@ -6,7 +6,7 @@ using Domain.Ingredients.Entities.MacroNutrients;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
-	internal static class IngredientFactory
+	internal static class FakeIngredientFactory
 	{
 		private const Allergen Allergens = Allergen.Gluten | Allergen.Milk;
 		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;

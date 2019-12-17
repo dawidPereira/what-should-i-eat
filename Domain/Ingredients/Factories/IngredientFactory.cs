@@ -1,9 +1,10 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
+using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Repositories;
 
-namespace Domain.Ingredients.Entities.Factories
+namespace Domain.Ingredients.Factories
 {
 	public class IngredientFactory : IIngredientFactory
 	{

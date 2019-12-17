@@ -23,27 +23,27 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		public void SetUp()
 		{
 			_eventPublisherMock = new Mock<IEventPublisher>();
-			_systemUnderTest = IngredientFactory.CreateValidIngredient(IngredientName, _eventPublisherMock.Object);
+			_systemUnderTest = FakeIngredientFactory.CreateValidIngredient(IngredientName, _eventPublisherMock.Object);
 		}
 
 		[Test]
 		public void Ingredient_WhenCreated_ShouldPublishIngredientCreatedEvent()
 		{
-			IngredientFactory.CreateValidIngredient(IngredientName, _eventPublisherMock.Object);
+			FakeIngredientFactory.CreateValidIngredient(IngredientName, _eventPublisherMock.Object);
 			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<IngredientCreatedEvent>()), Times.Once);
 		}
 
 		[Test]
 		public void GivenEmptyName_DuringIngredientCreating_ShouldThrowArgumentNullException()
 		{
-			Action action = () => IngredientFactory.CreateValidIngredient(null, _eventPublisherMock.Object);
+			Action action = () => FakeIngredientFactory.CreateValidIngredient(null, _eventPublisherMock.Object);
 			action.Should().Throw<ArgumentNullException>();
 		}
 
 		[Test]
 		public void GivenIncorrectId_DuringIngredientCreating_ShouldThrowArgumentException()
 		{
-			Action action = () => IngredientFactory.CreateIngredientWithInvalidId(IngredientName, _eventPublisherMock.Object);
+			Action action = () => FakeIngredientFactory.CreateIngredientWithInvalidId(IngredientName, _eventPublisherMock.Object);
 			action.Should().Throw<ArgumentException>();
 		}
 		
@@ -78,7 +78,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		[Test]
 		public void CalculateCaloriesPerGram_WhenCalled_ShouldReturnProperValue()
 		{
-			_systemUnderTest = IngredientFactory.CreateIngredientWithOneShare(
+			_systemUnderTest = FakeIngredientFactory.CreateIngredientWithOneShare(
 				IngredientName, MacroNutrient.Carbohydrate, _eventPublisherMock.Object);
 			var result = _systemUnderTest.CalculateCalories(100);
 			result.Should().Be(80);
