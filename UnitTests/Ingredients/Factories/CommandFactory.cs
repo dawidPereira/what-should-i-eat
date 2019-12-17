@@ -1,55 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.RecipesDetails.Ingredients.Commands.Create;
-using Domain.RecipesDetails.Ingredients.Commands.Update;
-using Domain.RecipesDetails.Ingredients.Entities;
-using Domain.RecipesDetails.Ingredients.Entities.MacroNutrients;
+using Domain.Ingredients.Commands.Create;
+using Domain.Ingredients.Commands.Update;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Entities.MacroNutrients;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
-	public static class CommandFactory
+	internal static class CommandFactory
 	{
-		internal static CreateIngredientCommand EmptyCreateIngredientCommand()
+		private const Allergen Allergens = Allergen.Gluten | Allergen.Milk;
+		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;
+		
+		internal static CreateIngredientCommand EmptyCreateIngredientCommand() =>
+			new CreateIngredientCommand(Guid.NewGuid(), "IngredientId", Allergen.None, Requirement.None,
+				new MacroNutrientsSharesCollection(new List<MacroNutrientShare>()));
+
+		internal static UpdateIngredientCommand EmptyUpdateIngredientCommand() =>
+			new UpdateIngredientCommand(Guid.NewGuid(), "IngredientId", Allergen.None, Requirement.None,
+				new MacroNutrientsSharesCollection(new List<MacroNutrientShare>()));
+
+		internal static CreateIngredientCommand ValidCreateIngredientCommand(string name)
 		{
-			return new CreateIngredientCommand
-			{
-				Id = Guid.NewGuid(),
-				Name = "Ingredient",
-				MacroNutrientsParticipation = new List<IngredientMacroNutrient>(),
-				Allergens = Allergen.None,
-				Requirements = Requirement.None
-			};
-		}
-
-		internal static CreateIngredientCommand CreateValidIngredientFactory(string name)
-		{
-			var macroNutrientsParticipation = new List<IngredientMacroNutrient>();
-			macroNutrientsParticipation.Add(
-				new IngredientMacroNutrient(Guid.NewGuid(), MacroNutrient.Carbohydrate,  0.2));
-
-			var allergens =  Allergen.Gluten | Allergen.Milk;
-			var requirements = Requirement.Ecological | Requirement.ForVegan;
-
-			return new CreateIngredientCommand
-			{
-				Id = Guid.NewGuid(),
-				Name = name,
-				MacroNutrientsParticipation = macroNutrientsParticipation,
-				Allergens = allergens,
-				Requirements = requirements
-			};
-		}
-
-		internal static UpdateIngredientCommand EmptyUpdateIngredientCommand()
-		{
-			return new UpdateIngredientCommand
-			{
-				Id = Guid.NewGuid(),
-				Name = "IngredientId",
-				Allergens = Allergen.None,
-				Requirements = Requirement.None,
-				MacroNutrientsParticipation = new List<IngredientMacroNutrient>()
-			};
+			var share = new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2);
+			var macroNutrientsParticipation = new MacroNutrientsSharesCollection(new List<MacroNutrientShare>{share});
+			return new CreateIngredientCommand(Guid.NewGuid(), name, Allergens, Requirements, macroNutrientsParticipation);
 		}
 	}
 }
