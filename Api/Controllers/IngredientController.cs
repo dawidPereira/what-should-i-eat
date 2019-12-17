@@ -1,11 +1,10 @@
 ﻿using System;
 using Api.Validators.IngredientValidators;
 using Domain.Common.Messages;
-using Domain.RecipesDetails.Ingredients.Commands.Create;
-using Domain.RecipesDetails.Ingredients.Commands.Delete;
-using Domain.RecipesDetails.Ingredients.Commands.Update;
-using Domain.RecipesDetails.Ingredients.Queries.GetIngredient;
-using Domain.RecipesDetails.Ingredients.Queries.GetIngredientsBasicInfos;
+using Domain.Ingredients.Commands.Create;
+using Domain.Ingredients.Commands.Delete;
+using Domain.Ingredients.Commands.Update;
+using Domain.Ingredients.Queries.Get;
 using Infrastructure.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,21 +51,6 @@ namespace Api.Controllers
 		}
 
 		/// <summary>
-		/// Gets list of Ingredient basic infos
-		/// </summary>
-		/// <remarks>
-		/// Sample request:
-		/// 	GET api/ingredient/basicInfos
-		/// </remarks>
-		/// <param name="query"></param>
-		/// <returns></returns>
-		/// <response code="200">BasicInfos found</response>
-		[HttpGet]
-		public IActionResult GetBasicInfos(GetIngredientsBasicInfosQuery query) => 
-			Ok(_mediator.Query(query));
-
-
-		/// <summary>
 		/// Create new Ingredient
 		/// </summary>
 		/// <remarks>
@@ -78,7 +62,7 @@ namespace Api.Controllers
 		/// <response code="201">Ingredient created</response>
 		/// <response code="400">Bad request</response>
 		[HttpPost]
-		public IActionResult CreateIngredient([Microsoft.AspNetCore.Mvc.FromBody] CreateIngredientCommand command)
+		public IActionResult CreateIngredient([FromBody] CreateIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
@@ -105,7 +89,7 @@ namespace Api.Controllers
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
 		[HttpPut]
-		public IActionResult UpdateIngredient([Microsoft.AspNetCore.Mvc.FromBody] UpdateIngredientCommand command)
+		public IActionResult UpdateIngredient([FromBody] UpdateIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
