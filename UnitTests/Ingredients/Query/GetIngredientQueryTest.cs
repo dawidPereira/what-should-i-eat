@@ -1,7 +1,8 @@
 ﻿using System;
-using Domain.RecipesDetails.Ingredients.Entities;
-using Domain.RecipesDetails.Ingredients.Queries.GetIngredient;
-using Domain.RecipesDetails.Ingredients.Repositories;
+using Domain.Common.Mediators.Events;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Queries.Get;
+using Domain.Ingredients.Repositories;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
@@ -12,23 +13,19 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 	[TestFixture]
 	public class GetIngredientQueryTest
 	{
-	
-		private Mock<IIngredientRepository> _ingredientRepositoryMock;
+		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
+		private readonly Mock<IEventPublisher> _eventPublisher = new Mock<IEventPublisher>();
 		private GetIngredientQuery _query;
-		private GetIngredientQueryHandler _systemUnderTests;
 		private Ingredient _ingredient;
-	
+		private GetIngredientQueryHandler _systemUnderTests;
+
 		[SetUp]
 		public void SetUp()
 		{
-			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
-			var command = CommandFactory.CreateValidIngredientFactory("IngredientName");
-            _ingredient = Ingredient.Create(
-	            command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsParticipation);
-			_query = new GetIngredientQuery
-			{
-				Id = Guid.NewGuid()
-			};
+			var command = CommandFactory.ValidCreateIngredientCommand("IngredientName");
+            _ingredient = new Ingredient(
+	            command.Id, command.Name, command.Allergens, command.Requirements, command.MacroNutrientsSharesCollection, _eventPublisher.Object);
+            _query = new GetIngredientQuery(Guid.NewGuid());
 			_systemUnderTests = new GetIngredientQueryHandler(_ingredientRepositoryMock.Object);
 		}
 
@@ -46,7 +43,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		{
 			Action action = () => _systemUnderTests.Handle(_query);
 			action.Should().Throw<ArgumentNullException>()
-				.WithMessage($"Item with Id: {_query.Id.ToString()} does not exist. (Parameter 'Ingredient')");
+				.WithMessage($"Item with Id: {_query.IngredientId.ToString()} does not exist. (Parameter 'Ingredient')");
 		}
 	}
 }
