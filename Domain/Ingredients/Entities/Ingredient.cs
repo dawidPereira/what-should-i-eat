@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Extensions;
 using Domain.Common.Mediators.Events;
-using Domain.Ingredients.Entities.MacroNutirents;
+using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Events;
 
 namespace Domain.Ingredients.Entities
@@ -11,60 +11,65 @@ namespace Domain.Ingredients.Entities
 	public class Ingredient
 	{
 		private readonly IEventPublisher _eventPublisher;
+
 		public Ingredient(
 			Guid id,
 			string name,
 			Allergen allergens,
 			Requirement requirements,
-			MacroNutrientsShares macroNutrientsShares, 
+			MacroNutrientsSharesCollection macroNutrientsSharesCollection,
 			IEventPublisher eventPublisher)
 		{
 			Id = SetId(id);
 			Name = SetName(name);
 			Allergens = allergens;
 			Requirements = requirements;
-			MacroNutrientsShares = macroNutrientsShares;
+			MacroNutrientsSharesCollection = macroNutrientsSharesCollection;
 			_eventPublisher = eventPublisher;
+			
+			var @event = new IngredientCreatedEvent(id, EventsQueue.IngredientCreated);
+			_eventPublisher.Publish(@event);
 		}
 
 		public Guid Id { get; }
 		public string Name { get; }
-		public Allergen Allergens { get; }
-		public Requirement Requirements { get; }
-		public MacroNutrientsShares MacroNutrientsShares { get; }
+		public Allergen Allergens { get; private set; }
+		public Requirement Requirements { get; private set; }
+		public MacroNutrientsSharesCollection MacroNutrientsSharesCollection { get; private set; }
 
-		public Ingredient Update(Guid id,
-			string name,
-			Allergen allergens,
-			Requirement requirements,
-			MacroNutrientsShares macroNutrientsShares)
+		public void Update(string name, Allergen allergens, Requirement requirements, IEnumerable<Share> shares)
 		{
-			var ingredient = new Ingredient(id, name, allergens, requirements, macroNutrientsShares, _eventPublisher);
-			_eventPublisher.Publish(new IngredientUpdatedEvent(EventsQueue.IngredientUpdated, ingredient.Id.ToString()));
-			return ingredient;
+			SetName(name);
+			Allergens = allergens;
+			Requirements = requirements;
+			MacroNutrientsSharesCollection = new MacroNutrientsSharesCollection(shares);
+			
+			var @event = new IngredientUpdatedEvent(Id, EventsQueue.IngredientUpdated);
+			_eventPublisher.Publish(@event);
 		}
-		
+
 		public double CalculateCalories(double grams) =>
-			MacroNutrientsShares.Sum(x => x.MacroNutrient.CalculateCalories(x.ParticipationInIngredient * grams));
+			MacroNutrientsSharesCollection.Sum(x => x.MacroNutrient.CalculateCalories(x.ParticipationInIngredient * grams));
 
 		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity(double grams)
 		{
-			var result = MacroNutrientsShares.ToDictionary(
+			var result = MacroNutrientsSharesCollection.ToDictionary(
 				x => x.MacroNutrient,
 				x => x.ParticipationInIngredient * grams);
+			
 			return result;
 		}
 
 		private static Guid SetId(Guid id)
 		{
-			if(!id.HasGuidValue()) 
+			if (!id.HasGuidValue())
 				throw new ArgumentException("Incorrect guid value.");
 			return id;
 		}
 
 		private static string SetName(string name)
 		{
-			if(name == null)
+			if (name == null)
 				throw new ArgumentNullException(nameof(name), "Ingredient name can not be empty.");
 			return name;
 		}
