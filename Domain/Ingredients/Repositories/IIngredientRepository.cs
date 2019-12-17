@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 
 namespace Domain.Ingredients.Repositories
@@ -9,7 +10,7 @@ namespace Domain.Ingredients.Repositories
 		bool ExistByName(string name);
 		void Add(Ingredient ingredient);
 		void Remove(Ingredient ingredient);
-		Ingredient? GetById(Guid id);
+		Ingredient? GetById(Identity<Guid> id);
 		void Commit();
 	}
 }

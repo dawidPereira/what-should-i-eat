@@ -64,7 +64,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		[Test]
 		public void GivenValidCommand_WhenUpdated_ShouldPublishIngredientUpdatedEvent()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
 				.Returns(_ingredient);
 			_systemUnderTests.Handle(_command);
 			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
@@ -86,7 +86,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		[Test]
 		public void GivenNewName_WhenAlreadyExist_ReturnFailure()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
 				.Returns(_ingredient);
 			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
 				.Returns(true);

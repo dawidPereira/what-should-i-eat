@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Queries.Get;
 using Domain.Ingredients.Repositories;
@@ -25,14 +26,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 			var command = CommandFactory.ValidCreateIngredientCommand("IngredientName");
             _ingredient = new Ingredient(
 	            command.Id, command.Name, command.Allergens, command.Requirements, command.Shares, _eventPublisher.Object);
-            _query = new GetIngredientQuery(Guid.NewGuid());
+            _query = new GetIngredientQuery(new Identity<Guid>(Guid.NewGuid()));
 			_systemUnderTests = new GetIngredientQueryHandler(_ingredientRepositoryMock.Object);
 		}
 
 		[Test]
 		public void GivenIngredientId_WhenExist_ShouldReturnIngredient()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
 				.Returns(_ingredient);
 			var result = _systemUnderTests.Handle(_query);
 			result.Should().NotBeNull();

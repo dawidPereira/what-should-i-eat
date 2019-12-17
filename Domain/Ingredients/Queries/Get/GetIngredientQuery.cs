@@ -1,12 +1,13 @@
 ﻿using System;
 using Domain.Common.Mediators.Queries;
+using Domain.Common.ValueObjects;
 
 namespace Domain.Ingredients.Queries.Get
 {
 	public class GetIngredientQuery : IQuery<IngredientDto>
 	{
-		public GetIngredientQuery(Guid ingredientId) => IngredientId = ingredientId;
+		public GetIngredientQuery(Identity<Guid> ingredientId) => IngredientId = ingredientId;
 		
-		public Guid IngredientId{ get; }
+		public Identity<Guid> IngredientId{ get; }
 	}
 }

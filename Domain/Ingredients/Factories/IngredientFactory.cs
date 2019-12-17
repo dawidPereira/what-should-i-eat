@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Common.Mediators.Events;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Repositories;
@@ -15,7 +16,7 @@ namespace Domain.Ingredients.Factories
 			_ingredientRepository = ingredientRepository;
 
 		public Ingredient Create(
-			Guid id,
+			Identity<Guid> id,
 			string name,
 			Allergen allergens,
 			Requirement requirements,

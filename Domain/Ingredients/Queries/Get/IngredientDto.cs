@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 
@@ -7,7 +8,7 @@ namespace Domain.Ingredients.Queries.Get
 	public class IngredientDto
 	{
 		public IngredientDto(string name,
-			Guid id,
+			Identity<Guid> id,
 			Allergen allergens,
 			Requirement requirements,
 			MacroNutrientsSharesCollection macroNutrientsSharesCollection)
@@ -20,7 +21,7 @@ namespace Domain.Ingredients.Queries.Get
 		}
 		
 		public string Name { get; set; }
-		public Guid Id { get; set; }
+		public Identity<Guid> Id { get; set; }
 		public Allergen Allergens { get; set; }
 		public Requirement Requirements { get; set; }
 		public MacroNutrientsSharesCollection MacroNutrientsSharesCollection { get; set; }

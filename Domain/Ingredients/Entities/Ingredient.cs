@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Extensions;
 using Domain.Common.Mediators.Events;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Events;
 
 namespace Domain.Ingredients.Entities
 {
-	public class Ingredient
+	public class Ingredient : IAggregateRoot<Ingredient, Guid>
 	{
 		private readonly IEventPublisher _eventPublisher;
 
 		public Ingredient(
-			Guid id,
+			Identity<Guid> id,
 			string name,
 			Allergen allergens,
 			Requirement requirements,
@@ -31,7 +32,7 @@ namespace Domain.Ingredients.Entities
 			_eventPublisher.Publish(@event);
 		}
 
-		public Guid Id { get; }
+		public Identity<Guid> Id { get; }
 		public string Name { get; private set; }
 		public Allergen Allergens { get; private set; }
 		public Requirement Requirements { get; private set; }
@@ -44,7 +45,7 @@ namespace Domain.Ingredients.Entities
 			Requirements = requirements;
 			MacroNutrientsSharesCollection = new MacroNutrientsSharesCollection(shares);
 			
-			var @event = new IngredientUpdatedEvent(Id, EventsQueue.IngredientUpdated);
+			var @event = new IngredientUpdatedEvent(Id.Value, EventsQueue.IngredientUpdated);
 			_eventPublisher.Publish(@event);
 		}
 
@@ -60,18 +61,29 @@ namespace Domain.Ingredients.Entities
 			return result;
 		}
 
-		private static Guid SetId(Guid id)
+		public bool Equals(Ingredient other) => !ReferenceEquals(null, other) && Id.Equals(other.Id);
+
+		public override bool Equals(object obj)
 		{
-			if (!id.HasGuidValue())
-				throw new ArgumentException("Incorrect guid value.");
-			return id;
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			return obj.GetType() == GetType() && Equals((Ingredient) obj);
 		}
+
+		public override int GetHashCode() => Id.GetHashCode();
 
 		private static string SetName(string name)
 		{
 			if (name == null)
 				throw new ArgumentNullException(nameof(name), "Ingredient name can not be empty.");
 			return name;
+		}
+
+		private static Identity<Guid> SetId(Identity<Guid> id)
+		{
+			if (!id.Value.HasGuidValue())
+				throw new ArgumentException("Incorrect guid value.");
+			return id;
 		}
 	}
 }

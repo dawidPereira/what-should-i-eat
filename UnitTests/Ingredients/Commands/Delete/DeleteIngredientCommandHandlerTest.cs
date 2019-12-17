@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Commands.Delete;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
@@ -31,7 +32,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_recipeRepositoryMock = new Mock<IRecipeRepository>();
 			_eventPublisher = new Mock<IEventPublisher>();
-			_command = new DeleteIngredientCommand(new Guid());
+			_command = new DeleteIngredientCommand(new Identity<Guid>(Guid.NewGuid()));
 			var command = CommandFactory.ValidCreateIngredientCommand("MyName");
 			_ingredient = new Ingredient(
 				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares, _eventPublisher.Object);
@@ -71,7 +72,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 			
 			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
 				.Returns(true);
-			_recipeRepositoryMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Guid>()))
+			_recipeRepositoryMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Identity<Guid>>()))
 				.Returns(recipeBasicInfos);
 
 			var result = _systemUnderTest.Handle(_command);
