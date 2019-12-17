@@ -1,7 +1,7 @@
 ﻿using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
-using Domain.Ingredients.Entities.Factories;
+using Domain.Ingredients.Factories;
 using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Commands.Create
@@ -27,6 +27,7 @@ namespace Domain.Ingredients.Commands.Create
 
 			_ingredientRepository.Add(ingredient);
 			_ingredientRepository.Commit();
+			_eventPublisher.Rise(EventsQueue.IngredientCreated);
 			return Result.Ok();
 		}
 	}
