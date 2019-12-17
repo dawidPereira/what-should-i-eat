@@ -1,4 +1,4 @@
-﻿using Domain.RecipesDetails.Ingredients.Commands.Create;
+﻿using Domain.RecipesDetails.Recipes.Commands.Create;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain.Common.Mediators.Validators
@@ -9,7 +9,7 @@ namespace Domain.Common.Mediators.Validators
 		{
 			services.Scan(scan =>
 				scan
-					.FromAssemblyOf<CreateIngredientCommand>()
+					.FromAssemblyOf<UniqueRecipeByNameValidator>()
 					.AddClasses(classes => classes.AssignableTo(typeof(ICommandValidator<>)))
 					.AsImplementedInterfaces()
 					.WithTransientLifetime());
