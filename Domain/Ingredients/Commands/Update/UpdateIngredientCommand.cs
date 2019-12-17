@@ -12,6 +12,6 @@ namespace Domain.Ingredients.Commands.Update
 		public string Name { get; private set; }
 		public Allergen Allergens { get; private set; }
 		public Requirement Requirements { get; private set; }
-		public IEnumerable<Share> Shares { get; private set; }
+		public IEnumerable<MacroNutrientShare> Shares { get; private set; }
 	}
 }

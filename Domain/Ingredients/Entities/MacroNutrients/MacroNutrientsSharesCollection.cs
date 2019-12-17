@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.ValueObjects;
@@ -9,21 +10,13 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 	{
 		private readonly HashSet<MacroNutrientShare> _shares;
 
-		public MacroNutrientsSharesCollection(IEnumerable<MacroNutrientShare> shares) => 
-			_shares = shares.ToHashSet();
+		public MacroNutrientsSharesCollection(IEnumerable<MacroNutrientShare> shares) =>
+			_shares = SetShares(shares);
 
 		public IEnumerator<MacroNutrientShare> GetEnumerator() => _shares.GetEnumerator();
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		public MacroNutrientsSharesCollection AddShare(MacroNutrientShare macroNutrientShare)
-		{
-			var shares = _shares.ToHashSet();
-			shares.Add(macroNutrientShare);
- 
-			return new MacroNutrientsSharesCollection(shares);
-		}
-		
 		public bool Equals(MacroNutrientsSharesCollection other)
 		{
 			if (ReferenceEquals(null, other)) return false;
@@ -37,6 +30,15 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 			return obj.GetType() == GetType() && Equals((MacroNutrientsSharesCollection) obj);
 		}
 
-		public override int GetHashCode() => (_shares != null ? _shares.GetHashCode() : 0);
+		public override int GetHashCode() => _shares != null ? _shares.GetHashCode() : 0;
+
+		private HashSet<MacroNutrientShare> SetShares(IEnumerable<MacroNutrientShare> shares)
+		{
+			var aggregatedShares = shares.Aggregate(0d, (acc, ell) => acc + ell.Share);
+			if(aggregatedShares < 1)
+				throw new ArgumentOutOfRangeException(
+					nameof(MacroNutrientsSharesCollection), "Sum of shares must be lower or equal one hundred.");
+			return shares.ToHashSet();
+		}
 	}
 }
