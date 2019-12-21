@@ -11,9 +11,9 @@ namespace Domain.Ingredients.Entities
 	{
 		private readonly HashSet<IngredientGrams> _ingredientsGrams;
 
-		public IngredientsGramsCollection(HashSet<IngredientGrams> ingredientsGrams)
+		public IngredientsGramsCollection(IEnumerable<IngredientGrams> ingredientsGrams)
 		{
-			_ingredientsGrams = ingredientsGrams;
+			_ingredientsGrams = ingredientsGrams.ToHashSet();
 		}
 		
 		public double CalculateCalories() =>

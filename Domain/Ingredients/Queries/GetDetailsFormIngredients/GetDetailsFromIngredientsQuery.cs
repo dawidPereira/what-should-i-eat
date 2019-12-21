@@ -6,7 +6,7 @@ using Domain.Common.ValueObjects;
 
 namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 {
-	public class GetDetailsFromIngredientsQuery : IQuery<AggregatedIngredientDetails>
+	public class GetDetailsFromIngredientsQuery : IQuery<AggregatedIngredientsDetailsDto>
 	{
 		private IEnumerable<Identity<Guid>> Keys => IngredientsGrams.Keys;
 		
@@ -18,5 +18,7 @@ namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 		public IDictionary<Identity<Guid>, double> IngredientsGrams { get; }
 
 		public ICollection<Identity<Guid>> GetIds() => Keys.ToList();
+
+		public double GetGramsForIngredient(Identity<Guid> ingredientId) => IngredientsGrams[ingredientId];
 	}
 }
