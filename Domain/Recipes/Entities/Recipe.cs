@@ -5,6 +5,9 @@ using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
+using Domain.Recipes.Events.Created;
+using Domain.Recipes.Events.Deleted;
+using Domain.Recipes.Factories;
 using Domain.Recipes.Repositories;
 using Domain.Recipes.SearchInfos;
 
@@ -14,7 +17,7 @@ namespace Domain.Recipes.Entities
 	{
 		private readonly IEventPublisher _eventPublisher;
 		private readonly IRecipeRepository _recipeRepository;
-		public Recipe(Guid id,
+		private Recipe(Identity<Guid> id,
 			string name,
 			string description,
 			RecipeDetails recipeDetails,
@@ -22,13 +25,13 @@ namespace Domain.Recipes.Entities
 			IEventPublisher eventPublisher,
 			IRecipeRepository recipeRepository)
 		{
-			Id = new Identity<Guid>(id);
+			Id = id;
 			Name = name;
 			Description = description;
 			RecipeDetails = recipeDetails;
+			RecipeIngredients = new RecipeIngredientsCollection(recipeIngredients);
 			_eventPublisher = eventPublisher;
 			_recipeRepository = recipeRepository;
-			RecipeIngredients = new RecipeIngredientsCollection(recipeIngredients);
 		}
 
 		public Identity<Guid> Id { get; }
@@ -44,31 +47,10 @@ namespace Domain.Recipes.Entities
 			Description = SetDescription(description);
 			RecipeDetails = details;
 			RecipeIngredients = new RecipeIngredientsCollection(ingredients);
+			Update();
 		}
 
-		public RecipeSearchInfo CalculateSearchInfo() =>
-			new RecipeSearchInfo(Id,
-				GetRequirements(),
-				GetAllergens(),
-				GetMealTypes(),
-				CalculateCalories(),
-				GetMacroNutrientQuantity());
-
-		public double CalculateCalories() =>
-			RecipeIngredients.Sum(x => x.Ingredient.CalculateCalories(x.Grams));
-		
 		public MealType GetMealTypes() => RecipeDetails.MealTypes;
-
-		public Allergen GetAllergens() =>
-			RecipeIngredients.Select(x => x.Ingredient.Allergens)
-				.Aggregate(Allergen.None, (acc, el) => acc | el);
-
-		public Requirement GetRequirements() =>
-			RecipeIngredients.Select(x => x.Ingredient.Requirements)
-				.Aggregate(Requirement.None, (acc, el) => acc | el);
-
-		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity() =>
-			DictionaryExtensions.MergeDictionary(RecipeIngredients.Select(x => x.Ingredient.GetMacroNutrientQuantity(x.Grams)));
 
 		public bool Equals(Recipe other) => !ReferenceEquals(null, other) && Id.Equals(other.Id);
 
@@ -80,6 +62,29 @@ namespace Domain.Recipes.Entities
 		}
 
 		public override int GetHashCode() => Id.GetHashCode();
+		
+		public void Delete()
+		{
+			var @event = new RecipeDeletedEvent(Id, EventsQueue.IngredientDeleted);
+			_recipeRepository.Remove(this);
+			_recipeRepository.Commit();
+			_eventPublisher.Publish(@event);
+		}
+		
+		private void Update()
+		{
+			var @event = new RecipeCreatedEvent(Id, EventsQueue.IngredientUpdated);
+			_recipeRepository.Commit();
+			_eventPublisher.Publish(@event);
+		}
+
+		private void Create()
+		{
+			var @event = new RecipeCreatedEvent(Id, EventsQueue.IngredientCreated);
+			_recipeRepository.Add(this);
+			_recipeRepository.Commit();
+			_eventPublisher.Publish(@event);
+		}
 		
 		private static string SetName(string name)
 		{
@@ -93,6 +98,38 @@ namespace Domain.Recipes.Entities
 			if (description == null)
 				throw new ArgumentNullException(nameof(description), "Recipe description can not be empty.");
 			return description;
+		}
+
+		public class RecipeFactory : IRecipeFactory
+		{
+			private readonly IRecipeRepository _recipeRepository;
+			private readonly IEventPublisher _eventPublisher;
+
+			public RecipeFactory(IRecipeRepository recipeRepository, IEventPublisher eventPublisher)
+			{
+				_recipeRepository = recipeRepository;
+				_eventPublisher = eventPublisher;
+			}
+
+			public Recipe Create(Guid id, 
+				string name, 
+				string description,
+				RecipeDetails recipeDetails,
+				IEnumerable<RecipeIngredient> recipeIngredients,
+				IEventPublisher eventPublisher,
+				IRecipeRepository recipeRepository)
+			{
+				var recipeId = new Identity<Guid>(id);
+				var recipe =  new Recipe(recipeId, 
+					name, 
+					description, 
+					recipeDetails, 
+					recipeIngredients, 
+					eventPublisher, 
+					recipeRepository);
+				recipe.Create();
+				return recipe;
+			}
 		}
 		
 	}

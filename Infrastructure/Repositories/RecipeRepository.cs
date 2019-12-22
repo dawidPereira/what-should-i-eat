@@ -18,7 +18,7 @@ namespace Infrastructure.Repositories
 
 		public void Commit() => _context.SaveChanges();
 		public void Add(Recipe recipe) => _context.Add(recipe);
-		public void Delete(Recipe recipe) => _context.Remove(recipe);
+		public void Remove(Recipe recipe) => _context.Remove(recipe);
 		public bool ExistById(Guid id) => _context.Recipes.Any(x => x.Id == id);
 		public bool ExistByName(string name) => _context.Recipes.Any(x => x.Name == name);
 

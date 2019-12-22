@@ -15,7 +15,7 @@ namespace Domain.Recipes.Repositories
 		ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Identity<Guid> ingredientId);
 		void Add(Recipe recipe);
 		void Commit();
-		void Delete(Recipe recipe);
+		void Remove(Recipe recipe);
 		bool ExistByName(string name);
 		bool ExistById(Guid id);
 	}

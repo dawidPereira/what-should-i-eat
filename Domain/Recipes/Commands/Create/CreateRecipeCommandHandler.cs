@@ -3,7 +3,7 @@ using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
-using Domain.Recipes.Entities;
+using Domain.Recipes.Factories;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Commands.Create
@@ -12,15 +12,17 @@ namespace Domain.Recipes.Commands.Create
 	{
 		private readonly IEventPublisher _eventPublisher;
 		private readonly IRecipeRepository _recipeRepository;
+		private readonly IRecipeFactory _recipeFactory;
 		private readonly IEnumerable<ICommandValidator<CreateRecipeCommand>> _validators;
 
 		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository,
 			IEnumerable<ICommandValidator<CreateRecipeCommand>> validators,
-			IEventPublisher eventPublisher)
+			IEventPublisher eventPublisher, IRecipeFactory recipeFactory)
 		{
 			_recipeRepository = recipeRepository;
 			_validators = validators;
 			_eventPublisher = eventPublisher;
+			_recipeFactory = recipeFactory;
 		}
 
 		public Result Handle(CreateRecipeCommand command)
@@ -32,9 +34,13 @@ namespace Domain.Recipes.Commands.Create
 					return validationResult;
 			}
 
-			//TODO: Move to factory
-			new Recipe(
-				command.Id, command.Name, command.Description, command.RecipeDetails, command.RecipeIngredients, _eventPublisher, _recipeRepository);
+			_recipeFactory.Create(command.Id,
+				command.Name,
+				command.Description,
+				command.RecipeDetails,
+				command.RecipeIngredients,
+				_eventPublisher,
+				_recipeRepository);
 
 			_eventPublisher.Rise(EventsQueue.RecipeCreated);
 			return Result.Ok();

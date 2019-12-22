@@ -2,6 +2,7 @@
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
+using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
 using Domain.Recipes.Repositories;
 
@@ -31,6 +32,8 @@ namespace Domain.Recipes.Commands.Update
 					return validationResult;
 			}
 			var recipe = _recipeRepository.GetById(command.Id);
+			if(recipe == null)
+				return Result.Fail(ResultCode.NotFound, $"Recipe with Id{command.Id} does not exist;");
 
 			recipe.Update(command.Name, command.Description, command.RecipeDetails, command.RecipeIngredients);
 			_eventPublisher.Rise(EventsQueue.RecipeUpdated);
