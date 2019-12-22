@@ -49,8 +49,6 @@ namespace Domain.Recipes.Entities
 			Update();
 		}
 
-		public MealType GetMealTypes() => RecipeDetails.MealTypes;
-
 		public bool Equals(Recipe other) => !ReferenceEquals(null, other) && Id.Equals(other.Id);
 
 		public override bool Equals(object obj)

@@ -8,17 +8,17 @@ using Moq;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 {
-	internal static  class FakeRecipeIngredientsFactory
+	internal class FakeRecipeIngredientsFactory
 	{
-		private static RecipeIngredient.RecipeIngredientFactory _recipeIngredientFactory;
-		private static Mock<IIngredientRepository> _ingredientRepositoryMock;
+		private RecipeIngredient.RecipeIngredientFactory _recipeIngredientFactory;
+		private readonly IIngredientRepository _ingredientRepository;
 
-		static FakeRecipeIngredientsFactory()
+		public FakeRecipeIngredientsFactory(IIngredientRepository ingredientRepository)
 		{
-			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
-			_recipeIngredientFactory = new RecipeIngredient.RecipeIngredientFactory(_ingredientRepositoryMock.Object);
+			_ingredientRepository = ingredientRepository;
+			_recipeIngredientFactory = new RecipeIngredient.RecipeIngredientFactory(_ingredientRepository);
 		}
-		public static ICollection<RecipeIngredient> CreateValidRecipeIngredientList()
+		public IEnumerable<RecipeIngredient> CreateValidRecipeIngredientList()
 		{
 			return new List<RecipeIngredient>
 			{

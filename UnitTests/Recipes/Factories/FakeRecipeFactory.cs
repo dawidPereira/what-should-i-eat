@@ -1,32 +1,35 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
+using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;
 using Moq;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 {
-	internal static class FakeRecipeFactory
+	internal class FakeRecipeFactory
 	{
-		private static Recipe.RecipeFactory _recipeFactory;
-		private static Mock<IRecipeRepository> _recipeRepositoryMock;
-		private static Mock<IEventPublisher> _eventPublisherMock;
+		private readonly Recipe.RecipeFactory _recipeFactory;
+		private readonly IRecipeRepository _recipeRepository;
+		private readonly IEventPublisher _eventPublisher;
+		private readonly FakeRecipeIngredientsFactory _fakeRecipeIngredientsFactory;
 
-		static FakeRecipeFactory()
+		public FakeRecipeFactory(IRecipeRepository recipeRepository, IEventPublisher eventPublisher, IIngredientRepository ingredientRepository)
 		{
-			_recipeRepositoryMock = new Mock<IRecipeRepository>();
-			_eventPublisherMock = new Mock<IEventPublisher>();
-			_recipeFactory = new Recipe.RecipeFactory(_recipeRepositoryMock.Object, _eventPublisherMock.Object);
+			_recipeRepository = recipeRepository;
+			_eventPublisher = eventPublisher;
+			_recipeFactory = new Recipe.RecipeFactory(recipeRepository, eventPublisher);
+			_fakeRecipeIngredientsFactory = new FakeRecipeIngredientsFactory(ingredientRepository);
 		}
 
-		public static Recipe CreateValidRecipe() =>
+		public Recipe CreateValidRecipe(string name, string description) =>
 			_recipeFactory.Create(Guid.NewGuid(),
-				"",
-				"",
+				name,
+				description,
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
-				FakeRecipeIngredientsFactory.CreateValidRecipeIngredientList(),
-				_eventPublisherMock.Object,
-				_recipeRepositoryMock.Object);
+				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList(),
+				_eventPublisher,
+				_recipeRepository);
 	}
 }
