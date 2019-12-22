@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Domain.Common.Mediators.Queries;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
 
@@ -21,8 +18,7 @@ namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 		{
 			var ingredients = _ingredientRepository.GetByIds(query.GetIds());
 			var ingredientsGrams = ingredients
-				.Select(x => new IngredientGrams(x, query.GetGramsForIngredient(x.Id)))
-				.ToList();
+				.Select(x => new IngredientGrams(x, query.GetGramsForIngredient(x.Id)));
 			var ingredientsGramsCollection = new IngredientsGramsCollection(ingredientsGrams);
 			return AggregatedIngredientsDetailsDto.FromIngredientsGramsCollection(ingredientsGramsCollection);
 		}

@@ -30,7 +30,7 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 
 		private static double SetShare(double share)
 		{
-			if (share <= 0 || share > 100)
+			if (share <= 0 || share > 1)
 			{
 				throw new ArgumentException(
 					"MacroNutrientShare must be bigger then one percent and equal or lower than one hundred percent.");

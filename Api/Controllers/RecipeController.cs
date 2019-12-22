@@ -85,7 +85,7 @@ namespace Api.Controllers
 
 			var result = _mediator.Command(command);
 
-			if (!result.IsFailure)
+			if (result.IsSuccess)
 				return Created($"api/recipe{command.Id.ToString()}", result);
 
 			if (result.ResultCode.Equals(ResultCode.NotFound))
