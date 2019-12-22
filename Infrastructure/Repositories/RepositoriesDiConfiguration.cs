@@ -1,5 +1,5 @@
-﻿using Domain.RecipesDetails.Ingredients.Repositories;
-using Domain.RecipesDetails.Recipes.Repositories;
+﻿using Domain.Recipes.Repositories;
+using Domain.RecipesDetails.Ingredients.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Repositories

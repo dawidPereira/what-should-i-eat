@@ -1,4 +1,4 @@
-﻿using Domain.RecipesDetails.Recipes.Commands.Create;
+﻿using Domain.Recipes.Commands.Create;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain.Common.Mediators.Validators

@@ -1,9 +1,9 @@
 ﻿using Api.Validators.RecipeValidators.CommandValidators;
 using Api.Validators.RecipeValidators.QueryValidators;
-using Domain.RecipesDetails.Recipes.Commands.Create;
-using Domain.RecipesDetails.Recipes.Commands.Delete;
-using Domain.RecipesDetails.Recipes.Commands.Update;
-using Domain.RecipesDetails.Recipes.Queries.GetById;
+using Domain.Recipes.Commands.Create;
+using Domain.Recipes.Commands.Delete;
+using Domain.Recipes.Commands.Update;
+using Domain.Recipes.Queries.GetById;
 using FluentValidation.Results;
 
 namespace Api.Validators.RecipeValidators

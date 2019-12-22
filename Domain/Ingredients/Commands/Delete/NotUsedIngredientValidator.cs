@@ -3,7 +3,7 @@ using Domain.Common.Extensions;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
-using Domain.RecipesDetails.Recipes.Repositories;
+using Domain.Recipes.Repositories;
 
 namespace Domain.Ingredients.Commands.Delete
 {

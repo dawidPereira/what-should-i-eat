@@ -6,7 +6,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipe.Entities
 	[TestFixture]
 	public class RecipeTests
 	{
-		private Domain.RecipesDetails.Recipes.Entities.Recipe _systemUnderTest;
+		private Domain.Recipes.Entities.Recipe _systemUnderTest;
 
 		[SetUp]
 		public void SetUp()

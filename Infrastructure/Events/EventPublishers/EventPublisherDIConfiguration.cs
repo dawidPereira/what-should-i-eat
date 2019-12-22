@@ -1,5 +1,5 @@
 ﻿using Domain.Common.Mediators.Events;
-using Domain.RecipesDetails.Recipes.Events.Created;
+using Domain.Recipes.Events.Created;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Events.EventPublishers
