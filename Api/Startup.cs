@@ -1,7 +1,7 @@
 using Api.Validators;
 using Domain.Common.Mediators.Validators;
-using Domain.Recipes.SearchInfos.Commands;
 using Domain.RecipesDetails.Filters.Factories;
+using Domain.RecipesDetails.SearchInfos.Commands;
 using EasyCaching.Core.Configurations;
 using Hangfire;
 using Infrastructure.Common;

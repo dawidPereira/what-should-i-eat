@@ -1,6 +1,6 @@
 ﻿using Domain.Common.Mediators.Commands;
 
-namespace Domain.Recipes.SearchInfos.Commands
+namespace Domain.RecipesDetails.SearchInfos.Commands
 {
 	public class BuildRecipesSearchInfoDataCommand : ICommand
 	{

@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.ValueObjects;
 using Domain.Recipes.Repositories;
 
-namespace Domain.Recipes.SearchInfos.Commands
+namespace Domain.RecipesDetails.SearchInfos.Commands
 {
 	public class BuildRecipesSearchInfoDataCommandHandler : ICommandHandler<BuildRecipesSearchInfoDataCommand>
 	{

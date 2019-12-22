@@ -9,7 +9,6 @@ using Domain.Recipes.Events.Created;
 using Domain.Recipes.Events.Deleted;
 using Domain.Recipes.Factories;
 using Domain.Recipes.Repositories;
-using Domain.Recipes.SearchInfos;
 
 namespace Domain.Recipes.Entities
 {

@@ -12,7 +12,12 @@ namespace Domain.Recipes.Queries.GetById
 		public GetRecipeQueryHandler(IRecipeRepository recipeRepository) => 
 			_recipeRepository = recipeRepository;
 
-		public RecipeDto Handle(GetRecipeQuery query) => _recipeRepository.GetById(query.Id)?.ToDto() ??
-		                Exceptions<RecipeDto>.ThrowNotFoundException(nameof(Recipe), query.Id.ToString());
+		public RecipeDto Handle(GetRecipeQuery query)
+		{
+			var recipe = _recipeRepository.GetById(query.Id);
+			if(recipe == null) 
+				Exceptions<RecipeDto>.ThrowNotFoundException(nameof(Recipe), query.Id.ToString());
+			return RecipeDto.FromRecipe(recipe);
+		}
 	}
 }

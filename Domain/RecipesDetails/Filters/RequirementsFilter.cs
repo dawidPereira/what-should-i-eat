@@ -1,5 +1,5 @@
 ﻿using Domain.Common.Filters;
-using Domain.Recipes.SearchInfos;
+using Domain.RecipesDetails.SearchInfos;
 
 namespace Domain.RecipesDetails.Filters
 {

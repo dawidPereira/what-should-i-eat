@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Domain.Recipes.SearchInfos;
+using Domain.RecipesDetails.SearchInfos;
 
 namespace Domain.Recipes.Repositories
 {

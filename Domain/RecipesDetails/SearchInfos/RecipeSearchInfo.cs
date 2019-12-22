@@ -5,7 +5,7 @@ using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Recipes.Entities;
 
-namespace Domain.Recipes.SearchInfos
+namespace Domain.RecipesDetails.SearchInfos
 {
 	public class RecipeSearchInfo
 	{

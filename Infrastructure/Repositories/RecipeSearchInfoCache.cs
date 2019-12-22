@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Recipes.Repositories;
-using Domain.Recipes.SearchInfos;
+using Domain.RecipesDetails.SearchInfos;
 using EasyCaching.Core;
 using Hangfire;
 using Infrastructure.Common;
