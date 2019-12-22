@@ -18,7 +18,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 			_ingredientRepository = ingredientRepository;
 			_recipeIngredientFactory = new RecipeIngredient.RecipeIngredientFactory(_ingredientRepository);
 		}
-		public IEnumerable<RecipeIngredient> CreateValidRecipeIngredientList()
+		public ICollection<RecipeIngredient> CreateValidRecipeIngredientList()
 		{
 			return new List<RecipeIngredient>
 			{

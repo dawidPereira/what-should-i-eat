@@ -7,6 +7,15 @@ namespace Domain.Recipes.Commands.Create
 {
 	public class CreateRecipeCommand : ICommand
 	{
+		public CreateRecipeCommand(Guid id, string name, string description, RecipeDetails recipeDetails, ICollection<RecipeIngredient> recipeIngredients)
+		{
+			Id = id;
+			Name = name;
+			Description = description;
+			RecipeDetails = recipeDetails;
+			RecipeIngredients = recipeIngredients;
+		}
+		
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public string Description { get; set; }

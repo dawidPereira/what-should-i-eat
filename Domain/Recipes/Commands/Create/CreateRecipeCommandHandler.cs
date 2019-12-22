@@ -17,7 +17,8 @@ namespace Domain.Recipes.Commands.Create
 
 		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository,
 			IEnumerable<ICommandValidator<CreateRecipeCommand>> validators,
-			IEventPublisher eventPublisher, IRecipeFactory recipeFactory)
+			IEventPublisher eventPublisher, 
+			IRecipeFactory recipeFactory)
 		{
 			_recipeRepository = recipeRepository;
 			_validators = validators;
