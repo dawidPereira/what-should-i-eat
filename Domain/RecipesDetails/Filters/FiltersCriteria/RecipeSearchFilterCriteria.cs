@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domain.Recipes.Entities;
 
-namespace Domain.Recipes.Filters.FiltersCriteria
+namespace Domain.RecipesDetails.Filters.FiltersCriteria
 {
 	public class RecipeSearchFilterCriteria
 	{

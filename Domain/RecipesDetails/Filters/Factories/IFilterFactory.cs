@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Domain.Common.Filters;
-using Domain.Recipes.Filters.FiltersCriteria;
 using Domain.Recipes.SearchInfos;
+using Domain.RecipesDetails.Filters.FiltersCriteria;
 
-namespace Domain.Recipes.Filters.Factories
+namespace Domain.RecipesDetails.Filters.Factories
 {
 	public interface IFilterFactory
 	{

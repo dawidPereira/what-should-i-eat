@@ -1,7 +1,7 @@
 ﻿using Domain.Common.Filters;
 using Domain.Recipes.SearchInfos;
 
-namespace Domain.Recipes.Filters
+namespace Domain.RecipesDetails.Filters
 {
 	public class NotAllowedAllergensFilter : IFilter<RecipeSearchInfo>
 	{

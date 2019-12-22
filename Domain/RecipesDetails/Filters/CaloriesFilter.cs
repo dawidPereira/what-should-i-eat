@@ -1,8 +1,8 @@
 ﻿using Domain.Common.Filters;
-using Domain.Recipes.Filters.FiltersCriteria;
 using Domain.Recipes.SearchInfos;
+using Domain.RecipesDetails.Filters.FiltersCriteria;
 
-namespace Domain.Recipes.Filters
+namespace Domain.RecipesDetails.Filters
 {
 	public class CaloriesFilter : IFilter<RecipeSearchInfo>
 	{

@@ -2,7 +2,7 @@
 using Domain.Recipes.Entities;
 using Domain.Recipes.SearchInfos;
 
-namespace Domain.Recipes.Filters
+namespace Domain.RecipesDetails.Filters
 {
 	public class AllowedMealTypesFilter : IFilter<RecipeSearchInfo>
 	{

@@ -1,4 +1,4 @@
-﻿namespace Domain.Recipes.Filters.FiltersCriteria
+﻿namespace Domain.RecipesDetails.Filters.FiltersCriteria
 {
 	public struct RangeFilterCriteria
 	{
