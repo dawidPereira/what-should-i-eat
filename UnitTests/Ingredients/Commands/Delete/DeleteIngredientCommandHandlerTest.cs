@@ -5,6 +5,7 @@ using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Commands.Delete;
 using Domain.Ingredients.Entities;
+using Domain.Ingredients.Factories;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Queries.GetBasicInfos;
 using Domain.Recipes.Repositories;
@@ -24,6 +25,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 		private IEnumerable<ICommandValidator<DeleteIngredientCommand>> _validators;
 		private DeleteIngredientCommand _command;
 		private DeleteIngredientCommandHandler _systemUnderTest;
+		private IIngredientFactory _ingredientFactory;
 		private Ingredient _ingredient;
 		
 		[SetUp]
@@ -34,8 +36,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 			_eventPublisher = new Mock<IEventPublisher>();
 			_command = new DeleteIngredientCommand(new Identity<Guid>(Guid.NewGuid()));
 			var command = CommandFactory.ValidCreateIngredientCommand("MyName");
-			_ingredient = new Ingredient(
-				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares, _eventPublisher.Object);
+			_ingredientFactory = new Ingredient.IngredientFactory(_ingredientRepositoryMock.Object);
+			_ingredient = _ingredientFactory.Create(
+				command.Id, 
+				command.Name, 
+				command.Allergens, 
+				command.Requirements, 
+				command.Shares, 
+				_eventPublisher.Object);
 			_validators = new List<ICommandValidator<DeleteIngredientCommand>>
 			{
 				new NotUsedIngredientValidator(_recipeRepositoryMock.Object)
@@ -55,7 +63,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 		[Test]
 		public void GivenIngredientId_WhenIngredientExist_ShouldReturnSuccess()
 		{
-			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
 				.Returns(true);
 
 			var result  = _systemUnderTest.Handle(_command);
@@ -70,7 +78,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 				new RecipeBasicInfo(Guid.NewGuid(),"ExistName")
 			};
 			
-			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
 				.Returns(true);
 			_recipeRepositoryMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Identity<Guid>>()))
 				.Returns(recipeBasicInfos);

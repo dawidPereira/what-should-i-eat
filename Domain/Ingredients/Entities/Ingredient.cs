@@ -6,6 +6,7 @@ using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Events;
+using Domain.Ingredients.Factories;
 using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Entities
@@ -15,7 +16,7 @@ namespace Domain.Ingredients.Entities
 		private readonly IEventPublisher _eventPublisher;
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public Ingredient(
+		private Ingredient(
 			Identity<Guid> id,
 			string name,
 			Allergen allergens,
@@ -31,7 +32,6 @@ namespace Domain.Ingredients.Entities
 			MacroNutrientsSharesCollection = new MacroNutrientsSharesCollection(shares);
 			_eventPublisher = eventPublisher;
 			_ingredientRepository = ingredientRepository;
-			Create();
 		}
 
 		public Identity<Guid> Id { get; }
@@ -39,6 +39,18 @@ namespace Domain.Ingredients.Entities
 		public Allergen Allergens { get; private set; }
 		public Requirement Requirements { get; private set; }
 		public MacroNutrientsSharesCollection MacroNutrientsSharesCollection { get; private set; }
+
+		public double CalculateCalories(double grams) =>
+			MacroNutrientsSharesCollection.Sum(x => x.MacroNutrient.CalculateCalories(x.Share * grams));
+
+		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity(double grams)
+		{
+			var result = MacroNutrientsSharesCollection.ToDictionary(
+				x => x.MacroNutrient,
+				x => x.Share * grams);
+			
+			return result;
+		}
 
 		public void Update(string name, Allergen allergens, Requirement requirements, IEnumerable<MacroNutrientShare> shares)
 		{
@@ -55,18 +67,6 @@ namespace Domain.Ingredients.Entities
 			_ingredientRepository.Remove(this);
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
-		}
-
-		public double CalculateCalories(double grams) =>
-			MacroNutrientsSharesCollection.Sum(x => x.MacroNutrient.CalculateCalories(x.Share * grams));
-
-		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity(double grams)
-		{
-			var result = MacroNutrientsSharesCollection.ToDictionary(
-				x => x.MacroNutrient,
-				x => x.Share * grams);
-			
-			return result;
 		}
 
 		public bool Equals(Ingredient other) => !ReferenceEquals(null, other) && Id.Equals(other.Id);
@@ -86,7 +86,7 @@ namespace Domain.Ingredients.Entities
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
 		}
-		
+
 		private void Create()
 		{
 			var @event = new IngredientCreatedEvent(Id, EventsQueue.IngredientCreated);
@@ -107,6 +107,29 @@ namespace Domain.Ingredients.Entities
 			if (!id.Value.HasGuidValue())
 				throw new ArgumentException("Incorrect guid value.");
 			return id;
+		}
+		
+		public class IngredientFactory : IIngredientFactory
+		{
+			private readonly IIngredientRepository _ingredientRepository;
+
+			public IngredientFactory(IIngredientRepository ingredientRepository) => 
+				_ingredientRepository = ingredientRepository;
+
+			public Ingredient Create(
+				Identity<Guid> id,
+				string name,
+				Allergen allergens,
+				Requirement requirements,
+				IEnumerable<MacroNutrientShare> shares,
+				IEventPublisher eventPublisher)
+			{
+				var ingredient =  _ingredientRepository.ExistByName(name)
+					? new Ingredient(id, name, allergens, requirements, shares, eventPublisher, _ingredientRepository)
+					: throw new ArgumentException($"Ingredient with {name} already exist.");
+				ingredient.Create();
+				return ingredient;
+			}
 		}
 	}
 }

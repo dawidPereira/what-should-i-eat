@@ -19,17 +19,17 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 		private CreateIngredientCommand _command;
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
 		private Mock<IIngredientFactory> _ingredientFactoryMock;
-		private Mock<IEventPublisher> _iEventPublisherMock;
+		private Mock<IEventPublisher> _eventPublisherMock;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_ingredientFactoryMock = new Mock<IIngredientFactory>();
-			_iEventPublisherMock = new Mock<IEventPublisher>();
+			_eventPublisherMock = new Mock<IEventPublisher>();
 			_command = CommandFactory.EmptyCreateIngredientCommand();
 			_systemUnderTest = new CreateIngredientCommandHandler(
-				_ingredientRepositoryMock.Object, _ingredientFactoryMock.Object, _iEventPublisherMock.Object);
+				_ingredientRepositoryMock.Object, _ingredientFactoryMock.Object, _eventPublisherMock.Object);
 		}
 
 		[Test]
@@ -46,7 +46,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);
-			_iEventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
+			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
 		}
 
 		[Test]

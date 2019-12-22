@@ -33,15 +33,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		public void SetUp()
 		{
 			_command = CommandFactory.EmptyUpdateIngredientCommand();
-			var command = CommandFactory.ValidCreateIngredientCommand("MyName");
-			_ingredient = new Ingredient(
-				command.Id, command.Name, command.Allergens, command.Requirements,
-				command.Shares, _eventPublisherMock.Object);
 			_eventPublisherMock = new Mock<IEventPublisher>();
 			_validators = new List<ICommandValidator<UpdateIngredientCommand>>
 			{
 				_validator.Object
 			};
+			_ingredient = FakeIngredientFactory.CreateValidIngredient("Ingredient");
 			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators,
 				_eventPublisherMock.Object);
 		}
@@ -88,7 +85,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
 				.Returns(_ingredient);
-			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
 				.Returns(true);
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(true);

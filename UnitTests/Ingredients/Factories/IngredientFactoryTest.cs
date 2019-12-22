@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
+using Domain.Ingredients.Entities;
 using Domain.Ingredients.Factories;
 using Domain.Ingredients.Repositories;
 using FluentAssertions;
@@ -19,7 +20,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(true);
-			Action action = () => new IngredientFactory(_ingredientRepositoryMock.Object);
+			Action action = () => new Ingredient.IngredientFactory(_ingredientRepositoryMock.Object);
 			action.Should().Throw<ArgumentException>();
 		}
 	}

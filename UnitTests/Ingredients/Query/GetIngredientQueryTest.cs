@@ -23,9 +23,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		[SetUp]
 		public void SetUp()
 		{
-			var command = CommandFactory.ValidCreateIngredientCommand("IngredientName");
-            _ingredient = new Ingredient(
-	            command.Id, command.Name, command.Allergens, command.Requirements, command.Shares, _eventPublisher.Object);
+			_ingredient = FakeIngredientFactory.CreateValidIngredient("IngredientName");
             _query = new GetIngredientQuery(new Identity<Guid>(Guid.NewGuid()));
 			_systemUnderTests = new GetIngredientQueryHandler(_ingredientRepositoryMock.Object);
 		}
