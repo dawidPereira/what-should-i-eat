@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.ValueObjects;
 
-namespace Domain.Recipes.Entities.Ingredients
+namespace Domain.Recipes.Entities
 {
 	public class RecipeIngredientsCollection : IValueObjectCollection<RecipeIngredient, RecipeIngredientsCollection>
 	{

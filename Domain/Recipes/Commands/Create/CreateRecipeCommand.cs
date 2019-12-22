@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Domain.Common.Mediators.Commands;
 using Domain.Recipes.Entities;
-using Domain.Recipes.Entities.Ingredients;
 
 namespace Domain.Recipes.Commands.Create
 {

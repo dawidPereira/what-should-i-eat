@@ -5,7 +5,6 @@ using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
-using Domain.Recipes.Entities.Ingredients;
 using Domain.Recipes.Repositories;
 using Domain.Recipes.SearchInfos;
 
