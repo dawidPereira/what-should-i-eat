@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Filters;
+using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.RecipesDetails.Filters.FiltersCriteria;
 using Domain.RecipesDetails.SearchInfos;
 

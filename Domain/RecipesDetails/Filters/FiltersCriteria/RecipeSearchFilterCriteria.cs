@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using Domain.Common.Filters;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Recipes.Entities;
 
 namespace Domain.RecipesDetails.Filters.FiltersCriteria
 {
-	public class RecipeSearchFilterCriteria
+	public struct RecipeSearchFilterCriteria : IFilterCriteria
 	{
 		public Requirement Requirements { get; set; }
 		public Allergen NotAllowedAllergens { get; set; }
