@@ -1,5 +1,6 @@
 ﻿using System;
 using Api.Validators.RecipeValidators;
+using Domain.Common.Mediators;
 using Domain.Common.Messages;
 using Domain.Recipes.Commands.Create;
 using Domain.Recipes.Commands.Delete;

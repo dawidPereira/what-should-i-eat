@@ -17,7 +17,7 @@ namespace Infrastructure.DbContexts.Seeders
 					"Default recipe description",
 					null,
 					null));
-				property.OwnsOne(innerProperty => innerProperty.RecipeDetails)
+				property.OwnsOne(innerProperty => innerProperty.RecipeInfo)
 					.HasData(new
 					{
 						RecipeId = tempId,
@@ -43,7 +43,7 @@ namespace Infrastructure.DbContexts.Seeders
 					"Default recipe description",
 					null,
 					null));
-				property.OwnsOne(innerProperty => innerProperty.RecipeDetails)
+				property.OwnsOne(innerProperty => innerProperty.RecipeInfo)
 					.HasData(new
 					{
 						RecipeId = tempId,

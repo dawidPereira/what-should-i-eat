@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Recipes.Repositories;
 using Domain.RecipesDetails.Entities;
-using Domain.RecipesDetails.SearchInfos;
 using EasyCaching.Core;
 using Hangfire;
 using Infrastructure.Common;
@@ -11,11 +10,11 @@ using Infrastructure.Common.Extensions;
 
 namespace Infrastructure.Repositories
 {
-	public class RecipeSearchInfoRepository : IRecipeSearchInfoRepository
+	public class RecipeDetailsRepository : IRecipeDetailsRepository
 	{
 		private readonly IEasyCachingProvider _cachingProvider;
 
-		public RecipeSearchInfoRepository(IEasyCachingProviderFactory cachingProviderFactory)
+		public RecipeDetailsRepository(IEasyCachingProviderFactory cachingProviderFactory)
 		{
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(Constants.RedisName);
 		}

@@ -1,4 +1,5 @@
-﻿using Domain.Common.Mediators.Commands;
+﻿using Domain.Common.Mediators;
+using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Queries;
 using Domain.RecipesDetails.Ingredients.Commands.Create;
 using Microsoft.Extensions.DependencyInjection;

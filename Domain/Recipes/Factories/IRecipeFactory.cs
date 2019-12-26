@@ -12,7 +12,7 @@ namespace Domain.Recipes.Factories
 		Recipe Create(Guid id, 
 			string name, 
 			string description,
-			RecipeDetails recipeDetails,
+			RecipeInfo recipeInfo,
 			IEnumerable<RecipeIngredient> recipeIngredients,
 			IEventPublisher eventPublisher,
 			IRecipeRepository recipeRepository);

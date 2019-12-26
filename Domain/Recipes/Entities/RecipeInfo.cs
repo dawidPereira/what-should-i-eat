@@ -3,9 +3,9 @@
 namespace Domain.Recipes.Entities
 {
 	//TODO: Add Validation
-	public class RecipeDetails : IValueObject<RecipeDetails>
+	public class RecipeInfo : IValueObject<RecipeInfo>
 	{
-		public RecipeDetails(int difficultyLevel,
+		public RecipeInfo(int difficultyLevel,
 			int preparationTime,
 			decimal approximateCost,
 			MealType mealTypes)
@@ -16,15 +16,15 @@ namespace Domain.Recipes.Entities
 			MealTypes = mealTypes;
 		}
 
-		public RecipeDetails Update(int difficultyLevel, int preparationTime, decimal approximateCost, MealType mealTypes)
-			=> new RecipeDetails(difficultyLevel, preparationTime, approximateCost, mealTypes);
+		public RecipeInfo Update(int difficultyLevel, int preparationTime, decimal approximateCost, MealType mealTypes)
+			=> new RecipeInfo(difficultyLevel, preparationTime, approximateCost, mealTypes);
 
 		public int DifficultyLevel { get; }
 		public int PreparationTime { get; }
 		public decimal ApproximateCost { get; }
 		public MealType MealTypes { get; }
 
-		public bool Equals(RecipeDetails other)
+		public bool Equals(RecipeInfo other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
@@ -38,7 +38,7 @@ namespace Domain.Recipes.Entities
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((RecipeDetails) obj);
+			return obj.GetType() == GetType() && Equals((RecipeInfo) obj);
 		}
 
 		public override int GetHashCode()

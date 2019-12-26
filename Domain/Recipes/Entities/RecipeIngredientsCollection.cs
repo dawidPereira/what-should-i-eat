@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.ValueObjects;
@@ -35,5 +36,8 @@ namespace Domain.Recipes.Entities
 		{
 			return (_recipeIngredients != null ? _recipeIngredients.GetHashCode() : 0);
 		}
+
+		public IDictionary<Identity<Guid>, double> ToDictionary() => 
+			_recipeIngredients.ToDictionary(x => x.IngredientId, x => x.Grams);
 	}
 }

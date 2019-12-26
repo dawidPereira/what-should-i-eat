@@ -10,7 +10,7 @@ namespace Infrastructure.DbContexts
 		public static ModelBuilder ConfigureRecipe(this ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Recipe>()
-				.OwnsOne(property => property.RecipeDetails,
+				.OwnsOne(property => property.RecipeInfo,
 					recipeDetails =>
 					{
 						recipeDetails

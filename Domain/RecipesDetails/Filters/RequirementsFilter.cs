@@ -1,7 +1,6 @@
 ﻿using Domain.Common.Filters;
 using Domain.Ingredients.Entities;
 using Domain.RecipesDetails.Entities;
-using Domain.RecipesDetails.SearchInfos;
 
 namespace Domain.RecipesDetails.Filters
 {

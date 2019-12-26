@@ -19,15 +19,15 @@ namespace Api.Validators.RecipeValidators.CommandValidators
 				.NotNull()
 				.WithMessage(ValidationMessages.NotNull(nameof(CreateRecipeCommand.Description)));
 
-			RuleFor(x => x.RecipeDetails)
+			RuleFor(x => x.RecipeInfo)
 				.NotNull()
-				.WithMessage(ValidationMessages.NotNull(nameof(CreateRecipeCommand.RecipeDetails)));
+				.WithMessage(ValidationMessages.NotNull(nameof(CreateRecipeCommand.RecipeInfo)));
 
 			RuleFor(x => x.RecipeIngredients)
 				.NotEmpty()
 				.WithMessage(ValidationMessages.NotEmpty(nameof(CreateRecipeCommand.RecipeIngredients)));
 			
-			RuleFor(x => x.RecipeDetails)
+			RuleFor(x => x.RecipeInfo)
 				.SetValidator(new RecipeDetailsValidator());
 
 			RuleForEach(x => x.RecipeIngredients)

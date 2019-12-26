@@ -267,7 +267,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Recipes.Entities.Recipe", b =>
                 {
-                    b.OwnsOne("Domain.Recipes.Entities.RecipeDetails", "RecipeDetails", b1 =>
+                    b.OwnsOne("Domain.Recipes.Entities.RecipeInfo", "RecipeInfo", b1 =>
                         {
                             b1.Property<Guid>("RecipeId")
                                 .HasColumnType("uniqueidentifier");

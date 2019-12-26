@@ -1,7 +1,6 @@
 ﻿using Domain.Common.Filters;
 using Domain.Recipes.Entities;
 using Domain.RecipesDetails.Entities;
-using Domain.RecipesDetails.SearchInfos;
 using RecipeDetails = Domain.RecipesDetails.Entities.RecipeDetails;
 
 namespace Domain.RecipesDetails.Filters

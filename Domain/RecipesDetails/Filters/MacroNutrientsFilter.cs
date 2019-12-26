@@ -4,7 +4,6 @@ using Domain.Common.Filters;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.RecipesDetails.Entities;
 using Domain.RecipesDetails.Filters.FiltersCriteria;
-using Domain.RecipesDetails.SearchInfos;
 
 namespace Domain.RecipesDetails.Filters
 {

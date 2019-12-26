@@ -19,7 +19,7 @@ namespace Domain.Recipes.Entities
 		private Recipe(Identity<Guid> id,
 			string name,
 			string description,
-			RecipeDetails recipeDetails,
+			RecipeInfo recipeInfo,
 			IEnumerable<RecipeIngredient> recipeIngredients,
 			IEventPublisher eventPublisher,
 			IRecipeRepository recipeRepository)
@@ -27,7 +27,7 @@ namespace Domain.Recipes.Entities
 			Id = id;
 			Name = name;
 			Description = description;
-			RecipeDetails = recipeDetails;
+			RecipeInfo = recipeInfo;
 			RecipeIngredients = new RecipeIngredientsCollection(recipeIngredients);
 			_eventPublisher = eventPublisher;
 			_recipeRepository = recipeRepository;
@@ -36,15 +36,15 @@ namespace Domain.Recipes.Entities
 		public Identity<Guid> Id { get; }
 		public string Name { get; private set; }
 		public string Description { get; private set; }
-		public RecipeDetails RecipeDetails { get; private set; }
+		public RecipeInfo RecipeInfo { get; private set; }
 		public RecipeIngredientsCollection RecipeIngredients { get; private set; }
 
 
-		public void Update(string name, string description, RecipeDetails details, IEnumerable<RecipeIngredient> ingredients)
+		public void Update(string name, string description, RecipeInfo info, IEnumerable<RecipeIngredient> ingredients)
 		{
 			Name = SetName(name);
 			Description = SetDescription(description);
-			RecipeDetails = details;
+			RecipeInfo = info;
 			RecipeIngredients = new RecipeIngredientsCollection(ingredients);
 			Update();
 		}
@@ -111,7 +111,7 @@ namespace Domain.Recipes.Entities
 			public Recipe Create(Guid id, 
 				string name, 
 				string description,
-				RecipeDetails recipeDetails,
+				RecipeInfo recipeInfo,
 				IEnumerable<RecipeIngredient> recipeIngredients,
 				IEventPublisher eventPublisher,
 				IRecipeRepository recipeRepository)
@@ -120,7 +120,7 @@ namespace Domain.Recipes.Entities
 				var recipe =  new Recipe(recipeId, 
 					name, 
 					description, 
-					recipeDetails, 
+					recipeInfo, 
 					recipeIngredients, 
 					eventPublisher, 
 					recipeRepository);

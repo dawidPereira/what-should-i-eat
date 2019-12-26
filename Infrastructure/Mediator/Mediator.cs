@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Domain.Common.Mediators;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Queries;

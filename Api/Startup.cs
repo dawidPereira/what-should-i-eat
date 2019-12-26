@@ -1,7 +1,8 @@
 using Api.Validators;
+using Domain.Common.Mediators;
 using Domain.Common.Mediators.Validators;
+using Domain.RecipesDetails.Commands;
 using Domain.RecipesDetails.Filters.Factories;
-using Domain.RecipesDetails.SearchInfos.Commands;
 using EasyCaching.Core.Configurations;
 using Hangfire;
 using Infrastructure.Common;
@@ -57,7 +58,7 @@ namespace Api
 			services.AddRequestValidators();
 			services.AddControllers()
 				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-			//services.AddTransient<IRecipeSearchInfoRepository, RecipeSearchInfoRepository>();
+			//services.AddTransient<IRecipeDetailsRepository, RecipeDetailsRepository>();
 			services.AddTransient<IFilterFactory, RecipeFiltersFactory>();
 		}
 
@@ -78,7 +79,7 @@ namespace Api
 			}
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
-			mediator.Command(new BuildRecipesSearchInfoDataCommand());
+			mediator.Command(new BuildAllRecipesDetailsCommand());
 		}
 	}
 }

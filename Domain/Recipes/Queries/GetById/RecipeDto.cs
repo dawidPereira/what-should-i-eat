@@ -24,7 +24,7 @@ namespace Domain.Recipes.Queries.GetById
 
 		public static RecipeDto FromRecipe(Recipe recipe)
 		{
-			var recipeDetailsDto = RecipeDetailsDto.FromRecipeDetails(recipe.RecipeDetails);
+			var recipeDetailsDto = RecipeDetailsDto.FromRecipeDetails(recipe.RecipeInfo);
 			var recipeIngredients = recipe.RecipeIngredients
 				.Select(x => new Tuple<Guid, double>(x.IngredientId.Value, x.Grams))
 				.ToList();
@@ -45,11 +45,11 @@ namespace Domain.Recipes.Queries.GetById
 			public decimal ApproximateCost { get; set; }
 			public MealType MealTypes { get; set; }
 			
-			public static RecipeDetailsDto FromRecipeDetails(RecipeDetails recipeDetails) =>
-			new RecipeDetailsDto(recipeDetails.DifficultyLevel,
-				recipeDetails.PreparationTime,
-				recipeDetails.ApproximateCost,
-				recipeDetails.MealTypes);
+			public static RecipeDetailsDto FromRecipeDetails(RecipeInfo recipeInfo) =>
+			new RecipeDetailsDto(recipeInfo.DifficultyLevel,
+				recipeInfo.PreparationTime,
+				recipeInfo.ApproximateCost,
+				recipeInfo.MealTypes);
 		}
 	}
 }

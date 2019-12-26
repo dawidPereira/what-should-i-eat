@@ -38,7 +38,7 @@ namespace Domain.Recipes.Commands.Create
 			_recipeFactory.Create(command.Id,
 				command.Name,
 				command.Description,
-				command.RecipeDetails,
+				command.RecipeInfo,
 				command.RecipeIngredients,
 				_eventPublisher,
 				_recipeRepository);

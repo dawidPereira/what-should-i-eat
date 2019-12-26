@@ -2,7 +2,7 @@
 using Domain.Common.Mediators.Queries;
 using Domain.Common.ValueObjects;
 
-namespace Infrastructure.Mediator
+namespace Domain.Common.Mediators
 {
 	public interface IMediator
 	{
