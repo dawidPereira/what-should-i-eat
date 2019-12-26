@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using Domain.Common.Filters;
+using Domain.RecipesDetails.Entities;
 using Domain.RecipesDetails.Filters.FiltersCriteria;
 using Domain.RecipesDetails.SearchInfos;
 
 namespace Domain.RecipesDetails.Filters.Factories
 {
-	public class FilterFactory : IFilterFactory
+	public class RecipeFiltersFactory : IFilterFactory<RecipeDetails, RecipeSearchFilterCriteria>
 	{
-		public ICollection<IFilter<RecipeSearchInfo>> BuildRecipeSearchFilters(RecipeSearchFilterCriteria? filterCriteria)
+		public ICollection<IFilter<RecipeDetails>> BuildRecipeSearchFilters(RecipeSearchFilterCriteria filterCriteria)
 		{
-			return new List<IFilter<RecipeSearchInfo>>
+			return new List<IFilter<RecipeDetails>>
 			{
 				new CaloriesFilter(filterCriteria.CaloriesRange),
 				new RequirementsFilter(filterCriteria.Requirements),

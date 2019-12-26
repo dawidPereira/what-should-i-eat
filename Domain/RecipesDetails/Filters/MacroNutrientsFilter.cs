@@ -2,12 +2,13 @@
 using System.Linq;
 using Domain.Common.Filters;
 using Domain.Ingredients.Entities.MacroNutrients;
+using Domain.RecipesDetails.Entities;
 using Domain.RecipesDetails.Filters.FiltersCriteria;
 using Domain.RecipesDetails.SearchInfos;
 
 namespace Domain.RecipesDetails.Filters
 {
-	public class MacroNutrientsFilter : IFilter<RecipeSearchInfo>
+	public class MacroNutrientsFilter : IFilter<RecipeDetails>
 	{
 		private readonly IDictionary<MacroNutrient, RangeFilterCriteria?> _filterCriteria;
 
@@ -16,7 +17,7 @@ namespace Domain.RecipesDetails.Filters
 			_filterCriteria = filterCriteria;
 		}
 
-		public bool Satisfy(RecipeSearchInfo toFilter)
+		public bool Satisfy(RecipeDetails toFilter)
 		{
 			return !_filterCriteria.Any() || toFilter.MacroNutrientQuantity.All(x => IsSatisfy(x.Value, x.Key));
 		}

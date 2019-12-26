@@ -9,6 +9,6 @@
 		public const string RedisHost = "localhost";
 		public const int RedisPort = 6379;
 
-		public const string RecipeSearchInfo = "RecipeSearchInfo";
+		public const string RecipeSearchInfo = "RecipeDetails";
 	}
 }

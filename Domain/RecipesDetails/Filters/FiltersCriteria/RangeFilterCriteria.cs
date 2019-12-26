@@ -1,6 +1,8 @@
-﻿namespace Domain.RecipesDetails.Filters.FiltersCriteria
+﻿using Domain.Common.Filters;
+
+namespace Domain.RecipesDetails.Filters.FiltersCriteria
 {
-	public struct RangeFilterCriteria
+	public struct RangeFilterCriteria : IFilterCriteria
 	{
 		private readonly double _deviation;
 		private readonly double _lowerLimit;

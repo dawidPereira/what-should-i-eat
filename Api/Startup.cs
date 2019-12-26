@@ -58,7 +58,7 @@ namespace Api
 			services.AddControllers()
 				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 			//services.AddTransient<IRecipeSearchInfoRepository, RecipeSearchInfoRepository>();
-			services.AddTransient<IFilterFactory, FilterFactory>();
+			services.AddTransient<IFilterFactory, RecipeFiltersFactory>();
 		}
 
 		public void Configure(IApplicationBuilder app,

@@ -5,11 +5,11 @@ using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Recipes.Entities;
 
-namespace Domain.RecipesDetails.SearchInfos
+namespace Domain.RecipesDetails.Entities
 {
-	public class RecipeSearchInfo
+	public class RecipeDetails
 	{
-		public RecipeSearchInfo(Identity<Guid> id,
+		public RecipeDetails(Identity<Guid> id,
 			Requirement requirements,
 			Allergen allergens,
 			MealType mealTypes,
@@ -25,6 +25,7 @@ namespace Domain.RecipesDetails.SearchInfos
 		}
 
 		public Identity<Guid> Id { get; private set; }
+		public string Name { get; private set; }	
 		public Requirement Requirements { get; private set; }
 		public Allergen Allergens { get; private set; }
 		public MealType MealTypes { get; private set; }
