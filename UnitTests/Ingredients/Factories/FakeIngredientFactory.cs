@@ -16,23 +16,23 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 	{
 		private const Allergen Allergens = Allergen.Gluten | Allergen.Milk;
 		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;
-		private static readonly Mock<IEventPublisher> _eventPublisherMock = new Mock<IEventPublisher>();
-		private static readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
-		private static readonly IIngredientFactory _ingredientFactory = new Ingredient.IngredientFactory(_ingredientRepositoryMock.Object);
-		internal static Ingredient CreateIngredientWithOneShare(string name, MacroNutrient macroNutrient)
+		private static readonly Mock<IEventPublisher> EventPublisherMock = new Mock<IEventPublisher>();
+		internal static Ingredient CreateIngredientWithOneShare(string name, MacroNutrient macroNutrient, IIngredientRepository ingredientRepository)
 		{
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
 			var shares = new HashSet<MacroNutrientShare>{new MacroNutrientShare(macroNutrient, 0.2)};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return _ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
+			return ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
 				name,
 				Allergens,
 				Requirements,
 				macroNutrientsShares,
-				_eventPublisherMock.Object);
+				EventPublisherMock.Object);
 		}
 		
-		internal static Ingredient CreateValidIngredient(string name)
+		internal static Ingredient CreateValidIngredient(string name, IIngredientRepository ingredientRepository)
 		{
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
 			var shares = new HashSet<MacroNutrientShare>
 			{
 				new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2),
@@ -40,32 +40,35 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				new MacroNutrientShare(MacroNutrient.Protein, 0.3)
 			};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return _ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
+			return ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
 				name,
 				Allergens,
 				Requirements,
 				macroNutrientsShares,
-				_eventPublisherMock.Object);
+				EventPublisherMock.Object);
 		}
 
-		internal static Ingredient CreateIngredientWithInvalidId(string name)
+		internal static Ingredient CreateIngredientWithInvalidId(string name, IIngredientRepository ingredientRepository)
 		{
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
 			var shares = new HashSet<MacroNutrientShare>{new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2)};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return _ingredientFactory.Create(new Identity<Guid>(new Guid("")),
+			return ingredientFactory.Create(new Identity<Guid>(new Guid("")),
 				name,
 				Allergens,
 				Requirements,
 				macroNutrientsShares,
-				_eventPublisherMock.Object);
+				EventPublisherMock.Object);
 		}
 
 		internal static Ingredient CreateValidIngredient(Identity<Guid> id,
 			string name,
 			double carbohydrates,
 			double fat,
-			double protein)
+			double protein,
+			IIngredientRepository ingredientRepository)
 		{
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
 			var shares = new HashSet<MacroNutrientShare>
 			{
 				new MacroNutrientShare(MacroNutrient.Carbohydrate, carbohydrates),
@@ -73,16 +76,19 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				new MacroNutrientShare(MacroNutrient.Protein, protein)
 			};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return _ingredientFactory.Create(id, name, Allergens, Requirements, macroNutrientsShares, _eventPublisherMock.Object);
+			return ingredientFactory.Create(id, name, Allergens, Requirements, macroNutrientsShares, EventPublisherMock.Object);
 		}
 
-		internal static IEnumerable<Ingredient> CreateIngredientsCollection(List<Identity<Guid>> ids, IEventPublisher eventPublisher)
+		internal static IEnumerable<Ingredient> CreateIngredientsCollection(
+			List<Identity<Guid>> ids, 
+			IEventPublisher eventPublisher,
+			IIngredientRepository ingredientRepository)
 		{
 			return new List<Ingredient>
 			{
-				CreateValidIngredient(ids[0], "First",  0.2, 0.3, 0.4),
-				CreateValidIngredient(ids[1], "Second",  0.2, 0.3, 0.4),
-				CreateValidIngredient(ids[2], "Third",  0.2, 0.3, 0.4)
+				CreateValidIngredient(ids[0], "First",  0.2, 0.3, 0.4, ingredientRepository),
+				CreateValidIngredient(ids[1], "Second",  0.2, 0.3, 0.4, ingredientRepository),
+				CreateValidIngredient(ids[2], "Third",  0.2, 0.3, 0.4, ingredientRepository)
 			};
 		}
 	}

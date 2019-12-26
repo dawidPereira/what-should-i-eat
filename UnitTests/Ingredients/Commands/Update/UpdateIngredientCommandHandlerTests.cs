@@ -38,7 +38,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 			{
 				_validator.Object
 			};
-			_ingredient = FakeIngredientFactory.CreateValidIngredient("Ingredient");
+			_ingredient = FakeIngredientFactory.CreateValidIngredient("Ingredient", _ingredientRepositoryMock.Object);
 			_systemUnderTests = new UpdateIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators,
 				_eventPublisherMock.Object);
 		}

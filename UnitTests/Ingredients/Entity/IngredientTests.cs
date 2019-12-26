@@ -3,6 +3,7 @@ using Domain.Common.Mediators.Events;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Events;
+using Domain.Ingredients.Repositories;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
@@ -16,6 +17,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 	{
 		private const string IngredientName = "IngredientName";
 		private Mock<IEventPublisher> _eventPublisherMock;
+		private Mock<IIngredientRepository> _ingredientRepositoryMock;
 		private Ingredient _systemUnderTest;
 
 
@@ -23,27 +25,30 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		public void SetUp()
 		{
 			_eventPublisherMock = new Mock<IEventPublisher>();
-			_systemUnderTest = FakeIngredientFactory.CreateValidIngredient(IngredientName);
+			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
+			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
+				.Returns(false);
+			_systemUnderTest = FakeIngredientFactory.CreateValidIngredient(IngredientName, _ingredientRepositoryMock.Object);
 		}
 
 		[Test]
 		public void Ingredient_WhenCreated_ShouldPublishIngredientCreatedEvent()
 		{
-			FakeIngredientFactory.CreateValidIngredient(IngredientName);
+			FakeIngredientFactory.CreateValidIngredient(IngredientName, _ingredientRepositoryMock.Object);
 			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<IngredientCreatedEvent>()), Times.Once);
 		}
 
 		[Test]
 		public void GivenEmptyName_DuringIngredientCreating_ShouldThrowArgumentNullException()
 		{
-			Action action = () => FakeIngredientFactory.CreateValidIngredient(null);
+			Action action = () => FakeIngredientFactory.CreateValidIngredient(null, _ingredientRepositoryMock.Object);
 			action.Should().Throw<ArgumentNullException>();
 		}
 
 		[Test]
 		public void GivenIncorrectId_DuringIngredientCreating_ShouldThrowArgumentException()
 		{
-			Action action = () => FakeIngredientFactory.CreateIngredientWithInvalidId(IngredientName);
+			Action action = () => FakeIngredientFactory.CreateIngredientWithInvalidId(IngredientName, _ingredientRepositoryMock.Object);
 			action.Should().Throw<ArgumentException>();
 		}
 		
@@ -79,7 +84,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		public void CalculateCaloriesPerGram_WhenCalled_ShouldReturnProperValue()
 		{
 			_systemUnderTest = FakeIngredientFactory.CreateIngredientWithOneShare(
-				IngredientName, MacroNutrient.Carbohydrate);
+				IngredientName, MacroNutrient.Carbohydrate, _ingredientRepositoryMock.Object);
 			var result = _systemUnderTest.CalculateCalories(100);
 			result.Should().Be(80);
 		}

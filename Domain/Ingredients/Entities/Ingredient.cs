@@ -124,9 +124,9 @@ namespace Domain.Ingredients.Entities
 				IEnumerable<MacroNutrientShare> shares,
 				IEventPublisher eventPublisher)
 			{
-				var ingredient =  _ingredientRepository.ExistByName(name)
+				var ingredient =  !_ingredientRepository.ExistByName(name)
 					? new Ingredient(id, name, allergens, requirements, shares, eventPublisher, _ingredientRepository)
-					: throw new ArgumentException($"Ingredient with {name} already exist.");
+					: throw new ArgumentException($"Ingredient with name: '{name}' already exist.");
 				ingredient.Create();
 				return ingredient;
 			}

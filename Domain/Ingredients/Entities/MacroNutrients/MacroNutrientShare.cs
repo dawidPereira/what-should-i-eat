@@ -27,13 +27,14 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 				return ((int) MacroNutrient * 397) ^ Share.GetHashCode();
 			}
 		}
+		
 
 		private static double SetShare(double share)
 		{
 			if (share <= 0 || share > 1)
 			{
 				throw new ArgumentException(
-					"MacroNutrientShare must be bigger then one percent and equal or lower than one hundred percent.");
+					$"MacroNutrientShare must be bigger then one percent and equal or lower than one hundred percent. It was {share}.");
 			}
 
 			return share;
