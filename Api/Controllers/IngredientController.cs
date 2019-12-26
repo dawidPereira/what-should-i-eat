@@ -6,7 +6,6 @@ using Domain.Ingredients.Commands.Create;
 using Domain.Ingredients.Commands.Delete;
 using Domain.Ingredients.Commands.Update;
 using Domain.Ingredients.Queries.Get;
-using Infrastructure.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers

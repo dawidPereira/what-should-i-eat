@@ -7,7 +7,7 @@ namespace Domain.RecipesDetails.Filters.Factories
 {
 	public class RecipeFiltersFactory : IFilterFactory<RecipeDetails, RecipeSearchFilterCriteria>
 	{
-		public ICollection<IFilter<RecipeDetails>> BuildRecipeSearchFilters(RecipeSearchFilterCriteria filterCriteria)
+		public ICollection<IFilter<RecipeDetails>> Build(RecipeSearchFilterCriteria filterCriteria)
 		{
 			return new List<IFilter<RecipeDetails>>
 			{

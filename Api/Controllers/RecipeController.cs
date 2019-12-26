@@ -7,7 +7,6 @@ using Domain.Recipes.Commands.Delete;
 using Domain.Recipes.Commands.Update;
 using Domain.Recipes.Queries.GetBasicInfos;
 using Domain.Recipes.Queries.GetById;
-using Infrastructure.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers

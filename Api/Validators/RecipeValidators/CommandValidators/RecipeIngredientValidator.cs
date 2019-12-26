@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Domain.Recipes.Entities;
+using FluentValidation;
 
 namespace Api.Validators.RecipeValidators.CommandValidators
 {
@@ -13,11 +14,6 @@ namespace Api.Validators.RecipeValidators.CommandValidators
 			RuleFor(x => x.IngredientId)
 				.NotNull()
 				.WithMessage(ValidationMessages.NotNull(nameof(RecipeIngredient.IngredientId)));
-
-			RuleFor(x => x.RecipeId)
-				.NotNull()
-				.WithMessage(ValidationMessages.NotNull(nameof(RecipeIngredient.RecipeId)));
-			
 		}
 	}
 }
