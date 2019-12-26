@@ -1,4 +1,6 @@
-﻿using Domain.Common.Mediators.Events;
+﻿using System.Collections.Generic;
+using Domain.Common.Mediators.Events;
+using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
 using Domain.Ingredients.Commands.Create;
 using Domain.Ingredients.Entities;
@@ -20,6 +22,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
 		private Mock<IIngredientFactory> _ingredientFactoryMock;
 		private Mock<IEventPublisher> _eventPublisherMock;
+		private List<ICommandValidator<CreateIngredientCommand>> _validators;
+			
 
 		[SetUp]
 		public void SetUp()
@@ -27,9 +31,13 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_ingredientFactoryMock = new Mock<IIngredientFactory>();
 			_eventPublisherMock = new Mock<IEventPublisher>();
+			_validators = new List<ICommandValidator<CreateIngredientCommand>>
+			{
+				new UniqueIngredientByNameValidator(_ingredientRepositoryMock.Object)
+			};
 			_command = CommandFactory.EmptyCreateIngredientCommand();
 			_systemUnderTest = new CreateIngredientCommandHandler(
-				_ingredientRepositoryMock.Object, _ingredientFactoryMock.Object, _eventPublisherMock.Object);
+				_ingredientRepositoryMock.Object, _ingredientFactoryMock.Object, _eventPublisherMock.Object, _validators);
 		}
 
 		[Test]
@@ -46,6 +54,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);
+			_systemUnderTest.Handle(_command);
 			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
 		}
 

@@ -1,6 +1,4 @@
-﻿using Domain.RecipesDetails.Ingredients.Entities;
-using Domain.RecipesDetails.Ingredients.Entities.MacroNutrients;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.DbContexts

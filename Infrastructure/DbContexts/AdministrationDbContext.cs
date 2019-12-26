@@ -1,5 +1,5 @@
-﻿using Domain.Recipes.Entities;
-using Domain.RecipesDetails.Ingredients.Entities;
+﻿using Domain.Ingredients.Entities;
+using Domain.Recipes.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts

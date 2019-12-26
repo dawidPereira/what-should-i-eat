@@ -15,11 +15,17 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 		
 		internal static CreateIngredientCommand EmptyCreateIngredientCommand() =>
 			new CreateIngredientCommand(new Identity<Guid>(Guid.NewGuid()), "IngredientId", Allergen.None, Requirement.None,
-				new MacroNutrientsSharesCollection(new List<MacroNutrientShare>()));
+				new MacroNutrientsSharesCollection(new List<MacroNutrientShare>
+				{
+					new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2)
+				}));
 
 		internal static UpdateIngredientCommand EmptyUpdateIngredientCommand() =>
 			new UpdateIngredientCommand(new Identity<Guid>(Guid.NewGuid()), "IngredientId", Allergen.None, Requirement.None,
-				new MacroNutrientsSharesCollection(new List<MacroNutrientShare>()));
+				new MacroNutrientsSharesCollection(new List<MacroNutrientShare>
+				{
+					new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2)
+				}));
 
 		internal static CreateIngredientCommand ValidCreateIngredientCommand(string name)
 		{

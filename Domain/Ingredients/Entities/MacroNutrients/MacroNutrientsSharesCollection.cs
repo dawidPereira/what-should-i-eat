@@ -35,9 +35,9 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 		private HashSet<MacroNutrientShare> SetShares(IEnumerable<MacroNutrientShare> shares)
 		{
 			var aggregatedShares = shares.Aggregate(0d, (acc, ell) => acc + ell.Share);
-			if(aggregatedShares < 1)
-				throw new ArgumentOutOfRangeException(
-					nameof(MacroNutrientsSharesCollection), "Sum of shares must be lower or equal one hundred.");
+			if(aggregatedShares < 0 && aggregatedShares > 1)
+				throw new ArgumentOutOfRangeException(nameof(MacroNutrientsSharesCollection), 
+					$"Sum of shares must be lower or equal one. It was {aggregatedShares}.");
 			return shares.ToHashSet();
 		}
 	}
