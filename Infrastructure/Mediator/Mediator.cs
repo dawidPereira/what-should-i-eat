@@ -2,7 +2,6 @@
 using System.Linq;
 using Domain.Common.Mediators;
 using Domain.Common.Mediators.Commands;
-using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Queries;
 using Domain.Common.ValueObjects;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,17 +14,6 @@ namespace Infrastructure.Mediator
 
 		public Mediator(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-		public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
-		{
-			var handlers = _serviceProvider.GetServices<IEventHandler<TEvent>>();
-			var eventHandlers = handlers.ToList();
-			if (!eventHandlers.Any())
-				throw new InvalidOperationException(
-					$"Event of type '{handlers.GetType()}' has not registered handler.");
-
-			eventHandlers.ForEach(x => x.Handle(@event));
-		}
-		
 		public Result Command<TCommand>(TCommand command) where TCommand : ICommand
 		{
 			var handler = _serviceProvider.GetService<ICommandHandler<TCommand>>();
