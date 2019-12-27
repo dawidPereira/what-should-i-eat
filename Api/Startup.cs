@@ -30,7 +30,9 @@ namespace Api
 			Configuration = configuration;
 		}
 
-		private IConfiguration Configuration { get; }
+		private static IConfiguration Configuration { get; set; }
+
+		public static IConfiguration GetConfiguration => Configuration;
 
 		public void ConfigureServices(IServiceCollection services)
 		{

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.RecipesDetails.Ingredients.Entities;
-using Domain.RecipesDetails.Ingredients.Entities.MacroNutrients;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Entities.MacroNutrients;
 using Microsoft.EntityFrameworkCore;
+using Ingredient = Infrastructure.Entities.Ingredient.Ingredient;
 
 namespace Infrastructure.DbContexts.Seeders
 {

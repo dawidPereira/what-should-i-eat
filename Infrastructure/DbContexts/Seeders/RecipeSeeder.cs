@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Domain.Recipes.Entities;
 using Microsoft.EntityFrameworkCore;
+using Recipe = Infrastructure.Entities.Recipe.Recipe;
+using RecipeIngredient = Infrastructure.Entities.Recipe.RecipeIngredient;
 
 namespace Infrastructure.DbContexts.Seeders
 {
@@ -12,15 +14,14 @@ namespace Infrastructure.DbContexts.Seeders
 			var tempId = Guid.NewGuid();
 			modelBuilder.Entity<Recipe>(property =>
 				{
-				property.HasData(Recipe.Create(tempId,
+				property.HasData(new Recipe(tempId,
 					"Oatmeal with milk",
 					"Default recipe description",
-					null,
+					null, 
 					null));
 				property.OwnsOne(innerProperty => innerProperty.RecipeInfo)
 					.HasData(new
 					{
-						RecipeId = tempId,
 						DifficultyLevel = 2,
 						PreparationTime = 15,
 						ApproximateCost = 8m,
@@ -38,7 +39,7 @@ namespace Infrastructure.DbContexts.Seeders
 			tempId = Guid.NewGuid();
 			modelBuilder.Entity<Recipe>(property =>
 			{
-				property.HasData(Recipe.Create(tempId,
+				property.HasData(new Recipe(tempId,
 					"Chicken with rise",
 					"Default recipe description",
 					null,

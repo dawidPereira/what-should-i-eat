@@ -6,7 +6,7 @@ namespace Infrastructure.DbContexts
 {
 	public sealed class AdministrationDbContext : DbContext
 	{
-		public AdministrationDbContext(DbContextOptions<AdministrationDbContext> options)
+		public AdministrationDbContext(DbContextOptions options)
 			: base(options)
 		{
 		}
