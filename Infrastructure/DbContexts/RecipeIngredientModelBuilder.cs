@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure.Entities.Recipe;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts
 {
@@ -9,14 +10,6 @@ namespace Infrastructure.DbContexts
 			modelBuilder.Entity<RecipeIngredient>()
 				.HasKey(recipeIngredient => new { recipeIngredient.IngredientId, recipeIngredient.RecipeId });  
 			
-			modelBuilder.Entity<RecipeIngredient>()
-				.HasOne(property => property.Ingredient)
-				.WithMany(property => property.RecipeIngredients);
-
-			modelBuilder.Entity<RecipeIngredient>()
-				.HasOne(property => property.Recipe)
-				.WithMany(property => property.RecipeIngredients);
-
 			return modelBuilder;
 		}
 	}

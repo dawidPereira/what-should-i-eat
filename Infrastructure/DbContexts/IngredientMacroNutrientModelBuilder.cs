@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Infrastructure.Entities.Ingredient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts
 {
@@ -7,15 +7,8 @@ namespace Infrastructure.DbContexts
 	{
 		public static ModelBuilder ConfigureIngredientMacroNutrient(this ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<IngredientMacroNutrient>()
-				.HasKey(key => new {key.Id, key.IngredientId});
-			
-			modelBuilder.Entity<IngredientMacroNutrient>()
-				.Property(property => property.MacroNutrient)
-				.HasConversion(new EnumToNumberConverter<MacroNutrient,int>());
-
-			modelBuilder.Entity<IngredientMacroNutrient>()
-				.HasAlternateKey(key => new {key.Id, key.IngredientId});
+			modelBuilder.Entity<MacroNutrientShares>()
+				.HasKey(key => new {key.MacroNutrient, key.IngredientId});
 			
 			return modelBuilder;
 		}

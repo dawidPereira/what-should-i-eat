@@ -1,7 +1,8 @@
-﻿using Domain.RecipesDetails.Ingredients.Entities;
+﻿using Domain.Ingredients.Entities;
 using Infrastructure.DbContexts.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Ingredient = Infrastructure.Entities.Ingredient.Ingredient;
 
 namespace Infrastructure.DbContexts
 {
@@ -20,7 +21,7 @@ namespace Infrastructure.DbContexts
 				.HasConversion(new EnumToNumberConverter<Requirement,int>());
 
 			modelBuilder.Entity<Ingredient>()
-				.HasMany(x => x.MacroNutrientsParticipants);
+				.HasMany(x => x.MacroNutrientShares);
 			
 			modelBuilder.SeedIngredientData();
 
