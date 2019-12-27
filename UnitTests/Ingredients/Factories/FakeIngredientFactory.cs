@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Domain.Common.Extensions;
 using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
-using Domain.Ingredients.Factories;
 using Domain.Ingredients.Repositories;
 using Moq;
 
@@ -47,18 +44,23 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				macroNutrientsShares,
 				EventPublisherMock.Object);
 		}
-
-		internal static Ingredient CreateIngredientWithInvalidId(string name, IIngredientRepository ingredientRepository)
+		
+		internal static Ingredient CreateValidIngredientWithEventPublisher(string name, IIngredientRepository ingredientRepository, IEventPublisher eventPublisher)
 		{
 			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
-			var shares = new HashSet<MacroNutrientShare>{new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2)};
+			var shares = new HashSet<MacroNutrientShare>
+			{
+				new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2),
+				new MacroNutrientShare(MacroNutrient.Fat, 0.2),
+				new MacroNutrientShare(MacroNutrient.Protein, 0.3)
+			};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return ingredientFactory.Create(new Identity<Guid>(new Guid("")),
+			return ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
 				name,
 				Allergens,
 				Requirements,
 				macroNutrientsShares,
-				EventPublisherMock.Object);
+				eventPublisher);
 		}
 
 		internal static Ingredient CreateValidIngredient(Identity<Guid> id,
@@ -81,7 +83,6 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 
 		internal static IEnumerable<Ingredient> CreateIngredientsCollection(
 			List<Identity<Guid>> ids, 
-			IEventPublisher eventPublisher,
 			IIngredientRepository ingredientRepository)
 		{
 			return new List<Ingredient>

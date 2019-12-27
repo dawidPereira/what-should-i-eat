@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Common.Extensions;
 using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities.MacroNutrients;
@@ -25,7 +24,7 @@ namespace Domain.Ingredients.Entities
 			IEventPublisher eventPublisher, 
 			IIngredientRepository ingredientRepository)
 		{
-			Id = SetId(id);
+			Id = id;
 			Name = SetName(name);
 			Allergens = allergens;
 			Requirements = requirements;
@@ -100,13 +99,6 @@ namespace Domain.Ingredients.Entities
 			if (name == null)
 				throw new ArgumentNullException(nameof(name), "Ingredient name can not be empty.");
 			return name;
-		}
-
-		private static Identity<Guid> SetId(Identity<Guid> id)
-		{
-			if (!id.Value.HasGuidValue())
-				throw new ArgumentException("Incorrect guid value.");
-			return id;
 		}
 		
 		public class IngredientFactory : IIngredientFactory

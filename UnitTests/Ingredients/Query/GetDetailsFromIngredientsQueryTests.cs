@@ -34,7 +34,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		public void SetUp()
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetByIds(It.IsAny<ICollection<Identity<Guid>>>()))
-				.Returns(FakeIngredientFactory.CreateIngredientsCollection(_ids, _eventPublisherMock.Object, _ingredientRepositoryMock.Object));
+				.Returns(FakeIngredientFactory.CreateIngredientsCollection(_ids, _ingredientRepositoryMock.Object));
 			_systemUnderTests = new GetDetailsFromIngredientsQueryHandler(_ingredientRepositoryMock.Object);
 		}
 
