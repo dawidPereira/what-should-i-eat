@@ -1,8 +1,6 @@
 ﻿using System;
-using Domain.Common.Mediators.Events;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Commands.Create;
-using Domain.Recipes.Repositories;
 using WhatShouldIEat.AdministrationService.Tests.Recipes.Factories;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands.Factories
@@ -15,11 +13,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands.Factories
 		{
 			_fakeRecipeIngredientsFactory = new FakeRecipeIngredientsFactory(ingredientRepository);
 		}
-		public CreateRecipeCommand CreateRecipeCommand()
+		public CreateRecipeCommand CreateRecipeCommand(string name, string description)
 		{
 			return new CreateRecipeCommand(Guid.NewGuid(), 
-				"",
-				"", 
+				name,
+				description, 
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
 		}
