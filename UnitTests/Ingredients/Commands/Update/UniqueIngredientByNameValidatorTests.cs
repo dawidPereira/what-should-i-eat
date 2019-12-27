@@ -1,4 +1,6 @@
-﻿using Domain.Common.Messages;
+﻿using System;
+using Domain.Common.Messages;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Commands.Update;
 using Domain.Ingredients.Repositories;
 using FluentAssertions;
@@ -14,12 +16,19 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 	{
 		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
 
+		[SetUp]
+		public void SetUp()
+		{
+			var ingredient = FakeIngredientFactory.CreateValidIngredient("Ingredient", _ingredientRepositoryMock.Object);
+			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
+				.Returns(true);
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
+				.Returns(ingredient);
+		}
+
 		[Test]
 		public void GivenExistingName_WhenUpdating_ShouldReturnFailResult()
 		{
-			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
-				.Returns(true);
-
 			var systemUnderTest = new UniqueIngredientByNameValidator(_ingredientRepositoryMock.Object);
 			var result = systemUnderTest.Validate(CommandFactory.EmptyUpdateIngredientCommand());
 

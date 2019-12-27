@@ -20,8 +20,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 	{
 		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
 
-		private readonly Mock<ICommandValidator<UpdateIngredientCommand>> _validator =
-			new Mock<ICommandValidator<UpdateIngredientCommand>>();
+		private readonly Mock<ICommandValidator<UpdateIngredientCommand>> _validator = new Mock<ICommandValidator<UpdateIngredientCommand>>();
 
 		private Mock<IEventPublisher> _eventPublisherMock = new Mock<IEventPublisher>();
 		private IEnumerable<ICommandValidator<UpdateIngredientCommand>> _validators;
@@ -34,6 +33,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		{
 			_command = CommandFactory.EmptyUpdateIngredientCommand();
 			_eventPublisherMock = new Mock<IEventPublisher>();
+			_validator.Setup(x => x.Validate(It.IsAny<UpdateIngredientCommand>()))
+				.Returns(Result.Ok);
 			_validators = new List<ICommandValidator<UpdateIngredientCommand>>
 			{
 				_validator.Object
@@ -59,15 +60,6 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		}
 
 		[Test]
-		public void GivenValidCommand_WhenUpdated_ShouldPublishIngredientUpdatedEvent()
-		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
-				.Returns(_ingredient);
-			_systemUnderTests.Handle(_command);
-			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
-		}
-
-		[Test]
 		public void GivenCommand_WhenIngredientDoesNotExist_ReturnFailure()
 		{
 			var result = _systemUnderTests.Handle(_command);
@@ -76,27 +68,17 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 			{
 				result.IsFailure.Should().BeTrue();
 				result.Message.Should().Be(FailMessages.DoesNotExist(nameof(Ingredient),
-					nameof(UpdateIngredientCommand.Id), _command.Id.ToString()));
+					nameof(UpdateIngredientCommand.Id.Value), _command.Id.ToString()));
 			}
 		}
 
 		[Test]
-		public void GivenNewName_WhenAlreadyExist_ReturnFailure()
+		public void GivenValidCommand_WhenUpdated_ShouldPublishIngredientUpdatedEvent()
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
 				.Returns(_ingredient);
-			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
-				.Returns(true);
-			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
-				.Returns(true);
-
-			var result = _systemUnderTests.Handle(_command);
-			using (new AssertionScope())
-			{
-				result.IsFailure.Should().BeTrue();
-				result.Message.Should().Be(FailMessages.AlreadyExist(nameof(Ingredient),
-					nameof(UpdateIngredientCommand.Name), _command.Name));
-			}
+			_systemUnderTests.Handle(_command);
+			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
 		}
 	}
 }
