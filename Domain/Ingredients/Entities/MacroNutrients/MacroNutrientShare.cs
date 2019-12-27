@@ -34,7 +34,7 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 			if (share <= 0 || share > 1)
 			{
 				throw new ArgumentException(
-					$"MacroNutrientShare must be bigger then one percent and equal or lower than one hundred percent. It was {share}.");
+					$"MacroNutrientShare must be in range 0 and 1. It was {share}.");
 			}
 
 			return share;

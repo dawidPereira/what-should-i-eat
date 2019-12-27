@@ -10,7 +10,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 	public class MacroNutrientSharesCollectionTests
 	{
 		[Test]
-		public void GivenSharesSumBiggerThanOneHundred_DuringCreating_ShouldReturnArgumentOutOfRangeException()
+		public void GivenSharesSumBiggerThanOne_DuringCreating_ShouldReturnArgumentOutOfRangeException()
 		{
 			var shares = new HashSet<MacroNutrientShare>
 			{
@@ -23,7 +23,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		}
 		
 		[Test]
-		public void GivenSharesSumLowerThanOneHundred_DuringCreating_ShouldCreateCollection()
+		public void GivenSharesSumInProperRange_DuringCreating_ShouldCreateCollection()
 		{
 			var shares = new HashSet<MacroNutrientShare>
 			{
@@ -31,8 +31,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 				new MacroNutrientShare(MacroNutrient.Fat, 0.1)
 			};
 			
-			Action action = () => new MacroNutrientsSharesCollection(shares);
-			action.Should().Throw<ArgumentOutOfRangeException>();
+			var sharesCollection  = new MacroNutrientsSharesCollection(shares);
+			sharesCollection.Should().NotBeNull();
 		}
 	}
 }
