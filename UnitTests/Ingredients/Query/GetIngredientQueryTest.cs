@@ -29,20 +29,19 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		}
 
 		[Test]
+		public void GivenIngredientId_WhenNotExist_ShouldThrowArgumentNullException()
+		{
+			Action action = () => _systemUnderTests.Handle(_query);
+			action.Should().Throw<ArgumentNullException>();
+		}
+
+		[Test]
 		public void GivenIngredientId_WhenExist_ShouldReturnIngredient()
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
 				.Returns(_ingredient);
 			var result = _systemUnderTests.Handle(_query);
 			result.Should().NotBeNull();
-		}
-		
-		[Test]
-		public void GivenIngredientId_WhenNotExist_ShouldReturnNull()
-		{
-			Action action = () => _systemUnderTests.Handle(_query);
-			action.Should().Throw<ArgumentNullException>()
-				.WithMessage($"Item with Id: {_query.IngredientId.ToString()} does not exist. (Parameter 'Ingredient')");
 		}
 	}
 }
