@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.Extensions;
 using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Recipes.Events.Created;
 using Domain.Recipes.Events.Deleted;
+using Domain.Recipes.Events.Updated;
 using Domain.Recipes.Factories;
 using Domain.Recipes.Repositories;
 
@@ -25,8 +23,8 @@ namespace Domain.Recipes.Entities
 			IRecipeRepository recipeRepository)
 		{
 			Id = id;
-			Name = name;
-			Description = description;
+			Name = SetName(name);
+			Description = SetDescription(description);
 			RecipeInfo = recipeInfo;
 			RecipeIngredients = new RecipeIngredientsCollection(recipeIngredients);
 			_eventPublisher = eventPublisher;
@@ -70,7 +68,7 @@ namespace Domain.Recipes.Entities
 		
 		private void Update()
 		{
-			var @event = new RecipeCreatedEvent(Id, EventsQueue.IngredientUpdated);
+			var @event = new RecipeUpdatedEvent(Id, EventsQueue.IngredientUpdated);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);
 		}

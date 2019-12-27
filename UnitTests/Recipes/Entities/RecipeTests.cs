@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
+using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Events.Created;
@@ -28,10 +29,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		{
 			_recipeRepositoryMock = new Mock<IRecipeRepository>();
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
+				.Returns(true);
 			_eventPublisherMock = new Mock<IEventPublisher>();
 			_recipeIngredientsFactory = new FakeRecipeIngredientsFactory(_ingredientRepositoryMock.Object);
 			_recipeFactory = new FakeRecipeFactory(_recipeRepositoryMock.Object, _eventPublisherMock.Object, _ingredientRepositoryMock.Object);
-			_systemUnderTest = _recipeFactory.CreateValidRecipe("name", "description");
+			_systemUnderTest = _recipeFactory.CreateValidRecipe("name", "description", _eventPublisherMock.Object);
 		}
 
 		[Test]
@@ -55,7 +58,6 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		[Test]
 		public void CreateRecipe_WhenValid_ShouldPublishRecipeCreatedEvent()
 		{
-			var recipe = _recipeFactory.CreateValidRecipe("", "");
 			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeCreatedEvent>()), Times.Once);
 		}
 

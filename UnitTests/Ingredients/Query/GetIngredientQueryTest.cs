@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Queries.Get;
@@ -15,7 +14,6 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 	public class GetIngredientQueryTest
 	{
 		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
-		private readonly Mock<IEventPublisher> _eventPublisher = new Mock<IEventPublisher>();
 		private GetIngredientQuery _query;
 		private Ingredient _ingredient;
 		private GetIngredientQueryHandler _systemUnderTests;
@@ -31,6 +29,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		[Test]
 		public void GivenIngredientId_WhenNotExist_ShouldThrowArgumentNullException()
 		{
+			_systemUnderTests = new GetIngredientQueryHandler(Mock.Of<IIngredientRepository>());
 			Action action = () => _systemUnderTests.Handle(_query);
 			action.Should().Throw<ArgumentNullException>();
 		}

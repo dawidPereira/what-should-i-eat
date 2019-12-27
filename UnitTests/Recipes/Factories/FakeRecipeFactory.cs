@@ -1,10 +1,8 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;
-using Moq;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 {
@@ -30,6 +28,15 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList(),
 				_eventPublisher,
+				_recipeRepository);
+		
+		public Recipe CreateValidRecipe(string name, string description, IEventPublisher eventPublisher) =>
+			_recipeFactory.Create(Guid.NewGuid(),
+				name,
+				description,
+				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
+				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList(),
+				eventPublisher,
 				_recipeRepository);
 	}
 }
