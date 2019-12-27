@@ -17,9 +17,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		[SetUp]
 		public void SetUp()
 		{
+			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
 				.Returns(true);
-			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
 			_recipeIngredientFactory = new RecipeIngredient.RecipeIngredientFactory(_ingredientRepositoryMock.Object);
 		}
 
