@@ -4,7 +4,7 @@ using Domain.Recipes.Entities;
 
 namespace Infrastructure.Entities.Recipe
 {
-	public class Recipe
+	public sealed class Recipe
 	{
 		public Recipe(Guid id, string name, string description, RecipeInfo recipeInfo, ICollection<RecipeIngredient> recipeIngredients)
 		{

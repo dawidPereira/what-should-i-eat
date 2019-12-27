@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Entities.MacroNutrients;
+using Infrastructure.Entities.Ingredient;
 using Microsoft.EntityFrameworkCore;
-using Ingredient = Infrastructure.Entities.Ingredient.Ingredient;
 
 namespace Infrastructure.DbContexts.Seeders
 {
@@ -13,87 +11,73 @@ namespace Infrastructure.DbContexts.Seeders
 		{
 			var temporaryIngredientId = new Guid(SeedConst.Chicken);
 
+			var macroNutrientShares = new List<MacroNutrientShares>
+			{
+				new MacroNutrientShares(temporaryIngredientId, 1, 0.2),
+				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
+				new MacroNutrientShares(temporaryIngredientId, 4, 0.6)
+			};
 			modelBuilder.Entity<Ingredient>(property =>
 			{
-				property.HasData(Ingredient.Create(
+				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Chicken",
-					Allergen.None,
-					Requirement.Ecological,
-					new List<IngredientMacroNutrient>()));
+					0,
+					4,
+					macroNutrientShares));
 			});
-
-			modelBuilder.Entity<IngredientMacroNutrient>(property =>
-			{
-				property.HasData(new List<IngredientMacroNutrient>
-				{
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Carbohydrate, 0.2),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Fat, 0.1),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Protein, 0.6)
-				});
-			});
-
 
 			temporaryIngredientId = new Guid(SeedConst.Rice);
+			macroNutrientShares = new List<MacroNutrientShares>
+			{
+				new MacroNutrientShares(temporaryIngredientId, 1, 0.8),
+				new MacroNutrientShares(temporaryIngredientId, 2, 0.0),
+				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
+			};
 			modelBuilder.Entity<Ingredient>(property =>
 			{
-				property.HasData(Ingredient.Create(
+				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Rice",
-					Allergen.None,
-					Requirement.Ecological | Requirement.ForVegan | Requirement.ForVegetarian,
-					new List<IngredientMacroNutrient>()));
-			});
-			modelBuilder.Entity<IngredientMacroNutrient>(property =>
-			{
-				property.HasData(new List<IngredientMacroNutrient>
-				{
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Carbohydrate, 0.8),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Fat, 0),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Protein, 0.2)
-				});
+					0,
+					7,
+					macroNutrientShares));
 			});
 
 			temporaryIngredientId = new Guid(SeedConst.Oatmeal);
+			macroNutrientShares = new List<MacroNutrientShares>
+			{
+				new MacroNutrientShares(temporaryIngredientId, 1, 0.7),
+				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
+				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
+			};
 			modelBuilder.Entity<Ingredient>(property =>
 			{
-				property.HasData(Ingredient.Create(
+				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Oatmeal",
-					Allergen.Gluten,
-					Requirement.ForVegan | Requirement.Ecological | Requirement.ForVegetarian,
-					new List<IngredientMacroNutrient>()));
+					1,
+					7,
+					macroNutrientShares));
 			});
-			modelBuilder.Entity<IngredientMacroNutrient>(property =>
-			{
-				property.HasData(new List<IngredientMacroNutrient>
-				{
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Carbohydrate, 0.7),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Fat, 0.1),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Protein, 0.2)
-				});
-			});
-
+			
 			temporaryIngredientId = new Guid(SeedConst.Milk);
+			macroNutrientShares = new List<MacroNutrientShares>
+			{
+				new MacroNutrientShares(temporaryIngredientId, 1, 0.2),
+				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
+				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
+			};
 			modelBuilder.Entity<Ingredient>(property =>
 			{
-				property.HasData(Ingredient.Create(
+				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Milk",
-					Allergen.Gluten,
-					Requirement.ForVegan | Requirement.Ecological | Requirement.ForVegetarian,
-					new List<IngredientMacroNutrient>()));
+					1,
+					7,
+					macroNutrientShares));
 			});
-			modelBuilder.Entity<IngredientMacroNutrient>(property =>
-			{
-				property.HasData(new List<IngredientMacroNutrient>
-				{
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Carbohydrate, 0.2),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Fat, 0.1),
-					new IngredientMacroNutrient(temporaryIngredientId, MacroNutrient.Protein, 0.2)
-				});
-			});
-
+			
 			return modelBuilder;
 		}
 	}
