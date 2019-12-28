@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Common.Mediators.Events;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Repositories;
@@ -19,7 +18,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository, EventPublisherMock.Object);
 			var shares = new HashSet<MacroNutrientShare>{new MacroNutrientShare(macroNutrient, 0.2)};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
+			return ingredientFactory.Create(Guid.NewGuid(),
 				name,
 				Allergens,
 				Requirements,
@@ -36,7 +35,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				new MacroNutrientShare(MacroNutrient.Protein, 0.3)
 			};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
+			return ingredientFactory.Create(Guid.NewGuid(),
 				name,
 				Allergens,
 				Requirements,
@@ -53,14 +52,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				new MacroNutrientShare(MacroNutrient.Protein, 0.3)
 			};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
+			return ingredientFactory.Create(Guid.NewGuid(),
 				name,
 				Allergens,
 				Requirements,
 				macroNutrientsShares);
 		}
 
-		internal static Ingredient CreateValidIngredient(Identity<Guid> id,
+		internal static Ingredient CreateValidIngredient(Guid id,
 			string name,
 			double carbohydrates,
 			double fat,
@@ -78,8 +77,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 			return ingredientFactory.Create(id, name, Allergens, Requirements, macroNutrientsShares);
 		}
 
-		internal static IEnumerable<Ingredient> CreateIngredientsCollection(
-			List<Identity<Guid>> ids, 
+		internal static ICollection<Ingredient> CreateIngredientsCollection(
+			List<Guid> ids, 
 			IIngredientRepository ingredientRepository)
 		{
 			return new List<Ingredient>

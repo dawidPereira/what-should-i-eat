@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.ValueObjects;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
 	public static class IngredientsGramsCollectionFactory
 	{
-		public static IDictionary<Identity<Guid>, double> GetBaseIngredientsGramsDictionary(List<Identity<Guid>> ids) =>
-			new Dictionary<Identity<Guid>, double>
+		public static IDictionary<Guid, double> GetBaseIngredientsGramsDictionary(List<Guid> ids) =>
+			new Dictionary<Guid, double>
 			{
 				{ids[0], 100},
 				{ids[1], 200},

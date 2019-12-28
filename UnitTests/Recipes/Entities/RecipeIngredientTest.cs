@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
 using FluentAssertions;
@@ -18,7 +17,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
-			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
 				.Returns(true);
 			_recipeIngredientFactory = new RecipeIngredient.RecipeIngredientFactory(_ingredientRepositoryMock.Object);
 		}
@@ -33,7 +32,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		[Test]
 		public void GivenNotExistedIngredientId_WhenCreatingRecipeIngredient_ThrowArgumentException()
 		{
-			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
+			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Guid>()))
 				.Returns(false);
 			Action action = () => _recipeIngredientFactory.Create(Guid.NewGuid(), 200);
 			action.Should().Throw<ArgumentException>();

@@ -68,14 +68,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 			{
 				result.IsFailure.Should().BeTrue();
 				result.Message.Should().Be(FailMessages.DoesNotExist(nameof(Ingredient),
-					nameof(UpdateIngredientCommand.Id.Value), _command.Id.ToString()));
+					nameof(UpdateIngredientCommand.Id), _command.Id.ToString()));
 			}
 		}
 
 		[Test]
 		public void GivenValidCommand_WhenUpdated_ShouldPublishIngredientUpdatedEvent()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 			_systemUnderTests.Handle(_command);
 			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);

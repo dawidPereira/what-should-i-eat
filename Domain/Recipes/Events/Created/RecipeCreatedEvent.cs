@@ -1,18 +1,17 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
-using Domain.Common.ValueObjects;
 
 namespace Domain.Recipes.Events.Created
 {
 	public class RecipeCreatedEvent : IEvent<RecipeCreatedEvent>
 	{
-		public RecipeCreatedEvent(Identity<Guid> recipeId, string queueName)
+		public RecipeCreatedEvent(Guid recipeId, string queueName)
 		{
 			EventIdentity = new EventIdentity(queueName);
 			RecipeId = recipeId;
 		}
 
-		public Identity<Guid> RecipeId { get; }
+		public Guid RecipeId { get; }
 		public IEventIdentity EventIdentity { get; }
 
 		public bool Equals(RecipeCreatedEvent other)

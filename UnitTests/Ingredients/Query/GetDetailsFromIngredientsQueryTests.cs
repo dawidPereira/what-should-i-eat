@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Common.Mediators.Events;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Queries.GetDetailsFormIngredients;
@@ -21,11 +20,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;
 		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
 		private readonly Mock<IEventPublisher> _eventPublisherMock = new Mock<IEventPublisher>();
-		private readonly List<Identity<Guid>> _ids = new List<Identity<Guid>>
+		private readonly List<Guid> _ids = new List<Guid>
 		{
-			new Identity<Guid>(Guid.NewGuid()),
-			new Identity<Guid>(Guid.NewGuid()),
-			new Identity<Guid>(Guid.NewGuid())
+			Guid.NewGuid(),
+			Guid.NewGuid(),
+			Guid.NewGuid()
 		};
 
 		private GetDetailsFromIngredientsQueryHandler _systemUnderTests;
@@ -33,7 +32,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		[SetUp]
 		public void SetUp()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetByIds(It.IsAny<ICollection<Identity<Guid>>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetByIds(It.IsAny<ICollection<Guid>>()))
 				.Returns(FakeIngredientFactory.CreateIngredientsCollection(_ids, _ingredientRepositoryMock.Object));
 			_systemUnderTests = new GetDetailsFromIngredientsQueryHandler(_ingredientRepositoryMock.Object);
 		}

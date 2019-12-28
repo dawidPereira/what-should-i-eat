@@ -22,7 +22,7 @@ namespace Domain.Ingredients.Commands.Delete
 		public Result Handle(DeleteIngredientCommand command)
 		{
 			//TODO: Add validation if ingredient is used or rise event for notify admins and hide recipes with this ingredient.
-			var ingredient = _ingredientRepository.GetById(command.Id.Value);
+			var ingredient = _ingredientRepository.GetById(command.Id);
 			if (ingredient == null) 
 				return Result.Fail(ResultCode.NotFound, $"Ingredient with {command.Id}, does not exist");
 			ingredient.Delete();

@@ -62,7 +62,7 @@ namespace Domain.Ingredients.Entities
 
 		public void Delete()
 		{
-			var @event = new IngredientDeletedEvent(Id, EventsQueue.IngredientDeleted);
+			var @event = new IngredientDeletedEvent(Id.Value, EventsQueue.IngredientDeleted);
 			_ingredientRepository.Remove(this);
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
@@ -81,7 +81,7 @@ namespace Domain.Ingredients.Entities
 
 		private void Update()
 		{
-			var @event = new IngredientUpdatedEvent(Id, EventsQueue.IngredientUpdated);
+			var @event = new IngredientUpdatedEvent(Id.Value, EventsQueue.IngredientUpdated);
 			_ingredientRepository.Update(this);
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
@@ -89,7 +89,7 @@ namespace Domain.Ingredients.Entities
 
 		private void Create()
 		{
-			var @event = new IngredientCreatedEvent(Id, EventsQueue.IngredientCreated);
+			var @event = new IngredientCreatedEvent(Id.Value, EventsQueue.IngredientCreated);
 			_ingredientRepository.Add(this);
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
@@ -114,14 +114,14 @@ namespace Domain.Ingredients.Entities
 			}
 
 			public Ingredient Create(
-				Identity<Guid> id,
+				Guid id,
 				string name,
 				Allergen allergens,
 				Requirement requirements,
 				IEnumerable<MacroNutrientShare> shares)
 			{
 				var ingredient =  !_ingredientRepository.ExistByName(name)
-					? new Ingredient(id, name, allergens, requirements, shares, _eventPublisher, _ingredientRepository)
+					? new Ingredient(new Identity<Guid>(id), name, allergens, requirements, shares, _eventPublisher, _ingredientRepository)
 					: throw new ArgumentException($"Ingredient with name: '{name}' already exist.");
 				ingredient.Create();
 				return ingredient;

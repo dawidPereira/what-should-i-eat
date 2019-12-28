@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Mediators.Events;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Repositories;
@@ -25,8 +23,7 @@ namespace Infrastructure.Mappers
 		public Domain.Ingredients.Entities.Ingredient ToDomainIngredient(Ingredient ingredient)
 		{
 			var ingredientFactory = new Domain.Ingredients.Entities.Ingredient.IngredientFactory(_ingredientRepository, _eventPublisher);
-			var id = new Identity<Guid>(ingredient.Id);
-			return ingredientFactory.Create(id,
+			return ingredientFactory.Create(ingredient.Id,
 				ingredient.Name,
 				(Allergen) ingredient.Allergens,
 				(Requirement) ingredient.Requirements,

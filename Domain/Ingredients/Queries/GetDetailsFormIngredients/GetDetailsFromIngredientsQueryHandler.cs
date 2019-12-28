@@ -18,7 +18,7 @@ namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 		{
 			var ingredients = _ingredientRepository.GetByIds(query.GetIds());
 			var ingredientsGrams = ingredients
-				.Select(x => new IngredientGrams(x, query.GetGramsForIngredient(x.Id)));
+				.Select(x => new IngredientGrams(x, query.GetGramsForIngredient(x.Id.Value)));
 			var ingredientsGramsCollection = new IngredientsGramsCollection(ingredientsGrams);
 			return AggregatedIngredientsDetailsDto.FromIngredientsGramsCollection(ingredientsGramsCollection);
 		}

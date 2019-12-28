@@ -32,10 +32,10 @@ namespace Domain.Ingredients.Commands.Update
 				if (validationResult.IsFailure) return validationResult;
 			}
 
-			var ingredient = _ingredientRepository.GetById(command.Id.Value);
+			var ingredient = _ingredientRepository.GetById(command.Id);
 			if (ingredient == null)
 				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient),
-					nameof(UpdateIngredientCommand.Id.Value), command.Id.ToString()));
+					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 
 			ingredient.Update(command.Name, command.Allergens, command.Requirements, command.Shares);
 			_eventPublisher.Rise(EventsQueue.IngredientUpdated);

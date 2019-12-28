@@ -1,18 +1,17 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
-using Domain.Common.ValueObjects;
 
 namespace Domain.Ingredients.Events
 {
 	public class IngredientDeletedEvent : IEvent<IngredientDeletedEvent>
 	{
-		public IngredientDeletedEvent(Identity<Guid> ingredientId, string queueName)
+		public IngredientDeletedEvent(Guid ingredientId, string queueName)
 		{
 			IngredientId = ingredientId;
 			EventIdentity = new EventIdentity(queueName);
 		}
 		
-		public Identity<Guid> IngredientId { get; }
+		public Guid IngredientId { get; }
 		public IEventIdentity EventIdentity { get; }
 
 		public bool Equals(IngredientDeletedEvent other)

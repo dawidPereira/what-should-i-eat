@@ -15,7 +15,7 @@ namespace Domain.Ingredients.Commands.Update
 
 		public Result Validate(UpdateIngredientCommand command)
 		{
-			var ingredient = _ingredientRepository.GetById(command.Id.Value);
+			var ingredient = _ingredientRepository.GetById(command.Id);
 			if (command.Name.Equals(ingredient.Name)) return Result.Ok();
 
 			if (_ingredientRepository.ExistByName(command.Name))

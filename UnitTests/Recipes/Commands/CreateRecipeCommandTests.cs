@@ -39,7 +39,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 			{
 				commandValidator.Object
 			};
-			_ingredientRepository.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
+			_ingredientRepository.Setup(x => x.ExistById(It.IsAny<Guid>()))
 				.Returns(true);
 			_commandsFactory = new CommandsFactory(_ingredientRepository.Object);
 			_command = _commandsFactory.CreateRecipeCommand("name", "description");

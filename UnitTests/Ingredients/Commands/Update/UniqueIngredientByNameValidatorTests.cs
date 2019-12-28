@@ -1,6 +1,5 @@
 ﻿using System;
 using Domain.Common.Messages;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Commands.Update;
 using Domain.Ingredients.Repositories;
 using FluentAssertions;
@@ -22,7 +21,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 			var ingredient = FakeIngredientFactory.CreateValidIngredient("Ingredient", _ingredientRepositoryMock.Object);
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(true);
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(ingredient);
 		}
 

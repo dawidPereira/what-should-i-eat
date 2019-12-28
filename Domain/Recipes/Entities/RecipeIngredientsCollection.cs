@@ -32,12 +32,11 @@ namespace Domain.Recipes.Entities
 			return obj.GetType() == GetType() && Equals((RecipeIngredientsCollection) obj);
 		}
 
-		public override int GetHashCode()
-		{
-			return (_recipeIngredients != null ? _recipeIngredients.GetHashCode() : 0);
-		}
+		public override int GetHashCode() => _recipeIngredients != null 
+				? _recipeIngredients.GetHashCode() 
+				: 0;
 
-		public IDictionary<Identity<Guid>, double> ToDictionary() => 
-			_recipeIngredients.ToDictionary(x => x.IngredientId, x => x.Grams);
+		public IDictionary<Guid, double> ToDictionary() => 
+			_recipeIngredients.ToDictionary(x => x.IngredientId.Value, x => x.Grams);
 	}
 }

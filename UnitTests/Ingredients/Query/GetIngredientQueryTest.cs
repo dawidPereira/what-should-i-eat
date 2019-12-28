@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Queries.Get;
 using Domain.Ingredients.Repositories;
@@ -22,7 +21,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		public void SetUp()
 		{
 			_ingredient = FakeIngredientFactory.CreateValidIngredient("IngredientName", _ingredientRepositoryMock.Object);
-            _query = new GetIngredientQuery(new Identity<Guid>(Guid.NewGuid()));
+            _query = new GetIngredientQuery(Guid.NewGuid());
 			_systemUnderTests = new GetIngredientQueryHandler(_ingredientRepositoryMock.Object);
 		}
 
@@ -37,7 +36,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		[Test]
 		public void GivenIngredientId_WhenExist_ShouldReturnIngredient()
 		{
-			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Identity<Guid>>()))
+			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 			var result = _systemUnderTests.Handle(_query);
 			result.Should().NotBeNull();
