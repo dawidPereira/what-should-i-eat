@@ -8,7 +8,7 @@ namespace Infrastructure.Events.EventPublishers
 	{
 		public static IServiceCollection AddEvents(this IServiceCollection services)
 		{
-			services.AddScoped<IEventPublisher, EventPublisher>();
+			services.AddSingleton<IEventPublisher, EventPublisher>();
 
 			services.Scan(scan =>
 				scan

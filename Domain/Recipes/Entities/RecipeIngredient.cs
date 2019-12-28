@@ -1,6 +1,7 @@
 ﻿using System;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
+using Domain.Recipes.Factories;
 
 namespace Domain.Recipes.Entities
 {
@@ -38,7 +39,7 @@ namespace Domain.Recipes.Entities
 			}
 		}
 
-		public class RecipeIngredientFactory
+		public class RecipeIngredientFactory : IRecipeIngredientFactory
 		{
 			private readonly IIngredientRepository _ingredientRepository;
 
