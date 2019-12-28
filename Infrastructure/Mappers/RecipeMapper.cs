@@ -24,12 +24,16 @@ namespace Infrastructure.Mappers
 			return recipeFactory.Create(recipe.Id,
 				recipe.Name,
 				recipe.Description,
-				recipe.RecipeInfo,
-				GetRecipeIngredients(recipe.RecipeIngredients));
+				ToDomainRecipeInfo(recipe.RecipeInfo),
+				ToDomainRecipeIngredients(recipe.RecipeIngredients));
 		}
 
-		private IEnumerable<RecipeIngredient> GetRecipeIngredients(IEnumerable<Entities.Recipe.RecipeIngredient> recipeIngredients) =>
+		private IEnumerable<RecipeIngredient> ToDomainRecipeIngredients(IEnumerable<Entities.Recipe.RecipeIngredient> recipeIngredients) =>
 			recipeIngredients.Select(x => _recipeIngredientFactory.Create(x.IngredientId, x.Grams))
 				.ToList();
+		
+		private RecipeInfo ToDomainRecipeInfo(Entities.Recipe.RecipeInfo recipeInfo) =>
+			new RecipeInfo(recipeInfo.DifficultyLevel, recipeInfo.PreparationTime, recipeInfo.ApproximateCost, recipeInfo.MealTypes);
+		
 	}
 }

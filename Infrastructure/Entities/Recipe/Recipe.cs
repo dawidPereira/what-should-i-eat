@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Recipes.Entities;
 
 namespace Infrastructure.Entities.Recipe
 {
@@ -25,7 +24,7 @@ namespace Infrastructure.Entities.Recipe
 			new Recipe(recipe.Id.Value,
 				recipe.Name,
 				recipe.Description,
-				recipe.RecipeInfo,
+				RecipeInfo.FromDomainRecipeInfo(recipe.RecipeInfo),
 				GetRecipeIngredients(recipe));
 
 		private static ICollection<RecipeIngredient> GetRecipeIngredients(Domain.Recipes.Entities.Recipe recipe)

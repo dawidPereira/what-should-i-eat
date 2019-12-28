@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts
 {
-	internal static class IngredientMacroNutrientModelBuilder
+	internal static class MacroNutrientSharesModelBuilder
 	{
 		public static ModelBuilder ConfigureIngredientMacroNutrient(this ModelBuilder modelBuilder)
 		{

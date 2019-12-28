@@ -1,9 +1,12 @@
-﻿using EasyCaching.Core;
+﻿using System.Collections.Generic;
+using Domain.Recipes.Repositories;
+using Domain.RecipesDetails.Entities;
+using EasyCaching.Core;
 using Infrastructure.Common;
 
 namespace Infrastructure.Repositories
 {
-	public class RecipeDetailsRepository //: IRecipeDetailsRepository
+	public class RecipeDetailsRepository : IRecipeDetailsRepository
 	{
 		private readonly IEasyCachingProvider _cachingProvider;
 
@@ -31,5 +34,19 @@ namespace Infrastructure.Repositories
 //			BackgroundJob.Enqueue(() =>
 //				_cachingProvider.SetAll(searchInfosDictionary, TimeSpan.MaxValue));
 //		}
+		public void Add(RecipeDetails recipeDetails)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Remove(string key)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void AddRange(IEnumerable<RecipeDetails> recipeSearchInfos)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

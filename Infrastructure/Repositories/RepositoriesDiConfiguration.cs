@@ -9,7 +9,8 @@ namespace Infrastructure.Repositories
 		public static IServiceCollection AddRepositories(this IServiceCollection services)
 		{
 			services.AddTransient<IIngredientRepository, IngredientRepository>()
-				.AddTransient<IRecipeRepository, RecipeRepository>();
+				.AddTransient<IRecipeRepository, RecipeRepository>()
+				.AddTransient<IRecipeDetailsRepository, RecipeDetailsRepository>();
 
 			return services;
 		}
