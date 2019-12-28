@@ -1,4 +1,5 @@
-﻿using Infrastructure.Entities.Ingredients;
+﻿using Infrastructure.Entities.Ingredient;
+using Infrastructure.Entities.Ingredients;
 using Infrastructure.Entities.Recipe;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ namespace Infrastructure.DbContexts
 		
 		public DbSet<Recipe> Recipes { get; set; }
 		public DbSet<Ingredient> Ingredients { get; set; }
+		public DbSet<MacroNutrientShares> MacroNutrientShares { get; set; }
 		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

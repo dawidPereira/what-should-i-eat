@@ -25,8 +25,10 @@ namespace Infrastructure.DbContexts.Seeders
 					"Chicken",
 					0,
 					4,
-					macroNutrientShares));
+					new List<MacroNutrientShares>()));
 			});
+
+			modelBuilder.Entity<MacroNutrientShares>(property => { property.HasData(macroNutrientShares); });
 
 			temporaryIngredientId = new Guid(SeedConst.Rice);
 			macroNutrientShares = new List<MacroNutrientShares>
@@ -35,6 +37,7 @@ namespace Infrastructure.DbContexts.Seeders
 				new MacroNutrientShares(temporaryIngredientId, 2, 0.0),
 				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
 			};
+			
 			modelBuilder.Entity<Ingredient>(property =>
 			{
 				property.HasData(new Ingredient(
@@ -42,8 +45,10 @@ namespace Infrastructure.DbContexts.Seeders
 					"Rice",
 					0,
 					7,
-					macroNutrientShares));
+					new List<MacroNutrientShares>()));
 			});
+			
+			modelBuilder.Entity<MacroNutrientShares>(property => { property.HasData(macroNutrientShares); });
 
 			temporaryIngredientId = new Guid(SeedConst.Oatmeal);
 			macroNutrientShares = new List<MacroNutrientShares>
@@ -52,6 +57,7 @@ namespace Infrastructure.DbContexts.Seeders
 				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
 				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
 			};
+			
 			modelBuilder.Entity<Ingredient>(property =>
 			{
 				property.HasData(new Ingredient(
@@ -59,8 +65,10 @@ namespace Infrastructure.DbContexts.Seeders
 					"Oatmeal",
 					1,
 					7,
-					macroNutrientShares));
+					new List<MacroNutrientShares>()));
 			});
+			
+			modelBuilder.Entity<MacroNutrientShares>(property => { property.HasData(macroNutrientShares); });
 			
 			temporaryIngredientId = new Guid(SeedConst.Milk);
 			macroNutrientShares = new List<MacroNutrientShares>
@@ -69,6 +77,7 @@ namespace Infrastructure.DbContexts.Seeders
 				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
 				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
 			};
+			
 			modelBuilder.Entity<Ingredient>(property =>
 			{
 				property.HasData(new Ingredient(
@@ -76,9 +85,11 @@ namespace Infrastructure.DbContexts.Seeders
 					"Milk",
 					1,
 					7,
-					macroNutrientShares));
+					new List<MacroNutrientShares>()));
 			});
 			
+			modelBuilder.Entity<MacroNutrientShares>(property => { property.HasData(macroNutrientShares); });
+
 			return modelBuilder;
 		}
 	}

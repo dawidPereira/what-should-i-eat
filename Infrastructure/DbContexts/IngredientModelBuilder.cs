@@ -11,7 +11,8 @@ namespace Infrastructure.DbContexts
 			modelBuilder.Entity<Ingredient>().HasKey(property => property.Id);
 
 			modelBuilder.Entity<Ingredient>()
-				.HasMany(x => x.MacroNutrientsShares);
+				.HasMany(x => x.MacroNutrientsShares)
+				.WithOne();
 			
 			modelBuilder.SeedIngredientData();
 

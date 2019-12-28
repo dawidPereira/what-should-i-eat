@@ -7,6 +7,8 @@ namespace Infrastructure.Entities.Ingredients
 {
 	public sealed class Ingredient
 	{
+		private Ingredient() {}
+		
 		public Ingredient(Guid id, string name, int allergens, int requirements, ICollection<MacroNutrientShares> macroNutrientShares)
 		{
 			Id = id;

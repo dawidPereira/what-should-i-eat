@@ -6,6 +6,8 @@ namespace Infrastructure.Entities.Recipe
 {
 	public sealed class Recipe
 	{
+		private Recipe() { }
+		
 		public Recipe(Guid id, string name, string description, RecipeInfo recipeInfo, ICollection<RecipeIngredient> recipeIngredients)
 		{
 			Id = id;

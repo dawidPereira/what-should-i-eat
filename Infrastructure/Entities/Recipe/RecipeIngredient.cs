@@ -4,6 +4,8 @@ namespace Infrastructure.Entities.Recipe
 {
 	public class RecipeIngredient
 	{
+		private RecipeIngredient() { }
+		
 		public RecipeIngredient(Guid recipeId, Guid ingredientId, double grams)
 		{
 			RecipeId = recipeId;

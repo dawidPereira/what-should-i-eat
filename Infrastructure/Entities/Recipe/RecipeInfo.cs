@@ -4,6 +4,8 @@ namespace Infrastructure.Entities.Recipe
 {
 	public class RecipeInfo
 	{
+		private RecipeInfo() { }
+		
 		public RecipeInfo(int difficultyLevel, int preparationTime, decimal approximateCost, MealType mealTypes)
 		{
 			DifficultyLevel = difficultyLevel;

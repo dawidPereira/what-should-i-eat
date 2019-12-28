@@ -5,6 +5,8 @@ namespace Infrastructure.Entities.Ingredient
 {
 	public class MacroNutrientShares
 	{
+		private MacroNutrientShares() {}
+		
 		public MacroNutrientShares(Guid ingredientId, int macroNutrient, double share)
 		{
 			IngredientId = ingredientId;

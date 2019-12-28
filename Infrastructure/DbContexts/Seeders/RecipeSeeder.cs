@@ -22,6 +22,7 @@ namespace Infrastructure.DbContexts.Seeders
 				property.OwnsOne(innerProperty => innerProperty.RecipeInfo)
 					.HasData(new
 					{
+						RecipeId = tempId,
 						DifficultyLevel = 2,
 						PreparationTime = 15,
 						ApproximateCost = 8m,
