@@ -16,20 +16,19 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 		private static readonly Mock<IEventPublisher> EventPublisherMock = new Mock<IEventPublisher>();
 		internal static Ingredient CreateIngredientWithOneShare(string name, MacroNutrient macroNutrient, IIngredientRepository ingredientRepository)
 		{
-			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository, EventPublisherMock.Object);
 			var shares = new HashSet<MacroNutrientShare>{new MacroNutrientShare(macroNutrient, 0.2)};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
 			return ingredientFactory.Create(new Identity<Guid>(Guid.NewGuid()),
 				name,
 				Allergens,
 				Requirements,
-				macroNutrientsShares,
-				EventPublisherMock.Object);
+				macroNutrientsShares);
 		}
 		
 		internal static Ingredient CreateValidIngredient(string name, IIngredientRepository ingredientRepository)
 		{
-			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository, EventPublisherMock.Object);
 			var shares = new HashSet<MacroNutrientShare>
 			{
 				new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2),
@@ -41,13 +40,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				name,
 				Allergens,
 				Requirements,
-				macroNutrientsShares,
-				EventPublisherMock.Object);
+				macroNutrientsShares);
 		}
 		
 		internal static Ingredient CreateValidIngredientWithEventPublisher(string name, IIngredientRepository ingredientRepository, IEventPublisher eventPublisher)
 		{
-			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository, eventPublisher);
 			var shares = new HashSet<MacroNutrientShare>
 			{
 				new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2),
@@ -59,8 +57,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				name,
 				Allergens,
 				Requirements,
-				macroNutrientsShares,
-				eventPublisher);
+				macroNutrientsShares);
 		}
 
 		internal static Ingredient CreateValidIngredient(Identity<Guid> id,
@@ -70,7 +67,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 			double protein,
 			IIngredientRepository ingredientRepository)
 		{
-			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository);
+			var ingredientFactory = new Ingredient.IngredientFactory(ingredientRepository, EventPublisherMock.Object);
 			var shares = new HashSet<MacroNutrientShare>
 			{
 				new MacroNutrientShare(MacroNutrient.Carbohydrate, carbohydrates),
@@ -78,7 +75,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 				new MacroNutrientShare(MacroNutrient.Protein, protein)
 			};
 			var macroNutrientsShares = new MacroNutrientsSharesCollection(shares);
-			return ingredientFactory.Create(id, name, Allergens, Requirements, macroNutrientsShares, EventPublisherMock.Object);
+			return ingredientFactory.Create(id, name, Allergens, Requirements, macroNutrientsShares);
 		}
 
 		internal static IEnumerable<Ingredient> CreateIngredientsCollection(

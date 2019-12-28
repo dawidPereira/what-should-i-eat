@@ -5,7 +5,6 @@ using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Factories;
 using Domain.Ingredients.Repositories;
-using Domain.Recipes.Commands.Create;
 
 namespace Domain.Ingredients.Commands.Create
 {
@@ -37,7 +36,7 @@ namespace Domain.Ingredients.Commands.Create
 					return validationResult;
 			} 
 			_ingredientFactory.Create(
-				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares, _eventPublisher);
+				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares);
 			_eventPublisher.Rise(EventsQueue.IngredientCreated);
 			return Result.Ok();
 		}
