@@ -11,6 +11,7 @@ using Hangfire;
 using Infrastructure.Common;
 using Infrastructure.DbContexts;
 using Infrastructure.Events.EventPublishers;
+using Infrastructure.Mappers;
 using Infrastructure.Mediator;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -54,13 +55,14 @@ namespace Api
 			
 			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(Constants.HangFireDataBaseName)));
 			services.AddHangfireServer();
-			
-			services.AddMediator();
-			services.AddEventPublisher();
+
 			services.AddControllers();
 			services.AddRepositories();
+			services.AddMappers();
 			services.AddDomainValidators();
 			services.AddRequestValidators();
+			services.AddEvents();
+			services.AddMediator();
 			services.AddControllers()
 				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 			//services.AddTransient<IRecipeDetailsRepository, RecipeDetailsRepository>();

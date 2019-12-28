@@ -38,13 +38,13 @@ namespace Infrastructure.Repositories
 		public Ingredient GetById(Guid id) => _context.Ingredients
 			.Include(x => x.MacroNutrientsShares)
 			.Where(x => x.Id == id)
-			.Select(x => _ingredientMapper.ToDomainIngredient(x))
+			.Select(x => _ingredientMapper.ToDomainIngredient(x, this))
 			.FirstOrDefault();
 
 		public ICollection<Ingredient> GetByIds(ICollection<Guid> ids) => _context.Ingredients
 			.Include(x => x.MacroNutrientsShares)
 			.Where(x => ids.Contains(x.Id))
-			.Select(x => _ingredientMapper.ToDomainIngredient(x))
+			.Select(x => _ingredientMapper.ToDomainIngredient(x, this))
 			.ToList();
 	}
 }

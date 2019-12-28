@@ -6,7 +6,7 @@ namespace Infrastructure.Events.EventPublishers
 {
 	public static class EventPublisherDIConfiguration
 	{
-		public static IServiceCollection AddEventPublisher(this IServiceCollection services)
+		public static IServiceCollection AddEvents(this IServiceCollection services)
 		{
 			services.AddScoped<IEventPublisher, EventPublisher>();
 

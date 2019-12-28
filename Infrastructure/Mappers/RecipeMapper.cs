@@ -10,19 +10,17 @@ namespace Infrastructure.Mappers
 	public class RecipeMapper : IRecipeMapper
 	{
 		private readonly IEventPublisher _eventPublisher;
-		private readonly IRecipeRepository _recipeRepository;
 		private readonly RecipeIngredient.RecipeIngredientFactory _recipeIngredientFactory;
 
-		public RecipeMapper(IRecipeRepository recipeRepository, IEventPublisher eventPublisher, IIngredientRepository ingredientRepository)
+		public RecipeMapper(IEventPublisher eventPublisher, IIngredientRepository ingredientRepository)
 		{
-			_recipeRepository = recipeRepository;
 			_eventPublisher = eventPublisher;
 			_recipeIngredientFactory = new RecipeIngredient.RecipeIngredientFactory(ingredientRepository);
 		}
 
-		public Recipe ToDomainRecipe(Entities.Recipe.Recipe recipe)
+		public Recipe ToDomainRecipe(Entities.Recipe.Recipe recipe, IRecipeRepository recipeRepository)
 		{
-			var recipeFactory = new Recipe.RecipeFactory(_recipeRepository, _eventPublisher);
+			var recipeFactory = new Recipe.RecipeFactory(recipeRepository, _eventPublisher);
 			return recipeFactory.Create(recipe.Id,
 				recipe.Name,
 				recipe.Description,

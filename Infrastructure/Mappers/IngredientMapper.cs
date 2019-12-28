@@ -12,17 +12,15 @@ namespace Infrastructure.Mappers
 	public class IngredientMapper : IIngredientMapper
 	{
 		private readonly IEventPublisher _eventPublisher;
-		private readonly IIngredientRepository _ingredientRepository;
 
-		public IngredientMapper(IIngredientRepository ingredientRepository, IEventPublisher eventPublisher)
+		public IngredientMapper( IEventPublisher eventPublisher)
 		{
-			_ingredientRepository = ingredientRepository;
 			_eventPublisher = eventPublisher;
 		}
 
-		public Domain.Ingredients.Entities.Ingredient ToDomainIngredient(Ingredient ingredient)
+		public Domain.Ingredients.Entities.Ingredient ToDomainIngredient(Ingredient ingredient, IIngredientRepository ingredientRepository)
 		{
-			var ingredientFactory = new Domain.Ingredients.Entities.Ingredient.IngredientFactory(_ingredientRepository, _eventPublisher);
+			var ingredientFactory = new Domain.Ingredients.Entities.Ingredient.IngredientFactory(ingredientRepository, _eventPublisher);
 			return ingredientFactory.Create(ingredient.Id,
 				ingredient.Name,
 				(Allergen) ingredient.Allergens,

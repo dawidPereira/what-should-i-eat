@@ -35,7 +35,7 @@ namespace Infrastructure.Repositories
 
 		public IEnumerable<Recipe> GetAll() => _context.Recipes
 				.Include(x => x.RecipeIngredients)
-				.Select(x => _recipeMapper.ToDomainRecipe(x))
+				.Select(x => _recipeMapper.ToDomainRecipe(x, this))
 				.ToList();
 
 		public ICollection<RecipeBasicInfo> GetBasicInfos() => _context.Recipes
@@ -45,7 +45,7 @@ namespace Infrastructure.Repositories
 		public Recipe GetById(Guid id) => _context.Recipes
 				.Include(x => x.RecipeIngredients)
 				.Where(x => x.Id == id)
-				.Select(x => _recipeMapper.ToDomainRecipe(x))
+				.Select(x => _recipeMapper.ToDomainRecipe(x, this))
 				.FirstOrDefault();
 
 		public ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId) => _context.Recipes
