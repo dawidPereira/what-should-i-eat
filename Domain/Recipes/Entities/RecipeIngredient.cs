@@ -47,14 +47,15 @@ namespace Domain.Recipes.Entities
 				_ingredientRepository = ingredientRepository;
 			}
 
-			public RecipeIngredient Create(Identity<Guid> ingredientId, double grams)
+			public RecipeIngredient Create(Guid ingredientId, double grams)
 			{
 				if (grams <= 0)
 					throw new ArgumentException("Cant add ingredients with grams lower than zero.");
 
-				return _ingredientRepository.ExistById(ingredientId)
-					? new RecipeIngredient(ingredientId, grams)
-					: throw new ArgumentNullException($"Ingredient with Id:{ingredientId.Value} does not exist.");
+				var id = new Identity<Guid>(ingredientId);
+				return _ingredientRepository.ExistById(id)
+					? new RecipeIngredient(id, grams)
+					: throw new ArgumentNullException($"Ingredient with Id:{ingredientId} does not exist.");
 			}
 		}
 	}

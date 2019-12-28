@@ -39,9 +39,7 @@ namespace Domain.Recipes.Commands.Create
 				command.Name,
 				command.Description,
 				command.RecipeInfo,
-				command.RecipeIngredients,
-				_eventPublisher,
-				_recipeRepository);
+				command.RecipeIngredients);
 
 			_eventPublisher.Rise(EventsQueue.RecipeCreated);
 			return Result.Ok();

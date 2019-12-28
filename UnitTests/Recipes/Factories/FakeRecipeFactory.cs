@@ -10,13 +10,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 	{
 		private readonly Recipe.RecipeFactory _recipeFactory;
 		private readonly IRecipeRepository _recipeRepository;
-		private readonly IEventPublisher _eventPublisher;
 		private readonly FakeRecipeIngredientsFactory _fakeRecipeIngredientsFactory;
 
 		public FakeRecipeFactory(IRecipeRepository recipeRepository, IEventPublisher eventPublisher, IIngredientRepository ingredientRepository)
 		{
 			_recipeRepository = recipeRepository;
-			_eventPublisher = eventPublisher;
 			_recipeFactory = new Recipe.RecipeFactory(recipeRepository, eventPublisher);
 			_fakeRecipeIngredientsFactory = new FakeRecipeIngredientsFactory(ingredientRepository);
 		}
@@ -26,17 +24,16 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 				name,
 				description,
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
-				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList(),
-				_eventPublisher,
-				_recipeRepository);
+				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
 		
-		public Recipe CreateValidRecipe(string name, string description, IEventPublisher eventPublisher) =>
-			_recipeFactory.Create(Guid.NewGuid(),
+		public Recipe CreateValidRecipe(string name, string description, IEventPublisher eventPublisher)
+		{
+			var recipeFactory = new Recipe.RecipeFactory(_recipeRepository, eventPublisher);
+			return _recipeFactory.Create(Guid.NewGuid(),
 				name,
 				description,
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
-				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList(),
-				eventPublisher,
-				_recipeRepository);
+				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
+		}
 	}
 }

@@ -26,7 +26,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		[Test]
 		public void GivenNegativeGrams_WhenCreatingRecipeIngredient_ThrowArgumentException()
 		{
-			Action action = () => _recipeIngredientFactory.Create(new Identity<Guid>(Guid.NewGuid()), -200);
+			Action action = () => _recipeIngredientFactory.Create(Guid.NewGuid(), -200);
 			action.Should().Throw<ArgumentException>();
 		}
 		
@@ -35,7 +35,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistById(It.IsAny<Identity<Guid>>()))
 				.Returns(false);
-			Action action = () => _recipeIngredientFactory.Create(new Identity<Guid>(Guid.NewGuid()), 200);
+			Action action = () => _recipeIngredientFactory.Create(Guid.NewGuid(), 200);
 			action.Should().Throw<ArgumentException>();
 		}
 	}

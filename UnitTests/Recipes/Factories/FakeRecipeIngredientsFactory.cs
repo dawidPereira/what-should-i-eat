@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
-using Domain.Recipes.Repositories;
-using Moq;
 
 namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 {
@@ -22,9 +19,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 		{
 			return new List<RecipeIngredient>
 			{
-				_recipeIngredientFactory.Create(new Identity<Guid>(Guid.NewGuid()), 100),
-				_recipeIngredientFactory.Create(new Identity<Guid>(Guid.NewGuid()), 100),
-				_recipeIngredientFactory.Create(new Identity<Guid>(Guid.NewGuid()), 100)
+				_recipeIngredientFactory.Create(Guid.NewGuid(), 100),
+				_recipeIngredientFactory.Create(Guid.NewGuid(), 100),
+				_recipeIngredientFactory.Create(Guid.NewGuid(), 100)
 			};
 		}
 	}

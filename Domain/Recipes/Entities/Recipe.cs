@@ -110,9 +110,7 @@ namespace Domain.Recipes.Entities
 				string name, 
 				string description,
 				RecipeInfo recipeInfo,
-				IEnumerable<RecipeIngredient> recipeIngredients,
-				IEventPublisher eventPublisher,
-				IRecipeRepository recipeRepository)
+				IEnumerable<RecipeIngredient> recipeIngredients)
 			{
 				var recipeId = new Identity<Guid>(id);
 				var recipe =  new Recipe(recipeId, 
@@ -120,8 +118,8 @@ namespace Domain.Recipes.Entities
 					description, 
 					recipeInfo, 
 					recipeIngredients, 
-					eventPublisher, 
-					recipeRepository);
+					_eventPublisher, 
+					_recipeRepository);
 				recipe.Create();
 				return recipe;
 			}
