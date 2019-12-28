@@ -24,8 +24,8 @@
 			var events = EventsStore.GetEvents(queueName);
 			foreach (var @event in events)
 			{
-				var genericType = typeof(IEventHandler<>).MakeGenericType( @event.GetType());
-				var handlers = _serviceProvider.GetServices(genericType).ToList();
+				var handlerType = typeof(IEventHandler<>).MakeGenericType( @event.GetType());
+				var handlers = _serviceProvider.GetServices(handlerType).ToList();
 				if (!handlers.Any())
 					throw new InvalidOperationException(
 						$"Event of type '{handlers.GetType()}' has not registered handler.");
@@ -37,10 +37,10 @@
 
 		private static void Handle(object @event)
 		{
-			var genericType = typeof(IEventHandler<>).MakeGenericType( @event.GetType());
-			var mi = genericType.GetMethod("Handle");
-			var mi2 = mi?.MakeGenericMethod(@event.GetType());
-			mi2?.Invoke(null, new object[] { @event });
+			var handlerType = typeof(IEventHandler<>).MakeGenericType( @event.GetType());
+			var methodInfo = handlerType.GetMethod("Handle");
+			var handle = methodInfo?.MakeGenericMethod(@event.GetType());
+			handle?.Invoke(null, new[] { @event });
 		}
 	}
 }
