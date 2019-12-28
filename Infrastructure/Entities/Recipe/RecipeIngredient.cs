@@ -10,8 +10,11 @@ namespace Infrastructure.Entities.Recipe
 			IngredientId = ingredientId;
 			Grams = grams;
 		}
-		public Guid RecipeId { get; set; }
-		public Guid IngredientId { get; set; }
-		public double Grams { get; set; }
+		public Guid RecipeId { get; private set; }
+		public Guid IngredientId { get; private set; }
+		public double Grams { get; private set; }
+		
+		public static RecipeIngredient FromDomainRecipe(Guid id, Domain.Recipes.Entities.RecipeIngredient recipeIngredient)
+			=> new RecipeIngredient(id, recipeIngredient.IngredientId.Value, recipeIngredient.Grams);
 	}
 }
