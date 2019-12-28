@@ -14,7 +14,7 @@ namespace Domain.Ingredients.Queries.Get
 
 		public IngredientDto Handle(GetIngredientQuery query)
 		{
-			var ingredient = _ingredientRepository.GetById(query.IngredientId)
+			var ingredient = _ingredientRepository.GetById(query.IngredientId.Value)
 			                 ?? Exceptions<Ingredient>.ThrowNotFoundException(nameof(Ingredient), query.IngredientId.ToString());
 			return IngredientDto.FromIngredient(ingredient);
 		}

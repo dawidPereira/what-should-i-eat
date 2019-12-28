@@ -32,7 +32,7 @@ namespace Domain.Ingredients.Commands.Update
 				if (validationResult.IsFailure) return validationResult;
 			}
 
-			var ingredient = _ingredientRepository.GetById(command.Id);
+			var ingredient = _ingredientRepository.GetById(command.Id.Value);
 			if (ingredient == null)
 				return Result.Fail(ResultCode.NotFound, FailMessages.DoesNotExist(nameof(Ingredient),
 					nameof(UpdateIngredientCommand.Id.Value), command.Id.ToString()));

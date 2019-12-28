@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Infrastructure.Entities.Ingredient;
 
-namespace Infrastructure.Entities.Ingredient
+namespace Infrastructure.Entities.Ingredients
 {
 	public sealed class Ingredient
 	{

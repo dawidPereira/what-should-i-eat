@@ -2,7 +2,7 @@
 using Infrastructure.DbContexts.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Ingredient = Infrastructure.Entities.Ingredient.Ingredient;
+using Ingredient = Infrastructure.Entities.Ingredients.Ingredient;
 
 namespace Infrastructure.DbContexts
 {

@@ -17,7 +17,7 @@ namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 		
 		public IDictionary<Identity<Guid>, double> IngredientsGrams { get; }
 
-		public ICollection<Identity<Guid>> GetIds() => Keys.ToList();
+		public ICollection<Guid> GetIds() => Keys.Select(x => x.Value).ToList();
 
 		public double GetGramsForIngredient(Identity<Guid> ingredientId) => IngredientsGrams[ingredientId];
 	}

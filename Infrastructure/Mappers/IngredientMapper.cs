@@ -7,11 +7,11 @@ using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Repositories;
 using Infrastructure.Entities.Ingredient;
-using Ingredient = Infrastructure.Entities.Ingredient.Ingredient;
+using Ingredient = Infrastructure.Entities.Ingredients.Ingredient;
 
 namespace Infrastructure.Mappers
 {
-	public class IngredientMapper
+	public class IngredientMapper : IIngredientMapper
 	{
 		private readonly IEventPublisher _eventPublisher;
 		private readonly IIngredientRepository _ingredientRepository;

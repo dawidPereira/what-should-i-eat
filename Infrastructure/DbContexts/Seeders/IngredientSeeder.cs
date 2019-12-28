@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructure.Entities.Ingredient;
+using Infrastructure.Entities.Ingredients;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts.Seeders

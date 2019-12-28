@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 
 namespace Domain.Ingredients.Repositories
 {
 	public interface IIngredientRepository
 	{
-		bool ExistById(Identity<Guid> id);
-		bool Contains(ICollection<Identity<Guid>> ids);
 		bool ExistByName(string name);
+		bool ExistById(Guid id);
 		void Add(Ingredient ingredient);
+		void Update(Ingredient ingredient);
 		void Remove(Ingredient ingredient);
-		Ingredient? GetById(Identity<Guid> id);
-		IEnumerable<Ingredient> GetByIds(ICollection<Identity<Guid>> ids);
+		Ingredient? GetById(Guid id);
+		ICollection<Ingredient> GetByIds(ICollection<Guid> ids);
 		void Commit();
 	}
 }

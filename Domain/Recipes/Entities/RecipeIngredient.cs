@@ -53,7 +53,7 @@ namespace Domain.Recipes.Entities
 					throw new ArgumentException("Cant add ingredients with grams lower than zero.");
 
 				var id = new Identity<Guid>(ingredientId);
-				return _ingredientRepository.ExistById(id)
+				return _ingredientRepository.ExistById(id.Value)
 					? new RecipeIngredient(id, grams)
 					: throw new ArgumentNullException($"Ingredient with Id:{ingredientId} does not exist.");
 			}
