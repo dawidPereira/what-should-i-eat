@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Infrastructure.Entities.Ingredient
 {
@@ -11,12 +12,27 @@ namespace Infrastructure.Entities.Ingredient
 			Name = name;
 			Allergens = allergens;
 			Requirements = requirements;
-			MacroNutrientShares = macroNutrientShares;
+			MacroNutrientsShares = macroNutrientShares;
 		}
-		public Guid Id { get; set; }
-		public string Name { get; set; }
-		public int Allergens { get; set; }
-		public int Requirements { get;  set; }
-		public ICollection<MacroNutrientShares> MacroNutrientShares { get;  set; }
+		
+		public Guid Id { get; private set; }
+		public string Name { get; private set; }
+		public int Allergens { get; private set; }
+		public int Requirements { get;  private set; }
+		public ICollection<MacroNutrientShares> MacroNutrientsShares { get;  private set; }
+
+		public static Ingredient FromDomainIngredient(Domain.Ingredients.Entities.Ingredient ingredient) =>
+			new Ingredient(ingredient.Id.Value,
+				ingredient.Name,
+				(int)ingredient.Allergens,
+				(int)ingredient.Requirements,
+				GetMacroNutrientShares(ingredient));
+
+		private static ICollection<MacroNutrientShares> GetMacroNutrientShares(Domain.Ingredients.Entities.Ingredient ingredient)
+		{
+			var sharesCollection = ingredient.MacroNutrientsSharesCollection;
+			return sharesCollection.Select(x =>  MacroNutrientShares.FromDomainIngredient(ingredient.Id.Value, x))
+				.ToList();
+		}
 	}
 }
