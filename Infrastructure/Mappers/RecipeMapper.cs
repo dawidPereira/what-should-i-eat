@@ -7,7 +7,7 @@ using Domain.Recipes.Repositories;
 
 namespace Infrastructure.Mappers
 {
-	public class RecipeMapper
+	public class RecipeMapper : IRecipeMapper
 	{
 		private readonly IEventPublisher _eventPublisher;
 		private readonly IRecipeRepository _recipeRepository;

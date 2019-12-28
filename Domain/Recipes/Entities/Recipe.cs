@@ -69,6 +69,7 @@ namespace Domain.Recipes.Entities
 		private void Update()
 		{
 			var @event = new RecipeUpdatedEvent(Id, EventsQueue.IngredientUpdated);
+			_recipeRepository.Update(this);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);
 		}

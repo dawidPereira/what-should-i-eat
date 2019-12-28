@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.ValueObjects;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Queries.GetBasicInfos;
 
@@ -10,10 +9,10 @@ namespace Domain.Recipes.Repositories
 	{
 		Recipe GetById(Guid id);
 		IEnumerable<Recipe> GetAll();
-		IEnumerable<Recipe> GetRecipesByIngredientId(Guid id);
 		ICollection<RecipeBasicInfo> GetBasicInfos();
-		ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Identity<Guid> ingredientId);
+		ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId);
 		void Add(Recipe recipe);
+		void Update(Recipe recipe);
 		void Commit();
 		void Remove(Recipe recipe);
 		bool ExistByName(string name);
