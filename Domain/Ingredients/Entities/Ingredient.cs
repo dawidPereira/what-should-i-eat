@@ -104,20 +104,23 @@ namespace Domain.Ingredients.Entities
 		public class IngredientFactory : IIngredientFactory
 		{
 			private readonly IIngredientRepository _ingredientRepository;
+			private readonly IEventPublisher _eventPublisher;
 
-			public IngredientFactory(IIngredientRepository ingredientRepository) => 
+			public IngredientFactory(IIngredientRepository ingredientRepository, IEventPublisher eventPublisher)
+			{
 				_ingredientRepository = ingredientRepository;
+				_eventPublisher = eventPublisher;
+			}
 
 			public Ingredient Create(
 				Identity<Guid> id,
 				string name,
 				Allergen allergens,
 				Requirement requirements,
-				IEnumerable<MacroNutrientShare> shares,
-				IEventPublisher eventPublisher)
+				IEnumerable<MacroNutrientShare> shares)
 			{
 				var ingredient =  !_ingredientRepository.ExistByName(name)
-					? new Ingredient(id, name, allergens, requirements, shares, eventPublisher, _ingredientRepository)
+					? new Ingredient(id, name, allergens, requirements, shares, _eventPublisher, _ingredientRepository)
 					: throw new ArgumentException($"Ingredient with name: '{name}' already exist.");
 				ingredient.Create();
 				return ingredient;

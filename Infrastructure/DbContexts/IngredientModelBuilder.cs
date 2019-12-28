@@ -21,7 +21,7 @@ namespace Infrastructure.DbContexts
 				.HasConversion(new EnumToNumberConverter<Requirement,int>());
 
 			modelBuilder.Entity<Ingredient>()
-				.HasMany(x => x.MacroNutrientShares);
+				.HasMany(x => x.MacroNutrientsShares);
 			
 			modelBuilder.SeedIngredientData();
 
