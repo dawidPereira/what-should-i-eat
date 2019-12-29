@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AdministrationDbContext))]
-    [Migration("20191130171141_Initial")]
-    partial class Initial
+    [Migration("20191229132056_Refactored_Database_Model")]
+    partial class Refactored_Database_Model
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,99 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Domain.Ingredients.Entities.Ingredient", b =>
+            modelBuilder.Entity("Infrastructure.Entities.Ingredient.MacroNutrientShares", b =>
+                {
+                    b.Property<int>("MacroNutrient")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("IngredientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Share")
+                        .HasColumnType("float");
+
+                    b.HasKey("MacroNutrient", "IngredientId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("MacroNutrientShares");
+
+                    b.HasData(
+                        new
+                        {
+                            MacroNutrient = 1,
+                            IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
+                            Share = 0.20000000000000001
+                        },
+                        new
+                        {
+                            MacroNutrient = 2,
+                            IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
+                            Share = 0.10000000000000001
+                        },
+                        new
+                        {
+                            MacroNutrient = 4,
+                            IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
+                            Share = 0.59999999999999998
+                        },
+                        new
+                        {
+                            MacroNutrient = 1,
+                            IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
+                            Share = 0.80000000000000004
+                        },
+                        new
+                        {
+                            MacroNutrient = 2,
+                            IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
+                            Share = 0.0
+                        },
+                        new
+                        {
+                            MacroNutrient = 4,
+                            IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
+                            Share = 0.20000000000000001
+                        },
+                        new
+                        {
+                            MacroNutrient = 1,
+                            IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
+                            Share = 0.69999999999999996
+                        },
+                        new
+                        {
+                            MacroNutrient = 2,
+                            IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
+                            Share = 0.10000000000000001
+                        },
+                        new
+                        {
+                            MacroNutrient = 4,
+                            IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
+                            Share = 0.20000000000000001
+                        },
+                        new
+                        {
+                            MacroNutrient = 1,
+                            IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
+                            Share = 0.20000000000000001
+                        },
+                        new
+                        {
+                            MacroNutrient = 2,
+                            IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
+                            Share = 0.10000000000000001
+                        },
+                        new
+                        {
+                            MacroNutrient = 4,
+                            IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
+                            Share = 0.20000000000000001
+                        });
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.Ingredients.Ingredient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,142 +138,32 @@ namespace Infrastructure.Migrations
                             Id = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
                             Allergens = 0,
                             Name = "Chicken",
-                            Requirements = 8
+                            Requirements = 4
                         },
                         new
                         {
                             Id = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
                             Allergens = 0,
                             Name = "Rice",
-                            Requirements = 13
+                            Requirements = 7
                         },
                         new
                         {
                             Id = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
                             Allergens = 1,
                             Name = "Oatmeal",
-                            Requirements = 13
+                            Requirements = 7
                         },
                         new
                         {
                             Id = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
                             Allergens = 1,
                             Name = "Milk",
-                            Requirements = 13
+                            Requirements = 7
                         });
                 });
 
-            modelBuilder.Entity("Domain.Ingredients.Entities.IngredientMacroNutrient", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IngredientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("MacroNutrient")
-                        .HasColumnType("int");
-
-                    b.Property<double>("ParticipationInIngredient")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("Id", "IngredientId");
-
-                    b.HasIndex("IngredientId");
-
-                    b.ToTable("IngredientMacroNutrient");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("9e97f241-f3d6-4a7c-abfc-8fc9e35d14e5"),
-                            IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
-                            MacroNutrient = 2,
-                            ParticipationInIngredient = 0.20000000000000001
-                        },
-                        new
-                        {
-                            Id = new Guid("6651ab54-35ff-43cf-a82a-601bea2cf4c9"),
-                            IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
-                            MacroNutrient = 4,
-                            ParticipationInIngredient = 0.10000000000000001
-                        },
-                        new
-                        {
-                            Id = new Guid("1c85e237-1876-421d-8c2e-bd1cf503dae0"),
-                            IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
-                            MacroNutrient = 8,
-                            ParticipationInIngredient = 0.59999999999999998
-                        },
-                        new
-                        {
-                            Id = new Guid("1da7da72-7fbd-4c63-ade8-abca0ac58765"),
-                            IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
-                            MacroNutrient = 2,
-                            ParticipationInIngredient = 0.80000000000000004
-                        },
-                        new
-                        {
-                            Id = new Guid("99165298-34e7-4125-b36d-cebeb244b11a"),
-                            IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
-                            MacroNutrient = 4,
-                            ParticipationInIngredient = 0.0
-                        },
-                        new
-                        {
-                            Id = new Guid("9ebe6a04-16fe-4d2a-8f9d-0dac4ffa2162"),
-                            IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
-                            MacroNutrient = 8,
-                            ParticipationInIngredient = 0.20000000000000001
-                        },
-                        new
-                        {
-                            Id = new Guid("99377e62-81f9-403c-8927-e2f78c1c8d5d"),
-                            IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
-                            MacroNutrient = 2,
-                            ParticipationInIngredient = 0.69999999999999996
-                        },
-                        new
-                        {
-                            Id = new Guid("1297933b-3550-45bf-96b8-e54768e94484"),
-                            IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
-                            MacroNutrient = 4,
-                            ParticipationInIngredient = 0.10000000000000001
-                        },
-                        new
-                        {
-                            Id = new Guid("29022244-6093-4bd2-b093-8fd5cef17d6f"),
-                            IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
-                            MacroNutrient = 8,
-                            ParticipationInIngredient = 0.20000000000000001
-                        },
-                        new
-                        {
-                            Id = new Guid("5c98bc26-1ff7-4bfd-9cd8-1685525269ef"),
-                            IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
-                            MacroNutrient = 2,
-                            ParticipationInIngredient = 0.20000000000000001
-                        },
-                        new
-                        {
-                            Id = new Guid("e64653ef-cb11-4fe8-8b35-27ae6740c5e2"),
-                            IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
-                            MacroNutrient = 4,
-                            ParticipationInIngredient = 0.10000000000000001
-                        },
-                        new
-                        {
-                            Id = new Guid("459c640a-9597-44da-8cf5-3254aa687996"),
-                            IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
-                            MacroNutrient = 8,
-                            ParticipationInIngredient = 0.20000000000000001
-                        });
-                });
-
-            modelBuilder.Entity("Domain.Recipes.Entities.Recipe", b =>
+            modelBuilder.Entity("Infrastructure.Entities.Recipe.Recipe", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,19 +182,19 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                            Id = new Guid("4977032a-2085-4ac2-821a-45ef6269edb3"),
                             Description = "Default recipe description",
-                            Name = "Chicken with rise"
+                            Name = "Oatmeal with milk"
                         },
                         new
                         {
-                            Id = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                            Id = new Guid("f904b5e7-f430-42d7-9258-c853ea2a3b68"),
                             Description = "Default recipe description",
                             Name = "Chicken with rise"
                         });
                 });
 
-            modelBuilder.Entity("Domain.Recipes.Entities.RecipeIngredient", b =>
+            modelBuilder.Entity("Infrastructure.Entities.Recipe.RecipeIngredient", b =>
                 {
                     b.Property<Guid>("IngredientId")
                         .HasColumnType("uniqueidentifier");
@@ -227,47 +209,47 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("RecipeIngredients");
+                    b.ToTable("RecipeIngredient");
 
                     b.HasData(
                         new
                         {
-                            IngredientId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
-                            RecipeId = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                            IngredientId = new Guid("4977032a-2085-4ac2-821a-45ef6269edb3"),
+                            RecipeId = new Guid("9817c714-9534-42f1-bf58-fc9c9c177a0f"),
                             Grams = 50.0
                         },
                         new
                         {
-                            IngredientId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
-                            RecipeId = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                            IngredientId = new Guid("4977032a-2085-4ac2-821a-45ef6269edb3"),
+                            RecipeId = new Guid("b4ec88f0-0a0d-4ad5-945f-32a4642fafc9"),
                             Grams = 150.0
                         },
                         new
                         {
-                            IngredientId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
-                            RecipeId = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                            IngredientId = new Guid("f904b5e7-f430-42d7-9258-c853ea2a3b68"),
+                            RecipeId = new Guid("66f46fbb-2270-4948-9468-e0d0b3c698cf"),
                             Grams = 200.0
                         },
                         new
                         {
-                            IngredientId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
-                            RecipeId = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                            IngredientId = new Guid("f904b5e7-f430-42d7-9258-c853ea2a3b68"),
+                            RecipeId = new Guid("0392aabc-37c7-4591-882d-5f00acfb4cae"),
                             Grams = 100.0
                         });
                 });
 
-            modelBuilder.Entity("Domain.Ingredients.Entities.IngredientMacroNutrient", b =>
+            modelBuilder.Entity("Infrastructure.Entities.Ingredient.MacroNutrientShares", b =>
                 {
-                    b.HasOne("Domain.Ingredients.Entities.Ingredient", null)
+                    b.HasOne("Infrastructure.Entities.Ingredients.Ingredient", null)
                         .WithMany("MacroNutrientsShares")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Recipes.Entities.Recipe", b =>
+            modelBuilder.Entity("Infrastructure.Entities.Recipe.Recipe", b =>
                 {
-                    b.OwnsOne("Domain.Recipes.Entities.RecipeInfo", "RecipeInfo", b1 =>
+                    b.OwnsOne("Infrastructure.Entities.Recipe.RecipeInfo", "RecipeInfo", b1 =>
                         {
                             b1.Property<Guid>("RecipeId")
                                 .HasColumnType("uniqueidentifier");
@@ -294,7 +276,7 @@ namespace Infrastructure.Migrations
                             b1.HasData(
                                 new
                                 {
-                                    RecipeId = new Guid("2d31f6f2-9156-4c4f-a338-ece6c8b85816"),
+                                    RecipeId = new Guid("4977032a-2085-4ac2-821a-45ef6269edb3"),
                                     ApproximateCost = 8m,
                                     DifficultyLevel = 2,
                                     MealTypes = 18,
@@ -302,7 +284,7 @@ namespace Infrastructure.Migrations
                                 },
                                 new
                                 {
-                                    RecipeId = new Guid("6eccf36d-e922-496f-aca3-79a8b08a09f8"),
+                                    RecipeId = new Guid("f904b5e7-f430-42d7-9258-c853ea2a3b68"),
                                     ApproximateCost = 10m,
                                     DifficultyLevel = 2,
                                     MealTypes = 12,
@@ -311,15 +293,9 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Recipes.Entities.RecipeIngredient", b =>
+            modelBuilder.Entity("Infrastructure.Entities.Recipe.RecipeIngredient", b =>
                 {
-                    b.HasOne("Domain.Ingredients.Entities.Ingredient", "Ingredient")
-                        .WithMany("RecipeIngredients")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Recipes.Entities.Recipe", "Recipe")
+                    b.HasOne("Infrastructure.Entities.Recipe.Recipe", null)
                         .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
