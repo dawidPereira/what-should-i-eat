@@ -38,7 +38,7 @@ namespace Domain.Recipes.Entities
 				return (IngredientId.GetHashCode() * 397) ^ Grams.GetHashCode();
 			}
 		}
-
+		
 		public class RecipeIngredientFactory : IRecipeIngredientFactory
 		{
 			private readonly IIngredientRepository _ingredientRepository;

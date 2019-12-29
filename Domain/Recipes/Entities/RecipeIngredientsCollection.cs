@@ -38,5 +38,10 @@ namespace Domain.Recipes.Entities
 
 		public IDictionary<Guid, double> ToDictionary() => 
 			_recipeIngredients.ToDictionary(x => x.IngredientId.Value, x => x.Grams);
+
+		public ICollection<Guid> GetIngredientsIds() => _recipeIngredients
+			.Select(x => x.IngredientId.Value)
+			.ToList();
+
 	}
 }

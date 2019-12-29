@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using Domain.Common.ValueObjects;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
-using Domain.Ingredients.Queries.GetDetailsFormIngredients;
 using Domain.Recipes.Entities;
 
 namespace Domain.RecipesDetails.Entities
 {
 	public struct RecipeDetails : IValueObject<RecipeDetails>
 	{
-		public RecipeDetails(Identity<Guid> id,
+		private RecipeDetails(Identity<Guid> id,
 			string name,
 			Requirement requirements,
 			Allergen allergens,
@@ -28,7 +27,7 @@ namespace Domain.RecipesDetails.Entities
 		}
 
 		public static RecipeDetails FromRecipeAndIngredientsDetails(Recipe recipe, 
-			AggregatedIngredientsDetailsDto ingredientsDetails) =>
+			AggregatedIngredientsDetails ingredientsDetails) =>
 			new RecipeDetails(recipe.Id,
 				recipe.Name,
 				ingredientsDetails.Requirements,
@@ -37,13 +36,13 @@ namespace Domain.RecipesDetails.Entities
 				ingredientsDetails.Calories,
 				ingredientsDetails.MacroNutrientQuantity);
 
-		public Identity<Guid> Id { get; private set; }
-		public string Name { get; private set; }	
-		public Requirement Requirements { get; private set; }
-		public Allergen Allergens { get; private set; }
-		public MealType MealTypes { get; private set; }
-		public double Calories { get; private set; }
-		public IDictionary<MacroNutrient, double> MacroNutrientQuantity { get; private set; }
+		public Identity<Guid> Id { get; }
+		public string Name { get; }	
+		public Requirement Requirements { get; }
+		public Allergen Allergens { get; }
+		public MealType MealTypes { get; }
+		public double Calories { get; }
+		public IDictionary<MacroNutrient, double> MacroNutrientQuantity { get; }
 
 		public bool Equals(RecipeDetails other)
 		{
