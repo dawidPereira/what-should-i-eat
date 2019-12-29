@@ -120,10 +120,21 @@ namespace Domain.Ingredients.Entities
 				Requirement requirements,
 				IEnumerable<MacroNutrientShare> shares)
 			{
+				var ingredient = GetIngredient(id, name, allergens, requirements, shares);
+				ingredient.Create();
+				return ingredient;
+			}
+			
+			public Ingredient GetIngredient(
+				Guid id,
+				string name,
+				Allergen allergens,
+				Requirement requirements,
+				IEnumerable<MacroNutrientShare> shares)
+			{
 				var ingredient =  !_ingredientRepository.ExistByName(name)
 					? new Ingredient(new Identity<Guid>(id), name, allergens, requirements, shares, _eventPublisher, _ingredientRepository)
 					: throw new ArgumentException($"Ingredient with name: '{name}' already exist.");
-				ingredient.Create();
 				return ingredient;
 			}
 		}

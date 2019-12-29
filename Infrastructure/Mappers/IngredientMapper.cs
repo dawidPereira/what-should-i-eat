@@ -21,7 +21,7 @@ namespace Infrastructure.Mappers
 		public Domain.Ingredients.Entities.Ingredient ToDomainIngredient(Ingredient ingredient, IIngredientRepository ingredientRepository)
 		{
 			var ingredientFactory = new Domain.Ingredients.Entities.Ingredient.IngredientFactory(ingredientRepository, _eventPublisher);
-			return ingredientFactory.Create(ingredient.Id,
+			return ingredientFactory.GetIngredient(ingredient.Id,
 				ingredient.Name,
 				(Allergen) ingredient.Allergens,
 				(Requirement) ingredient.Requirements,

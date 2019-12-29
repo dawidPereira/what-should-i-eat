@@ -11,5 +11,11 @@ namespace Domain.Recipes.Factories
 			string description,
 			RecipeInfo recipeInfo,
 			IEnumerable<RecipeIngredient> recipeIngredients);
+		
+		Recipe GetRecipe(Guid id, 
+			string name, 
+			string description,
+			RecipeInfo recipeInfo,
+			IEnumerable<RecipeIngredient> recipeIngredients);
 	}
 }

@@ -19,6 +19,7 @@ namespace Infrastructure.DbContexts.Seeders
 					"Default recipe description",
 					null, 
 					null));
+				
 				property.OwnsOne(innerProperty => innerProperty.RecipeInfo)
 					.HasData(new
 					{
@@ -33,8 +34,8 @@ namespace Infrastructure.DbContexts.Seeders
 			modelBuilder.Entity<RecipeIngredient>(property =>
 				property.HasData(new List<RecipeIngredient>
 					{
-						new RecipeIngredient(new Guid(SeedConst.Oatmeal), tempId, 50),
-						new RecipeIngredient(new Guid(SeedConst.Milk), tempId, 150)
+						new RecipeIngredient(tempId, new Guid(SeedConst.Oatmeal), 50),
+						new RecipeIngredient(tempId, new Guid(SeedConst.Milk), 150)
 					}));
 			
 			tempId = Guid.NewGuid();
@@ -59,8 +60,8 @@ namespace Infrastructure.DbContexts.Seeders
 			modelBuilder.Entity<RecipeIngredient>(property =>
 				property.HasData(new List<RecipeIngredient>
 				{
-					new RecipeIngredient(new Guid(SeedConst.Chicken), tempId, 200),
-					new RecipeIngredient(new Guid(SeedConst.Rice), tempId, 100)
+					new RecipeIngredient(tempId, new Guid(SeedConst.Chicken), 200),
+					new RecipeIngredient(tempId, new Guid(SeedConst.Rice), 100)
 				}));
 
 			return modelBuilder;

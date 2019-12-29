@@ -21,7 +21,7 @@ namespace Infrastructure.Mappers
 		public Recipe ToDomainRecipe(Entities.Recipe.Recipe recipe, IRecipeRepository recipeRepository)
 		{
 			var recipeFactory = new Recipe.RecipeFactory(recipeRepository, _eventPublisher);
-			return recipeFactory.Create(recipe.Id,
+			return recipeFactory.GetRecipe(recipe.Id,
 				recipe.Name,
 				recipe.Description,
 				ToDomainRecipeInfo(recipe.RecipeInfo),
@@ -32,7 +32,7 @@ namespace Infrastructure.Mappers
 			recipeIngredients.Select(x => _recipeIngredientFactory.Create(x.IngredientId, x.Grams))
 				.ToList();
 		
-		private RecipeInfo ToDomainRecipeInfo(Entities.Recipe.RecipeInfo recipeInfo) =>
+		private static RecipeInfo ToDomainRecipeInfo(Entities.Recipe.RecipeInfo recipeInfo) =>
 			new RecipeInfo(recipeInfo.DifficultyLevel, recipeInfo.PreparationTime, recipeInfo.ApproximateCost, recipeInfo.MealTypes);
 		
 	}

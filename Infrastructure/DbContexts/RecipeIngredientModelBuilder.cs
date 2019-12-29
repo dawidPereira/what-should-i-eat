@@ -8,7 +8,7 @@ namespace Infrastructure.DbContexts
 		public static ModelBuilder ConfigureRecipeIngredient(this ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<RecipeIngredient>()
-				.HasKey(recipeIngredient => new { recipeIngredient.IngredientId, recipeIngredient.RecipeId });  
+				.HasKey(recipeIngredient => new { recipeIngredient.RecipeId, recipeIngredient.IngredientId });  
 			
 			return modelBuilder;
 		}

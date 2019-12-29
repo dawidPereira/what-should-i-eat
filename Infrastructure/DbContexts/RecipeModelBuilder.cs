@@ -10,6 +10,8 @@ namespace Infrastructure.DbContexts
 	{
 		public static ModelBuilder ConfigureRecipe(this ModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<Recipe>().HasKey(x => x.Id);
+			
 			modelBuilder.Entity<Recipe>()
 				.OwnsOne(property => property.RecipeInfo,
 					recipeInfo =>
@@ -18,8 +20,10 @@ namespace Infrastructure.DbContexts
 							.Property(property => property.MealTypes)
 							.HasConversion(new EnumToNumberConverter<MealType, int>());
 					});
+
 			modelBuilder.Entity<Recipe>()
-				.HasMany(property => property.RecipeIngredients);
+				.HasMany(property => property.RecipeIngredients)
+				.WithOne();
 
 			modelBuilder.SeedRecipeData();
 

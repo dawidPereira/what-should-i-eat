@@ -12,5 +12,11 @@ namespace Domain.Ingredients.Factories
 			Allergen allergens,
 			Requirement requirements,
 			IEnumerable<MacroNutrientShare> shares);
+		
+		Ingredient GetIngredient(Guid id,
+			string name,
+			Allergen allergens,
+			Requirement requirements,
+			IEnumerable<MacroNutrientShare> shares);
 	}
 }
