@@ -14,6 +14,7 @@ namespace Infrastructure.DbContexts
 		
 		public DbSet<Recipe> Recipes { get; set; }
 		public DbSet<Ingredient> Ingredients { get; set; }
+		public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 		public DbSet<MacroNutrientShares> MacroNutrientShares { get; set; }
 		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

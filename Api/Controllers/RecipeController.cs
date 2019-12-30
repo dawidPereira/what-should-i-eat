@@ -34,7 +34,7 @@ namespace Api.Controllers
 		/// <response code="200">Recipe found</response>
 		/// <response code="404">Given recipe was not found</response>
 		[HttpGet]
-		public IActionResult GetRecipe([FromRoute] GetRecipeQuery query)
+		public IActionResult GetRecipe([FromRoute] GetByIdQuery query)
 		{
 			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)

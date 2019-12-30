@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Entities.MacroNutrients;
 
 namespace Domain.RecipesDetails.Entities
 {
 	public class AggregatedIngredientsDetails
 	{
 		public AggregatedIngredientsDetails(double calories,
-			Allergen allergens,
-			Requirement requirements,
-			IDictionary<MacroNutrient, double> macroNutrientQuantity)
+			int allergens,
+			int requirements,
+			IDictionary<int, double> macroNutrientQuantity)
 		{
 			Calories = calories;
 			Allergens = allergens;
@@ -17,8 +15,8 @@ namespace Domain.RecipesDetails.Entities
 			MacroNutrientQuantity = macroNutrientQuantity;
 		}
 		public double Calories { get; private set; }
-		public Allergen Allergens { get; private set; }
-		public Requirement Requirements { get; private set; }
-		public IDictionary<MacroNutrient, double> MacroNutrientQuantity { get; private set; }
+		public int Allergens { get; private set; }
+		public int Requirements { get; private set; }
+		public IDictionary<int, double> MacroNutrientQuantity { get; private set; }
 	}
 }

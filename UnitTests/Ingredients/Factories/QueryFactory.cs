@@ -6,10 +6,10 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
 	public static class QueryFactory
 	{
-		public static GetDetailsFromIngredientsQuery GetDetailsFromIngredientsQuery(List<Guid> ids)
+		public static GetAggregatedIngredientsDetailsQuery GetDetailsFromIngredientsQuery(List<Guid> ids)
 		{
 			var ingredientsGrams = IngredientsGramsCollectionFactory.GetBaseIngredientsGramsDictionary(ids);
-			return new GetDetailsFromIngredientsQuery(ingredientsGrams);
+			return new GetAggregatedIngredientsDetailsQuery(ingredientsGrams);
 		}
 	}
 }

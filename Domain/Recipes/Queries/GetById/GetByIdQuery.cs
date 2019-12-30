@@ -3,9 +3,9 @@ using Domain.Common.Mediators.Queries;
 
 namespace Domain.Recipes.Queries.GetById
 {
-	public class GetRecipeQuery : IQuery<RecipeDto>
+	public class GetByIdQuery : IQuery<RecipeDto>
 	{
-		public GetRecipeQuery(Guid id)
+		public GetByIdQuery(Guid id)
 		{
 			Id = id;
 		}

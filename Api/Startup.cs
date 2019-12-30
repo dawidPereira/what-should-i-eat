@@ -7,8 +7,8 @@ using Domain.RecipesDetails.Filters.Factories;
 using Domain.RecipesDetails.Filters.FiltersCriteria;
 using EasyCaching.Core.Configurations;
 using Hangfire;
-using Infrastructure.Common;
 using Infrastructure.Common.Configuration;
+using Infrastructure.Common.Constants;
 using Infrastructure.DbContexts;
 using Infrastructure.Events.EventPublishers;
 using Infrastructure.Mappers;
@@ -37,25 +37,22 @@ namespace Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services
-				.AddDbContext<AdministrationDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString(Constants.WhatShouldIEatDataBaseName),
-						b => b.MigrationsAssembly(Constants.WhatShouldIEatDataBaseMigrationAssembly)
+			services.AddDbContext<AdministrationDbContext>(options =>
+					options.UseSqlServer(Configuration.GetConnectionString(DbContextConstants.WhatShouldIEatDataBaseName),
+						b => b.MigrationsAssembly(DbContextConstants.WhatShouldIEatDataBaseMigrationAssembly)
 					));
-			services
-				.AddEasyCaching(options =>
+			services.AddEasyCaching(options =>
 				{
 					options.UseRedis(redisConfig =>
 					{
-						redisConfig.DBConfig.Endpoints.Add(new ServerEndPoint(Constants.RedisHost, Constants.RedisPort));
+						redisConfig.DBConfig.Endpoints.Add(new ServerEndPoint(RedisConstants.Host, RedisConstants.Port));
 						redisConfig.DBConfig.AllowAdmin = true;
 					},
-						Constants.RedisName);
+						RedisConstants.Name);
 				});
 			
-			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(Constants.HangFireDataBaseName)));
+			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(DbContextConstants.HangFireDataBaseName)));
 			services.AddHangfireServer();
-
 			services.AddControllers();
 			services.AddRepositories();
 			services.AddMappers();

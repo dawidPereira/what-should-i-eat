@@ -25,12 +25,14 @@ namespace Infrastructure.Repositories.DataAccess.Recipes
 			.Include(x => x.RecipeIngredients);
 
 		public IEnumerable<RecipeBasicInfo> GetBasicInfos() => _context.Recipes
-			.Select(x => new RecipeBasicInfo(x.Id, x.Name))
-			.ToList();
+			.Select(x => new RecipeBasicInfo(x.Id, x.Name));
 
 		public Recipe GetById(Guid id) => _context.Recipes
 			.Include(x => x.RecipeIngredients)
 			.FirstOrDefault(x => x.Id == id);
+
+		public IEnumerable<RecipeIngredient> GetRecipeIngredientsById(Guid id) => _context.RecipeIngredients
+			.Where(x => x.RecipeId == id);
 
 		public IEnumerable<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId) => _context.Recipes
 			.Include(x => x.RecipeIngredients)

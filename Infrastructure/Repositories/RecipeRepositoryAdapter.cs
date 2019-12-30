@@ -37,9 +37,13 @@ namespace Infrastructure.Repositories
 
 		public bool ExistByName(string name) => _recipeDataReader.ExistByName(name);
 
-		public IEnumerable<Recipe> GetAll() => _recipeDataReader.GetAll()
-			.Select(x => _recipeMapper.ToDomainRecipe(x, this))
+		public IEnumerable<Guid> GetAllIds() => _recipeDataReader.GetAll()
+			.Select(x => x.Id)
 			.ToList();
+
+		public IDictionary<Guid, double> GetRecipeIngredientsById(Guid id) => _recipeDataReader
+			.GetRecipeIngredientsById(id)
+			.ToDictionary(x => x.IngredientId, x => x.Grams);
 
 		public ICollection<RecipeBasicInfo> GetBasicInfos() => _recipeDataReader.GetBasicInfos()
 			.ToList();

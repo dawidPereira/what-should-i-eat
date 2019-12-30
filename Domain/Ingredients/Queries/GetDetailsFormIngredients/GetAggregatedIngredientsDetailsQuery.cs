@@ -5,11 +5,11 @@ using Domain.Common.Mediators.Queries;
 
 namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 {
-	public class GetDetailsFromIngredientsQuery : IQuery<AggregatedIngredientsDetailsDto>
+	public class GetAggregatedIngredientsDetailsQuery : IQuery<AggregatedIngredientsDetailsDto>
 	{
 		private IEnumerable<Guid> Keys => IngredientsGrams.Keys;
 		
-		public GetDetailsFromIngredientsQuery(IDictionary<Guid, double> ingredientsGrams)
+		public GetAggregatedIngredientsDetailsQuery(IDictionary<Guid, double> ingredientsGrams)
 		{
 			IngredientsGrams = ingredientsGrams;
 		}

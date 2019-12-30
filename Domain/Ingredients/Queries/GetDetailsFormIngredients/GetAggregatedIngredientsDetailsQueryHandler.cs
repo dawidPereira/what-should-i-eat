@@ -5,16 +5,16 @@ using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 {
-	public class GetDetailsFromIngredientsQueryHandler : IQueryHandler<GetDetailsFromIngredientsQuery, AggregatedIngredientsDetailsDto>
+	public class GetAggregatedIngredientsDetailsQueryHandler : IQueryHandler<GetAggregatedIngredientsDetailsQuery, AggregatedIngredientsDetailsDto>
 	{
 		private readonly IIngredientRepository _ingredientRepository;
 
-		public GetDetailsFromIngredientsQueryHandler(IIngredientRepository ingredientRepository)
+		public GetAggregatedIngredientsDetailsQueryHandler(IIngredientRepository ingredientRepository)
 		{
 			_ingredientRepository = ingredientRepository;
 		}
 
-		public AggregatedIngredientsDetailsDto Handle(GetDetailsFromIngredientsQuery query)
+		public AggregatedIngredientsDetailsDto Handle(GetAggregatedIngredientsDetailsQuery query)
 		{
 			var ingredients = _ingredientRepository.GetByIds(query.GetIds());
 			var ingredientsGrams = ingredients

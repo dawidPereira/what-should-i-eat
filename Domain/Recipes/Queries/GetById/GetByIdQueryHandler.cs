@@ -5,14 +5,14 @@ using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Queries.GetById
 {
-	public class GetRecipeQueryHandler : IQueryHandler<GetRecipeQuery, RecipeDto>
+	public class GetByIdQueryHandler : IQueryHandler<GetByIdQuery, RecipeDto>
 	{
 		private readonly IRecipeRepository _recipeRepository;
 
-		public GetRecipeQueryHandler(IRecipeRepository recipeRepository) => 
+		public GetByIdQueryHandler(IRecipeRepository recipeRepository) => 
 			_recipeRepository = recipeRepository;
 
-		public RecipeDto Handle(GetRecipeQuery query)
+		public RecipeDto Handle(GetByIdQuery query)
 		{
 			var recipe = _recipeRepository.GetById(query.Id);
 			if(recipe == null) 

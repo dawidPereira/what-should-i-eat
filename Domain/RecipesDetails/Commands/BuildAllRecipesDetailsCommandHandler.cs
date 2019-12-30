@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.ValueObjects;
-using Domain.Recipes.Repositories;
 using Domain.RecipesDetails.RecipeDetailsFactories;
+using Domain.RecipesDetails.Repositories;
 using Hangfire;
 
 namespace Domain.RecipesDetails.Commands

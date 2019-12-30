@@ -12,6 +12,8 @@ namespace Infrastructure.Repositories.DataAccess.Recipes
 		bool ExistByName(string name);
 		
 		IEnumerable<Recipe> GetAll();
+
+		IEnumerable<RecipeIngredient> GetRecipeIngredientsById(Guid id);
 		
 		Recipe GetById(Guid id);
 		

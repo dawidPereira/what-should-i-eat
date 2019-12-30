@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Extensions;
 using Domain.Common.ValueObjects;
-using Domain.Ingredients.Entities.MacroNutrients;
 
 namespace Domain.Ingredients.Entities
 {
@@ -27,7 +26,7 @@ namespace Domain.Ingredients.Entities
 			_ingredientsGrams.Select(x => x.Ingredient.Requirements)
 				.Aggregate(Requirement.None, (acc, el) => acc | el);
 
-		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity() =>
+		public IDictionary<int, double> GetMacroNutrientQuantity() =>
 			_ingredientsGrams.Select(x => x.Ingredient.GetMacroNutrientQuantity(x.Grams)).MergeDictionary();
 
 		public IEnumerator<IngredientGrams> GetEnumerator() => _ingredientsGrams.GetEnumerator();

@@ -42,10 +42,10 @@ namespace Domain.Ingredients.Entities
 		public double CalculateCalories(double grams) =>
 			MacroNutrientsSharesCollection.Sum(x => x.MacroNutrient.CalculateCalories(x.Share * grams));
 
-		public IDictionary<MacroNutrient, double> GetMacroNutrientQuantity(double grams)
+		public IDictionary<int, double> GetMacroNutrientQuantity(double grams)
 		{
 			var result = MacroNutrientsSharesCollection.ToDictionary(
-				x => x.MacroNutrient,
+				x => (int)x.MacroNutrient,
 				x => x.Share * grams);
 			
 			return result;

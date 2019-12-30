@@ -32,7 +32,7 @@ namespace Api.Validators.RecipeValidators
 		public ValidationResult ValidateDelete(DeleteRecipeCommand command) 
 			=> _deleteValidator.Validate(command);
 		
-		public ValidationResult ValidateGet(GetRecipeQuery query) 
+		public ValidationResult ValidateGet(GetByIdQuery query) 
 			=> _getValidator.Validate(query);
 	}
 }

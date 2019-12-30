@@ -1,5 +1,6 @@
 ﻿using Domain.Ingredients.Repositories;
 using Domain.Recipes.Repositories;
+using Domain.RecipesDetails.Repositories;
 using Infrastructure.Repositories.DataAccess.Ingredients;
 using Infrastructure.Repositories.DataAccess.Recipes;
 using Microsoft.Extensions.DependencyInjection;

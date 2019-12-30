@@ -1,6 +1,6 @@
 ﻿using System;
-using Domain.Recipes.Repositories;
 using Domain.RecipesDetails.Entities;
+using Domain.RecipesDetails.Repositories;
 
 namespace Domain.RecipesDetails.RecipeDetailsFactories
 {
@@ -16,8 +16,7 @@ namespace Domain.RecipesDetails.RecipeDetailsFactories
 		public RecipeDetails Create(Guid recipeId)
 		{
 			var recipe = _recipeDetailsRepository.GetRecipeById(recipeId);
-			var recipeIngredientsIds = recipe.RecipeIngredients.GetIngredientsIds();
-			var ingredients = _recipeDetailsRepository.GetAggregatedIngredientsDetailsByIds(recipeIngredientsIds);
+			var ingredients = _recipeDetailsRepository.GetAggregatedIngredientsDetailsByIds(recipe.RecipeIngredients);
 			return RecipeDetails.FromRecipeAndIngredientsDetails(recipe, ingredients);
 		}
 	}

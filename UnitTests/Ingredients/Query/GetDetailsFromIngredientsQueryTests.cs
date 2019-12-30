@@ -27,29 +27,29 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 			Guid.NewGuid()
 		};
 
-		private GetDetailsFromIngredientsQueryHandler _systemUnderTests;
+		private GetAggregatedIngredientsDetailsQueryHandler _systemUnderTests;
 
 		[SetUp]
 		public void SetUp()
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetByIds(It.IsAny<ICollection<Guid>>()))
 				.Returns(FakeIngredientFactory.CreateIngredientsCollection(_ids, _ingredientRepositoryMock.Object));
-			_systemUnderTests = new GetDetailsFromIngredientsQueryHandler(_ingredientRepositoryMock.Object);
+			_systemUnderTests = new GetAggregatedIngredientsDetailsQueryHandler(_ingredientRepositoryMock.Object);
 		}
 
 		[Test]
-		public void GivenValidIngredient_WhenCommandHandled_ReturnValidAggregatedIngredientsDetails()
+		public void GivenValidIngredient_WhenQueryHandled_ReturnValidAggregatedIngredientsDetails()
 		{
 			var query = QueryFactory.GetDetailsFromIngredientsQuery(_ids);
 			var result = _systemUnderTests.Handle(query);
 			using (new AssertionScope())
 			{
-				result.Allergens.Should().Be(Allergens);
-				result.Requirements.Should().Be(Requirements);
+				result.Allergens.Should().Be((int)Allergens);
+				result.Requirements.Should().Be((int)Requirements);
 				result.Calories.Should().Be(1785);
-				result.MacroNutrientQuantity[MacroNutrient.Carbohydrate].Should().Be(70);
-				result.MacroNutrientQuantity[MacroNutrient.Fat].Should().Be(105);
-				result.MacroNutrientQuantity[MacroNutrient.Protein].Should().Be(140);
+				result.MacroNutrientQuantity[(int)MacroNutrient.Carbohydrate].Should().Be(70);
+				result.MacroNutrientQuantity[(int)MacroNutrient.Fat].Should().Be(105);
+				result.MacroNutrientQuantity[(int)MacroNutrient.Protein].Should().Be(140);
 			}
 		}
 	}

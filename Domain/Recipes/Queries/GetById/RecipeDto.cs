@@ -5,51 +5,50 @@ using Domain.Recipes.Entities;
 
 namespace Domain.Recipes.Queries.GetById
 {
-	public class RecipeDto
+	public struct RecipeDto
 	{
-		public RecipeDto(Guid id, string name, string description, RecipeDetailsDto recipeDetails, ICollection<Tuple<Guid, double>> recipeIngredients)
+		public RecipeDto(Guid id, string name, string description, RecipeDetailsDto recipeInfo, IDictionary<Guid, double> recipeIngredients)
 		{
 			Id = id;
 			Name = name;
 			Description = description;
-			RecipeDetails = recipeDetails;
+			RecipeInfo = recipeInfo;
 			RecipeIngredients = recipeIngredients;
 		}
 		
-		public Guid Id { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-		public RecipeDetailsDto RecipeDetails { get; set; }
-		public ICollection<Tuple<Guid, double>> RecipeIngredients { get; set; }
+		public Guid Id { get; }
+		public string Name { get; }
+		public string Description { get; }
+		public RecipeDetailsDto RecipeInfo { get; }
+		public IDictionary<Guid, double> RecipeIngredients { get; }
 
 		public static RecipeDto FromRecipe(Recipe recipe)
 		{
 			var recipeDetailsDto = RecipeDetailsDto.FromRecipeDetails(recipe.RecipeInfo);
 			var recipeIngredients = recipe.RecipeIngredients
-				.Select(x => new Tuple<Guid, double>(x.IngredientId.Value, x.Grams))
-				.ToList();
+				.ToDictionary(x => x.IngredientId.Value, x => x.Grams);
 			return new RecipeDto(recipe.Id.Value, recipe.Name, recipe.Description, recipeDetailsDto, recipeIngredients);
 		}
 
 		public struct RecipeDetailsDto
 		{
-			private RecipeDetailsDto(int difficultyLevel, int preparationTime, decimal approximateCost, MealType mealTypes)
+			private RecipeDetailsDto(int difficultyLevel, int preparationTime, decimal approximateCost, int mealTypes)
 			{
 				DifficultyLevel = difficultyLevel;
 				PreparationTime = preparationTime;
 				ApproximateCost = approximateCost;
 				MealTypes = mealTypes;
 			}
-			public int DifficultyLevel { get; set; }
-			public int PreparationTime { get; set; }
-			public decimal ApproximateCost { get; set; }
-			public MealType MealTypes { get; set; }
+			public int DifficultyLevel { get; }
+			public int PreparationTime { get; }
+			public decimal ApproximateCost { get; }
+			public int MealTypes { get; }
 			
 			public static RecipeDetailsDto FromRecipeDetails(RecipeInfo recipeInfo) =>
 			new RecipeDetailsDto(recipeInfo.DifficultyLevel,
 				recipeInfo.PreparationTime,
 				recipeInfo.ApproximateCost,
-				recipeInfo.MealTypes);
+				(int)recipeInfo.MealTypes);
 		}
 	}
 }

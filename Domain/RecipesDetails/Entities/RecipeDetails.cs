@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Common.ValueObjects;
-using Domain.Ingredients.Entities;
-using Domain.Ingredients.Entities.MacroNutrients;
-using Domain.Recipes.Entities;
 
 namespace Domain.RecipesDetails.Entities
 {
@@ -11,11 +8,11 @@ namespace Domain.RecipesDetails.Entities
 	{
 		private RecipeDetails(Identity<Guid> id,
 			string name,
-			Requirement requirements,
-			Allergen allergens,
-			MealType mealTypes,
+			int requirements,
+			int allergens,
+			int mealTypes,
 			double calories,
-			IDictionary<MacroNutrient, double> macroNutrientQuantity)
+			IDictionary<int, double> macroNutrientQuantity)
 		{
 			Id = id;
 			Name = name;
@@ -38,11 +35,11 @@ namespace Domain.RecipesDetails.Entities
 
 		public Identity<Guid> Id { get; }
 		public string Name { get; }	
-		public Requirement Requirements { get; }
-		public Allergen Allergens { get; }
-		public MealType MealTypes { get; }
+		public int Requirements { get; }
+		public int Allergens { get; }
+		public int MealTypes { get; }
 		public double Calories { get; }
-		public IDictionary<MacroNutrient, double> MacroNutrientQuantity { get; }
+		public IDictionary<int, double> MacroNutrientQuantity { get; }
 
 		public bool Equals(RecipeDetails other)
 		{

@@ -11,6 +11,6 @@ namespace Api.Validators.RecipeValidators
 		ValidationResult ValidateCreate(CreateRecipeCommand command);
 		ValidationResult ValidateUpdate(UpdateRecipeCommand command);
 		ValidationResult ValidateDelete(DeleteRecipeCommand command);
-		ValidationResult ValidateGet(GetRecipeQuery query);
+		ValidationResult ValidateGet(GetByIdQuery query);
 	}
 }
