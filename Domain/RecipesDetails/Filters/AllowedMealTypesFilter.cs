@@ -1,15 +1,13 @@
 ﻿using Domain.Common.Filters;
-using Domain.Recipes.Entities;
 using Domain.RecipesDetails.Entities;
-using RecipeDetails = Domain.RecipesDetails.Entities.RecipeDetails;
 
 namespace Domain.RecipesDetails.Filters
 {
 	public class AllowedMealTypesFilter : IFilter<RecipeDetails>
 	{
-		private readonly MealType? _filterCriteria;
+		private readonly int? _filterCriteria;
 
-		public AllowedMealTypesFilter(MealType? filterCriteria) => 
+		public AllowedMealTypesFilter(int? filterCriteria) => 
 			_filterCriteria = filterCriteria;
 
 		public bool Satisfy(RecipeDetails toFilter) => 
