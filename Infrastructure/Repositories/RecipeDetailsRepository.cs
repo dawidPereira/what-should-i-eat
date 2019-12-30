@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Common.Mediators;
 using Domain.Ingredients.Queries.GetDetailsFormIngredients;
 using Domain.Recipes.Queries.GetAllRecipeIds;
@@ -8,7 +9,9 @@ using Domain.Recipes.Queries.GetRecipeIngredients;
 using Domain.RecipesDetails.Entities;
 using Domain.RecipesDetails.Repositories;
 using EasyCaching.Core;
+using Hangfire;
 using Infrastructure.Common.Constants;
+using Infrastructure.Common.Extensions;
 using Infrastructure.Mappers;
 
 namespace Infrastructure.Repositories
@@ -26,38 +29,24 @@ namespace Infrastructure.Repositories
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(RedisConstants.Name);
 		}
 
-//		public void Remove(string key) => BackgroundJob.Enqueue(() => _cachingProvider.Remove(key));
-//
-//		public void Add(RecipeInfo recipeDetails)
-//		{
-//			var key = recipeDetails.Id
-//				.ToDictionaryKey(nameof(RecipeInfo));
-//			
-//			BackgroundJob.Enqueue(() =>
-//				_cachingProvider.Set(key, recipeDetails, TimeSpan.MaxValue));
-//		}
-//
-//		public void AddRange(IEnumerable<RecipeInfo> recipeSearchInfos)
-//		{
-//			var searchInfosDictionary = recipeSearchInfos
-//				.ToDictionary(x => x.Id.ToDictionaryKey(nameof(RecipeInfo)), x => x);
-//
-//			BackgroundJob.Enqueue(() =>
-//				_cachingProvider.SetAll(searchInfosDictionary, TimeSpan.MaxValue));
-//		}
+		public void Remove(string key) => BackgroundJob.Enqueue(() => _cachingProvider.Remove(key));
+
 		public void Add(RecipeDetails recipeDetails)
 		{
-			throw new NotImplementedException();
+			var key = recipeDetails.Id.Value
+				.ToDictionaryKey(nameof(RecipeDetails));
+			
+			BackgroundJob.Enqueue(() =>
+				_cachingProvider.Set(key, recipeDetails, TimeSpan.MaxValue));
 		}
 
-		public void Remove(string key)
+		public void AddRange(IEnumerable<RecipeDetails> recipeDetails)
 		{
-			throw new NotImplementedException();
-		}
+			var searchInfosDictionary = recipeDetails
+				.ToDictionary(x => x.Id.Value.ToDictionaryKey(nameof(RecipeDetails)), x => x);
 
-		public void AddRange(IEnumerable<RecipeDetails> recipeSearchInfos)
-		{
-			throw new NotImplementedException();
+			BackgroundJob.Enqueue(() =>
+				_cachingProvider.SetAll(searchInfosDictionary, TimeSpan.MaxValue));
 		}
 
 		public IDictionary<Guid, double> GetRecipeIngredientById(Guid recipeId) =>

@@ -15,10 +15,8 @@ namespace Domain.RecipesDetails.Filters
 			_filterCriteria = filterCriteria;
 		}
 
-		public bool Satisfy(RecipeDetails toFilter)
-		{
-			return !_filterCriteria.Any() || toFilter.MacroNutrientQuantity.All(x => IsSatisfy(x.Value, x.Key));
-		}
+		public bool Satisfy(RecipeDetails toFilter) => 
+			!_filterCriteria.Any() || toFilter.MacroNutrientQuantity.All(x => IsSatisfy(x.Value, x.Key));
 
 		private bool IsSatisfy(double quantity, int filtered)
 		{

@@ -15,7 +15,7 @@ namespace Infrastructure.Repositories
 				.AddTransient<IIngredientDataWriter, IngredientDataWriter>()
 				.AddTransient<IRecipeDataReader, RecipeDataReader>()
 				.AddTransient<IRecipeDataWriter, RecipeDataWriter>();
-				
+
 			services.AddTransient<IIngredientRepository, IngredientRepositoryAdapter>()
 				.AddTransient<IRecipeRepository, RecipeRepositoryAdapter>()
 				.AddTransient<IRecipeDetailsRepository, RecipeDetailsRepository>();

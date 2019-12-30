@@ -1,10 +1,7 @@
 using Api.Validators;
-using Domain.Common.Filters;
 using Domain.Common.Mediators;
 using Domain.Common.Mediators.Validators;
-using Domain.RecipesDetails.Entities;
-using Domain.RecipesDetails.Filters.Factories;
-using Domain.RecipesDetails.Filters.FiltersCriteria;
+using Domain.RecipesDetails.Commands;
 using EasyCaching.Core.Configurations;
 using Hangfire;
 using Infrastructure.Common.Configuration;
@@ -53,7 +50,6 @@ namespace Api
 			
 			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(DbContextConstants.HangFireDataBaseName)));
 			services.AddHangfireServer();
-			services.AddControllers();
 			services.AddRepositories();
 			services.AddMappers();
 			services.AddDomainValidators();
@@ -63,8 +59,6 @@ namespace Api
 			services.AddFactories();
 			services.AddControllers()
 				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-			//services.AddTransient<IRecipeDetailsRepository, RecipeDetailsRepository>();
-			services.AddTransient<IFilterFactory<RecipeDetails, RecipeSearchFilterCriteria>, RecipeFiltersFactory>();
 		}
 
 		public void Configure(IApplicationBuilder app,
@@ -84,7 +78,7 @@ namespace Api
 			}
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
-			//mediator.Command(new BuildAllRecipesDetailsCommand());
+			mediator.Command(new BuildAllRecipesDetailsCommand());
 		}
 	}
 }
