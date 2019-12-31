@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Mediators.Events;
+using Domain.Events;
 
 namespace Infrastructure.Events.EventPublishers
 {

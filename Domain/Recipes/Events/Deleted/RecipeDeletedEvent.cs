@@ -1,5 +1,5 @@
 ﻿using System;
-using Domain.Common.Mediators.Events;
+using Domain.Events;
 using Newtonsoft.Json;
 
 namespace Domain.Recipes.Events.Deleted

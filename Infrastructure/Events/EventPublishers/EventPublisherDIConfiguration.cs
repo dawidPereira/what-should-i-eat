@@ -1,10 +1,10 @@
-﻿using Domain.Common.Mediators.Events;
+﻿using Domain.Events;
 using Domain.Recipes.Events.Created;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Events.EventPublishers
 {
-	public static class EventPublisherDIConfiguration
+	public static class EventPublisherDiConfiguration
 	{
 		public static IServiceCollection AddEvents(this IServiceCollection services)
 		{

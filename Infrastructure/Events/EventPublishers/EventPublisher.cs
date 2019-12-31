@@ -1,6 +1,6 @@
 ﻿﻿using System;
  using System.Linq;
- using Domain.Common.Mediators.Events;
+ using Domain.Events;
  using Microsoft.Extensions.DependencyInjection;
 
  namespace Infrastructure.Events.EventPublishers

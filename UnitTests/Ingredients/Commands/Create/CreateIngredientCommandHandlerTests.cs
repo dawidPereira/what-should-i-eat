@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
+using Domain.Events;
 using Domain.Ingredients.Commands.Create;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Factories;

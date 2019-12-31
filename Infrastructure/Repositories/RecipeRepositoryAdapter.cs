@@ -5,6 +5,7 @@ using Domain.Recipes.Entities;
 using Domain.Recipes.Queries.GetBasicInfos;
 using Domain.Recipes.Repositories;
 using Infrastructure.Mappers;
+using Infrastructure.Repositories.DataAccess.Events;
 using Infrastructure.Repositories.DataAccess.Recipes;
 
 namespace Infrastructure.Repositories
@@ -12,14 +13,19 @@ namespace Infrastructure.Repositories
 	public class RecipeRepositoryAdapter : IRecipeRepository
 	{
 		private readonly IRecipeMapper _recipeMapper;
+		private readonly IEventDataWriter _eventDataWriter;
 		private readonly IRecipeDataReader _recipeDataReader;
 		private readonly IRecipeDataWriter _recipeDataWriter;
 
-		public RecipeRepositoryAdapter(IRecipeMapper recipeMapper, IRecipeDataReader recipeDataReader, IRecipeDataWriter recipeDataWriter)
+		public RecipeRepositoryAdapter(IRecipeMapper recipeMapper,
+			IRecipeDataReader recipeDataReader,
+			IRecipeDataWriter recipeDataWriter,
+			IEventDataWriter eventDataWriter)
 		{
 			_recipeMapper = recipeMapper;
 			_recipeDataReader = recipeDataReader;
 			_recipeDataWriter = recipeDataWriter;
+			_eventDataWriter = eventDataWriter;
 		}
 
 		public void Commit() => _recipeDataWriter.Commit();

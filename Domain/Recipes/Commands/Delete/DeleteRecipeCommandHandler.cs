@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Domain.Common.Mediators.Commands;
-using Domain.Common.Mediators.Events;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
+using Domain.Events;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Commands.Delete

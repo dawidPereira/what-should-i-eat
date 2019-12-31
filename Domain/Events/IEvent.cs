@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain.Common.ValueObjects;
 
-namespace Domain.Common.Mediators.Events
+namespace Domain.Events
 {
 	public interface IEvent<T> : IEquatable<T>
 	{
@@ -9,15 +9,8 @@ namespace Domain.Common.Mediators.Events
 		
 		DateTime CreatedDate { get; }
 		
-		DateTime? ProcessedDate { get; }
-		
 		string Data { get; }
 		
 		string Name { get; }
-		
-		bool IsProcessed { get; }
-
-		void Process();
-
 	}
 }

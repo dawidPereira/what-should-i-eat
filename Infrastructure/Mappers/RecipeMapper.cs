@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Domain.Common.Mediators.Events;
+using Domain.Events;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;

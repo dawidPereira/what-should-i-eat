@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
+using Domain.Events;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Events;
 using Domain.Ingredients.Factories;

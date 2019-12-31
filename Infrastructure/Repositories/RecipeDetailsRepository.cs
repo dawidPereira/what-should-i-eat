@@ -13,6 +13,7 @@ using Hangfire;
 using Infrastructure.Common.Constants;
 using Infrastructure.Common.Extensions;
 using Infrastructure.Mappers;
+using Infrastructure.Repositories.DataAccess.Events;
 
 namespace Infrastructure.Repositories
 {
@@ -20,12 +21,20 @@ namespace Infrastructure.Repositories
 	{
 		private readonly IEasyCachingProvider _cachingProvider;
 		private readonly IRecipeDetailsMapper _recipeDetailsMapper;
+		private readonly IEventDataReader _eventDataReader;
+		private readonly IEventDataWriter _eventDataWriter;
 		private readonly IMediator _mediator;
 		
-		public RecipeDetailsRepository(IEasyCachingProviderFactory cachingProviderFactory, IMediator mediator, IRecipeDetailsMapper recipeDetailsMapper)
+		public RecipeDetailsRepository(IEasyCachingProviderFactory cachingProviderFactory, 
+			IMediator mediator, 
+			IRecipeDetailsMapper recipeDetailsMapper, 
+			IEventDataReader eventDataReader, 
+			IEventDataWriter eventDataWriter)
 		{
 			_mediator = mediator;
 			_recipeDetailsMapper = recipeDetailsMapper;
+			_eventDataReader = eventDataReader;
+			_eventDataWriter = eventDataWriter;
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(RedisConstants.Name);
 		}
 

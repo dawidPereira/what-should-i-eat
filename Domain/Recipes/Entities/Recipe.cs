@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Common.Mediators.Events;
 using Domain.Common.ValueObjects;
+using Domain.Events;
 using Domain.Recipes.Events.Created;
 using Domain.Recipes.Events.Deleted;
 using Domain.Recipes.Events.Updated;

@@ -1,4 +1,4 @@
-﻿namespace Domain.Common.Mediators.Events
+﻿namespace Domain.Events
 {
 	public interface IEventHandler<in TEvent> where TEvent : IEvent<TEvent>
 	{
