@@ -78,7 +78,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 			_systemUnderTests.Handle(_command);
-			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
+			_eventPublisherMock.Verify(x => x.Rise(), Times.Once);
 		}
 	}
 }

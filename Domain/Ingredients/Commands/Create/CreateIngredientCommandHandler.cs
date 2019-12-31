@@ -37,7 +37,7 @@ namespace Domain.Ingredients.Commands.Create
 			} 
 			_ingredientFactory.Create(
 				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares);
-			_eventPublisher.Rise(EventsQueue.IngredientCreated);
+			_eventPublisher.Rise();
 			return Result.Ok();
 		}
 	}

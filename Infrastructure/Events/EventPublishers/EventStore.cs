@@ -1,30 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Domain.Common.Mediators.Events;
 
 namespace Infrastructure.Events.EventPublishers
 {
 	public class EventStore
 	{
-		private IDictionary<string, Queue> QueueDictionary { get; }
+		private Queue<Event> EventsQueue { get; }
 
 		public EventStore()
 		{
-			QueueDictionary = new Dictionary<string, Queue>();
+			EventsQueue = new Queue<Event>();
 		}
 
-		public void AddEvent<T>(string queueName, IEvent<T> @event)
+		public void AddEvent(Event @event)
 		{
-			var queueExist = QueueDictionary.TryGetValue(queueName, out var queue);
-			if(queueExist)
-				queue.Enqueue(@event);
-			else
-			{
-				QueueDictionary.Add(queueName, new Queue());
-				QueueDictionary[queueName].Enqueue(@event);
-			}
+			EventsQueue.Enqueue(@event);
 		}
 
-		public Queue GetEvents(string queueName) => QueueDictionary[queueName];
+		public Queue<Event> GetEvents() => EventsQueue;
 	}
 }

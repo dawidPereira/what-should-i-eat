@@ -54,7 +54,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 		public void GivenCommand_WhenNotValid_ReturnFailResult()
 		{
 			 _systemUnderTests.Handle(_command);
-			 _eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
+			 _eventPublisherMock.Verify(x => x.Rise(), Times.Once);
 		}
 	}
 }

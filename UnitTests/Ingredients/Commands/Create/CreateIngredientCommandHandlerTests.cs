@@ -55,7 +55,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);
 			_systemUnderTest.Handle(_command);
-			_eventPublisherMock.Verify(x => x.Rise(It.IsAny<string>()), Times.Once);
+			_eventPublisherMock.Verify(x => x.Rise(), Times.Once);
 		}
 
 		[Test]

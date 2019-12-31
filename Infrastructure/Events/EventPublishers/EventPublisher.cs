@@ -16,12 +16,12 @@
 			EventsStore = new EventStore();
 		}
 
-		public void Publish<TEvent>(TEvent @event) where TEvent : IEvent<TEvent> 
-			=> EventsStore.AddEvent(@event.EventIdentity.QueueName, @event);
+		public void Publish(Event @event)
+			=> EventsStore.AddEvent(@event);
 
-		public void Rise(string queueName)
+		public void Rise()
 		{
-			var events = EventsStore.GetEvents(queueName);
+			var events = EventsStore.GetEvents();
 			foreach (var @event in events)
 			{
 				var handlerType = typeof(IEventHandler<>).MakeGenericType( @event.GetType());

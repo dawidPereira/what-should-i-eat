@@ -36,7 +36,7 @@ namespace Domain.Recipes.Commands.Update
 				return Result.Fail(ResultCode.NotFound, $"Recipe with Id{command.Id} does not exist;");
 
 			recipe.Update(command.Name, command.Description, command.RecipeInfo, command.RecipeIngredients);
-			_eventPublisher.Rise(EventsQueue.RecipeUpdated);
+			_eventPublisher.Rise();
 			return Result.Ok();
 		}
 	}

@@ -2,7 +2,7 @@
 {
 	public interface IEventPublisher
 	{
-		void Publish<TEvent>(TEvent @event) where TEvent : IEvent<TEvent>;
-		void Rise(string queueName);
+		void Publish(Event @event);
+		void Rise();
 	}
 }

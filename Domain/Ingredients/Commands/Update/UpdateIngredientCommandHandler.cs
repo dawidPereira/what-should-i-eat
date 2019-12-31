@@ -38,7 +38,7 @@ namespace Domain.Ingredients.Commands.Update
 					nameof(UpdateIngredientCommand.Id), command.Id.ToString()));
 
 			ingredient.Update(command.Name, command.Allergens, command.Requirements, command.Shares);
-			_eventPublisher.Rise(EventsQueue.IngredientUpdated);
+			_eventPublisher.Rise();
 			return Result.Ok();
 		}
 	}

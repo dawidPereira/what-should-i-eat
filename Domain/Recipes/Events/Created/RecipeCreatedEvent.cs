@@ -1,39 +1,14 @@
 ﻿using System;
 using Domain.Common.Mediators.Events;
+using Newtonsoft.Json;
 
 namespace Domain.Recipes.Events.Created
 {
-	public class RecipeCreatedEvent : IEvent<RecipeCreatedEvent>
+	public class RecipeCreatedEvent : Event
 	{
-		public RecipeCreatedEvent(Guid recipeId, string queueName)
+		public RecipeCreatedEvent(Guid recipeId) 
+			: base(JsonConvert.SerializeObject(recipeId), nameof(RecipeCreatedEvent))
 		{
-			EventIdentity = new EventIdentity(queueName);
-			RecipeId = recipeId;
-		}
-
-		public Guid RecipeId { get; }
-		public IEventIdentity EventIdentity { get; }
-
-		public bool Equals(RecipeCreatedEvent other)
-		{
-			if (ReferenceEquals(null, other)) return false;
-			if (ReferenceEquals(this, other)) return true;
-			return RecipeId.Equals(other.RecipeId) && Equals(EventIdentity, other.EventIdentity);
-		}
-
-		public override bool Equals(object obj)
-		{
-			if (ReferenceEquals(null, obj)) return false;
-			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((RecipeCreatedEvent) obj);
-		}
-
-		public override int GetHashCode()
-		{
-			unchecked
-			{
-				return (RecipeId.GetHashCode() * 397) ^ (EventIdentity != null ? EventIdentity.GetHashCode() : 0);
-			}
 		}
 	}
 }
