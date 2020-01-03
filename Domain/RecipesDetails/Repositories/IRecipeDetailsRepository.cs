@@ -12,7 +12,7 @@ namespace Domain.RecipesDetails.Repositories
 		
 		void AddRange(IEnumerable<RecipeDetails> recipeSearchInfos);
 
-		IDictionary<Guid, double> GetRecipeIngredientById(Guid recipeId);
+		IDictionary<Guid, double> GetRecipeIngredientByRecipeId(Guid recipeId);
 
 		IEnumerable<Guid> GetAllRecipesIds();
 		

@@ -58,7 +58,7 @@ namespace Infrastructure.Repositories
 				_cachingProvider.SetAll(searchInfosDictionary, TimeSpan.MaxValue));
 		}
 
-		public IDictionary<Guid, double> GetRecipeIngredientById(Guid recipeId) =>
+		public IDictionary<Guid, double> GetRecipeIngredientByRecipeId(Guid recipeId) =>
 			_mediator.Query(new GetRecipeIngredientsQuery(recipeId));
 
 		public IEnumerable<Guid> GetAllRecipesIds() => _mediator.Query(new GetAllRecipesIdsQuery());

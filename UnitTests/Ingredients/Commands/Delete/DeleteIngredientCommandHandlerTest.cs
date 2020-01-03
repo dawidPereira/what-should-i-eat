@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Common.Mediators.Validators;
+using Domain.Events;
 using Domain.Ingredients.Commands.Delete;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
@@ -17,6 +18,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 	internal class DeleteIngredientCommandHandlerTest
 	{
 		private Mock<IIngredientRepository> _ingredientRepositoryMock;
+		private Mock<IEventPublisher> _eventPublisherMock;
 		private Mock<IRecipeRepository> _recipeRepositoryMock;
 		private IEnumerable<ICommandValidator<DeleteIngredientCommand>> _validators;
 		private DeleteIngredientCommand _command;
@@ -27,6 +29,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 		public void SetUp()
 		{
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
+			_eventPublisherMock = new Mock<IEventPublisher>();
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);
 			_recipeRepositoryMock = new Mock<IRecipeRepository>();
@@ -38,12 +41,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 				0.3,
 				0.4,
 				_ingredientRepositoryMock.Object);
-			_validators = new List<ICommandValidator<DeleteIngredientCommand>>
-			{
-				new NotUsedIngredientValidator(_recipeRepositoryMock.Object)
-			};
 
-			_systemUnderTest = new DeleteIngredientCommandHandler(_ingredientRepositoryMock.Object, _validators);
+			_systemUnderTest = new DeleteIngredientCommandHandler(_ingredientRepositoryMock.Object, _eventPublisherMock.Object);
 		}
 
 

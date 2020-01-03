@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Domain.Common.Mediators.Commands;
-using Domain.Common.Mediators.Validators;
+﻿using Domain.Common.Mediators.Commands;
 using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
+using Domain.Events;
 using Domain.Ingredients.Repositories;
 
 namespace Domain.Ingredients.Commands.Delete
@@ -10,22 +9,22 @@ namespace Domain.Ingredients.Commands.Delete
 	public class DeleteIngredientCommandHandler : ICommandHandler<DeleteIngredientCommand>
 	{
 		private readonly IIngredientRepository _ingredientRepository;
-		private readonly IEnumerable<ICommandValidator<DeleteIngredientCommand>> _validators;
+		private readonly IEventPublisher _eventPublisher;
 
 		public DeleteIngredientCommandHandler(IIngredientRepository ingredientRepository,
-			IEnumerable<ICommandValidator<DeleteIngredientCommand>> validators)
+			IEventPublisher eventPublisher)
 		{
 			_ingredientRepository = ingredientRepository;
-			_validators = validators;
+			_eventPublisher = eventPublisher;
 		}
 
 		public Result Handle(DeleteIngredientCommand command)
 		{
-			//TODO: Add validation if ingredient is used or rise eventMessage for notify admins and hide recipes with this ingredient.
 			var ingredient = _ingredientRepository.GetById(command.Id);
 			if (ingredient == null) 
 				return Result.Fail(ResultCode.NotFound, $"Ingredient with {command.Id}, does not exist");
 			ingredient.Delete();
+			_eventPublisher.Rise();
 			return Result.Ok();
 		}
 	}

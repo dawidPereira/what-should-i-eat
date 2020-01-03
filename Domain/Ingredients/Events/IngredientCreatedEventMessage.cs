@@ -8,13 +8,13 @@ namespace Domain.Ingredients.Events
 	{
 		private new const string EventType = "IngredientCreatedEvent";
 		
-		private IngredientCreatedEventMessage(string message, string eventType) 
-			: base(message, eventType)
+		private IngredientCreatedEventMessage(string message) 
+			: base(message, EventType)
 		{
 		}
 
 		public static IngredientCreatedEventMessage Create(Guid ingredientId) => 
-			new IngredientCreatedEventMessage(BuildMessage(ingredientId),EventType);
+			new IngredientCreatedEventMessage(BuildMessage(ingredientId));
 
 		private static string BuildMessage(Guid ingredientId)
 		{
