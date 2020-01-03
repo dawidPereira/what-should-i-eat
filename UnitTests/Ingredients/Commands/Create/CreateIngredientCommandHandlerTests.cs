@@ -37,7 +37,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 			};
 			_command = CommandFactory.EmptyCreateIngredientCommand();
 			_systemUnderTest = new CreateIngredientCommandHandler(
-				_ingredientRepositoryMock.Object, _ingredientFactoryMock.Object, _eventPublisherMock.Object, _validators);
+				_ingredientFactoryMock.Object, _eventPublisherMock.Object, _validators);
 		}
 
 		[Test]

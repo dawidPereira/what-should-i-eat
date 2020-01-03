@@ -13,6 +13,7 @@ namespace Infrastructure.Mediator
 		private readonly IServiceProvider _serviceProvider;
 
 		public Mediator(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
+		
 
 		public Result Command<TCommand>(TCommand command) where TCommand : ICommand
 		{

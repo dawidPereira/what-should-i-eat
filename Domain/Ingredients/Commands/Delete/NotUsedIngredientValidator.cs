@@ -14,7 +14,7 @@ namespace Domain.Ingredients.Commands.Delete
 		public NotUsedIngredientValidator(IRecipeRepository recipeRepository) => 
 			_recipeRepository = recipeRepository;
 		
-		//TODO: Remove or change for ID list;
+		//TODO: RemoveById or change for ID list;
 		public Result Validate(DeleteIngredientCommand command)
 		{
 			var recipesWithIngredient = _recipeRepository.GetRecipesBasicInfosByIngredientId(command.Id);

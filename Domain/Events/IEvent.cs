@@ -1,16 +1,11 @@
 ﻿using System;
-using Domain.Common.ValueObjects;
 
 namespace Domain.Events
 {
-	public interface IEvent<T> : IEquatable<T>
+	public interface IEvent
 	{
-		Identity<Guid> Id { get; }
-		
+		Guid EventId { get; }
+
 		DateTime CreatedDate { get; }
-		
-		string Data { get; }
-		
-		string Name { get; }
 	}
 }

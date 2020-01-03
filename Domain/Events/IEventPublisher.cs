@@ -2,7 +2,8 @@
 {
 	public interface IEventPublisher
 	{
-		void Publish(Event @event);
+		void Publish(EventMessage eventMessage);
+		
 		void Rise();
 	}
 }

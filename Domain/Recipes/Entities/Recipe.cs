@@ -60,7 +60,7 @@ namespace Domain.Recipes.Entities
 		
 		public void Delete()
 		{
-			var @event = new RecipeDeletedEvent(Id.Value);
+			var @event = new RecipeDeletedEventMessage(Id.Value);
 			_recipeRepository.Remove(this);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);
@@ -68,7 +68,7 @@ namespace Domain.Recipes.Entities
 		
 		private void Update()
 		{
-			var @event = new RecipeUpdatedEvent(Id.Value);
+			var @event = new RecipeUpdatedEventMessage(Id.Value);
 			_recipeRepository.Update(this);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);
@@ -76,7 +76,7 @@ namespace Domain.Recipes.Entities
 
 		private void Create()
 		{
-			var @event = new RecipeCreatedEvent(Id.Value);
+			var @event = new RecipeCreatedEventMessage(Id.Value);
 			_recipeRepository.Add(this);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);

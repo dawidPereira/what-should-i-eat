@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
-using Domain.Events;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Infrastructure.DbContexts;
+using Infrastructure.Entities.Events;
 
 namespace Infrastructure.Repositories.DataAccess.Events
 {
@@ -13,6 +15,8 @@ namespace Infrastructure.Repositories.DataAccess.Events
 			_context = context;
 		}
 
-		public IEnumerable<Event> GetEventsToProcess() => _context.Events;
+		public IEnumerable<OutboxEvent> GetEventsToProcess() => _context.Events;
+
+		public OutboxEvent GetEventById(Guid eventId) => _context.Events.FirstOrDefault(x => x.Id == eventId);
 	}
 }

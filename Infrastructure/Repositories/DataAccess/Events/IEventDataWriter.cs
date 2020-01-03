@@ -1,11 +1,11 @@
-﻿using Domain.Events;
+﻿using Infrastructure.Entities.Events;
 
 namespace Infrastructure.Repositories.DataAccess.Events
 {
 	public interface IEventDataWriter
 	{
-		void Add(Event @event);
+		void Add(OutboxEvent outboxEvent);
 
-		void Remove(Event @event);
+		void Remove(OutboxEvent eventId);
 	}
 }

@@ -2,7 +2,7 @@
 using Domain.Recipes.Queries.GetById;
 using Domain.RecipesDetails.Entities;
 
-namespace Infrastructure.Mappers
+namespace Infrastructure.Mappers.Recipes
 {
 	public interface IRecipeDetailsMapper
 	{

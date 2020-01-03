@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using Domain.Events;
+﻿using System;
+using System.Collections.Generic;
+using Infrastructure.Entities.Events;
 
 namespace Infrastructure.Repositories.DataAccess.Events
 {
 	public interface IEventDataReader
 	{
-		IEnumerable<Event> GetEventsToProcess();
+		IEnumerable<OutboxEvent> GetEventsToProcess();
+
+		OutboxEvent GetEventById(Guid eventId);
 	}
 }

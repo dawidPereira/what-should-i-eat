@@ -62,7 +62,7 @@ namespace Domain.Ingredients.Entities
 
 		public void Delete()
 		{
-			var @event = new IngredientDeletedEvent(Id.Value);
+			var @event = new IngredientDeletedEventMessage(Id.Value);
 			_ingredientRepository.Remove(this);
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
@@ -81,7 +81,7 @@ namespace Domain.Ingredients.Entities
 
 		private void Update()
 		{
-			var @event = new IngredientUpdatedEvent(Id.Value);
+			var @event = new IngredientUpdatedEventMessage(Id.Value);
 			_ingredientRepository.Update(this);
 			_ingredientRepository.Commit();
 			_eventPublisher.Publish(@event);
@@ -89,10 +89,10 @@ namespace Domain.Ingredients.Entities
 
 		private void Create()
 		{
-			var @event = new IngredientCreatedEvent(Id.Value);
 			_ingredientRepository.Add(this);
-			_ingredientRepository.Commit();
+			var @event = IngredientCreatedEventMessage.Create(Id.Value);
 			_eventPublisher.Publish(@event);
+			_ingredientRepository.Commit();
 		}
 
 		private static string SetName(string name)

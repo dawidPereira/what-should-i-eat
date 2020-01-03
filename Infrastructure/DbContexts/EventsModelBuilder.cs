@@ -1,4 +1,4 @@
-﻿using Domain.Events;
+﻿using Infrastructure.Entities.Events;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DbContexts
@@ -7,7 +7,7 @@ namespace Infrastructure.DbContexts
 	{
 		public static ModelBuilder ConfigureEvents(this ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Event>()
+			modelBuilder.Entity<OutboxEvent>()
 				.HasKey(key => key.Id);
 			
 			return modelBuilder;

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Infrastructure.Mappers.Events;
+using Infrastructure.Mappers.Ingredients;
+using Infrastructure.Mappers.Recipes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Mappers
 {
@@ -8,6 +11,7 @@ namespace Infrastructure.Mappers
 		{
 			services.AddTransient<IIngredientMapper, IngredientMapper>()
 				.AddTransient<IRecipeMapper, RecipeMapper>()
+				.AddTransient<IEventMapper, EventMapper>()
 				.AddTransient<IRecipeDetailsMapper, RecipeDetailsMapper>();
 
 			return services;

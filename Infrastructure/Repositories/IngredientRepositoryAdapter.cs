@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Repositories;
-using Infrastructure.Mappers;
-using Infrastructure.Repositories.DataAccess.Events;
+using Infrastructure.Mappers.Ingredients;
 using Infrastructure.Repositories.DataAccess.Ingredients;
 
 namespace Infrastructure.Repositories
@@ -12,19 +11,16 @@ namespace Infrastructure.Repositories
 	public class IngredientRepositoryAdapter : IIngredientRepository
 	{
 		private readonly IIngredientMapper _ingredientMapper;
-		private readonly IEventDataWriter _eventDataWriter;
 		private readonly IIngredientDataReader _ingredientDataReader;
 		private readonly IIngredientDataWriter _ingredientDataWriter;
 
 		public IngredientRepositoryAdapter(IIngredientMapper ingredientMapper,
 			IIngredientDataWriter ingredientDataWriter,
-			IIngredientDataReader ingredientDataReader,
-			IEventDataWriter eventDataWriter)
+			IIngredientDataReader ingredientDataReader)
 		{
 			_ingredientMapper = ingredientMapper;
 			_ingredientDataWriter = ingredientDataWriter;
 			_ingredientDataReader = ingredientDataReader;
-			_eventDataWriter = eventDataWriter;
 		}
 
 		public void Commit() => _ingredientDataWriter.Commit();

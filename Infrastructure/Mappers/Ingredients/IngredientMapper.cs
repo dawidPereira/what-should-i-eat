@@ -7,7 +7,7 @@ using Domain.Ingredients.Repositories;
 using Infrastructure.Entities.Ingredient;
 using Ingredient = Infrastructure.Entities.Ingredients.Ingredient;
 
-namespace Infrastructure.Mappers
+namespace Infrastructure.Mappers.Ingredients
 {
 	public class IngredientMapper : IIngredientMapper
 	{

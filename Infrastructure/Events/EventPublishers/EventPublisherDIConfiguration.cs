@@ -1,5 +1,5 @@
 ﻿using Domain.Events;
-using Domain.Recipes.Events.Created;
+using Domain.RecipesDetails.Events.Ingredients;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Events.EventPublishers
@@ -8,11 +8,11 @@ namespace Infrastructure.Events.EventPublishers
 	{
 		public static IServiceCollection AddEvents(this IServiceCollection services)
 		{
-			services.AddSingleton<IEventPublisher, EventPublisher>();
+			services.AddScoped<IEventPublisher, EventPublisher>();
 
 			services.Scan(scan =>
 				scan
-					.FromAssemblyOf<RecipeCreatedEvent>()
+					.FromAssemblyOf<IngredientCreatedEvent>()
 					.AddClasses(classes => classes.AssignableTo(typeof(IEventHandler<>)))
 					.AsImplementedInterfaces()
 					.WithTransientLifetime());

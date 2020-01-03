@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Events.Repositories
 {
 	public interface IEventRepository
 	{
-		void AddEvent(Event @event);
-		
-		IEnumerable<Event> GetEventsToProcess();
+		void Add(EventMessage eventMessage);
 
-		void RemoveEvent(Event @event);
+		void RemoveById(Guid eventId);
+		
+		IEnumerable<IEvent> GetEventsToProcess();
 	}
 }

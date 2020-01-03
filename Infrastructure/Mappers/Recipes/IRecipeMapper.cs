@@ -1,7 +1,7 @@
 ﻿using Domain.Recipes.Entities;
 using Domain.Recipes.Repositories;
 
-namespace Infrastructure.Mappers
+namespace Infrastructure.Mappers.Recipes
 {
 	public interface IRecipeMapper
 	{

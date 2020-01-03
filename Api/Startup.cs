@@ -1,7 +1,6 @@
 using Api.Validators;
 using Domain.Common.Mediators;
 using Domain.Common.Mediators.Validators;
-using Domain.RecipesDetails.Commands;
 using EasyCaching.Core.Configurations;
 using Hangfire;
 using Infrastructure.Common.Configuration;
@@ -78,7 +77,7 @@ namespace Api
 			}
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
-			mediator.Command(new BuildAllRecipesDetailsCommand());
+			//mediator.Command(new BuildAllRecipesDetailsCommand());
 		}
 	}
 }

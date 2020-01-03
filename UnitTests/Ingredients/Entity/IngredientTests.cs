@@ -32,10 +32,6 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		}
 
 		[Test]
-		public void Ingredient_WhenCreated_ShouldPublishIngredientCreatedEvent() => 
-			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<IngredientCreatedEvent>()), Times.Once);
-
-		[Test]
 		public void GivenEmptyName_DuringIngredientCreating_ShouldThrowArgumentNullException()
 		{
 			Action action = () => FakeIngredientFactory.CreateValidIngredient(null, _ingredientRepositoryMock.Object);
@@ -47,7 +43,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		{
 			_systemUnderTest.Update(
 				IngredientName, Allergen.Gluten, Requirement.None, _systemUnderTest.MacroNutrientsSharesCollection);
-			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<IngredientUpdatedEvent>()), Times.Once);
+			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<IngredientUpdatedEventMessage>()), Times.Once);
 		}
 
 		[Test]

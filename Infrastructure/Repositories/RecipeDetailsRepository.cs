@@ -12,7 +12,7 @@ using EasyCaching.Core;
 using Hangfire;
 using Infrastructure.Common.Constants;
 using Infrastructure.Common.Extensions;
-using Infrastructure.Mappers;
+using Infrastructure.Mappers.Recipes;
 using Infrastructure.Repositories.DataAccess.Events;
 
 namespace Infrastructure.Repositories

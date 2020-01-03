@@ -44,20 +44,20 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_recipeIngredientsFactory.CreateValidRecipeIngredientList());
 			
-			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeUpdatedEvent>()), Times.Once);
+			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeUpdatedEventMessage>()), Times.Once);
 		}
 
 		[Test]
 		public void DeleteRecipe_WhenNoErrors_ShouldPublishRecipeDeletedEvent()
 		{
 			_systemUnderTest.Delete();
-			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeDeletedEvent>()), Times.Once);
+			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeDeletedEventMessage>()), Times.Once);
 		}
 
 		[Test]
 		public void CreateRecipe_WhenValid_ShouldPublishRecipeCreatedEvent()
 		{
-			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeCreatedEvent>()), Times.Once);
+			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeCreatedEventMessage>()), Times.Once);
 		}
 
 		[Test]

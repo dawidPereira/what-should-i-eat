@@ -1,5 +1,5 @@
-﻿using Domain.Events;
-using Infrastructure.DbContexts;
+﻿using Infrastructure.DbContexts;
+using Infrastructure.Entities.Events;
 
 namespace Infrastructure.Repositories.DataAccess.Events
 {
@@ -12,8 +12,12 @@ namespace Infrastructure.Repositories.DataAccess.Events
 			_context = context;
 		}
 
-		public void Add(Event @event) => _context.Events.Add(@event);
+		public void Add(OutboxEvent outboxEvent) => _context.Events.Add(outboxEvent);
 
-		public void Remove(Event @event) => _context.Remove(@event);
+		public void Remove(OutboxEvent outboxEvent)
+		{
+			_context.Remove(outboxEvent);
+			_context.SaveChanges();
+		}
 	}
 }
