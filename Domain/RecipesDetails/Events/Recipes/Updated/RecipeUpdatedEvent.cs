@@ -2,11 +2,11 @@
 using Domain.Events;
 using Newtonsoft.Json.Linq;
 
-namespace Domain.RecipesDetails.Events.Recipes.Created
+namespace Domain.RecipesDetails.Events.Recipes.Updated
 {
-	public class RecipeCreatedEvent : IEvent
+	public class RecipeUpdatedEvent : IEvent
 	{
-		private RecipeCreatedEvent(Guid eventId, DateTime createdDate, Guid recipeId)
+		private RecipeUpdatedEvent(Guid eventId, DateTime createdDate, Guid recipeId)
 		{
 			EventId = eventId;
 			CreatedDate = createdDate;
@@ -17,11 +17,11 @@ namespace Domain.RecipesDetails.Events.Recipes.Created
 		public DateTime CreatedDate { get; }
 		public Guid RecipeId { get; }
 		
-		public static RecipeCreatedEvent CreateFromMessage(Guid eventId, DateTime createdDate, string message)
+		public static RecipeUpdatedEvent CreateFromMessage(Guid eventId, DateTime createdDate, string message)
 		{
 			var jsonMessage = JObject.Parse(message);
 			var recipeId = (Guid)jsonMessage.SelectToken("recipeId");
-			return new  RecipeCreatedEvent(eventId, createdDate, recipeId);
+			return new  RecipeUpdatedEvent(eventId, createdDate, recipeId);
 		}
 	}
 }
