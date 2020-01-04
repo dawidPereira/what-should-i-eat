@@ -14,17 +14,17 @@ namespace Infrastructure.DbContexts.Seeders
 
 			var macroNutrientShares = new List<MacroNutrientShares>
 			{
-				new MacroNutrientShares(temporaryIngredientId, 1, 0.2),
-				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
-				new MacroNutrientShares(temporaryIngredientId, 4, 0.6)
+				new MacroNutrientShares(temporaryIngredientId, "Carbohydrate", 0.2),
+				new MacroNutrientShares(temporaryIngredientId, "Fat", 0.1),
+				new MacroNutrientShares(temporaryIngredientId, "Protein", 0.6)
 			};
 			modelBuilder.Entity<Ingredient>(property =>
 			{
 				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Chicken",
-					0,
-					4,
+					"None",
+					"ForVegan",
 					new List<MacroNutrientShares>()));
 			});
 
@@ -33,9 +33,9 @@ namespace Infrastructure.DbContexts.Seeders
 			temporaryIngredientId = new Guid(SeedConst.Rice);
 			macroNutrientShares = new List<MacroNutrientShares>
 			{
-				new MacroNutrientShares(temporaryIngredientId, 1, 0.8),
-				new MacroNutrientShares(temporaryIngredientId, 2, 0.0),
-				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
+				new MacroNutrientShares(temporaryIngredientId, "Carbohydrate", 0.8),
+				new MacroNutrientShares(temporaryIngredientId, "Fat", 0.0),
+				new MacroNutrientShares(temporaryIngredientId, "Protein", 0.2)
 			};
 			
 			modelBuilder.Entity<Ingredient>(property =>
@@ -43,8 +43,8 @@ namespace Infrastructure.DbContexts.Seeders
 				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Rice",
-					0,
-					7,
+					"None",
+					"ForVegan",
 					new List<MacroNutrientShares>()));
 			});
 			
@@ -53,9 +53,9 @@ namespace Infrastructure.DbContexts.Seeders
 			temporaryIngredientId = new Guid(SeedConst.Oatmeal);
 			macroNutrientShares = new List<MacroNutrientShares>
 			{
-				new MacroNutrientShares(temporaryIngredientId, 1, 0.7),
-				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
-				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
+				new MacroNutrientShares(temporaryIngredientId, "Carbohydrate", 0.7),
+				new MacroNutrientShares(temporaryIngredientId, "Fat", 0.1),
+				new MacroNutrientShares(temporaryIngredientId, "Protein", 0.2)
 			};
 			
 			modelBuilder.Entity<Ingredient>(property =>
@@ -63,8 +63,8 @@ namespace Infrastructure.DbContexts.Seeders
 				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Oatmeal",
-					1,
-					7,
+					"Gluten",
+					"ForVegan",
 					new List<MacroNutrientShares>()));
 			});
 			
@@ -73,9 +73,9 @@ namespace Infrastructure.DbContexts.Seeders
 			temporaryIngredientId = new Guid(SeedConst.Milk);
 			macroNutrientShares = new List<MacroNutrientShares>
 			{
-				new MacroNutrientShares(temporaryIngredientId, 1, 0.2),
-				new MacroNutrientShares(temporaryIngredientId, 2, 0.1),
-				new MacroNutrientShares(temporaryIngredientId, 4, 0.2)
+				new MacroNutrientShares(temporaryIngredientId, "Carbohydrate", 0.2),
+				new MacroNutrientShares(temporaryIngredientId, "Fat", 0.1),
+				new MacroNutrientShares(temporaryIngredientId, "Protein", 0.2)
 			};
 			
 			modelBuilder.Entity<Ingredient>(property =>
@@ -83,8 +83,8 @@ namespace Infrastructure.DbContexts.Seeders
 				property.HasData(new Ingredient(
 					temporaryIngredientId,
 					"Milk",
-					1,
-					7,
+					"Gluten",
+					"ForVegan",
 					new List<MacroNutrientShares>()));
 			});
 			

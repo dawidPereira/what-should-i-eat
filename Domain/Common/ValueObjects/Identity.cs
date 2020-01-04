@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Common.ValueObjects
 {
+	[Serializable]
 	public struct Identity<T> : IValueObject<Identity<T>>
 	{
 		public Identity(T value)

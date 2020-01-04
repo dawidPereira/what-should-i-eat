@@ -11,22 +11,21 @@
 		private readonly IServiceProvider _serviceProvider;
 		private readonly IEventRepository _eventRepository;
 		
-		private EventQueue EventsQueue { get; }
-
 		public EventPublisher(IServiceProvider serviceProvider, IEventRepository eventRepository)
 		{
 			_serviceProvider = serviceProvider;
 			_eventRepository = eventRepository;
-			EventsQueue = new EventQueue(eventRepository);
+			
 		}
 
 		public void Publish(EventMessage eventMessage) => _eventRepository.Add(eventMessage);
 
 		public void Rise()
 		{
-			while (EventsQueue.Count() > 0)
+			var eventQueue = new EventQueue(_eventRepository);
+			while (eventQueue.Count() > 0)
 			{
-				var @event = EventsQueue.Dequeue();
+				var @event = eventQueue.Dequeue();
 				HandleEvents(@event);
 				_eventRepository.RemoveById(@event.EventId);
 			}
@@ -44,12 +43,11 @@
 			handlers.ForEach(x => Handle(@event, x));
 		}
 
-		private static void Handle(object @event, object eventHandler)
+		private void Handle(object @event, object eventHandler)
 		{
 			var handlerType = eventHandler.GetType();
 			var methodInfo = handlerType.GetMethod("Handle");
-			var handler = Activator.CreateInstance(handlerType);
-			methodInfo?.Invoke(handler, new[] { @event });
+			methodInfo?.Invoke(eventHandler, new[] { @event });
 		}
 	}
 }

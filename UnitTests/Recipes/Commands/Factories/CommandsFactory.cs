@@ -19,7 +19,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands.Factories
 				name,
 				description, 
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
-				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
+				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientDictionary());
 		}
 	}
 }

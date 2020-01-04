@@ -45,7 +45,7 @@ namespace Infrastructure.Repositories
 			if (_cachingProvider.Exists(key))
 				_cachingProvider.Remove(key);
 			
-			_cachingProvider.Set(key, recipeDetails, TimeSpan.MaxValue);
+			_cachingProvider.Set(key, recipeDetails, TimeSpan.FromDays(30));
 		}
 
 		public void CreateNewOrReplaceExistingRange(IEnumerable<RecipeDetails> recipeDetails) => 

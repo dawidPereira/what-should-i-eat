@@ -4,6 +4,7 @@ using Domain.Common.ValueObjects;
 
 namespace Domain.RecipesDetails.Entities
 {
+	[Serializable]
 	public struct RecipeDetails : IValueObject<RecipeDetails>
 	{
 		private RecipeDetails(Identity<Guid> id,

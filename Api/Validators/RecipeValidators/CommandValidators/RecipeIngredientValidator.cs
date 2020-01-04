@@ -1,9 +1,10 @@
-﻿using Domain.Recipes.Entities;
+﻿using Domain.Recipes.Dtos;
+using Domain.Recipes.Entities;
 using FluentValidation;
 
 namespace Api.Validators.RecipeValidators.CommandValidators
 {
-	public class RecipeIngredientValidator : AbstractValidator<RecipeIngredient>
+	public class RecipeIngredientValidator : AbstractValidator<RecipeIngredientDto>
 	{
 		public RecipeIngredientValidator()
 		{

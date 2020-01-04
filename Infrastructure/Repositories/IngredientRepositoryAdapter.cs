@@ -42,7 +42,8 @@ namespace Infrastructure.Repositories
 				_ingredientDataReader.GetById(id), 
 				this);
 
-		public ICollection<Ingredient> GetByIds(ICollection<Guid> ids) => _ingredientDataReader.GetByIds(ids)
+		public ICollection<Ingredient> GetByIds(ICollection<Guid> ids) =>
+			_ingredientDataReader.GetByIds(ids)
 				.Select(x => _ingredientMapper.ToDomainIngredient(x, this))
 				.ToList();
 	}

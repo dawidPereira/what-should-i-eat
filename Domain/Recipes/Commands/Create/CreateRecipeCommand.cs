@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.Common.Mediators.Commands;
+using Domain.Recipes.Dtos;
 using Domain.Recipes.Entities;
 
 namespace Domain.Recipes.Commands.Create
 {
 	public class CreateRecipeCommand : ICommand
 	{
-		public CreateRecipeCommand(Guid id, string name, string description, RecipeInfo recipeInfo, ICollection<RecipeIngredient> recipeIngredients)
+		public CreateRecipeCommand(Guid id, string name, string description, RecipeInfo recipeInfo, IEnumerable<RecipeIngredientDto> recipeIngredients)
 		{
 			Id = id;
 			Name = name;
@@ -16,10 +17,10 @@ namespace Domain.Recipes.Commands.Create
 			RecipeIngredients = recipeIngredients;
 		}
 		
-		public Guid Id { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-		public RecipeInfo RecipeInfo { get; set; }
-		public ICollection<RecipeIngredient> RecipeIngredients { get; set; }
+		public Guid Id { get; private set;}
+		public string Name { get; private set;}
+		public string Description { get; private set;}
+		public RecipeInfo RecipeInfo { get; private set;}
+		public IEnumerable<RecipeIngredientDto> RecipeIngredients { get; private set;}
 	}
 }

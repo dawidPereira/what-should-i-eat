@@ -19,13 +19,14 @@ namespace Infrastructure.Repositories.DataAccess.Ingredients
 		public bool ExistByName(string name) => _context.Ingredients.Any(x => x.Name == name);
 
 		public bool ExistById(Guid id) => _context.Ingredients.Any(x => x.Id == id);
-		
+
 		public Ingredient GetById(Guid id) => _context.Ingredients
 			.Include(x => x.MacroNutrientsShares)
 			.FirstOrDefault(x => x.Id == id);
 
-		public IEnumerable<Ingredient> GetByIds(ICollection<Guid> ids) => _context.Ingredients
-			.Include(x => x.MacroNutrientsShares)
-			.Where(x => ids.Contains(x.Id));
+		public IEnumerable<Ingredient> GetByIds(ICollection<Guid> ids) =>
+			_context.Ingredients
+				.Include(x => x.MacroNutrientsShares)
+				.Where(x => ids.Any(id => x.Id == id));
 	}
 }

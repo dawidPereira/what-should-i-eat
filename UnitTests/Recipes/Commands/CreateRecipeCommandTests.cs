@@ -6,7 +6,6 @@ using Domain.Events;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Commands.Create;
 using Domain.Recipes.Factories;
-using Domain.Recipes.Repositories;
 using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.AdministrationService.Tests.Recipes.Commands.Factories;
@@ -16,7 +15,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 	[TestFixture]
 	public class CreateRecipeCommandTests
 	{
-		private Mock<IRecipeRepository> _recipeRepositoryMock;
+		private Mock<IRecipeIngredientFactory> _recipeIngredientFactoryMock;
 		private Mock<IEventPublisher> _eventPublisherMock;
 		private Mock<IIngredientRepository> _ingredientRepository;
 		private Mock<IRecipeFactory> _recipeFactoryMock;
@@ -28,8 +27,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 		[SetUp]
 		public void SetUp()
 		{
-			_recipeRepositoryMock = new Mock<IRecipeRepository>();
 			_ingredientRepository = new Mock<IIngredientRepository>();
+			_recipeFactoryMock = new Mock<IRecipeFactory>();
 			_eventPublisherMock = new Mock<IEventPublisher>();
 			_recipeFactoryMock = new Mock<IRecipeFactory>();
 			var commandValidator = new Mock<ICommandValidator<CreateRecipeCommand>>();
@@ -44,10 +43,10 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 			_commandsFactory = new CommandsFactory(_ingredientRepository.Object);
 			_command = _commandsFactory.CreateRecipeCommand("name", "description");
 			_systemUnderTests = new CreateRecipeCommandHandler(
-				_recipeRepositoryMock.Object, 
 				_commandValidators,
 				_eventPublisherMock.Object,
-				_recipeFactoryMock.Object);
+				_recipeFactoryMock.Object,
+				_recipeIngredientFactoryMock.Object);
 		}
 
 		[Test]

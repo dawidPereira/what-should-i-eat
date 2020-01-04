@@ -15,7 +15,6 @@ namespace Domain.RecipesDetails.Events.Recipes.Created
 			_recipeDetailsRepository = recipeDetailsRepository;
 		}
 
-
 		public void Handle(RecipeCreatedEvent @event)
 		{
 			var recipeDetails = _recipeDetailsFactory.Create(@event.RecipeId);

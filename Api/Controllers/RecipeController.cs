@@ -2,6 +2,7 @@
 using Api.Validators.RecipeValidators;
 using Domain.Common.Mediators;
 using Domain.Common.Messages;
+using Domain.Events;
 using Domain.Recipes.Commands.Create;
 using Domain.Recipes.Commands.Delete;
 using Domain.Recipes.Commands.Update;
@@ -14,12 +15,14 @@ namespace Api.Controllers
 	public class RecipeController : ControllerBase
 	{
 		private readonly IMediator _mediator;
+		private readonly IEventPublisher _eventPublisher;
 		private readonly IRecipeValidatorsFacade _validators;
 
-		public RecipeController(IMediator mediator, IRecipeValidatorsFacade validators)
+		public RecipeController(IMediator mediator, IRecipeValidatorsFacade validators, IEventPublisher eventPublisher)
 		{
 			_mediator = mediator;
 			_validators = validators;
+			_eventPublisher = eventPublisher;
 		}
 
 		/// <summary>
@@ -79,6 +82,7 @@ namespace Api.Controllers
 		[HttpPost]
 		public IActionResult CreateRecipe([FromBody] CreateRecipeCommand command)
 		{
+			_eventPublisher.Rise();
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);

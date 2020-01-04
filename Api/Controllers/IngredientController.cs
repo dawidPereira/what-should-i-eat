@@ -67,7 +67,6 @@ namespace Api.Controllers
 		[HttpPost]
 		public IActionResult CreateIngredient([FromBody] CreateIngredientCommand command)
 		{
-			_eventPublisher.Rise();
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);

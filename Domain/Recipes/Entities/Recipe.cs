@@ -62,24 +62,24 @@ namespace Domain.Recipes.Entities
 		{
 			var @event = new RecipeDeletedEventMessage(Id.Value);
 			_recipeRepository.Remove(this);
-			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);
+			_recipeRepository.Commit();
 		}
 		
 		private void Update()
 		{
 			var @event = new RecipeUpdatedEventMessage(Id.Value);
 			_recipeRepository.Update(this);
-			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);
+			_recipeRepository.Commit();
 		}
 
 		private void Create()
 		{
 			var @event = RecipeCreatedEventMessage.Create(Id.Value);
 			_recipeRepository.Add(this);
-			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);
+			_recipeRepository.Commit();
 		}
 		
 		private static string SetName(string name)

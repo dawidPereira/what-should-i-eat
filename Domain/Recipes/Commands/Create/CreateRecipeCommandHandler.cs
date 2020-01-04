@@ -1,29 +1,30 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Events;
 using Domain.Recipes.Factories;
-using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Commands.Create
 {
 	public class CreateRecipeCommandHandler : ICommandHandler<CreateRecipeCommand>
 	{
 		private readonly IEventPublisher _eventPublisher;
-		private readonly IRecipeRepository _recipeRepository;
 		private readonly IRecipeFactory _recipeFactory;
+		private readonly IRecipeIngredientFactory _recipeIngredientFactory;
 		private readonly IEnumerable<ICommandValidator<CreateRecipeCommand>> _validators;
 
-		public CreateRecipeCommandHandler(IRecipeRepository recipeRepository,
+		public CreateRecipeCommandHandler(
 			IEnumerable<ICommandValidator<CreateRecipeCommand>> validators,
 			IEventPublisher eventPublisher, 
-			IRecipeFactory recipeFactory)
+			IRecipeFactory recipeFactory, 
+			IRecipeIngredientFactory recipeIngredientFactory)
 		{
-			_recipeRepository = recipeRepository;
 			_validators = validators;
 			_eventPublisher = eventPublisher;
 			_recipeFactory = recipeFactory;
+			_recipeIngredientFactory = recipeIngredientFactory;
 		}
 
 		public Result Handle(CreateRecipeCommand command)
@@ -35,11 +36,14 @@ namespace Domain.Recipes.Commands.Create
 					return validationResult;
 			}
 
+			var recipeIngredients = command.RecipeIngredients.Select(x =>
+				_recipeIngredientFactory.Create(x.IngredientId, x.Grams));
+
 			_recipeFactory.Create(command.Id,
 				command.Name,
 				command.Description,
 				command.RecipeInfo,
-				command.RecipeIngredients);
+				recipeIngredients);
 
 			_eventPublisher.Rise();
 			return Result.Ok();

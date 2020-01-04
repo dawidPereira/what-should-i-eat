@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
 using Domain.Events;
+using Domain.Recipes.Factories;
 using Domain.Recipes.Repositories;
 
 namespace Domain.Recipes.Commands.Update
@@ -12,15 +14,17 @@ namespace Domain.Recipes.Commands.Update
 	{
 		private readonly IEventPublisher _eventPublisher;
 		private readonly IRecipeRepository _recipeRepository;
+		private readonly IRecipeIngredientFactory _recipeIngredientFactory;
 		private readonly IEnumerable<ICommandValidator<UpdateRecipeCommand>> _validators;
 
 		public UpdateRecipeCommandHandler(IRecipeRepository recipeRepository,
 			IEnumerable<ICommandValidator<UpdateRecipeCommand>> validators,
-			IEventPublisher eventPublisher)
+			IEventPublisher eventPublisher, IRecipeIngredientFactory recipeIngredientFactory)
 		{
 			_recipeRepository = recipeRepository;
 			_validators = validators;
 			_eventPublisher = eventPublisher;
+			_recipeIngredientFactory = recipeIngredientFactory;
 		}
 
 		public Result Handle(UpdateRecipeCommand command)
@@ -34,8 +38,11 @@ namespace Domain.Recipes.Commands.Update
 			var recipe = _recipeRepository.GetById(command.Id);
 			if(recipe == null)
 				return Result.Fail(ResultCode.NotFound, $"Recipe with Id{command.Id} does not exist;");
-
-			recipe.Update(command.Name, command.Description, command.RecipeInfo, command.RecipeIngredients);
+			
+			var recipeIngredients = command.RecipeIngredients.Select(x =>
+				_recipeIngredientFactory.Create(x.IngredientId, x.Grams));
+			
+			recipe.Update(command.Name, command.Description, command.RecipeInfo, recipeIngredients);
 			_eventPublisher.Rise();
 			return Result.Ok();
 		}

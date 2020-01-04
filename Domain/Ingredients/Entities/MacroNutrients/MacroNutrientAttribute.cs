@@ -10,7 +10,7 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 		private void SetCalorie(double calorie)
 		{
 			if (calorie <= 0  || calorie > 10)
-				throw new ArgumentException("Calorie must be bigger than zero and lower than ten.");
+				throw new ArgumentException("Calorie must be in range 1 - 9.");
 			Calorie = calorie;
 		}
 	}

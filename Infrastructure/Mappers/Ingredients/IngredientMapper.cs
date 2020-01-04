@@ -4,6 +4,7 @@ using Domain.Events;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Repositories;
+using Infrastructure.Common.Extensions;
 using Infrastructure.Entities.Ingredient;
 using Ingredient = Infrastructure.Entities.Ingredients.Ingredient;
 
@@ -23,12 +24,15 @@ namespace Infrastructure.Mappers.Ingredients
 			var ingredientFactory = new Domain.Ingredients.Entities.Ingredient.IngredientFactory(ingredientRepository, _eventPublisher);
 			return ingredientFactory.GetIngredient(ingredient.Id,
 				ingredient.Name,
-				(Allergen) ingredient.Allergens,
-				(Requirement) ingredient.Requirements,
+				ingredient.Allergens.ToEnum<Allergen>(),
+				ingredient.Requirements.ToEnum<Requirement>(),
 				GetMacroNutrientShares(ingredient.MacroNutrientsShares));
 		}
 
-		private IEnumerable<MacroNutrientShare> GetMacroNutrientShares(IEnumerable<MacroNutrientShares> macroNutrientShares) 
-			=> macroNutrientShares.Select(x => new MacroNutrientShare((MacroNutrient) x.MacroNutrient, x.Share)).ToList();
+		private IEnumerable<MacroNutrientShare> GetMacroNutrientShares(IEnumerable<MacroNutrientShares> macroNutrientShares)
+		{
+			return macroNutrientShares.Select(x => new MacroNutrientShare(x.MacroNutrient.ToEnum<MacroNutrient>(), x.Share))
+				.ToList();
+		}
 	}
 }
