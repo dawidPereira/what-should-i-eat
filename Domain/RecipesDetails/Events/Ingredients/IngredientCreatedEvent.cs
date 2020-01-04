@@ -13,7 +13,7 @@ namespace Domain.RecipesDetails.Events.Ingredients
 			IngredientId = ingredientId;
 		}
 		public Guid EventId { get; }
-		public DateTime CreatedDate { get; }
+		public DateTime CreatedDate { get; } 
 		public Guid IngredientId { get; }
 
 		public static IngredientCreatedEvent CreateFromMessage(Guid eventId, DateTime createdDate, string message)

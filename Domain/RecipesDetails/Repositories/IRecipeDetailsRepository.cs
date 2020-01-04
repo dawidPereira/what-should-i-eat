@@ -4,18 +4,22 @@ using Domain.RecipesDetails.Entities;
 
 namespace Domain.RecipesDetails.Repositories
 {
-	public interface IRecipeDetailsRepository
+	public interface  IRecipeDetailsRepository
 	{
-		void Add(RecipeDetails recipeDetails);
+		void CreateNewOrUpdateExisting(RecipeDetails recipeDetails);
+
+		void CreateNewOrUpdateExistingRange(IEnumerable<RecipeDetails> recipeDetails);
 		
 		void Remove(string key);
-		
-		void AddRange(IEnumerable<RecipeDetails> recipeSearchInfos);
+
+		void RemoveRange(IEnumerable<RecipeDetails> recipeDetails);
 
 		IDictionary<Guid, double> GetRecipeIngredientByRecipeId(Guid recipeId);
 
 		IEnumerable<Guid> GetAllRecipesIds();
-		
+
+		IEnumerable<Guid> GetRecipeIdsByIngredientId(Guid ingredientId);
+
 		Recipe GetRecipeById(Guid id);
 
 		AggregatedIngredientsDetails GetAggregatedIngredientsDetailsByIds(IDictionary<Guid, double> ingredientsGrams);

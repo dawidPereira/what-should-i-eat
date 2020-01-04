@@ -2,7 +2,7 @@
 
 namespace Domain.Recipes.Entities
 {
-	//TODO: Add Validation
+	//TODO: CreateNewOrUpdateExisting Validation
 	public class RecipeInfo : IValueObject<RecipeInfo>
 	{
 		public RecipeInfo(int difficultyLevel,
