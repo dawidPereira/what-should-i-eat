@@ -10,7 +10,7 @@ namespace Domain.RecipesDetails.Repositories
 
 		void CreateNewOrReplaceExistingRange(IEnumerable<RecipeDetails> recipeDetails);
 		
-		void Remove(string key);
+		void RemoveById(Guid recipeDetailsId);
 
 		void RemoveRange(IEnumerable<RecipeDetails> recipeDetails);
 

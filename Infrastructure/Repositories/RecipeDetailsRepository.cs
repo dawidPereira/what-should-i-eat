@@ -31,7 +31,11 @@ namespace Infrastructure.Repositories
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(RedisConstants.Name);
 		}
 
-		public void Remove(string key) => _cachingProvider.Remove(key);
+		public void RemoveById(Guid recipeDetailsId)
+		{
+			var key = recipeDetailsId.ToDictionaryKey(nameof(RecipeDetails));
+			_cachingProvider.Remove(key);
+		}
 
 		public void CreateNewOrReplaceExisting(RecipeDetails recipeDetails)
 		{
