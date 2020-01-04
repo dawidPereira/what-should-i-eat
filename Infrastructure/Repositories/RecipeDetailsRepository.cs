@@ -33,7 +33,7 @@ namespace Infrastructure.Repositories
 
 		public void Remove(string key) => _cachingProvider.Remove(key);
 
-		public void CreateNewOrUpdateExisting(RecipeDetails recipeDetails)
+		public void CreateNewOrReplaceExisting(RecipeDetails recipeDetails)
 		{
 			var key = recipeDetails.Id.Value
 				.ToDictionaryKey(nameof(RecipeDetails));
@@ -44,8 +44,8 @@ namespace Infrastructure.Repositories
 			_cachingProvider.Set(key, recipeDetails, TimeSpan.MaxValue);
 		}
 
-		public void CreateNewOrUpdateExistingRange(IEnumerable<RecipeDetails> recipeDetails) => 
-			recipeDetails.ForEach(CreateNewOrUpdateExisting);
+		public void CreateNewOrReplaceExistingRange(IEnumerable<RecipeDetails> recipeDetails) => 
+			recipeDetails.ForEach(CreateNewOrReplaceExisting);
 
 		public void RemoveRange(IEnumerable<RecipeDetails> recipeDetails)
 		{

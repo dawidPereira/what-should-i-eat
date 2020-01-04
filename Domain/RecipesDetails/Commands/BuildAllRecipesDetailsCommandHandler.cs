@@ -28,7 +28,7 @@ namespace Domain.RecipesDetails.Commands
 		{
 			var recipesIds = _recipeDetailsRepository.GetAllRecipesIds();
 			var recipeDetailsCollection = recipesIds.Select(_recipeDetailsFactory.Create);
-			_recipeDetailsRepository.CreateNewOrUpdateExistingRange(recipeDetailsCollection);
+			_recipeDetailsRepository.CreateNewOrReplaceExistingRange(recipeDetailsCollection);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using Domain.Events;
-using Domain.RecipesDetails.Events.Ingredients;
+using Domain.RecipesDetails.Events.Ingredients.Updated;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Events.EventPublishers
@@ -12,7 +12,7 @@ namespace Infrastructure.Events.EventPublishers
 
 			services.Scan(scan =>
 				scan
-					.FromAssemblyOf<IngredientCreatedEvent>()
+					.FromAssemblyOf<IngredientUpdatedEvent>()
 					.AddClasses(classes => classes.AssignableTo(typeof(IEventHandler<>)))
 					.AsImplementedInterfaces()
 					.WithTransientLifetime());

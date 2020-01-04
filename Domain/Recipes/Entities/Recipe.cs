@@ -76,7 +76,7 @@ namespace Domain.Recipes.Entities
 
 		private void Create()
 		{
-			var @event = new RecipeCreatedEventMessage(Id.Value);
+			var @event = RecipeCreatedEventMessage.Create(Id.Value);
 			_recipeRepository.Add(this);
 			_recipeRepository.Commit();
 			_eventPublisher.Publish(@event);

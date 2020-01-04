@@ -20,7 +20,7 @@ namespace Domain.RecipesDetails.Events.Ingredients.Updated
 		{
 			var recipesIds = _recipeDetailsRepository.GetRecipeIdsByIngredientId(@event.IngredientId);
 			var recipeDetailsCollection = recipesIds.Select(_recipeDetailsFactory.Create);
-			_recipeDetailsRepository.CreateNewOrUpdateExistingRange(recipeDetailsCollection);
+			_recipeDetailsRepository.CreateNewOrReplaceExistingRange(recipeDetailsCollection);
 		}
 	}
 }

@@ -6,9 +6,9 @@ namespace Domain.RecipesDetails.Repositories
 {
 	public interface  IRecipeDetailsRepository
 	{
-		void CreateNewOrUpdateExisting(RecipeDetails recipeDetails);
+		void CreateNewOrReplaceExisting(RecipeDetails recipeDetails);
 
-		void CreateNewOrUpdateExistingRange(IEnumerable<RecipeDetails> recipeDetails);
+		void CreateNewOrReplaceExistingRange(IEnumerable<RecipeDetails> recipeDetails);
 		
 		void Remove(string key);
 
