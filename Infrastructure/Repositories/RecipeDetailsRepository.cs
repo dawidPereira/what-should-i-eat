@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Common.Extensions;
+using Domain.Common.Filters;
 using Domain.Common.Mediators;
 using Domain.Ingredients.Queries.GetDetailsFormIngredients;
 using Domain.Recipes.Queries.GetAllRecipeIds;
 using Domain.Recipes.Queries.GetById;
 using Domain.Recipes.Queries.GetRecipeIngredients;
 using Domain.RecipesDetails.Entities;
+using Domain.RecipesDetails.Filters.FiltersCriteria;
 using Domain.RecipesDetails.Repositories;
 using EasyCaching.Core;
 using Infrastructure.Common.Constants;
@@ -21,13 +23,15 @@ namespace Infrastructure.Repositories
 		private readonly IEasyCachingProvider _cachingProvider;
 		private readonly IRecipeDetailsMapper _recipeDetailsMapper;
 		private readonly IMediator _mediator;
+		private readonly IFilterFactory<RecipeDetails, RecipeSearchFilterCriteria> _filterFactory;
 		
 		public RecipeDetailsRepository(IEasyCachingProviderFactory cachingProviderFactory, 
 			IMediator mediator, 
-			IRecipeDetailsMapper recipeDetailsMapper)
+			IRecipeDetailsMapper recipeDetailsMapper, IFilterFactory<RecipeDetails, RecipeSearchFilterCriteria> filterFactory)
 		{
 			_mediator = mediator;
 			_recipeDetailsMapper = recipeDetailsMapper;
+			_filterFactory = filterFactory;
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(RedisConstants.Name);
 		}
 
@@ -63,8 +67,10 @@ namespace Infrastructure.Repositories
 			_mediator.Query(new GetRecipeIngredientsQuery(recipeId));
 
 		public IEnumerable<Guid> GetAllRecipesIds() => _mediator.Query(new GetAllRecipesIdsQuery());
+		
 		public IEnumerable<Guid> GetRecipeIdsByIngredientId(Guid ingredientId)
 		{
+			//TODO: Have to be done with DeleteRecipeCommand
 			throw new NotImplementedException();
 		}
 
@@ -78,6 +84,20 @@ namespace Infrastructure.Repositories
 		{
 			var dto =  _mediator.Query(new GetAggregatedIngredientsDetailsQuery(ingredientsGrams));
 			return _recipeDetailsMapper.AggregatedIngredientsDetailsFromDto(dto);
+		}
+
+		public IEnumerable<RecipeDetails> FindRecipesDetails(RecipeSearchFilterCriteria filterCriteria)
+		{
+			var filters = _filterFactory.Build(filterCriteria);
+			
+			var recipes = _cachingProvider
+				.GetByPrefix<RecipeDetails>(nameof(RecipeDetails))
+				.Values;
+			
+			return recipes
+				.Select(x => x.Value)
+				.Where(x => filters.All(filter => filter.Satisfy(x)))
+				.ToList();
 		}
 	}
 }

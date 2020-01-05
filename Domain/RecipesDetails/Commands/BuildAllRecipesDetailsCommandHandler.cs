@@ -3,7 +3,6 @@ using Domain.Common.Mediators.Commands;
 using Domain.Common.ValueObjects;
 using Domain.RecipesDetails.RecipeDetailsFactories;
 using Domain.RecipesDetails.Repositories;
-using Hangfire;
 
 namespace Domain.RecipesDetails.Commands
 {
@@ -20,7 +19,7 @@ namespace Domain.RecipesDetails.Commands
 
 		public Result Handle(BuildAllRecipesDetailsCommand command)
 		{
-			BackgroundJob.Enqueue(() => Build());
+			Build();
 			return Result.Ok();
 		}
 

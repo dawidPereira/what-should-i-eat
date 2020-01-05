@@ -8,9 +8,9 @@ namespace Domain.RecipesDetails.Filters
 {
 	public class MacroNutrientsFilter : IFilter<RecipeDetails>
 	{
-		private readonly IDictionary<int?, RangeFilterCriteria?> _filterCriteria;
+		private readonly IDictionary<int, RangeFilterCriteria> _filterCriteria;
 
-		public MacroNutrientsFilter(IDictionary<int?, RangeFilterCriteria?> filterCriteria)
+		public MacroNutrientsFilter(IDictionary<int, RangeFilterCriteria> filterCriteria)
 		{
 			_filterCriteria = filterCriteria;
 		}
@@ -20,10 +20,11 @@ namespace Domain.RecipesDetails.Filters
 
 		private bool IsSatisfy(double quantity, int filtered)
 		{
+			if (!_filterCriteria.ContainsKey(filtered))
+				return true;
 			var filter = _filterCriteria[filtered];
-			return !filter.HasValue
-			       || quantity <= filter.Value.UpperLimit
-			       && quantity >= filter.Value.LowerLimit;
+			return quantity <= filter.UpperLimit
+			       && quantity >= filter.LowerLimit;
 		}
 	}
 }

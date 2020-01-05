@@ -5,10 +5,22 @@ namespace Domain.RecipesDetails.Filters.FiltersCriteria
 {
 	public struct RecipeSearchFilterCriteria : IFilterCriteria
 	{
-		public int? Requirements { get; set; }
-		public int? NotAllowedAllergens { get; set; }
-		public int? AllowedMealTypes { get; set; }
-		public RangeFilterCriteria? CaloriesRange { get; set; }
-		public IDictionary<int?, RangeFilterCriteria?> MacroNutrientsQuantity { get; set; }
+		public RecipeSearchFilterCriteria(int? requirements,
+			int? notAllowedAllergens,
+			int? allowedMealTypes,
+			RangeFilterCriteria? caloriesRange,
+			IDictionary<int, RangeFilterCriteria> macroNutrientsQuantity)
+		{
+			Requirements = requirements;
+			NotAllowedAllergens = notAllowedAllergens;
+			AllowedMealTypes = allowedMealTypes;
+			CaloriesRange = caloriesRange;
+			MacroNutrientsQuantity = macroNutrientsQuantity;
+		}
+		public int? Requirements { get; }
+		public int? NotAllowedAllergens { get; }
+		public int? AllowedMealTypes { get; }
+		public RangeFilterCriteria? CaloriesRange { get; }
+		public IDictionary<int, RangeFilterCriteria> MacroNutrientsQuantity { get; }
 	}
 }

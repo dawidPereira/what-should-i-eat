@@ -30,7 +30,7 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 
 		private static double SetShare(double share)
 		{
-			if (share <= 0 || share > 1)
+			if (share < 0 || share > 1)
 				throw new ArgumentException(
 					$"MacroNutrientShare must be in range 0 and 1. It was {share}.");
 

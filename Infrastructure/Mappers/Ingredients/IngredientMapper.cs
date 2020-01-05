@@ -29,7 +29,7 @@ namespace Infrastructure.Mappers.Ingredients
 				GetMacroNutrientShares(ingredient.MacroNutrientsShares));
 		}
 
-		private IEnumerable<MacroNutrientShare> GetMacroNutrientShares(IEnumerable<MacroNutrientShares> macroNutrientShares)
+		private static IEnumerable<MacroNutrientShare> GetMacroNutrientShares(IEnumerable<MacroNutrientShares> macroNutrientShares)
 		{
 			return macroNutrientShares.Select(x => new MacroNutrientShare(x.MacroNutrient.ToEnum<MacroNutrient>(), x.Share))
 				.ToList();

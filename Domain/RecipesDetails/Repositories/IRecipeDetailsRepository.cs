@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Domain.RecipesDetails.Entities;
+using Domain.RecipesDetails.Filters.FiltersCriteria;
 
 namespace Domain.RecipesDetails.Repositories
 {
@@ -23,5 +24,7 @@ namespace Domain.RecipesDetails.Repositories
 		Recipe GetRecipeById(Guid id);
 
 		AggregatedIngredientsDetails GetAggregatedIngredientsDetailsByIds(IDictionary<Guid, double> ingredientsGrams);
+
+		IEnumerable<RecipeDetails> FindRecipesDetails(RecipeSearchFilterCriteria filterCriteria);
 	}
 }
