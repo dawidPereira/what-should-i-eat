@@ -13,7 +13,7 @@ namespace Api.Controllers
 			_mediator = mediator;
 		}
 
-		[HttpGet]
+		[HttpPost]
 		public IActionResult FindRecipeDetails([FromBody] FindRecipeDetailsQuery query)
 		{
 			var result = _mediator.Query(query);

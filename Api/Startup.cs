@@ -23,6 +23,8 @@ namespace Api
 {
 	public class Startup
 	{
+		private const string DefaultCorsPolicy = "defaultCorsPolicy";
+		
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -34,10 +36,25 @@ namespace Api
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddCors(options =>
+			{
+				options.AddPolicy(DefaultCorsPolicy,
+					builder =>
+					{
+						builder.WithOrigins("http://localhost:8080")
+							.AllowAnyHeader()
+							.AllowAnyMethod();
+					});
+			});
+			
 			services.AddDbContext<AdministrationDbContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString(DbContextConstants.WhatShouldIEatDataBaseName),
 						b => b.MigrationsAssembly(DbContextConstants.WhatShouldIEatDataBaseMigrationAssembly)
 					));
+			
+			services.AddCors();
+			services.AddMvc();
+			
 			services.AddEasyCaching(options =>
 				{
 					options.UseRedis(redisConfig =>
@@ -65,12 +82,14 @@ namespace Api
 			IWebHostEnvironment env,
 			IMediator mediator)
 		{
+			app.UseCors(DefaultCorsPolicy);
 			
 			app.UseHttpsRedirection();
 			app.UseRouting();
 			app.UseEndpoints(x => x.MapControllerRoute(
 				"Api_Default",
-				"api/{controller=Recipe}/{action=GetBasicInfos}/{id?}"));
+				"api/{controller=Recipe}/{action=GetBasicInfos}/{id?}")
+				.RequireCors(DefaultCorsPolicy));
 
 			if (env.IsDevelopment())
 			{
