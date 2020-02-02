@@ -2,15 +2,15 @@
 {
 	public class MacroNutrientsQuantityDto
 	{
-		public MacroNutrientsQuantityDto(int macroNutrient, double lowerLimit, double upperLimit)
+		public MacroNutrientsQuantityDto(string macroNutrient, double? lowerLimit, double? upperLimit)
 		{
 			MacroNutrient = macroNutrient;
 			LowerLimit = lowerLimit;
 			UpperLimit = upperLimit;
 		}	
 		
-		public int MacroNutrient { get; }
-		public double LowerLimit { get; }
-		public double UpperLimit { get; }
+		public string MacroNutrient { get; }
+		public double? LowerLimit { get; }
+		public double? UpperLimit { get; }
 	}
 }

@@ -1,29 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Domain.Ingredients.Entities;
+using Domain.Ingredients.Entities.MacroNutrients;
+using Domain.Recipes.Entities;
 using Domain.RecipesDetails.Entities;
 
 namespace Domain.RecipesDetails.Queries.Find
 {
 	public class RecipeDetailsDto
 	{
-		private RecipeDetailsDto(Guid id, string name, int requirements, int allergens, int mealTypes, double calories, IDictionary<int, double> macroNutrientQuantity)
+		private RecipeDetailsDto(Guid id,
+			string name,
+			Requirement requirements,
+			Allergen allergens,
+			MealType mealTypes,
+			double calories,
+			IDictionary<MacroNutrient, double> macroNutrientQuantity)
 		{
 			Id = id;
 			Name = name;
-			Requirements = requirements;
-			Allergens = allergens;
-			MealTypes = mealTypes;
+			Requirements = requirements.ToString();
+			Allergens = allergens.ToString();
+			MealTypes = mealTypes.ToString();
 			Calories = calories;
-			MacroNutrientQuantity = macroNutrientQuantity;
+			MacroNutrientQuantity = GetMacroNutrientQuantity(macroNutrientQuantity);
 		}
-		
+
 		public Guid Id { get; }
-		public string Name { get; }	
-		public int Requirements { get; }
-		public int Allergens { get; }
-		public int MealTypes { get; }
+		public string Name { get; }
+		public string Requirements { get; }
+		public string Allergens { get; }
+		public string MealTypes { get; }
 		public double Calories { get; }
-		public IDictionary<int, double> MacroNutrientQuantity { get; }
+		public IDictionary<string, double> MacroNutrientQuantity { get; }
 
 		public static RecipeDetailsDto FromRecipeDetails(RecipeDetails recipesDetails) =>
 			new RecipeDetailsDto(recipesDetails.Id.Value,
@@ -33,5 +43,10 @@ namespace Domain.RecipesDetails.Queries.Find
 				recipesDetails.MealTypes,
 				recipesDetails.Calories,
 				recipesDetails.MacroNutrientQuantity);
+
+		private static IDictionary<string, double> GetMacroNutrientQuantity(
+			IDictionary<MacroNutrient, double> macroNutrientQuantity) => macroNutrientQuantity
+			.Select(x => new KeyValuePair<string, double>(x.Key.ToString(), x.Value))
+			.ToDictionary(x => x.Key, x => x.Value);
 	}
 }

@@ -5,9 +5,9 @@ namespace Domain.RecipesDetails.Queries.Find
 {
 	public class FindRecipeDetailsQuery : IQuery<IEnumerable<RecipeDetailsDto>>
 	{
-		public FindRecipeDetailsQuery(int? requirements,
-			int? notAllowedAllergens,
-			int? allowedMealTypes,
+		public FindRecipeDetailsQuery(string requirements,
+			string notAllowedAllergens,
+			string allowedMealTypes,
 			double? caloriesLowerLimit,
 			double? caloriesUpperLimit,
 			IEnumerable<MacroNutrientsQuantityDto> macroNutrientsQuantity)
@@ -20,9 +20,9 @@ namespace Domain.RecipesDetails.Queries.Find
 			MacroNutrientsQuantity = macroNutrientsQuantity;
 		}		
 		
-		public int? Requirements { get; }
-		public int? NotAllowedAllergens { get; }
-		public int? AllowedMealTypes { get; }
+		public string Requirements { get; }
+		public string NotAllowedAllergens { get; }
+		public string AllowedMealTypes { get; }
 		public double? CaloriesLowerLimit { get; }
 		public double? CaloriesUpperLimit { get; }
 		public IEnumerable<MacroNutrientsQuantityDto> MacroNutrientsQuantity { get; }

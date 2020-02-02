@@ -60,9 +60,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 			var result = _systemUnderTest.GetMacroNutrientQuantity(100);
 			using (new AssertionScope())
 			{
-				result[(int)MacroNutrient.Carbohydrate].Should().Be(20);
-				result[(int)MacroNutrient.Fat].Should().Be(20);
-				result[(int)MacroNutrient.Protein].Should().Be(30);
+				result[MacroNutrient.Carbohydrate.ToString()].Should().Be(20);
+				result[MacroNutrient.Fat.ToString()].Should().Be(20);
+				result[MacroNutrient.Protein.ToString()].Should().Be(30);
 			}
 		}
 

@@ -1,16 +1,17 @@
 ﻿using Domain.Common.Filters;
+using Domain.Ingredients.Entities;
 using Domain.RecipesDetails.Entities;
 
 namespace Domain.RecipesDetails.Filters
 {
 	public class NotAllowedAllergensFilter : IFilter<RecipeDetails>
 	{
-		private readonly int? _filterCriteria;
+		private readonly Allergen _filterCriteria;
 
-		public NotAllowedAllergensFilter(int? filterCriteria) =>
+		public NotAllowedAllergensFilter(Allergen filterCriteria) =>
 			_filterCriteria = filterCriteria;
 
 		public bool Satisfy(RecipeDetails toFilter) =>
-			!_filterCriteria.HasValue || toFilter.Allergens == _filterCriteria;
+			_filterCriteria == Allergen.None || toFilter.Allergens == _filterCriteria;
 	}
 }

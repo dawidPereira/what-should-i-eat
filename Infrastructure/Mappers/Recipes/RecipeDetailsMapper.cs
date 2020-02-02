@@ -1,4 +1,5 @@
-﻿using Domain.Ingredients.Queries.GetDetailsFormIngredients;
+﻿using Domain.Common.Extensions;
+using Domain.Ingredients.Queries.GetDetailsFormIngredients;
 using Domain.Recipes.Queries.GetById;
 using Domain.RecipesDetails.Entities;
 
@@ -11,7 +12,7 @@ namespace Infrastructure.Mappers.Recipes
 			var recipeInfo = new RecipeInfo(dto.RecipeInfo.DifficultyLevel,
 				dto.RecipeInfo.PreparationTime,
 				dto.RecipeInfo.ApproximateCost,
-				dto.RecipeInfo.MealTypes);
+				dto.RecipeInfo.MealTypes.ToMealType());
 			return new Recipe(dto.Id, dto.Name, dto.Description, recipeInfo, dto.RecipeIngredients);
 		}
 		

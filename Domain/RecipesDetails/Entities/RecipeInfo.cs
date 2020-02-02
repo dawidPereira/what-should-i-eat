@@ -1,10 +1,11 @@
 ﻿using Domain.Common.ValueObjects;
+using Domain.Recipes.Entities;
 
 namespace Domain.RecipesDetails.Entities
 {
 	public struct RecipeInfo : IValueObject<RecipeInfo>
 	{
-		public RecipeInfo(int difficultyLevel, int preparationTime, decimal approximateCost, int mealTypes)
+		public RecipeInfo(int difficultyLevel, int preparationTime, decimal approximateCost, MealType mealTypes)
 		{
 			DifficultyLevel = difficultyLevel;
 			PreparationTime = preparationTime;
@@ -15,7 +16,7 @@ namespace Domain.RecipesDetails.Entities
 		public int DifficultyLevel { get; }
 		public int PreparationTime { get; }
 		public decimal ApproximateCost { get; }
-		public int MealTypes { get; }
+		public MealType MealTypes { get; }
 
 		public bool Equals(RecipeInfo other)
 		{
@@ -37,7 +38,7 @@ namespace Domain.RecipesDetails.Entities
 				var hashCode = DifficultyLevel;
 				hashCode = (hashCode * 397) ^ PreparationTime;
 				hashCode = (hashCode * 397) ^ ApproximateCost.GetHashCode();
-				hashCode = (hashCode * 397) ^ MealTypes;
+				hashCode = (hashCode * 397) ^ MealTypes.GetHashCode();
 				return hashCode;
 			}
 		}

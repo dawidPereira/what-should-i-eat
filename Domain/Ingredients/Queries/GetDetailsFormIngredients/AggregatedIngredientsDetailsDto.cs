@@ -6,19 +6,19 @@ namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 	public struct AggregatedIngredientsDetailsDto
 	{
 		public AggregatedIngredientsDetailsDto(double calories,
-			int allergens,
-			int requirements,
-			IDictionary<int, double> macroNutrientQuantity)
+			Allergen allergens,
+			Requirement requirements,
+			IDictionary<string, double> macroNutrientQuantity)
 		{
 			Calories = calories;
-			Allergens = allergens;
-			Requirements = requirements;
+			Allergens = allergens.ToString();
+			Requirements = requirements.ToString();
 			MacroNutrientQuantity = macroNutrientQuantity;
 		}
 		public double Calories { get; }
-		public int Allergens { get; }
-		public int Requirements { get; }
-		public IDictionary<int, double> MacroNutrientQuantity { get; }
+		public string Allergens { get; }
+		public string Requirements { get; }
+		public IDictionary<string, double> MacroNutrientQuantity { get; }
 
 		public static AggregatedIngredientsDetailsDto FromIngredientsGramsCollection(
 			IngredientsGramsCollection ingredientsGramsCollection)
@@ -28,7 +28,7 @@ namespace Domain.Ingredients.Queries.GetDetailsFormIngredients
 			var requirements = ingredientsGramsCollection.GetRequirements();
 			var macroNutrientQuantity = ingredientsGramsCollection.GetMacroNutrientQuantity();
 
-			return new AggregatedIngredientsDetailsDto(calories, (int)allergens, (int)requirements, macroNutrientQuantity);
+			return new AggregatedIngredientsDetailsDto(calories, allergens, requirements, macroNutrientQuantity);
 		}
 	}
 }

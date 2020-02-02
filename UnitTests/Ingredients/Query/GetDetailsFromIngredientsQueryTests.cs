@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Events;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
 using Domain.Ingredients.Queries.GetDetailsFormIngredients;
@@ -19,7 +18,6 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 		private const Allergen Allergens = Allergen.Gluten | Allergen.Milk;
 		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;
 		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
-		private readonly Mock<IEventPublisher> _eventPublisherMock = new Mock<IEventPublisher>();
 		private readonly List<Guid> _ids = new List<Guid>
 		{
 			Guid.NewGuid(),
@@ -44,12 +42,12 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 			var result = _systemUnderTests.Handle(query);
 			using (new AssertionScope())
 			{
-				result.Allergens.Should().Be((int)Allergens);
-				result.Requirements.Should().Be((int)Requirements);
+				result.Allergens.Should().Be(Allergens.ToString());
+				result.Requirements.Should().Be(Requirements.ToString());
 				result.Calories.Should().Be(1785);
-				result.MacroNutrientQuantity[(int)MacroNutrient.Carbohydrate].Should().Be(70);
-				result.MacroNutrientQuantity[(int)MacroNutrient.Fat].Should().Be(105);
-				result.MacroNutrientQuantity[(int)MacroNutrient.Protein].Should().Be(140);
+				result.MacroNutrientQuantity[MacroNutrient.Carbohydrate.ToString()].Should().Be(70);
+				result.MacroNutrientQuantity[MacroNutrient.Fat.ToString()].Should().Be(105);
+				result.MacroNutrientQuantity[MacroNutrient.Protein.ToString()].Should().Be(140);
 			}
 		}
 	}

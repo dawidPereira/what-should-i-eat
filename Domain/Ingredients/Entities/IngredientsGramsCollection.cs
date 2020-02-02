@@ -26,8 +26,9 @@ namespace Domain.Ingredients.Entities
 			_ingredientsGrams.Select(x => x.Ingredient.Requirements)
 				.Aggregate(Requirement.None, (acc, el) => acc | el);
 
-		public IDictionary<int, double> GetMacroNutrientQuantity() =>
-			_ingredientsGrams.Select(x => x.Ingredient.GetMacroNutrientQuantity(x.Grams)).MergeDictionary();
+		public IDictionary<string, double> GetMacroNutrientQuantity() => _ingredientsGrams
+			.Select(x => x.Ingredient.GetMacroNutrientQuantity(x.Grams))
+			.MergeDictionary();
 
 		public IEnumerator<IngredientGrams> GetEnumerator() => _ingredientsGrams.GetEnumerator();
 

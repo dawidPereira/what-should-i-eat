@@ -5,8 +5,8 @@ namespace Domain.Common.Extensions
 {
 	public static class DictionaryExtensions
 	{
-		public static IDictionary<int, double> MergeDictionary(
-			this IEnumerable<IDictionary<int, double>> source)
+		public static IDictionary<string, double> MergeDictionary(
+			this IEnumerable<IDictionary<string, double>> source)
 		{
 			return source.Aggregate((acc, el) => acc
 				.Concat(el)
