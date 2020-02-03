@@ -42,7 +42,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		public void Ingredient_WhenUpdated_ShouldPublishIngredientUpdatedEvent()
 		{
 			_systemUnderTest.Update(
-				IngredientName, Allergen.Gluten, Requirement.None, _systemUnderTest.MacroNutrientsSharesCollection);
+				IngredientName, Allergen.Wheat, Requirement.None, _systemUnderTest.MacroNutrientsSharesCollection);
 			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<IngredientUpdatedEventMessage>()), Times.Once);
 		}
 
@@ -50,7 +50,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Entity
 		public void GivenEmptyName_DuringIngredientUpdating_ShouldThrowArgumentNullException()
 		{
 			Action action = () => _systemUnderTest.Update(
-				null, Allergen.Gluten, Requirement.None, _systemUnderTest.MacroNutrientsSharesCollection);
+				null, Allergen.Wheat, Requirement.None, _systemUnderTest.MacroNutrientsSharesCollection);
 			action.Should().Throw<ArgumentNullException>();
 		}
 

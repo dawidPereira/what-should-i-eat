@@ -10,6 +10,7 @@ using Infrastructure.DbContexts;
 using Infrastructure.Events.EventPublishers;
 using Infrastructure.Mappers;
 using Infrastructure.Mediator;
+using Infrastructure.Recipes.Services;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,8 +33,6 @@ namespace Api
 
 		private static IConfiguration Configuration { get; set; }
 
-		public static IConfiguration GetConfiguration => Configuration;
-
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddCors(options =>
@@ -48,22 +47,22 @@ namespace Api
 			});
 			
 			services.AddDbContext<AdministrationDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString(DbContextConstants.WhatShouldIEatDataBaseName),
-						b => b.MigrationsAssembly(DbContextConstants.WhatShouldIEatDataBaseMigrationAssembly)
-					));
+				options.UseSqlServer(Configuration.GetConnectionString(DbContextConstants.WhatShouldIEatDataBaseName),
+					b => b.MigrationsAssembly(DbContextConstants.WhatShouldIEatDataBaseMigrationAssembly)
+				));
 			
 			services.AddCors();
 			services.AddMvc();
 			
 			services.AddEasyCaching(options =>
-				{
-					options.UseRedis(redisConfig =>
+			{
+				options.UseRedis(redisConfig =>
 					{
 						redisConfig.DBConfig.Endpoints.Add(new ServerEndPoint(RedisConstants.Host, RedisConstants.Port));
 						redisConfig.DBConfig.AllowAdmin = true;
 					},
-						RedisConstants.Name);
-				});
+					RedisConstants.Name);
+			});
 			
 			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(DbContextConstants.HangFireDataBaseName)));
 			services.AddHangfireServer();
@@ -74,9 +73,12 @@ namespace Api
 			services.AddEvents();
 			services.AddMediator();
 			services.AddFactories();
+			services.AddDomainServices();
 			services.AddControllers()
 				.AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 		}
+
+		public static IConfiguration GetConfiguration => Configuration;
 
 		public void Configure(IApplicationBuilder app,
 			IWebHostEnvironment env,

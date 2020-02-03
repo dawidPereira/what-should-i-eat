@@ -9,12 +9,14 @@ namespace Domain.Recipes.Factories
 		Recipe Create(Guid id, 
 			string name, 
 			string description,
+			string imageUrl,
 			RecipeInfo recipeInfo,
 			IEnumerable<RecipeIngredient> recipeIngredients);
 		
 		Recipe GetRecipe(Guid id, 
 			string name, 
 			string description,
+			string imageUrl,
 			RecipeInfo recipeInfo,
 			IEnumerable<RecipeIngredient> recipeIngredients);
 	}

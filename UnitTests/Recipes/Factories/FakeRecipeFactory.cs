@@ -23,6 +23,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 			_recipeFactory.Create(Guid.NewGuid(),
 				name,
 				description,
+				"",
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
 		
@@ -32,6 +33,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 			return _recipeFactory.Create(Guid.NewGuid(),
 				name,
 				description,
+				"",
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
 		}

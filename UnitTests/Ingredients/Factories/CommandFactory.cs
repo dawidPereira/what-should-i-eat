@@ -9,11 +9,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
 	internal static class CommandFactory
 	{
-		private const Allergen Allergens = Allergen.Gluten | Allergen.Milk;
+		private const Allergen Allergens = Allergen.Wheat | Allergen.Milk;
 		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;
 		
 		internal static CreateIngredientCommand EmptyCreateIngredientCommand() =>
-			new CreateIngredientCommand(Guid.NewGuid(), "IngredientId", Allergen.None, Requirement.None,
+			new CreateIngredientCommand(Guid.NewGuid(), "IngredientId", Allergen.None.ToString(), Requirement.None.ToString(),
 				new MacroNutrientsSharesCollection(new List<MacroNutrientShare>
 				{
 					new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2)
@@ -30,7 +30,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 		{
 			var share = new MacroNutrientShare(MacroNutrient.Carbohydrate, 0.2);
 			var macroNutrientsParticipation = new MacroNutrientsSharesCollection(new List<MacroNutrientShare>{share});
-			return new CreateIngredientCommand(Guid.NewGuid(), name, Allergens, Requirements, macroNutrientsParticipation);
+			return new CreateIngredientCommand(Guid.NewGuid(), name, Allergens.ToString(), Requirements.ToString(), macroNutrientsParticipation);
 		}
 	}
 }

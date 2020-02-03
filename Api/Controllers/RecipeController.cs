@@ -7,7 +7,9 @@ using Domain.Recipes.Commands.Delete;
 using Domain.Recipes.Commands.Update;
 using Domain.Recipes.Queries.GetBasicInfos;
 using Domain.Recipes.Queries.GetById;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Api.Controllers
 {
@@ -77,8 +79,10 @@ namespace Api.Controllers
 		/// <response code="201">Recipe created</response>
 		/// <response code="400">Bad request</response>
 		[HttpPost]
-		public IActionResult CreateRecipe([FromBody] CreateRecipeCommand command)
+		public IActionResult CreateRecipe([FromForm] IFormFile File, [FromForm] string jsonString)
 		{
+			var command = JsonConvert.DeserializeObject<CreateRecipeCommand>(jsonString);
+			command.Image = File;
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);

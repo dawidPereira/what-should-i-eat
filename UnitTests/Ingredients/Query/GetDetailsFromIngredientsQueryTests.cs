@@ -15,7 +15,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Query
 	[TestFixture]
 	public class GetDetailsFromIngredientsQueryTests
 	{
-		private const Allergen Allergens = Allergen.Gluten | Allergen.Milk;
+		private const Allergen Allergens = Allergen.Wheat | Allergen.Milk;
 		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;
 		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
 		private readonly List<Guid> _ids = new List<Guid>

@@ -10,7 +10,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 {
 	internal static class FakeIngredientFactory
 	{
-		private const Allergen Allergens = Allergen.Gluten | Allergen.Milk;
+		private const Allergen Allergens = Allergen.Wheat | Allergen.Milk;
 		private const Requirement Requirements = Requirement.Ecological | Requirement.ForVegan;
 		private static readonly Mock<IEventPublisher> EventPublisherMock = new Mock<IEventPublisher>();
 		internal static Ingredient CreateIngredientWithOneShare(string name, MacroNutrient macroNutrient, IIngredientRepository ingredientRepository)

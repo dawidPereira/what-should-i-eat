@@ -6,6 +6,7 @@ using Domain.Events;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Commands.Create;
 using Domain.Recipes.Factories;
+using Domain.Recipes.Services;
 using Moq;
 using NUnit.Framework;
 using WhatShouldIEat.AdministrationService.Tests.Recipes.Commands.Factories;
@@ -19,6 +20,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 		private Mock<IEventPublisher> _eventPublisherMock;
 		private Mock<IIngredientRepository> _ingredientRepository;
 		private Mock<IRecipeFactory> _recipeFactoryMock;
+		private Mock<IImageUploader> _imageUploaderMock;
 		private ICollection<ICommandValidator<CreateRecipeCommand>> _commandValidators;
 		private CreateRecipeCommand _command;
 		private CommandsFactory _commandsFactory;
@@ -31,6 +33,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 			_recipeFactoryMock = new Mock<IRecipeFactory>();
 			_eventPublisherMock = new Mock<IEventPublisher>();
 			_recipeFactoryMock = new Mock<IRecipeFactory>();
+			_imageUploaderMock = new Mock<IImageUploader>();
 			var commandValidator = new Mock<ICommandValidator<CreateRecipeCommand>>();
 			commandValidator.Setup(x => x.Validate(It.IsAny<CreateRecipeCommand>()))
 				.Returns(Result.Ok);
@@ -46,7 +49,8 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 				_commandValidators,
 				_eventPublisherMock.Object,
 				_recipeFactoryMock.Object,
-				_recipeIngredientFactoryMock.Object);
+				_recipeIngredientFactoryMock.Object,
+				_imageUploaderMock.Object);
 		}
 
 		[Test]

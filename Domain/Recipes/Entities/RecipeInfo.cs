@@ -8,19 +8,22 @@ namespace Domain.Recipes.Entities
 		public RecipeInfo(int difficultyLevel,
 			int preparationTime,
 			decimal approximateCost,
+			int servings,
 			MealType mealTypes)
 		{
 			DifficultyLevel = difficultyLevel;
 			PreparationTime = preparationTime;
 			ApproximateCost = approximateCost;
+			Servings = servings;
 			MealTypes = mealTypes;
 		}
 
-		public RecipeInfo Update(int difficultyLevel, int preparationTime, decimal approximateCost, MealType mealTypes)
-			=> new RecipeInfo(difficultyLevel, preparationTime, approximateCost, mealTypes);
+		public RecipeInfo Update(int difficultyLevel, int preparationTime, decimal approximateCost, int servings, MealType mealTypes)
+			=> new RecipeInfo(difficultyLevel, preparationTime, approximateCost, servings, mealTypes);
 
 		public int DifficultyLevel { get; }
 		public int PreparationTime { get; }
+		public int Servings { get; }
 		public decimal ApproximateCost { get; }
 		public MealType MealTypes { get; }
 

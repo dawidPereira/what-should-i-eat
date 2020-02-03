@@ -6,8 +6,11 @@ namespace Domain.Ingredients.Entities
 	public enum Allergen
 	{
 		None = 0,
-		Gluten = 1 << 1,
-		Milk = 1 << 2,
-		Nuts = 1 << 3
+		Milk = 1 << 1,
+		Eggs = 1 << 2,
+		Wheat = 1 << 3,
+		Shellfish = 1 << 4,
+		Soy = 1 << 5,
+		Nuts = 1 << 6
 	}
 }

@@ -24,6 +24,7 @@ namespace Infrastructure.Mappers.Recipes
 			return recipeFactory.GetRecipe(recipe.Id,
 				recipe.Name,
 				recipe.Description,
+				recipe.ImageUrl,
 				ToDomainRecipeInfo(recipe.RecipeInfo),
 				ToDomainRecipeIngredients(recipe.RecipeIngredients));
 		}
@@ -33,7 +34,7 @@ namespace Infrastructure.Mappers.Recipes
 				.ToList();
 		
 		private static RecipeInfo ToDomainRecipeInfo(Entities.Recipe.RecipeInfo recipeInfo) =>
-			new RecipeInfo(recipeInfo.DifficultyLevel, recipeInfo.PreparationTime, recipeInfo.ApproximateCost, recipeInfo.MealTypes);
+			new RecipeInfo(recipeInfo.DifficultyLevel, recipeInfo.PreparationTime, recipeInfo.ApproximateCost, recipeInfo.Servings, recipeInfo.MealTypes);
 		
 	}
 }

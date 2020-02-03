@@ -17,6 +17,7 @@ namespace Domain.Recipes.Entities
 		private Recipe(Identity<Guid> id,
 			string name,
 			string description,
+			string imageUrl,
 			RecipeInfo recipeInfo,
 			IEnumerable<RecipeIngredient> recipeIngredients,
 			IEventPublisher eventPublisher,
@@ -25,6 +26,7 @@ namespace Domain.Recipes.Entities
 			Id = id;
 			Name = SetName(name);
 			Description = SetDescription(description);
+			ImageUrl = imageUrl;
 			RecipeInfo = recipeInfo;
 			RecipeIngredients = new RecipeIngredientsCollection(recipeIngredients);
 			_eventPublisher = eventPublisher;
@@ -34,6 +36,7 @@ namespace Domain.Recipes.Entities
 		public Identity<Guid> Id { get; }
 		public string Name { get; private set; }
 		public string Description { get; private set; }
+		public string ImageUrl { get; private set; }
 		public RecipeInfo RecipeInfo { get; private set; }
 		public RecipeIngredientsCollection RecipeIngredients { get; private set; }
 
@@ -110,10 +113,11 @@ namespace Domain.Recipes.Entities
 			public Recipe Create(Guid id, 
 				string name, 
 				string description,
+				string imageUrl,
 				RecipeInfo recipeInfo,
 				IEnumerable<RecipeIngredient> recipeIngredients)
 			{
-				var recipe =  GetRecipe(id, name, description, recipeInfo, recipeIngredients);
+				var recipe =  GetRecipe(id, name, description, imageUrl, recipeInfo, recipeIngredients);
 				recipe.Create();
 				return recipe;
 			}
@@ -121,6 +125,7 @@ namespace Domain.Recipes.Entities
 			public Recipe GetRecipe(Guid id, 
 				string name, 
 				string description,
+				string imageUrl,
 				RecipeInfo recipeInfo,
 				IEnumerable<RecipeIngredient> recipeIngredients)
 			{
@@ -128,6 +133,7 @@ namespace Domain.Recipes.Entities
 				var recipe =  new Recipe(recipeId, 
 					name, 
 					description, 
+					imageUrl,
 					recipeInfo, 
 					recipeIngredients, 
 					_eventPublisher, 

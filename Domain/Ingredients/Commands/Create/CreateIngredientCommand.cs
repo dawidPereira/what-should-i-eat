@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.Common.Extensions;
 using Domain.Common.Mediators.Commands;
 using Domain.Ingredients.Entities;
 using Domain.Ingredients.Entities.MacroNutrients;
@@ -10,14 +11,14 @@ namespace Domain.Ingredients.Commands.Create
 	{
 		public CreateIngredientCommand(Guid id,
 			string name,
-			Allergen allergens,
-			Requirement requirements,
+			string allergens,
+			string requirements,
 			IEnumerable<MacroNutrientShare> shares)
 		{
 			Id = id;
 			Name = name;
-			Allergens = allergens;
-			Requirements = requirements;
+			Allergens = allergens.ToAllergens();
+			Requirements = requirements.ToRequirements();
 			Shares = shares;
 		}
 		
