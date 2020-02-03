@@ -22,10 +22,6 @@ namespace Api.Validators.RecipeValidators.CommandValidators
 			RuleFor(x => x.DifficultyLevel)
 				.LessThanOrEqualTo(5)
 				.WithMessage(ValidationMessages.LowerThanOrEqualTo(nameof(RecipeInfo.PreparationTime), 5));
-				
-			RuleFor(x => x.MealTypes)
-				.NotEmpty()
-				.WithMessage(ValidationMessages.NotEmpty(nameof(RecipeInfo.MealTypes)));
 		}
 	}
 }

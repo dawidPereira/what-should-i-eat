@@ -28,6 +28,7 @@ namespace Infrastructure.DbContexts.Seeders
 						DifficultyLevel = 2,
 						PreparationTime = 15,
 						ApproximateCost = 8m,
+						Servings = 4,
 						MealTypes = MealType.Breakfast | MealType.Snack
 					});
 				});
@@ -55,6 +56,7 @@ namespace Infrastructure.DbContexts.Seeders
 						DifficultyLevel = 2,
 						PreparationTime = 30,
 						ApproximateCost = 10m,
+						Servings = 3,
 						MealTypes = MealType.Dinner | MealType.Supper
 					});
 			});

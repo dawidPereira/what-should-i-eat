@@ -11,6 +11,7 @@ namespace Infrastructure.Entities.Recipe
 			DifficultyLevel = difficultyLevel;
 			PreparationTime = preparationTime;
 			ApproximateCost = approximateCost;
+			Servings = servings;
 			MealTypes = mealTypes;
 		}
 		public int DifficultyLevel { get; private set; }
