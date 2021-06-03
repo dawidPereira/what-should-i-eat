@@ -14,7 +14,7 @@ namespace Domain.Ingredients.Commands.Create
 		private readonly IEventPublisher _eventPublisher;
 
 		public CreateIngredientCommandHandler(
-			IIngredientFactory ingredientFactory, 
+			IIngredientFactory ingredientFactory,
 			IEventPublisher eventPublisher,
 			IEnumerable<ICommandValidator<CreateIngredientCommand>> validators)
 		{
@@ -30,7 +30,7 @@ namespace Domain.Ingredients.Commands.Create
 				var validationResult = validator.Validate(command);
 				if (validationResult.IsFailure)
 					return validationResult;
-			} 
+			}
 			_ingredientFactory.Create(
 				command.Id, command.Name, command.Allergens, command.Requirements, command.Shares);
 			_eventPublisher.Rise();

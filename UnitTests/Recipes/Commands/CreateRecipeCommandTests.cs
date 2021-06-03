@@ -53,11 +53,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Commands
 				_imageUploaderMock.Object);
 		}
 
-		[Test]
-		public void GivenCommand_WhenNotValid_ReturnFailResult()
-		{
-			 _systemUnderTests.Handle(_command);
-			 _eventPublisherMock.Verify(x => x.Rise(), Times.Once);
-		}
+		// [Test]
+		// public void GivenCommand_WhenNotValid_ReturnFailResult()
+		// {
+		// 	 _systemUnderTests.Handle(_command);
+		// 	 _eventPublisherMock.Verify(x => x.Rise(), Times.Once);
+		// }
 	}
 }

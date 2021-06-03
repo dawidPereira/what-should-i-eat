@@ -4,6 +4,7 @@ using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
 using Domain.Events;
+using Domain.Recipes.Events.Deleted;
 using Domain.Recipes.Factories;
 using Domain.Recipes.Services;
 
@@ -19,9 +20,9 @@ namespace Domain.Recipes.Commands.Create
 
 		public CreateRecipeCommandHandler(
 			IEnumerable<ICommandValidator<CreateRecipeCommand>> validators,
-			IEventPublisher eventPublisher, 
-			IRecipeFactory recipeFactory, 
-			IRecipeIngredientFactory recipeIngredientFactory, 
+			IEventPublisher eventPublisher,
+			IRecipeFactory recipeFactory,
+			IRecipeIngredientFactory recipeIngredientFactory,
 			IImageUploader imageUploader)
 		{
 			_validators = validators;
@@ -40,8 +41,8 @@ namespace Domain.Recipes.Commands.Create
 					return validationResult;
 			}
 
-			var imageUrl = _imageUploader.Upload(command.Image, command.Id.ToString(), command.Name);
-			
+			// var imageUrl = _imageUploader.Upload(command.Image, command.Id.ToString(), command.Name);
+
 			var recipeIngredients = command.RecipeIngredients.Select(x =>
 				_recipeIngredientFactory.Create(x.IngredientId, x.Grams));
 
@@ -51,7 +52,6 @@ namespace Domain.Recipes.Commands.Create
 				"imageUrl",
 				command.RecipeInfo,
 				recipeIngredients);
-
 
 			_eventPublisher.Rise();
 			return Result.Ok();

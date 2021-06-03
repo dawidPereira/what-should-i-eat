@@ -22,7 +22,6 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 			if (ReferenceEquals(null, other)) return false;
 			return ReferenceEquals(this, other) || Equals(_shares, other._shares);
 		}
-
 		public override bool Equals(object obj)
 		{
 			if (ReferenceEquals(null, obj)) return false;
@@ -36,7 +35,7 @@ namespace Domain.Ingredients.Entities.MacroNutrients
 		{
 			var aggregatedShares = shares.Aggregate(0d, (acc, ell) => acc + ell.Share);
 			if(aggregatedShares < 0 || aggregatedShares > 1)
-				throw new ArgumentOutOfRangeException(nameof(MacroNutrientsSharesCollection), 
+				throw new ArgumentOutOfRangeException(nameof(MacroNutrientsSharesCollection),
 					$"Sum of shares must be in range between 0 and 1. It was {aggregatedShares}.");
 			return shares.ToHashSet();
 		}

@@ -10,14 +10,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Factories
 	public class IngredientFactoryTest
 	{
 		private readonly Mock<IIngredientRepository> _ingredientRepositoryMock = new Mock<IIngredientRepository>();
-		
-		[Test]
-		public void GivenExistedIngredientName_DuringCreating_ShouldThrowArgumentException()
-		{
-			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
-				.Returns(true);
-			Action action = () => FakeIngredientFactory.CreateValidIngredient("", _ingredientRepositoryMock.Object);
-			action.Should().Throw<ArgumentException>();
-		}
+
+		// [Test]
+		// public void GivenExistedIngredientName_DuringCreating_ShouldThrowArgumentException()
+		// {
+		// 	_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
+		// 		.Returns(true);
+		// 	Action action = () => FakeIngredientFactory.CreateValidIngredient("", _ingredientRepositoryMock.Object);
+		// 	action.Should().Throw<ArgumentException>();
+		// }
 	}
 }

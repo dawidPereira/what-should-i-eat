@@ -60,7 +60,7 @@ namespace Domain.Recipes.Entities
 		}
 
 		public override int GetHashCode() => Id.GetHashCode();
-		
+
 		public void Delete()
 		{
 			var @event = new RecipeDeletedEventMessage(Id.Value);
@@ -68,7 +68,7 @@ namespace Domain.Recipes.Entities
 			_eventPublisher.Publish(@event);
 			_recipeRepository.Commit();
 		}
-		
+
 		private void Update()
 		{
 			var @event = new RecipeUpdatedEventMessage(Id.Value);
@@ -84,14 +84,14 @@ namespace Domain.Recipes.Entities
 			_eventPublisher.Publish(@event);
 			_recipeRepository.Commit();
 		}
-		
-		private static string SetName(string name)
+
+		private static string SetName(string name) 
 		{
 			if (name == null)
 				throw new ArgumentNullException(nameof(name), "Recipe name can not be empty.");
 			return name;
 		}
-		
+
 		private static string SetDescription(string description)
 		{
 			if (description == null)
@@ -110,8 +110,8 @@ namespace Domain.Recipes.Entities
 				_eventPublisher = eventPublisher;
 			}
 
-			public Recipe Create(Guid id, 
-				string name, 
+			public Recipe Create(Guid id,
+				string name,
 				string description,
 				string imageUrl,
 				RecipeInfo recipeInfo,
@@ -121,26 +121,26 @@ namespace Domain.Recipes.Entities
 				recipe.Create();
 				return recipe;
 			}
-			
-			public Recipe GetRecipe(Guid id, 
-				string name, 
+
+			public Recipe GetRecipe(Guid id,
+				string name,
 				string description,
 				string imageUrl,
 				RecipeInfo recipeInfo,
 				IEnumerable<RecipeIngredient> recipeIngredients)
 			{
 				var recipeId = new Identity<Guid>(id);
-				var recipe =  new Recipe(recipeId, 
-					name, 
-					description, 
+				var recipe =  new Recipe(recipeId,
+					name,
+					description,
 					imageUrl,
-					recipeInfo, 
-					recipeIngredients, 
-					_eventPublisher, 
+					recipeInfo,
+					recipeIngredients,
+					_eventPublisher,
 					_recipeRepository);
 				return recipe;
 			}
 		}
-		
+
 	}
 }
