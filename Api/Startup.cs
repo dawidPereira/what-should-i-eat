@@ -25,7 +25,7 @@ namespace Api
 	public class Startup
 	{
 		private const string DefaultCorsPolicy = "defaultCorsPolicy";
-		
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -40,20 +40,19 @@ namespace Api
 				options.AddPolicy(DefaultCorsPolicy,
 					builder =>
 					{
-						builder.WithOrigins("http://localhost:8080")
+						builder.AllowAnyOrigin()
 							.AllowAnyHeader()
 							.AllowAnyMethod();
 					});
 			});
-			
+
 			services.AddDbContext<AdministrationDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString(DbContextConstants.WhatShouldIEatDataBaseName),
 					b => b.MigrationsAssembly(DbContextConstants.WhatShouldIEatDataBaseMigrationAssembly)
 				));
-			
-			services.AddCors();
+
 			services.AddMvc();
-			
+
 			services.AddEasyCaching(options =>
 			{
 				options.UseRedis(redisConfig =>
@@ -63,7 +62,7 @@ namespace Api
 					},
 					RedisConstants.Name);
 			});
-			
+
 			services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString(DbContextConstants.HangFireDataBaseName)));
 			services.AddHangfireServer();
 			services.AddRepositories();
@@ -84,20 +83,19 @@ namespace Api
 			IWebHostEnvironment env,
 			IMediator mediator)
 		{
-			app.UseCors(DefaultCorsPolicy);
-			
+
 			app.UseHttpsRedirection();
 			app.UseRouting();
+			app.UseCors(DefaultCorsPolicy);
+			app.UseAuthorization();
 			app.UseEndpoints(x => x.MapControllerRoute(
 				"Api_Default",
-				"api/{controller=Recipe}/{action=GetBasicInfos}/{id?}")
-				.RequireCors(DefaultCorsPolicy));
+				"api/{controller=Recipe}/{action=GetBasicInfos}/{id?}"));
 
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
-			app.UseAuthorization();
 			app.UseHangfireDashboard();
 			BackgroundJob.Enqueue(()=> mediator.Command(new BuildAllRecipesDetailsCommand()));
 		}

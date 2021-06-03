@@ -19,7 +19,7 @@ namespace Domain.RecipesDetails.Filters.FiltersCriteria
 			CaloriesRange = GetCaloriesRange(deviation, query.CaloriesLowerLimit, query.CaloriesUpperLimit);
 			MacroNutrientsQuantity = GetMacroNutrientQuantity(query.MacroNutrientsQuantity, deviation);
 		}
-		
+
 		public Requirement Requirements { get; }
 		public Allergen NotAllowedAllergens { get; }
 		public MealType AllowedMealTypes { get; }
@@ -30,16 +30,18 @@ namespace Domain.RecipesDetails.Filters.FiltersCriteria
 		{
 			if (!lowerLimit.HasValue && !upperLimit.HasValue)
 				return null;
-			
+
 			return new RangeFilterCriteria(deviation, lowerLimit, upperLimit);
 		}
-		
+
 		private static IDictionary<MacroNutrient, RangeFilterCriteria> GetMacroNutrientQuantity(IEnumerable<MacroNutrientsQuantityDto> dto, double? deviation)
 		{
+			if (dto == null)
+				return null;
 			var macroNutrientsQuantityList = dto.ToList();
 			if (!macroNutrientsQuantityList.Any())
 				return null;
-			
+
 			return macroNutrientsQuantityList.Select(x => MacroNutrientQuantity(x, deviation))
 				.ToDictionary(x => x.Key, x => x.Value);
 		}
@@ -47,6 +49,6 @@ namespace Domain.RecipesDetails.Filters.FiltersCriteria
 		private static KeyValuePair<MacroNutrient, RangeFilterCriteria> MacroNutrientQuantity (MacroNutrientsQuantityDto dto, double? deviation) =>
 			new KeyValuePair<MacroNutrient, RangeFilterCriteria>(dto.MacroNutrient.ToMacroNutrient(),
 				new RangeFilterCriteria(deviation, dto.LowerLimit, dto.UpperLimit));
-		
+
 	}
 }

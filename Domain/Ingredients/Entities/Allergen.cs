@@ -11,6 +11,7 @@ namespace Domain.Ingredients.Entities
 		Wheat = 1 << 3,
 		Shellfish = 1 << 4,
 		Soy = 1 << 5,
-		Nuts = 1 << 6
+		Nuts = 1 << 6,
+		Gluten = 1 << 7
 	}
 }

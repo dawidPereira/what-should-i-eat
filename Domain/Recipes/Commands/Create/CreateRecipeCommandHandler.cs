@@ -48,7 +48,7 @@ namespace Domain.Recipes.Commands.Create
 			_recipeFactory.Create(command.Id,
 				command.Name,
 				command.Description,
-				imageUrl,
+				"imageUrl",
 				command.RecipeInfo,
 				recipeIngredients);
 

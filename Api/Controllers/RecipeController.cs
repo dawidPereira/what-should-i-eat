@@ -38,6 +38,7 @@ namespace Api.Controllers
 		[HttpGet]
 		public IActionResult GetRecipe([FromRoute] GetByIdQuery query)
 		{
+			// var query = new GetByIdQuery(id);
 			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
@@ -79,9 +80,8 @@ namespace Api.Controllers
 		/// <response code="201">Recipe created</response>
 		/// <response code="400">Bad request</response>
 		[HttpPost]
-		public IActionResult CreateRecipe([FromForm] IFormFile File, [FromForm] string jsonString)
+		public IActionResult CreateRecipe([FromForm] IFormFile File, [FromBody] CreateRecipeCommand command)
 		{
-			var command = JsonConvert.DeserializeObject<CreateRecipeCommand>(jsonString);
 			command.Image = File;
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
@@ -126,7 +126,7 @@ namespace Api.Controllers
 
 			return BadRequest(result);
 		}
-		
+
 		/// <summary>
 		/// Delete given Recipe
 		/// </summary>
@@ -149,7 +149,7 @@ namespace Api.Controllers
 			var result = _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
-			
+
 			return NotFound();
 		}
 	}
