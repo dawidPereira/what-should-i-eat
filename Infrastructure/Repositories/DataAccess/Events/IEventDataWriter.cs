@@ -1,10 +1,11 @@
-﻿using Infrastructure.Entities.Events;
+﻿using System.Threading.Tasks;
+using Infrastructure.Entities.Events;
 
 namespace Infrastructure.Repositories.DataAccess.Events
 {
 	public interface IEventDataWriter
 	{
-		void Add(OutboxEvent outboxEvent);
+		Task Add(OutboxEvent outboxEvent);
 
 		void Remove(OutboxEvent eventId);
 	}

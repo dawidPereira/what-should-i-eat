@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
@@ -45,11 +46,11 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		}
 
 		[Test]
-		public void GivenCommand_WhenCalled_UseValidators()
+		public async Task GivenCommand_WhenCalled_UseValidators()
 		{
 			_validator.Setup(x => x.Validate(It.IsAny<UpdateIngredientCommand>()))
 				.Returns(Result.Fail(0, ""));
-			var result = _systemUnderTests.Handle(_command);
+			var result = await _systemUnderTests.Handle(_command);
 			using (new AssertionScope())
 			{
 				_validator.Verify(x => x.Validate(It.IsAny<UpdateIngredientCommand>()), Times.Once);
@@ -60,9 +61,9 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Update
 		}
 
 		[Test]
-		public void GivenCommand_WhenIngredientDoesNotExist_ReturnFailure()
+		public async Task GivenCommand_WhenIngredientDoesNotExist_ReturnFailure()
 		{
-			var result = _systemUnderTests.Handle(_command);
+			var result = await _systemUnderTests.Handle(_command);
 
 			using (new AssertionScope())
 			{

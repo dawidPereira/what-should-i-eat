@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Domain.Events;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
@@ -19,23 +20,20 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Factories
 			_fakeRecipeIngredientsFactory = new FakeRecipeIngredientsFactory(ingredientRepository);
 		}
 
-		public Recipe CreateValidRecipe(string name, string description) =>
-			_recipeFactory.Create(Guid.NewGuid(),
+		public async Task<Recipe> CreateValidRecipe(string name, string description) =>
+			await _recipeFactory.Create(Guid.NewGuid(),
 				name,
 				description,
 				"",
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
-		
-		public Recipe CreateValidRecipe(string name, string description, IEventPublisher eventPublisher)
-		{
-			var recipeFactory = new Recipe.RecipeFactory(_recipeRepository, eventPublisher);
-			return _recipeFactory.Create(Guid.NewGuid(),
+
+		public async Task<Recipe> CreateValidRecipe(string name, string description, IEventPublisher eventPublisher) =>
+			await _recipeFactory.Create(Guid.NewGuid(),
 				name,
 				description,
 				"",
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_fakeRecipeIngredientsFactory.CreateValidRecipeIngredientList());
-		}
 	}
 }

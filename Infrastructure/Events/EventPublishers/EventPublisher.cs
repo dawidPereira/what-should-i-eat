@@ -1,5 +1,6 @@
 ﻿﻿using System;
  using System.Linq;
+ using System.Threading.Tasks;
  using Domain.Events;
  using Domain.Events.Repositories;
  using Microsoft.Extensions.DependencyInjection;
@@ -10,15 +11,15 @@
 	{
 		private readonly IServiceProvider _serviceProvider;
 		private readonly IEventRepository _eventRepository;
-		
+
 		public EventPublisher(IServiceProvider serviceProvider, IEventRepository eventRepository)
 		{
 			_serviceProvider = serviceProvider;
 			_eventRepository = eventRepository;
-			
+
 		}
 
-		public void Publish(EventMessage eventMessage) => _eventRepository.Add(eventMessage);
+		public async Task Publish(EventMessage eventMessage) => await _eventRepository.Add(eventMessage);
 
 		public void Rise()
 		{
@@ -30,16 +31,16 @@
 				_eventRepository.RemoveById(@event.EventId);
 			}
 		}
-		
+
 		private void HandleEvents<TEvent>(TEvent @event) where TEvent : IEvent
 		{
 			var handlers = _serviceProvider.GetServices(typeof(IEventHandler<>).MakeGenericType( @event.GetType()))
 				.ToList();
-			
+
 			if (!handlers.Any())
 				throw new InvalidOperationException(
 					$"EventMessage of type '{@event.GetType()}' has not registered handler.");
-			
+
 			handlers.ForEach(x => Handle(@event, x));
 		}
 

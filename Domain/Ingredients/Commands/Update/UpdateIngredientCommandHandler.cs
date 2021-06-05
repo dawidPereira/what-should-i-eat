@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
@@ -24,7 +25,7 @@ namespace Domain.Ingredients.Commands.Update
 			_eventPublisher = eventPublisher;
 		}
 
-		public Result Handle(UpdateIngredientCommand command)
+		public async Task<Result> Handle(UpdateIngredientCommand command)
 		{
 			foreach (var validator in _validators)
 			{

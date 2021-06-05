@@ -1,4 +1,5 @@
-﻿using Domain.Common.Mediators.Commands;
+﻿using System.Threading.Tasks;
+using Domain.Common.Mediators.Commands;
 using Domain.Common.Messages;
 using Domain.Common.ValueObjects;
 using Domain.Events;
@@ -18,10 +19,10 @@ namespace Domain.Ingredients.Commands.Delete
 			_eventPublisher = eventPublisher;
 		}
 
-		public Result Handle(DeleteIngredientCommand command)
+		public async Task<Result> Handle(DeleteIngredientCommand command)
 		{
 			var ingredient = _ingredientRepository.GetById(command.Id);
-			if (ingredient == null) 
+			if (ingredient == null)
 				return Result.Fail(ResultCode.NotFound, $"Ingredient with {command.Id}, does not exist");
 			ingredient.Delete();
 			_eventPublisher.Rise();

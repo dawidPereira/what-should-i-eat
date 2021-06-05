@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Domain.Common.Mediators;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Queries;
@@ -13,16 +14,15 @@ namespace Infrastructure.Mediator
 		private readonly IServiceProvider _serviceProvider;
 
 		public Mediator(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
-		
 
-		public Result Command<TCommand>(TCommand command) where TCommand : ICommand
+		public async Task<Result> Command<TCommand>(TCommand command) where TCommand : ICommand
 		{
 			var handler = _serviceProvider.GetService<ICommandHandler<TCommand>>();
 			if (handler == null)
 				throw new InvalidOperationException(
 					$"Command of type '{command.GetType()}' has not registered handler.");
 
-			return handler.Handle(command);
+			return await handler.Handle(command);
 		}
 
 		public TResponse Query<TResponse>(IQuery<TResponse> query) =>

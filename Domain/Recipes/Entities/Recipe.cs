@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Common.ValueObjects;
 using Domain.Events;
 using Domain.Recipes.Events.Created;
@@ -77,15 +78,15 @@ namespace Domain.Recipes.Entities
 			_recipeRepository.Commit();
 		}
 
-		private void Create()
+		private async Task Create()
 		{
 			var @event = RecipeCreatedEventMessage.Create(Id.Value);
-			_recipeRepository.Add(this);
-			_eventPublisher.Publish(@event);
-			_recipeRepository.Commit();
+			await _recipeRepository.Add(this);
+			await _eventPublisher.Publish(@event);
+			await _recipeRepository.Commit();
 		}
 
-		private static string SetName(string name) 
+		private static string SetName(string name)
 		{
 			if (name == null)
 				throw new ArgumentNullException(nameof(name), "Recipe name can not be empty.");
@@ -110,15 +111,15 @@ namespace Domain.Recipes.Entities
 				_eventPublisher = eventPublisher;
 			}
 
-			public Recipe Create(Guid id,
+			public async Task<Recipe> Create(Guid id,
 				string name,
 				string description,
 				string imageUrl,
 				RecipeInfo recipeInfo,
 				IEnumerable<RecipeIngredient> recipeIngredients)
 			{
-				var recipe =  GetRecipe(id, name, description, imageUrl, recipeInfo, recipeIngredients);
-				recipe.Create();
+				var recipe = GetRecipe(id, name, description, imageUrl, recipeInfo, recipeIngredients);
+				await recipe.Create();
 				return recipe;
 			}
 

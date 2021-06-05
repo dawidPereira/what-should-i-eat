@@ -1,9 +1,11 @@
-﻿namespace Domain.Events
+﻿using System.Threading.Tasks;
+
+namespace Domain.Events
 {
 	public interface IEventPublisher
 	{
-		void Publish(EventMessage eventMessage);
-		
+		Task Publish(EventMessage eventMessage);
+
 		void Rise();
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Common.Mediators.Validators;
 using Domain.Events;
 using Domain.Ingredients.Commands.Delete;
@@ -24,7 +25,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 		private DeleteIngredientCommand _command;
 		private DeleteIngredientCommandHandler _systemUnderTest;
 		private Ingredient _ingredient;
-		
+
 		[SetUp]
 		public void SetUp()
 		{
@@ -47,36 +48,36 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Delete
 
 
 		[Test]
-		public void GivenIngredientId_WhenIngredientNotExist_ShouldReturnFailure()
+		public async Task GivenIngredientId_WhenIngredientNotExist_ShouldReturnFailure()
 		{
-			var result  = _systemUnderTest.Handle(_command);
+			var result  = await _systemUnderTest.Handle(_command);
 			result.IsFailure.Should().BeTrue();
 		}
-		
+
 		[Test]
-		public void GivenIngredientId_WhenIngredientExist_ShouldReturnSuccess()
+		public async Task GivenIngredientId_WhenIngredientExist_ShouldReturnSuccess()
 		{
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 
-			var result  = _systemUnderTest.Handle(_command);
+			var result  = await _systemUnderTest.Handle(_command);
 			result.IsSuccess.Should().BeTrue();
 		}
 
 		[Test][Ignore("To be decided if this rule will be exist")]
-		public void GivenIngredientId_WhenIngredientIsUsedInRecipe_ShouldReturnFailure()
+		public async Task GivenIngredientId_WhenIngredientIsUsedInRecipe_ShouldReturnFailure()
 		{
 			var recipeBasicInfos = new List<RecipeBasicInfo>
 			{
 				new RecipeBasicInfo(Guid.NewGuid(),"ExistName")
 			};
-			
+
 			_ingredientRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>()))
 				.Returns(_ingredient);
 			_recipeRepositoryMock.Setup(x => x.GetRecipesBasicInfosByIngredientId(It.IsAny<Guid>()))
 				.Returns(recipeBasicInfos);
 
-			var result = _systemUnderTest.Handle(_command);
+			var result = await _systemUnderTest.Handle(_command);
 			result.IsFailure.Should().BeTrue();
 			result.Message.Should()
 				.Contain("Ingredient cannot be deleted. Ingredient is used in following recipes:");

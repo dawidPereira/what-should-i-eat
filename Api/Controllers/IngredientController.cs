@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Api.Validators.IngredientValidators;
 using Domain.Common.Mediators;
 using Domain.Common.Messages;
@@ -38,7 +39,7 @@ namespace Api.Controllers
 			var validationResult = _validators.ValidateGet(query);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult.Errors.ToString());
-			
+
 			try
 			{
 				var result = _mediator.Query(query);
@@ -62,13 +63,13 @@ namespace Api.Controllers
 		/// <response code="201">Ingredient created</response>
 		/// <response code="400">Bad request</response>
 		[HttpPost]
-		public IActionResult CreateIngredient([FromBody] CreateIngredientCommand command)
+		public async Task<IActionResult> CreateIngredient([FromBody] CreateIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
-			var result = _mediator.Command(command);
+			var result = await _mediator.Command(command);
 
 			if (result.IsSuccess)
 				return Created($"api/ingredient{command.Id.ToString()}", result);
@@ -89,19 +90,19 @@ namespace Api.Controllers
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
 		[HttpPut]
-		public IActionResult UpdateIngredient([FromBody] UpdateIngredientCommand command)
+		public async Task<IActionResult> UpdateIngredient([FromBody] UpdateIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
-			var result = _mediator.Command(command);
+			var result = await _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
-			
+
 			if (result.ResultCode.Equals(ResultCode.NotFound))
 				return NotFound(result);
-			
+
 			return BadRequest(result);
 		}
 
@@ -118,19 +119,19 @@ namespace Api.Controllers
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
 		[HttpDelete]
-		public IActionResult DeleteIngredient([FromRoute] DeleteIngredientCommand command)
+		public async Task<IActionResult> DeleteIngredient([FromRoute] DeleteIngredientCommand command)
 		{
 			var validationResult = _validators.ValidateDelete(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
-			var result = _mediator.Command(command);
+			var result = await _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
-			
+
 			if (result.ResultCode.Equals(ResultCode.NotFound))
 				return NotFound(result);
-			
+
 			return BadRequest(result);
 		}
 	}

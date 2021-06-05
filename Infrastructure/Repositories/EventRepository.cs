@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Domain.Events;
 using Domain.Events.Repositories;
 using Infrastructure.Entities.Events;
@@ -22,7 +23,7 @@ namespace Infrastructure.Repositories
 			_eventMapper = eventMapper;
 		}
 
-		public void Add(EventMessage eventMessage) => _eventDataWriter.Add(OutboxEvent.FromEventMessage(eventMessage));
+		public async Task Add(EventMessage eventMessage) => await _eventDataWriter.Add(OutboxEvent.FromEventMessage(eventMessage));
 
 		public void RemoveById(Guid eventId)
 		{

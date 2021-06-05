@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Domain.Events;
+using Domain.RecipesDetails.Entities;
 using Domain.RecipesDetails.RecipeDetailsFactories;
 using Domain.RecipesDetails.Repositories;
 
@@ -16,11 +19,17 @@ namespace Domain.RecipesDetails.Events.Ingredients.Updated
 			_recipeDetailsFactory = recipeDetailsFactory;
 		}
 
-		public void Handle(IngredientUpdatedEvent @event)
+		public async Task Handle(IngredientUpdatedEvent @event)
 		{
-			var recipesIds = _recipeDetailsRepository.GetRecipeIdsByIngredientId(@event.IngredientId);
-			var recipeDetailsCollection = recipesIds.Select(_recipeDetailsFactory.Create);
-			_recipeDetailsRepository.CreateNewOrReplaceExistingRange(recipeDetailsCollection);
+			var recipesIds = await _recipeDetailsRepository.GetRecipeIdsByIngredientId(@event.IngredientId);
+			var recipeDetailsCollection = new List<RecipeDetails>();
+			foreach (var recipesId in recipesIds)
+			{
+				var recipeDetails = await _recipeDetailsFactory.Create(recipesId);
+				recipeDetailsCollection.Add(recipeDetails);
+
+			}
+			await _recipeDetailsRepository.CreateNewOrReplaceExistingRange(recipeDetailsCollection);
 		}
 	}
 }

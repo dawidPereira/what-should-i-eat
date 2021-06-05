@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.Messages;
 using Domain.Events;
@@ -23,7 +24,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 		private Mock<IIngredientFactory> _ingredientFactoryMock;
 		private Mock<IEventPublisher> _eventPublisherMock;
 		private List<ICommandValidator<CreateIngredientCommand>> _validators;
-			
+
 
 		[SetUp]
 		public void SetUp()
@@ -41,14 +42,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 		}
 
 		[Test]
-		public void GivenProperData_WhenIngredientNotExist_ShouldReturnResultOk()
+		public async Task GivenProperData_WhenIngredientNotExist_ShouldReturnResultOk()
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(false);
-			var result = _systemUnderTest.Handle(_command);
+			var result = await _systemUnderTest.Handle(_command);
 			result.IsSuccess.Should().BeTrue();
 		}
-		
+
 		[Test]
 		public void GivenValidIngredient_WhenCreated_ShouldRiseEvents()
 		{
@@ -59,15 +60,15 @@ namespace WhatShouldIEat.AdministrationService.Tests.Ingredients.Commands.Create
 		}
 
 		[Test]
-		public void GivenProperData_WhenIngredientExist_ShouldReturnResultFailure()
+		public async Task GivenProperData_WhenIngredientExist_ShouldReturnResultFailure()
 		{
 			_ingredientRepositoryMock.Setup(x => x.ExistByName(It.IsAny<string>()))
 				.Returns(true);
-			var result = _systemUnderTest.Handle(_command);
+			var result = await _systemUnderTest.Handle(_command);
 			using (new AssertionScope())
 			{
 				result.IsFailure.Should().BeTrue();
-				result.Message.Should().Be(FailMessages.AlreadyExist(nameof(Ingredient), 
+				result.Message.Should().Be(FailMessages.AlreadyExist(nameof(Ingredient),
 					nameof(CreateIngredientCommand.Name), _command.Name));
 			}
 		}

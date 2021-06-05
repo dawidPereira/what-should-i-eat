@@ -1,4 +1,5 @@
-﻿using Domain.Common.Mediators.Commands;
+﻿using System.Threading.Tasks;
+using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Queries;
 using Domain.Common.ValueObjects;
 
@@ -6,7 +7,7 @@ namespace Domain.Common.Mediators
 {
 	public interface IMediator
 	{
-		Result Command<TCommand>(TCommand command) where TCommand : ICommand;
+		Task<Result> Command<TCommand>(TCommand command) where TCommand : ICommand;
 
 		TResponse Query<TResponse>(IQuery<TResponse> query);
 

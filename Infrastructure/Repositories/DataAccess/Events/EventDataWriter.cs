@@ -1,4 +1,5 @@
-﻿using Infrastructure.DbContexts;
+﻿using System.Threading.Tasks;
+using Infrastructure.DbContexts;
 using Infrastructure.Entities.Events;
 
 namespace Infrastructure.Repositories.DataAccess.Events
@@ -12,7 +13,7 @@ namespace Infrastructure.Repositories.DataAccess.Events
 			_context = context;
 		}
 
-		public void Add(OutboxEvent outboxEvent) => _context.Events.Add(outboxEvent);
+		public async Task Add(OutboxEvent outboxEvent) => await _context.Events.AddAsync(outboxEvent);
 
 		public void Remove(OutboxEvent outboxEvent)
 		{

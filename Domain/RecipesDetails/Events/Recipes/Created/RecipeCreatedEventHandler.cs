@@ -1,4 +1,5 @@
-﻿using Domain.Events;
+﻿using System.Threading.Tasks;
+using Domain.Events;
 using Domain.RecipesDetails.RecipeDetailsFactories;
 using Domain.RecipesDetails.Repositories;
 
@@ -15,10 +16,10 @@ namespace Domain.RecipesDetails.Events.Recipes.Created
 			_recipeDetailsRepository = recipeDetailsRepository;
 		}
 
-		public void Handle(RecipeCreatedEvent @event)
+		public async Task Handle(RecipeCreatedEvent @event)
 		{
-			var recipeDetails = _recipeDetailsFactory.Create(@event.RecipeId);
-			_recipeDetailsRepository.CreateNewOrReplaceExisting(recipeDetails);
+			var recipeDetails = await _recipeDetailsFactory.Create(@event.RecipeId);
+			await _recipeDetailsRepository.CreateNewOrReplaceExisting(recipeDetails);
 		}
 	}
 }

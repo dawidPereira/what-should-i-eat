@@ -1,4 +1,5 @@
-﻿using Domain.Events;
+﻿using System.Threading.Tasks;
+using Domain.Events;
 using Domain.RecipesDetails.Repositories;
 
 namespace Domain.RecipesDetails.Events.Recipes.Deleted
@@ -12,6 +13,6 @@ namespace Domain.RecipesDetails.Events.Recipes.Deleted
 			_recipeDetailsRepository = recipeDetailsRepository;
 		}
 
-		public void Handle(RecipeDeletedEvent @event) => _recipeDetailsRepository.RemoveById(@event.RecipeId);
+		public async Task Handle(RecipeDeletedEvent @event) => await _recipeDetailsRepository.RemoveById(@event.RecipeId);
 	}
 }

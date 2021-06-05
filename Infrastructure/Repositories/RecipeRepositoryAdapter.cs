@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Domain.Recipes.Entities;
 using Domain.Recipes.Queries.GetBasicInfos;
 using Domain.Recipes.Repositories;
@@ -24,9 +25,9 @@ namespace Infrastructure.Repositories
 			_recipeDataWriter = recipeDataWriter;
 		}
 
-		public void Commit() => _recipeDataWriter.Commit();
+		public async Task Commit() => await _recipeDataWriter.Commit();
 
-		public void Add(Recipe recipe) => _recipeDataWriter.Add(
+		public async Task Add(Recipe recipe) => await _recipeDataWriter.Add(
 			Entities.Recipe.Recipe.FromDomainRecipe(recipe));
 
 		public void Update(Recipe recipe) => _recipeDataWriter.Update(
@@ -54,7 +55,7 @@ namespace Infrastructure.Repositories
 			_recipeDataReader.GetById(id) ?? throw new ArgumentNullException($"Recipe with Id: {id} does not exist"),
 			this);
 
-		public ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId) => 
+		public ICollection<RecipeBasicInfo> GetRecipesBasicInfosByIngredientId(Guid ingredientId) =>
 			_recipeDataReader.GetRecipesBasicInfosByIngredientId(ingredientId)
 				.ToList();
 	}

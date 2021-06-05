@@ -1,4 +1,5 @@
-﻿using Domain.Events;
+﻿using System.Threading.Tasks;
+using Domain.Events;
 using Domain.RecipesDetails.Repositories;
 
 namespace Domain.RecipesDetails.Events.Ingredients.Deleted
@@ -12,7 +13,7 @@ namespace Domain.RecipesDetails.Events.Ingredients.Deleted
 			_recipeDetailsRepository = recipeDetailsRepository;
 		}
 
-		public void Handle(IngredientDeletedEvent @event)
+		public async Task Handle(IngredientDeletedEvent @event)
 		{
 			//TODO : Check if ingredient is used in any recipe.
 			//TODO : CreateNewOrUpdateExisting possibility to mark ingredient us unpublished.

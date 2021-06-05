@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
@@ -22,7 +23,7 @@ namespace Domain.Recipes.Commands.Delete
 			_eventPublisher = eventPublisher;
 		}
 
-		public Result Handle(DeleteRecipeCommand command)
+		public async Task<Result> Handle(DeleteRecipeCommand command)
 		{
 			foreach (var validator in _validators)
 			{

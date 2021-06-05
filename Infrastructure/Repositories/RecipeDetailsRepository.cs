@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Domain.Common.Extensions;
 using Domain.Common.Filters;
 using Domain.Common.Mediators;
@@ -24,9 +25,9 @@ namespace Infrastructure.Repositories
 		private readonly IRecipeDetailsMapper _recipeDetailsMapper;
 		private readonly IMediator _mediator;
 		private readonly IFilterFactory<RecipeDetails, RecipeSearchFilterCriteria> _filterFactory;
-		
-		public RecipeDetailsRepository(IEasyCachingProviderFactory cachingProviderFactory, 
-			IMediator mediator, 
+
+		public RecipeDetailsRepository(IEasyCachingProviderFactory cachingProviderFactory,
+			IMediator mediator,
 			IRecipeDetailsMapper recipeDetailsMapper, IFilterFactory<RecipeDetails, RecipeSearchFilterCriteria> filterFactory)
 		{
 			_mediator = mediator;
@@ -35,52 +36,57 @@ namespace Infrastructure.Repositories
 			_cachingProvider = cachingProviderFactory.GetCachingProvider(RedisConstants.Name);
 		}
 
-		public void RemoveById(Guid recipeDetailsId)
+		public async Task RemoveById(Guid recipeDetailsId)
 		{
 			var key = recipeDetailsId.ToDictionaryKey(nameof(RecipeDetails));
 			_cachingProvider.Remove(key);
 		}
 
-		public void CreateNewOrReplaceExisting(RecipeDetails recipeDetails)
+		public async Task CreateNewOrReplaceExisting(RecipeDetails recipeDetails)
 		{
 			var key = recipeDetails.Id.Value
 				.ToDictionaryKey(nameof(RecipeDetails));
 
 			if (_cachingProvider.Exists(key))
 				_cachingProvider.Remove(key);
-			
+
 			_cachingProvider.Set(key, recipeDetails, TimeSpan.FromDays(30));
 		}
 
-		public void CreateNewOrReplaceExistingRange(IEnumerable<RecipeDetails> recipeDetails) => 
-			recipeDetails.ForEach(CreateNewOrReplaceExisting);
+		public async Task CreateNewOrReplaceExistingRange(IEnumerable<RecipeDetails> recipeDetails)
+		{
+			foreach (var recipeDetail in recipeDetails)
+			{
+				await CreateNewOrReplaceExisting(recipeDetail);
+			}
+		}
 
 		public void RemoveRange(IEnumerable<RecipeDetails> recipeDetails)
 		{
 			var keys = recipeDetails.Select(x => x.Id.Value
 				.ToDictionaryKey(nameof(RecipeDetails)));
-			
+
 			_cachingProvider.RemoveAll(keys);
 		}
 
 		public IDictionary<Guid, double> GetRecipeIngredientByRecipeId(Guid recipeId) =>
 			_mediator.Query(new GetRecipeIngredientsQuery(recipeId));
 
-		public IEnumerable<Guid> GetAllRecipesIds() => _mediator.Query(new GetAllRecipesIdsQuery());
-		
-		public IEnumerable<Guid> GetRecipeIdsByIngredientId(Guid ingredientId)
+		public async Task<IEnumerable<Guid>> GetAllRecipesIds() => _mediator.Query(new GetAllRecipesIdsQuery());
+
+		public async Task<IEnumerable<Guid>> GetRecipeIdsByIngredientId(Guid ingredientId)
 		{
 			//TODO: Have to be done with DeleteRecipeCommand
 			throw new NotImplementedException();
 		}
 
-		public Recipe GetRecipeById(Guid id)
+		public async Task<Recipe> GetRecipeById(Guid id)
 		{
 			var dto = _mediator.Query(new GetByIdQuery(id));
 			return _recipeDetailsMapper.RecipeFromDto(dto);
 		}
 
-		public AggregatedIngredientsDetails GetAggregatedIngredientsDetailsByIds(IDictionary<Guid, double> ingredientsGrams)
+		public async Task<AggregatedIngredientsDetails> GetAggregatedIngredientsDetailsByIds(IDictionary<Guid, double> ingredientsGrams)
 		{
 			var dto =  _mediator.Query(new GetAggregatedIngredientsDetailsQuery(ingredientsGrams));
 			return _recipeDetailsMapper.AggregatedIngredientsDetailsFromDto(dto);
@@ -89,11 +95,11 @@ namespace Infrastructure.Repositories
 		public IEnumerable<RecipeDetails> FindRecipesDetails(RecipeSearchFilterCriteria filterCriteria)
 		{
 			var filters = _filterFactory.Build(filterCriteria);
-			
+
 			var recipes = _cachingProvider
 				.GetByPrefix<RecipeDetails>(nameof(RecipeDetails))
 				.Values;
-			
+
 			return recipes
 				.Select(x => x.Value)
 				.Where(x => filters.All(filter => filter.Satisfy(x)))

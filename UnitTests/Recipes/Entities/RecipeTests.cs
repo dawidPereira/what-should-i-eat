@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Domain.Events;
 using Domain.Ingredients.Repositories;
 using Domain.Recipes.Entities;
@@ -24,7 +25,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 		private Recipe _systemUnderTest;
 
 		[SetUp]
-		public void SetUp()
+		public async Task SetUp()
 		{
 			_recipeRepositoryMock = new Mock<IRecipeRepository>();
 			_ingredientRepositoryMock = new Mock<IIngredientRepository>();
@@ -33,7 +34,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 			_eventPublisherMock = new Mock<IEventPublisher>();
 			_recipeIngredientsFactory = new FakeRecipeIngredientsFactory(_ingredientRepositoryMock.Object);
 			_recipeFactory = new FakeRecipeFactory(_recipeRepositoryMock.Object, _eventPublisherMock.Object, _ingredientRepositoryMock.Object);
-			_systemUnderTest = _recipeFactory.CreateValidRecipe("name", "description", _eventPublisherMock.Object);
+			_systemUnderTest = await _recipeFactory.CreateValidRecipe("name", "description", _eventPublisherMock.Object);
 		}
 
 		[Test]
@@ -43,7 +44,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 				"",
 				FakeRecipeDetailsFactory.CreateValidRecipeDetails(),
 				_recipeIngredientsFactory.CreateValidRecipeIngredientList());
-			
+
 			_eventPublisherMock.Verify(x => x.Publish(It.IsAny<RecipeUpdatedEventMessage>()), Times.Once);
 		}
 
@@ -66,14 +67,14 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 			Action action = () => _recipeFactory.CreateValidRecipe(null, "");
 			action.Should().Throw<ArgumentNullException>();
 		}
-		
+
 		[Test]
 		public void GivenEmptyDescription_WhenCreatingRecipe_ShouldThrowArgumentNullException()
 		{
 			Action action = () => _recipeFactory.CreateValidRecipe("", null);
 			action.Should().Throw<ArgumentNullException>();
 		}
-		
+
 		[Test]
 		public void GivenEmptyName_WhenUpdatingRecipe_ShouldThrowArgumentNullException()
 		{
@@ -83,7 +84,7 @@ namespace WhatShouldIEat.AdministrationService.Tests.Recipes.Entities
 				_recipeIngredientsFactory.CreateValidRecipeIngredientList());
 			action.Should().Throw<ArgumentNullException>();
 		}
-		
+
 		[Test]
 		public void GivenEmptyDescription_WhenUpdatingRecipe_ShouldThrowArgumentNullException()
 		{

@@ -1,4 +1,5 @@
-﻿using Infrastructure.DbContexts;
+﻿using System.Threading.Tasks;
+using Infrastructure.DbContexts;
 using Infrastructure.Entities.Recipe;
 
 namespace Infrastructure.Repositories.DataAccess.Recipes
@@ -12,9 +13,9 @@ namespace Infrastructure.Repositories.DataAccess.Recipes
 			_context = context;
 		}
 
-		public void Commit() => _context.SaveChanges();
+		public async Task Commit() => await _context.SaveChangesAsync();
 
-		public void Add(Recipe recipe) => _context.Add(recipe);
+		public async Task Add(Recipe recipe) => await _context.AddAsync(recipe);
 
 		public void Update(Recipe recipe) => _context.Update(recipe);
 

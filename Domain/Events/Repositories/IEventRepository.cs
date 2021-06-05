@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domain.Events.Repositories
 {
 	public interface IEventRepository
 	{
-		void Add(EventMessage eventMessage);
+		Task Add(EventMessage eventMessage);
 
 		void RemoveById(Guid eventId);
-		
+
 		IEnumerable<IEvent> GetEventsToProcess();
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.Mediators.Validators;
 using Domain.Common.ValueObjects;
@@ -32,7 +33,7 @@ namespace Domain.Recipes.Commands.Create
 			_imageUploader = imageUploader;
 		}
 
-		public Result Handle(CreateRecipeCommand command)
+		public async Task<Result> Handle(CreateRecipeCommand command)
 		{
 			foreach (var validator in _validators)
 			{
@@ -46,7 +47,7 @@ namespace Domain.Recipes.Commands.Create
 			var recipeIngredients = command.RecipeIngredients.Select(x =>
 				_recipeIngredientFactory.Create(x.IngredientId, x.Grams));
 
-			_recipeFactory.Create(command.Id,
+			await _recipeFactory.Create(command.Id,
 				command.Name,
 				command.Description,
 				"imageUrl",

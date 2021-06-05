@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Domain.RecipesDetails.Entities;
 using Domain.RecipesDetails.Repositories;
 
@@ -13,10 +14,10 @@ namespace Domain.RecipesDetails.RecipeDetailsFactories
 			_recipeDetailsRepository = recipeDetailsRepository;
 		}
 
-		public RecipeDetails Create(Guid recipeId)
+		public async Task<RecipeDetails> Create(Guid recipeId)
 		{
-			var recipe = _recipeDetailsRepository.GetRecipeById(recipeId);
-			var ingredients = _recipeDetailsRepository.GetAggregatedIngredientsDetailsByIds(recipe.RecipeIngredients);
+			var recipe = await _recipeDetailsRepository.GetRecipeById(recipeId);
+			var ingredients = await _recipeDetailsRepository.GetAggregatedIngredientsDetailsByIds(recipe.RecipeIngredients);
 			return RecipeDetails.FromRecipeAndIngredientsDetails(recipe, ingredients);
 		}
 	}

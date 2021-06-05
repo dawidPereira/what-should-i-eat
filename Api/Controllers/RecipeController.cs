@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Api.Validators.RecipeValidators;
 using Domain.Common.Mediators;
 using Domain.Common.Messages;
@@ -80,14 +81,14 @@ namespace Api.Controllers
 		/// <response code="201">Recipe created</response>
 		/// <response code="400">Bad request</response>
 		[HttpPost]
-		public IActionResult CreateRecipe([FromForm] IFormFile File, [FromBody] CreateRecipeCommand command)
+		public async Task<IActionResult> CreateRecipe([FromForm] IFormFile File, [FromBody] CreateRecipeCommand command)
 		{
 			command.Image = File;
 			var validationResult = _validators.ValidateCreate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
-			var result = _mediator.Command(command);
+			var result = await _mediator.Command(command);
 
 			if (result.IsSuccess)
 				return Created($"api/recipe{command.Id.ToString()}", result);
@@ -111,13 +112,13 @@ namespace Api.Controllers
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Recipe not found</response>
 		[HttpPut]
-		public IActionResult UpdateRecipe([FromBody] UpdateRecipeCommand command)
+		public async Task<IActionResult> UpdateRecipe([FromBody] UpdateRecipeCommand command)
 		{
 			var validationResult = _validators.ValidateUpdate(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult);
 
-			var result = _mediator.Command(command);
+			var result = await _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
 
@@ -140,13 +141,13 @@ namespace Api.Controllers
 		/// <response code="400">Bad request</response>
 		/// <response code="404">Ingredient not found</response>
 		[HttpDelete]
-		public IActionResult DeleteRecipe([FromRoute] DeleteRecipeCommand command)
+		public async Task<IActionResult> DeleteRecipe([FromRoute] DeleteRecipeCommand command)
 		{
 			var validationResult = _validators.ValidateDelete(command);
 			if (!validationResult.IsValid)
 				return BadRequest(validationResult.Errors.ToString());
 
-			var result = _mediator.Command(command);
+			var result = await _mediator.Command(command);
 
 			if (!result.IsFailure) return Ok(result);
 

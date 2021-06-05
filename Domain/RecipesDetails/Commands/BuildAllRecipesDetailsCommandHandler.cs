@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Domain.Common.Mediators.Commands;
 using Domain.Common.ValueObjects;
+using Domain.RecipesDetails.Entities;
 using Domain.RecipesDetails.RecipeDetailsFactories;
 using Domain.RecipesDetails.Repositories;
 
@@ -17,17 +20,22 @@ namespace Domain.RecipesDetails.Commands
 			_recipeDetailsRepository = recipeDetailsRepository;
 		}
 
-		public Result Handle(BuildAllRecipesDetailsCommand command)
+		public async Task<Result> Handle(BuildAllRecipesDetailsCommand command)
 		{
 			Build();
 			return Result.Ok();
 		}
 
-		private void Build()
+		private async Task Build()
 		{
-			var recipesIds = _recipeDetailsRepository.GetAllRecipesIds();
-			var recipeDetailsCollection = recipesIds.Select(_recipeDetailsFactory.Create);
-			_recipeDetailsRepository.CreateNewOrReplaceExistingRange(recipeDetailsCollection);
+			var recipesIds = await _recipeDetailsRepository.GetAllRecipesIds();
+			var recipeDetailsCollection = new List<RecipeDetails>();
+			foreach (var recipesId in recipesIds)
+			{
+				var recipeDetails = await _recipeDetailsFactory.Create(recipesId);
+				recipeDetailsCollection.Add(recipeDetails);
+			}
+			await _recipeDetailsRepository.CreateNewOrReplaceExistingRange(recipeDetailsCollection);
 		}
 	}
 }

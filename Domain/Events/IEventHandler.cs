@@ -1,7 +1,9 @@
-﻿namespace Domain.Events
+﻿using System.Threading.Tasks;
+
+namespace Domain.Events
 {
 	public interface IEventHandler<in TEvent> where TEvent : IEvent
 	{
-		void Handle(TEvent @event);
+		Task Handle(TEvent @event);
 	}
 }
